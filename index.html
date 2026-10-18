@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>COBREI — orçamentos e cobranças</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f4f8;--sf:#fff;--ink:#0b1b3a;--mu:#5d667a;--ac:#ffc53d;--ln:#e3e6ee;--ok:#13783a;--bad:#b42318;--hero:#0b1b3a;--inp:#f3f4f8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0b1020;--sf:#141b30;--ink:#eef1f8;--mu:#9aa3b8;--ln:#252f4b;--ok:#4cc27a;--bad:#ff8a7a;--hero:#1c2a5a;--inp:#0b1020}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0b1020;--sf:#141b30;--ink:#eef1f8;--mu:#9aa3b8;--ln:#252f4b;--ok:#4cc27a;--bad:#ff8a7a;--hero:#1c2a5a;--inp:#0b1020}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Sora,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.45}
+button,input{font:inherit;color:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+.w{max-width:40rem;margin:0 auto;padding:1rem 1rem 7rem}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+h1{margin:0;font-size:1.6rem;font-weight:800;letter-spacing:-.04em;line-height:1}
+h1 i{display:inline-block;width:.45rem;height:.45rem;border-radius:50%;background:var(--ac);margin-left:.15rem}
+#hi{display:block;font-size:.8rem;font-weight:400;color:var(--mu);letter-spacing:0;margin-top:.3rem}
+.ic{width:2.75rem;height:2.75rem;border-radius:50%;border:1px solid var(--ln);background:var(--sf);display:grid;place-items:center}
+.hero{background:var(--hero);color:#fff;border-radius:1.5rem;padding:1.4rem 1.3rem 1.2rem;margin-bottom:1rem}
+.hero span{display:block;font-size:.78rem;opacity:.75}
+.hero>b{display:block;font-size:2.2rem;font-weight:800;letter-spacing:-.03em;line-height:1.15;margin:.2rem 0 1rem}
+.hs{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;border-top:1px solid rgba(255,255,255,.18);padding-top:.9rem}
+.hs b{font-size:1.05rem;font-weight:600}
+.chips{display:flex;gap:.5rem;overflow-x:auto;margin:0 -1rem 1rem;padding:0 1rem;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;border:1px solid var(--ln);background:var(--sf);border-radius:99px;padding:.55rem 1rem;font-size:.85rem;font-weight:600;min-height:2.5rem}
+.chips button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:1.1rem;padding:1rem;margin-bottom:.75rem}
+.top{display:flex;gap:.8rem;align-items:center}
+.av{flex:none;width:2.8rem;height:2.8rem;border-radius:50%;background:color-mix(in srgb,var(--ac) 35%,var(--sf));display:grid;place-items:center;font-weight:800}
+.mid{flex:1;min-width:0}.mid h3{margin:0;font-size:1rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mid p{margin:0;color:var(--mu);font-size:.8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tot{font-weight:800;font-size:1.05rem;white-space:nowrap}
+.tag{display:inline-block;font-size:.75rem;font-weight:600;padding:.2rem .65rem;border-radius:99px;margin:.7rem 0 0;background:color-mix(in srgb,var(--mu) 16%,transparent)}
+.tag.cob{background:color-mix(in srgb,var(--ac) 40%,transparent)}.tag.pago{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.tag.late{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.act{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem}
+.b{display:inline-flex;align-items:center;justify-content:center;min-height:3rem;padding:.6rem 1rem;border-radius:.8rem;border:1px solid var(--ln);background:var(--sf);font-size:.9rem;font-weight:600;text-decoration:none;flex:1}
+.b.p{flex:1 1 100%;background:var(--ac);border-color:var(--ac);color:#0b1b3a}
+.sub{display:flex;gap:1.25rem;margin-top:.4rem}
+.sub button,.sub label{background:none;border:0;padding:.6rem 0;font-size:.8rem;color:var(--mu);min-height:2.5rem}.sub .d{color:var(--bad)}
+.sub input{border:0;background:none;font-size:.8rem;color:var(--ink)}
+.empty{text-align:center;color:var(--mu);padding:3rem 1rem;font-size:.95rem}
+.fab{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(1rem + env(safe-area-inset-bottom,0px));background:var(--ac);color:#0b1b3a;border:0;border-radius:99px;padding:1rem 1.6rem;font-weight:800;font-size:1rem;box-shadow:0 6px 20px rgba(0,0,0,.28);white-space:nowrap}
+.ov{position:fixed;inset:0;background:rgba(5,10,25,.55);opacity:0;pointer-events:none;transition:opacity .25s}.ov.open{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:50%;bottom:0;width:100%;max-width:40rem;max-height:92%;overflow:auto;background:var(--sf);border-radius:1.5rem 1.5rem 0 0;padding:1.25rem 1.1rem 0;transform:translate(-50%,100%);visibility:hidden;transition:transform .28s,visibility .28s}
+.sheet.open{transform:translate(-50%,0);visibility:visible}
+.sheet h2{margin:0 0 .5rem;font-size:1.25rem}
+.sheet label{display:block;font-size:.8rem;color:var(--mu);margin:.9rem 0 .3rem}
+.sheet input{width:100%;height:3rem;padding:0 .8rem;font-size:16px;border:1px solid var(--ln);border-radius:.8rem;background:var(--inp)}
+.it{display:grid;grid-template-columns:1fr 3.2rem 5.6rem;gap:.4rem;margin-bottom:.4rem}.it input{padding:0 .5rem}
+.link{background:none;border:0;color:var(--ink);font-weight:600;padding:.7rem 0;text-decoration:underline}
+.bar{position:sticky;bottom:0;background:var(--sf);padding:.8rem 0 calc(.9rem + env(safe-area-inset-bottom,0px));margin-top:.5rem;border-top:1px solid var(--ln)}
+.bar p{margin:0 0 .6rem;display:flex;justify-content:space-between;font-weight:800;font-size:1.15rem}.bar .act{margin:0}
+#doc{display:none}
+@media (prefers-reduced-motion:reduce){.sheet,.ov{transition:none}}
+@media print{body>*{display:none!important}body>#doc{display:block!important;padding:2rem;color:#000;background:#fff;font-family:Sora,Arial,sans-serif}#doc table{width:100%;border-collapse:collapse;margin:1rem 0}#doc td,#doc th{border-bottom:1px solid #ccc;padding:.4rem;text-align:left}#doc .r{text-align:right}}
+
+:root:root:root{color-scheme:dark;--bg:#0a1230;--sf:#121c42;--ink:#f2f5ff;--mu:#a3aed0;--ln:#26336a;--ok:#5ad08a;--bad:#ff8f80;--inp:#0a1230}
+body{background:radial-gradient(60rem 30rem at 90% -5%,rgba(255,197,61,.2),transparent 60%),radial-gradient(50rem 30rem at -10% 105%,rgba(90,130,255,.3),transparent 60%),var(--bg);background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1.5px) 0 0/24px 24px;pointer-events:none}
+.w{position:relative}.hid{display:none!important}
+.logo{display:inline-flex;align-items:center;font-weight:800;letter-spacing:-.03em;line-height:1}.logo svg{width:.82em;height:.82em;margin:0 .03em}
+header{flex-direction:column;gap:.45rem;text-align:center;position:relative;padding-top:.5rem}header .logo{font-size:2rem}header .ic{position:absolute;right:0;top:.5rem}#hi{margin:0}
+.hero{background:var(--ac);color:#0a1230;text-align:center;box-shadow:0 12px 40px rgba(255,197,61,.22)}.hs{border-top-color:rgba(10,18,48,.2)}
+.chips{justify-content:safe center}.fab{box-shadow:0 8px 28px rgba(255,197,61,.35)}
+.intro{min-height:calc(100dvh - 3rem);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.1rem;padding:1rem 0}
+.logo.big{font-size:3.6rem}.intro h2{margin:0;font-size:1.75rem;line-height:1.15;letter-spacing:-.02em}.intro>p{margin:0;color:var(--mu);max-width:21rem}
+.feat{display:grid;gap:.6rem;width:100%;max-width:22rem}.feat div{background:color-mix(in srgb,var(--sf) 85%,transparent);border:1px solid var(--ln);border-radius:1rem;padding:.8rem 1rem;font-size:.88rem;color:var(--mu)}.feat b{display:block;font-size:1rem;color:var(--ink)}
+.intro input{width:100%;max-width:22rem;height:3.25rem;text-align:center;font-size:16px;border:1px solid var(--ln);border-radius:.9rem;background:var(--sf)}
+.intro .b{max-width:22rem;flex:none;width:100%;min-height:3.4rem;font-size:1rem}
+@keyframes pop{from{transform:scale(.2) rotate(-140deg);opacity:0}to{transform:none;opacity:1}}
+.logo.big svg{animation:pop .8s cubic-bezier(.2,1.4,.4,1) both}
+@media (prefers-reduced-motion:reduce){.logo.big svg{animation:none}}
+
+.hero{background:#16235a;color:var(--ink);border:1px solid rgba(255,255,255,.12);box-shadow:none}
+.hero span{opacity:.7}.hero>b{color:#fff;margin:.2rem 0 .8rem}.hs{border-top-color:rgba(255,255,255,.14)}
+.pgb{height:.4rem;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;margin:0 0 1rem}.pgb i{display:block;height:100%;width:0;background:var(--ac);border-radius:99px;transition:width .5s}
+.af{display:grid;gap:.6rem;width:100%;max-width:22rem}.err{color:var(--bad);font-size:.85rem;margin:0;min-height:1.2rem}
+.intro small{color:var(--mu);max-width:20rem;font-size:.75rem;line-height:1.5}
+@media (prefers-reduced-motion:reduce){.pgb i{transition:none}}
+
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:.3rem;background:var(--sf);border:1px solid var(--ln);border-radius:99px;padding:.25rem;margin-bottom:1rem}
+.tabs button{border:0;background:none;border-radius:99px;min-height:2.6rem;font-weight:600;font-size:.9rem;color:var(--mu)}.tabs button.on{background:var(--ac);color:#0a1230}
+.wide{width:100%;margin-top:.5rem}.note{text-align:center;color:var(--mu);font-size:.8rem}.hero .note{margin:.2rem 0 0;color:#fff;opacity:.7}
+.sheet select{width:100%;height:3rem;padding:0 .8rem;font-size:16px;border:1px solid var(--ln);border-radius:.8rem;background:var(--inp);color:var(--ink)}
+.pl{display:grid;gap:.5rem;padding-bottom:1.5rem}
+</style>
+</head>
+<body>
+<div class="w">
+<div id="intro" class="intro">
+<span class="logo big" role="img" aria-label="Cobrei">C<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#ffc53d"/><path d="M11 21l6 6 12-14" fill="none" stroke="#0a1230" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>BREI</span>
+<h2 id="at">Crie sua conta</h2>
+<p id="as"></p>
+<div class="af">
+<input id="an" placeholder="Seu nome" autocomplete="name" aria-label="Seu nome">
+<input id="ae" type="email" placeholder="E-mail" autocomplete="email" inputmode="email" aria-label="E-mail">
+<input id="ap" type="password" placeholder="Senha (mínimo 6 caracteres)" aria-label="Senha">
+<p id="aerr" class="err" role="alert"></p>
+<button class="b p" id="ab" data-act="auth">Criar conta</button>
+</div>
+<button class="link hid" id="fg" data-act="forgot">Esqueci minha senha</button>
+<small>🔒 Sua senha é protegida por criptografia e seus dados ficam salvos só neste aparelho.</small>
+</div>
+<div id="app" class="hid">
+<header><span class="logo" role="img" aria-label="Cobrei">C<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#ffc53d"/><path d="M11 21l6 6 12-14" fill="none" stroke="#0a1230" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>BREI</span><p id="hi"></p><button class="ic" data-act="cfg" aria-label="Meus dados"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg></button></header>
+<nav class="tabs"><button class="on" data-act="tab" data-t="cob">Cobranças</button><button data-act="tab" data-t="ct">Onde recebo</button></nav>
+<div id="v-cob">
+<section class="hero"><span>A receber</span><b id="s2"></b><div class="pgb"><i id="pg"></i></div><div class="hs"><div><span>Em orçamento</span><b id="s1"></b></div><div><span>Já recebido</span><b id="s3"></b></div></div></section>
+<nav class="chips" aria-label="Filtrar"><button data-act="flt" data-f="all">Todos</button><button data-act="flt" data-f="orc">Orçamentos</button><button data-act="flt" data-f="cob">A receber</button><button data-act="flt" data-f="pago">Pagos</button></nav>
+<div id="list"></div>
+</div>
+<div id="v-ct" class="hid">
+<section class="hero"><span>Total recebido</span><b id="ct-tot"></b><div class="pgb"><i style="width:100%"></i></div><p class="note">Cadastre onde o dinheiro cai e veja quanto entrou em cada lugar.</p></section>
+<div id="ctl"></div>
+<button class="b p wide" data-act="newct">+ Cadastrar onde recebo</button>
+</div>
+</div>
+</div>
+<button class="fab" data-act="new">+ Novo orçamento</button>
+<div id="ov" class="ov" data-act="close"></div>
+<aside id="sh-cfg" class="sheet" aria-label="Meus dados">
+<h2>Meus dados</h2>
+<label for="cn">Seu nome ou do seu negócio</label><input id="cn" autocomplete="name">
+<label for="cp">Chave Pix para receber</label><input id="cp" placeholder="CPF, e-mail, telefone ou aleatória">
+<div class="bar"><div class="act"><button class="b p" data-act="savecfg">Salvar</button><button class="b" data-act="out">Sair da conta</button></div></div>
+</aside>
+<aside id="sh-new" class="sheet" aria-label="Novo orçamento">
+<h2>Novo orçamento</h2>
+<label for="fc">Nome do cliente</label><input id="fc" autocomplete="off">
+<label for="fw">WhatsApp do cliente (opcional)</label><input id="fw" inputmode="tel" placeholder="43 99999-9999">
+<label for="ft">Serviço</label><input id="ft" placeholder="Ex.: Pintura da sala">
+<label>Itens</label><div id="its"></div>
+<button class="link" data-act="additem">+ Adicionar outro item</button>
+<div class="bar"><p><span>Total</span><span id="ftot">R$ 0,00</span></p><div class="act"><button class="b p" data-act="save">Salvar orçamento</button></div></div>
+</aside>
+<aside id="sh-ct" class="sheet" aria-label="Cadastrar conta">
+<h2>Onde você recebe?</h2>
+<label for="ctn">Nome</label><input id="ctn" placeholder="Ex.: Nubank, Caixa, Mercado Pago">
+<label for="ctt">Tipo</label><select id="ctt"><option value="pix">Pix</option><option value="banco">Conta bancária</option><option value="carteira">Carteira digital</option><option value="dinheiro">Dinheiro em mãos</option></select>
+<label for="ctk">Chave Pix ou detalhe (opcional)</label><input id="ctk" placeholder="CPF, e-mail, telefone, agência/conta...">
+<div class="bar"><div class="act"><button class="b p" data-act="savect">Salvar</button></div></div>
+</aside>
+<aside id="sh-pay" class="sheet" aria-label="Onde recebeu">
+<h2>Onde você recebeu?</h2>
+<div id="payl" class="pl"></div>
+</aside>
+<div id="doc"></div>
+<script>
+const K="fechou:v1",R=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
+let S={cfg:{nome:"",pix:""},docs:[]},F="all";
+try{const r=localStorage.getItem(K);if(r)S=JSON.parse(r)}catch(e){}
+S.contas=S.contas||[];
+let TAB="cob",PAY=null;
+const TP={pix:"Pix",banco:"Conta bancária",carteira:"Carteira digital",dinheiro:"Dinheiro em mãos"},EM={pix:"⚡",banco:"🏦",carteira:"📱",dinheiro:"💵"};
+const contaNome=id=>(S.contas.find(x=>x.id===id)||{}).nome;
+function payList(){$("payl").innerHTML=S.contas.map(x=>`<button class="b" data-act="payto" data-c="${x.id}">${EM[x.tipo]} ${esc(x.nome)}</button>`).join("")+`<button class="b" data-act="payto" data-c="">Não informar</button>`}
+const SK="cobrei:ok",enc=new TextEncoder(),b64=u=>btoa(String.fromCharCode(...u)),unb=t=>Uint8Array.from(atob(t),c=>c.charCodeAt(0));
+let OK=false;try{OK=sessionStorage.getItem(SK)==="1"}catch(e){}OK=OK&&!!S.user;
+async function hash(p,salt){const k=await crypto.subtle.importKey("raw",enc.encode(p),"PBKDF2",false,["deriveBits"]);return b64(new Uint8Array(await crypto.subtle.deriveBits({name:"PBKDF2",salt,iterations:150000,hash:"SHA-256"},k,256)))}
+async function doAuth(){const e=$("ae").value.trim().toLowerCase(),p=$("ap").value,er=$("aerr");er.textContent="";
+if(!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite um e-mail válido.";return}
+if(p.length<6){er.textContent="A senha precisa ter pelo menos 6 caracteres.";return}
+try{if(!S.user){const n=$("an").value.trim();if(!n){er.textContent="Digite seu nome.";return}
+const salt=crypto.getRandomValues(new Uint8Array(16));S.user={nome:n,email:e,salt:b64(salt),h:await hash(p,salt)};S.cfg.nome=S.cfg.nome||n;save()}
+else{const h=await hash(p,unb(S.user.salt));if(e!==S.user.email||h!==S.user.h){er.textContent="E-mail ou senha incorretos.";return}}}
+catch(x){er.textContent="Não foi possível validar a senha neste navegador.";return}
+OK=true;try{sessionStorage.setItem(SK,"1")}catch(x){}$("ap").value="";render()}
+function forgot(){if(!confirm("Sem servidor não dá para recuperar a senha. Para continuar, é preciso apagar a conta deste aparelho, inclusive todos os orçamentos e cobranças. Apagar tudo?"))return;S={cfg:{nome:"",pix:""},docs:[],contas:[]};try{localStorage.removeItem(K)}catch(e){}OK=false;render()}
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const $=i=>document.getElementById(i),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const num=v=>{const n=parseFloat(String(v).replace(/\./g,"").replace(",","."));return isNaN(n)?0:n};
+const tot=d=>d.itens.reduce((a,i)=>a+i.q*i.v,0);
+const iso=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
+const br=s=>s?s.split("-").reverse().join("/"):"";
+const ST={orc:"Orçamento enviado",apr:"Aprovado — falta cobrar",pago:"Pago"};
+const FL={all:()=>true,orc:d=>d.s==="orc"||d.s==="apr",cob:d=>d.s==="cob",pago:d=>d.s==="pago"};
+function msg(d){const t=R.format(tot(d)),n=S.cfg.nome||"";
+if(d.s==="cob")return`Olá, ${d.c}! Passando para lembrar da cobrança "${d.t}", no valor de ${t}, com vencimento em ${br(d.venc)}.${S.cfg.pix?`\nPix: ${S.cfg.pix}`:""}\nObrigado!`;
+return`Olá, ${d.c}! Segue o orçamento nº ${d.n}${n?` de ${n}`:""}:\n\n${d.t}\n${d.itens.map(i=>`• ${i.d} (${i.q} x ${R.format(i.v)})`).join("\n")}\n\nTotal: ${t}\n\nSe estiver de acordo, é só me responder aqui.`}
+function wa(d){let p=(d.w||"").replace(/\D/g,"");if(p&&p.length<=11)p="55"+p;return`https://wa.me/${p}?text=${encodeURIComponent(msg(d))}`}
+function render(){
+const m=S.user?"login":"signup";$("intro").classList.toggle("hid",OK);$("app").classList.toggle("hid",!OK);document.querySelector(".fab").classList.toggle("hid",!OK||TAB==="ct");
+$("an").classList.toggle("hid",m==="login");$("fg").classList.toggle("hid",m==="signup");$("ap").autocomplete=m==="login"?"current-password":"new-password";
+$("at").textContent=m==="login"?"Olá de novo"+(S.user.nome?", "+S.user.nome.split(" ")[0]:""):"Crie sua conta";
+$("as").textContent=m==="login"?"Digite seu e-mail e sua senha para entrar.":"Seus orçamentos e cobranças ficam protegidos por senha.";
+$("ab").textContent=m==="login"?"Entrar":"Criar conta";
+let a=0,b=0,c=0;S.docs.forEach(d=>{const t=tot(d);if(d.s==="pago")c+=t;else if(d.s==="cob")b+=t;else a+=t});
+$("s1").textContent=R.format(a);$("s2").textContent=R.format(b);$("s3").textContent=R.format(c);$("pg").style.width=(a+b+c?Math.round(c/(a+b+c)*100):0)+"%";
+$("ct-tot").textContent=R.format(c);
+const rec={};S.docs.forEach(d=>{if(d.s==="pago"&&d.conta)rec[d.conta]=(rec[d.conta]||0)+tot(d)});
+const other=c-S.contas.reduce((z,x)=>z+(rec[x.id]||0),0);
+$("ctl").innerHTML=S.contas.length?S.contas.map(x=>`<article class="card"><div class="top"><div class="av">${EM[x.tipo]}</div><div class="mid"><h3>${esc(x.nome)}</h3><p>${TP[x.tipo]}${x.chave?" · "+esc(x.chave):""}</p></div><div class="tot">${R.format(rec[x.id]||0)}</div></div><div class="sub"><button class="d" data-id="${x.id}" data-act="delct">Excluir</button></div></article>`).join("")+(other>0.004?`<p class="note">${R.format(other)} recebidos sem conta informada ou em contas excluídas.</p>`:""):`<div class="empty">Nenhuma conta cadastrada.<br>Cadastre onde você recebe — Pix, banco, carteira digital ou dinheiro — para saber quanto entrou em cada uma.</div>`;
+$("v-cob").classList.toggle("hid",TAB!=="cob");$("v-ct").classList.toggle("hid",TAB!=="ct");
+document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x.dataset.t===TAB));
+$("hi").textContent=S.cfg.nome?`Olá, ${S.cfg.nome}`:"Orçou. Cobrou. Recebeu.";
+document.querySelectorAll(".chips button").forEach(x=>x.classList.toggle("on",x.dataset.f===F));
+const L=S.docs.filter(FL[F]);
+$("list").innerHTML=L.length?L.map(d=>{
+const late=d.s==="cob"&&d.venc<iso(0),id=`data-id="${d.id}"`;
+const tag=d.s==="cob"?`<span class="tag ${late?"late":"cob"}">${late?"Atrasado desde ":"Vence em "}${br(d.venc)}</span>`:`<span class="tag ${d.s==="pago"?"pago":""}">${ST[d.s]}${d.s==="pago"&&contaNome(d.conta)?" · "+esc(contaNome(d.conta)):""}</span>`;
+let ac="",sub="";
+if(d.s==="orc")ac=`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">Enviar no WhatsApp</a><button class="b" ${id} data-act="apr">Cliente aprovou</button>`;
+if(d.s==="apr")ac=`<button class="b p" ${id} data-act="cob">Gerar cobrança</button>`;
+if(d.s==="cob"){ac=`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">Cobrar no WhatsApp</a><button class="b" ${id} data-act="pago">Marcar como pago</button>`;sub=`<label>Vencimento <input type="date" value="${d.venc}" ${id} data-act="venc"></label>`}
+return`<article class="card"><div class="top"><div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${R.format(tot(d))}</div></div>${tag}<div class="act">${ac}</div><div class="sub">${sub}<button ${id} data-act="pdf">PDF</button><button class="d" ${id} data-act="del">Excluir</button></div></article>`}).join(""):`<div class="empty">${S.docs.length?"Nada por aqui neste filtro.":"Nenhum orçamento ainda.<br>Toque em “Novo orçamento” e envie o primeiro pelo WhatsApp em menos de um minuto."}</div>`}
+const openS=id=>{$("ov").classList.add("open");$(id).classList.add("open")};
+const closeS=()=>{$("ov").classList.remove("open");document.querySelectorAll(".sheet").forEach(s=>s.classList.remove("open"))};
+function addItem(){const r=document.createElement("div");r.className="it";r.innerHTML=`<input placeholder="Descrição" aria-label="Descrição"><input placeholder="Qtd" value="1" inputmode="decimal" aria-label="Quantidade"><input placeholder="R$" inputmode="decimal" aria-label="Valor unitário">`;$("its").appendChild(r)}
+function calc(){let t=0;document.querySelectorAll("#its .it").forEach(r=>{const i=r.querySelectorAll("input");t+=num(i[1].value)*num(i[2].value)});$("ftot").textContent=R.format(t)}
+function pdf(d){const t=R.format(tot(d)),n=S.cfg.nome;
+$("doc").innerHTML=`<h1>${esc(n||"Orçamento")}</h1><p>${d.s==="cob"||d.s==="pago"?"Cobrança":"Orçamento"} nº ${d.n} · ${br(d.data)}<br>Cliente: ${esc(d.c)}</p><h2>${esc(d.t)}</h2><table><tr><th>Item</th><th class="r">Qtd</th><th class="r">Valor</th><th class="r">Subtotal</th></tr>${d.itens.map(i=>`<tr><td>${esc(i.d)}</td><td class="r">${i.q}</td><td class="r">${R.format(i.v)}</td><td class="r">${R.format(i.q*i.v)}</td></tr>`).join("")}</table><h2 style="text-align:right">Total: ${t}</h2>${d.venc?`<p>Vencimento: ${br(d.venc)}</p>`:""}${S.cfg.pix?`<p>Pagamento via Pix: ${esc(S.cfg.pix)}</p>`:""}`;window.print()}
+document.addEventListener("input",e=>{if(e.target.closest("#its"))calc()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeS()});
+document.addEventListener("change",e=>{const t=e.target;if(t.dataset.act==="venc"){const d=S.docs.find(x=>x.id===t.dataset.id);if(d&&t.value){d.venc=t.value;save();render()}}});
+document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.tagName==="INPUT")return;const a=t.dataset.act,d=S.docs.find(x=>x.id===t.dataset.id);
+if(a==="auth")doAuth();else if(a==="forgot")forgot();else if(a==="out"){OK=false;try{sessionStorage.removeItem(SK)}catch(e){}closeS();render()}else if(a==="cfg"){$("cn").value=S.cfg.nome;$("cp").value=S.cfg.pix;openS("sh-cfg")}
+else if(a==="savecfg"){S.cfg={nome:$("cn").value.trim(),pix:$("cp").value.trim()};save();closeS();render()}
+else if(a==="new"){["fc","fw","ft"].forEach(i=>$(i).value="");$("its").innerHTML="";addItem();calc();openS("sh-new")}
+else if(a==="close")closeS();
+else if(a==="payto"){const x=S.docs.find(z=>z.id===PAY);if(x){x.s="pago";x.conta=t.dataset.c;x.pagoEm=iso(0);save()}closeS();render()}
+else if(a==="tab"){TAB=t.dataset.t;render()}
+else if(a==="newct"){["ctn","ctk"].forEach(i=>$(i).value="");$("ctt").value="pix";openS("sh-ct")}
+else if(a==="savect"){const n=$("ctn").value.trim();if(!n){alert("Digite o nome da conta, por exemplo: Nubank.");return}S.contas.push({id:String(Date.now()),nome:n,tipo:$("ctt").value,chave:$("ctk").value.trim()});save();closeS();render()}
+else if(a==="delct"){if(!confirm("Excluir esta conta? Os valores já recebidos continuam no histórico."))return;S.contas=S.contas.filter(x=>x.id!==t.dataset.id);save();render()}else if(a==="additem")addItem();else if(a==="flt"){F=t.dataset.f;render()}
+else if(a==="save"){const itens=[...document.querySelectorAll("#its .it")].map(r=>{const i=r.querySelectorAll("input");return{d:i[0].value.trim(),q:num(i[1].value)||1,v:num(i[2].value)}}).filter(i=>i.d&&i.v>0);
+if(!$("fc").value.trim()||!$("ft").value.trim()||!itens.length){alert("Preencha o cliente, o serviço e pelo menos um item com valor.");return}
+S.docs.unshift({id:String(Date.now()),n:S.docs.length+1,c:$("fc").value.trim(),w:$("fw").value.trim(),t:$("ft").value.trim(),itens,s:"orc",data:iso(0),venc:""});save();closeS();F="all";render()}
+else if(d){if(a==="apr")d.s="apr";else if(a==="cob"){d.s="cob";d.venc=iso(7)}else if(a==="pago"){PAY=d.id;payList();openS("sh-pay");return}else if(a==="pdf"){pdf(d);return}
+else if(a==="del"){if(!confirm("Excluir este registro?"))return;S.docs=S.docs.filter(x=>x!==d)}save();render()}});
+render();
+</script>
+</body>
+</html>
