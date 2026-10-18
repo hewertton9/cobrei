@@ -89,10 +89,42 @@ header{flex-direction:column;gap:.45rem;text-align:center;position:relative;padd
 .sheet select{width:100%;height:3rem;padding:0 .8rem;font-size:16px;border:1px solid var(--ln);border-radius:.8rem;background:var(--inp);color:var(--ink)}
 .pl{display:grid;gap:.5rem;padding-bottom:1.5rem}
 .info{color:var(--ok);font-size:.85rem;margin:0}
+
+.w{padding-bottom:10rem}
+.tabs{position:fixed;left:0;right:0;bottom:0;margin:0;border-radius:0;border:0;border-top:1px solid var(--ln);background:color-mix(in srgb,var(--sf) 94%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);padding:.4rem .5rem calc(.4rem + env(safe-area-inset-bottom,0px));grid-template-columns:repeat(3,1fr);gap:0;z-index:5}
+.tabs button{display:flex;flex-direction:column;align-items:center;gap:.15rem;min-height:3.2rem;font-size:.72rem;border-radius:.8rem;color:var(--mu);background:none}
+.tabs button.on{background:none;color:var(--ac)}.tabs svg{width:1.5rem;height:1.5rem}
+.fab{bottom:calc(5rem + env(safe-area-inset-bottom,0px));z-index:4}.ov{z-index:20}.sheet{z-index:21}
+header .ic.eye{left:0;right:auto}header .ic svg{width:1.3rem;height:1.3rem}
+.sheet .chk{display:flex;gap:.7rem;align-items:center;color:var(--ink);font-size:.9rem;margin-top:1rem}.sheet .chk input{width:1.4rem;height:1.4rem;padding:0}
+.toast{position:fixed;left:50%;bottom:calc(6.5rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.8rem 1.2rem;border-radius:99px;font-size:.85rem;font-weight:600;max-width:90%;text-align:center;z-index:50;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+
+.tabs{grid-template-columns:repeat(4,1fr)}
+.mes{display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem}.mes b{font-size:1.05rem}.mes .ic{font-size:1.4rem;line-height:1}
+.ch{display:flex;align-items:stretch;gap:.5rem;height:8.5rem;margin-top:1rem}
+.ch div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:.35rem}
+.ch i{display:block;width:100%;border-radius:.4rem .4rem 0 0;background:var(--ln);min-height:3px}.ch .on i{background:var(--ac)}.ch span{font-size:.7rem;color:var(--mu)}
+#p-atr{color:var(--mu)}#p-atr.late{border-color:var(--bad);color:var(--bad)}
+.sheet textarea{width:100%;padding:.7rem .8rem;font-size:16px;border:1px solid var(--ln);border-radius:.8rem;background:var(--inp);color:var(--ink);font-family:inherit;resize:vertical}
+.sheet .note{margin:.2rem 0}.qr{background:#fff;padding:.5rem;border-radius:1rem;width:min(70vw,16rem);margin:1rem auto}.qr svg{display:block;width:100%;height:auto}
+.lg{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}.lg img{max-height:3rem;max-width:6rem;background:#fff;border-radius:.4rem;padding:.2rem}.lg .b{flex:none}
+#doc .dh{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;border-bottom:3px solid #0a1230;padding-bottom:1rem;margin-bottom:1.2rem}
+#doc .dl{display:flex;gap:1rem;align-items:center}#doc .dl img{max-height:64px;max-width:120px}#doc h1{margin:0;font-size:1.5rem}#doc .dl p{margin:.2rem 0 0;font-size:.8rem;color:#444}
+#doc .dr{text-align:right}#doc .dr b{display:block;font-size:1.2rem;text-transform:uppercase;letter-spacing:.04em}#doc .dr span{font-size:.85rem;color:#444}
+#doc .dc{display:flex;flex-direction:column;margin:0}#doc .dc span{font-size:.75rem;color:#555}#doc .tt{text-align:right;margin:.3rem 0}#doc .tt b{font-size:1.4rem}
+#doc .dn{font-size:.85rem;color:#333;margin:.3rem 0}#doc .pxd{display:flex;gap:1rem;align-items:center;margin-top:1rem}#doc .pxd svg{width:140px;height:140px;flex:none}#doc .pxd code{word-break:break-all;font-size:.7rem}
+#doc .ft{margin-top:2rem;font-size:.7rem;color:#666;text-align:center;border-top:1px solid #ccc;padding-top:.6rem}
 </style>
 </head>
 <body>
 <div class="w">
+<div id="lock" class="intro hid">
+<span class="logo big" role="img" aria-label="Cobrei">C<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#ffc53d"/><path d="M11 21l6 6 12-14" fill="none" stroke="#0a1230" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>BREI</span>
+<h2>Orçou. Cobrou. Recebeu.</h2>
+<p>Use a biometria do seu celular para entrar.</p>
+<button class="b p" data-act="unlock">Desbloquear</button>
+<button class="link" data-act="usepw">Entrar com e-mail e senha</button>
+</div>
 <div id="intro" class="intro">
 <span class="logo big" role="img" aria-label="Cobrei">C<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#ffc53d"/><path d="M11 21l6 6 12-14" fill="none" stroke="#0a1230" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>BREI</span>
 <h2 id="at">Crie sua conta</h2>
@@ -109,12 +141,23 @@ header{flex-direction:column;gap:.45rem;text-align:center;position:relative;padd
 <small>🔒 Seus dados ficam guardados na nuvem, protegidos por senha. Só você consegue ver os seus orçamentos.</small>
 </div>
 <div id="app" class="hid">
-<header><span class="logo" role="img" aria-label="Cobrei">C<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#ffc53d"/><path d="M11 21l6 6 12-14" fill="none" stroke="#0a1230" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>BREI</span><p id="hi"></p><button class="ic" data-act="cfg" aria-label="Meus dados"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg></button></header>
-<nav class="tabs"><button class="on" data-act="tab" data-t="cob">Cobranças</button><button data-act="tab" data-t="ct">Onde recebo</button></nav>
-<div id="v-cob">
+<header><span class="logo" role="img" aria-label="Cobrei">C<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#ffc53d"/><path d="M11 21l6 6 12-14" fill="none" stroke="#0a1230" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>BREI</span><p id="hi"></p><button class="ic eye" data-act="eye"></button><button class="ic" data-act="cfg" aria-label="Meus dados"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg></button></header>
+<nav class="tabs" aria-label="Seções"><button class="on" data-act="tab" data-t="pnl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg><span>Painel</span></button><button data-act="tab" data-t="cob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6"/></svg><span>Cobranças</span></button><button data-act="tab" data-t="cli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.4 0 4 1.7 4 4"/></svg><span>Clientes</span></button><button data-act="tab" data-t="ct"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h14a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2zM4 7l11-3v3"/><circle cx="16" cy="13.5" r="1.2"/></svg><span>Recebimentos</span></button></nav>
+<div id="v-pnl">
+<div class="mes"><button class="ic" data-act="mes" data-d="-1" aria-label="Mês anterior">‹</button><b id="mes-t"></b><button class="ic" data-act="mes" data-d="1" aria-label="Próximo mês">›</button></div>
+<section class="hero"><span>Recebido no mês</span><b id="p-rec"></b><div class="hs"><div><span>Orçado no mês</span><b id="p-orc"></b></div><div><span>A receber (total)</span><b id="p-ab"></b></div></div></section>
+<div class="card" id="p-atr"></div>
+<div class="card"><b>Recebido por mês</b><div id="p-ch" class="ch"></div></div>
+</div>
+<div id="v-cob" class="hid">
 <section class="hero"><span>A receber</span><b id="s2"></b><div class="pgb"><i id="pg"></i></div><div class="hs"><div><span>Em orçamento</span><b id="s1"></b></div><div><span>Já recebido</span><b id="s3"></b></div></div></section>
 <nav class="chips" aria-label="Filtrar"><button data-act="flt" data-f="all">Todos</button><button data-act="flt" data-f="orc">Orçamentos</button><button data-act="flt" data-f="cob">A receber</button><button data-act="flt" data-f="pago">Pagos</button></nav>
 <div id="list"></div>
+</div>
+<div id="v-cli" class="hid">
+<section class="hero"><span>Clientes cadastrados</span><b id="cli-n"></b><p class="note">O valor em cada cliente é o total já recebido dele.</p></section>
+<div id="cll"></div>
+<button class="b p wide" data-act="newcli">+ Cadastrar cliente</button>
 </div>
 <div id="v-ct" class="hid">
 <section class="hero"><span>Total recebido</span><b id="ct-tot"></b><div class="pgb"><i style="width:100%"></i></div><p class="note">Cadastre onde o dinheiro cai e veja quanto entrou em cada lugar.</p></section>
@@ -128,16 +171,27 @@ header{flex-direction:column;gap:.45rem;text-align:center;position:relative;padd
 <aside id="sh-cfg" class="sheet" aria-label="Meus dados">
 <h2>Meus dados</h2>
 <label for="cn">Seu nome ou do seu negócio</label><input id="cn" autocomplete="name">
-<label for="cp">Chave Pix para receber</label><input id="cp" placeholder="CPF, e-mail, telefone ou aleatória">
+<label for="cdc">CPF ou CNPJ (aparece nos PDFs)</label><input id="cdc" inputmode="numeric">
+<label for="ctf">Telefone / WhatsApp</label><input id="ctf" inputmode="tel">
+<label for="cci">Cidade (obrigatória para gerar o Pix)</label><input id="cci" autocomplete="address-level2">
+<label for="cpt">Tipo da chave Pix</label><select id="cpt"><option value="cpf">CPF</option><option value="cnpj">CNPJ</option><option value="email">E-mail</option><option value="telefone">Telefone</option><option value="aleatoria">Chave aleatória</option></select>
+<label for="cp">Chave Pix para receber</label><input id="cp" placeholder="Sua chave Pix">
+<label>Logo (aparece nos PDFs)</label><div class="lg"><img id="lgp" alt="" class="hid"><button class="b" data-act="logo">Escolher imagem</button><button class="b d hid" id="lgx" data-act="logox">Remover</button></div><input type="file" id="lgf" accept="image/*" class="hid">
+<div id="biow"><label>Segurança</label><button class="b wide" id="bio" data-act="bio"></button></div>
 <div class="bar"><div class="act"><button class="b p" data-act="savecfg">Salvar</button><button class="b" data-act="out">Sair da conta</button></div></div>
 </aside>
 <aside id="sh-new" class="sheet" aria-label="Novo orçamento">
 <h2>Novo orçamento</h2>
+<label for="fcl">Cliente cadastrado</label><select id="fcl"></select>
 <label for="fc">Nome do cliente</label><input id="fc" autocomplete="off">
 <label for="fw">WhatsApp do cliente (opcional)</label><input id="fw" inputmode="tel" placeholder="43 99999-9999">
 <label for="ft">Serviço</label><input id="ft" placeholder="Ex.: Pintura da sala">
 <label>Itens</label><div id="its"></div>
 <button class="link" data-act="additem">+ Adicionar outro item</button>
+<label for="fdc">Desconto em R$ (opcional)</label><input id="fdc" inputmode="decimal" placeholder="0,00">
+<label for="fva">Validade do orçamento</label><input id="fva" type="date">
+<label for="ffp">Forma de pagamento</label><select id="ffp"><option value="">A combinar</option><option>Pix</option><option>Dinheiro</option><option>Cartão de crédito</option><option>Cartão de débito</option><option>Transferência bancária</option><option>Boleto</option></select>
+<label for="fob">Observações (opcional)</label><textarea id="fob" rows="3" placeholder="Prazo de entrega, garantia, condições..."></textarea>
 <div class="bar"><p><span>Total</span><span id="ftot">R$ 0,00</span></p><div class="act"><button class="b p" data-act="save">Salvar orçamento</button></div></div>
 </aside>
 <aside id="sh-ct" class="sheet" aria-label="Cadastrar conta">
@@ -147,24 +201,95 @@ header{flex-direction:column;gap:.45rem;text-align:center;position:relative;padd
 <label for="ctk">Chave Pix ou detalhe (opcional)</label><input id="ctk" placeholder="CPF, e-mail, telefone, agência/conta...">
 <div class="bar"><div class="act"><button class="b p" data-act="savect">Salvar</button></div></div>
 </aside>
+<aside id="sh-cli" class="sheet" aria-label="Cadastrar cliente">
+<h2>Novo cliente</h2>
+<label for="cln">Nome ou razão social</label><input id="cln" autocomplete="off">
+<label for="clt">Tipo</label><select id="clt"><option value="pf">Pessoa física</option><option value="pj">Empresa</option></select>
+<label for="cld">CPF ou CNPJ (opcional)</label><input id="cld" inputmode="numeric">
+<label for="clw">WhatsApp (opcional)</label><input id="clw" inputmode="tel" placeholder="43 99999-9999">
+<label class="chk"><input type="checkbox" id="clr"> Cliente recorrente (pede serviços direto)</label>
+<div class="bar"><div class="act"><button class="b p" data-act="savecli">Salvar cliente</button></div></div>
+</aside>
+<aside id="sh-pix" class="sheet" aria-label="Pix">
+<h2>Pagar com Pix</h2><p id="pixm" class="note"></p><div id="pixq" class="qr"></div>
+<label for="pixc">Pix copia e cola</label><textarea id="pixc" rows="4" readonly></textarea>
+<div class="bar"><div class="act"><button class="b p" data-act="pixcopy">Copiar código Pix</button></div></div>
+</aside>
 <aside id="sh-pay" class="sheet" aria-label="Onde recebeu">
 <h2>Onde você recebeu?</h2>
 <div id="payl" class="pl"></div>
 </aside>
 <div id="doc"></div>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.81.1/dist/umd/supabase.js"></script>
 <script>
 const K="fechou:v1",R=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
 let S={cfg:{nome:"",pix:""},docs:[]},F="all";
 try{const r=localStorage.getItem(K);if(r)S=JSON.parse(r)}catch(e){}
-S.contas=S.contas||[];
-let TAB="cob",PAY=null;
+S.contas=S.contas||[];S.clientes=[];S.perfil={};
+let TAB="pnl",PAY=null;
 const TP={pix:"Pix",banco:"Conta bancária",carteira:"Carteira digital",dinheiro:"Dinheiro em mãos"},EM={pix:"⚡",banco:"🏦",carteira:"📱",dinheiro:"💵"};
 const contaNome=id=>(S.contas.find(x=>x.id===id)||{}).nome;
 function payList(){$("payl").innerHTML=S.contas.map(x=>`<button class="b" data-act="payto" data-c="${x.id}">${EM[x.tipo]} ${esc(x.nome)}</button>`).join("")+`<button class="b" data-act="payto" data-c="">Não informar</button>`}
 const SUPA_URL="https://eofyqeledandcttfhmuu.supabase.co",SUPA_KEY="sb_publishable_I0HUMSb82iau2xRXlVQp4A_T2r8EbC0";
 let OK=false,MODE="signup",U=null,sb=null;
 try{sb=supabase.createClient(SUPA_URL,SUPA_KEY)}catch(e){}
+const BK="cobrei:bio",enc=new TextEncoder(),b64=u=>btoa(String.fromCharCode(...u)),unb=t=>Uint8Array.from(atob(t),c=>c.charCodeAt(0));
+let LOCK=false,PEND=null,HIDE=false;try{HIDE=localStorage.getItem("cobrei:hide")==="1"}catch(e){}
+const fmt=v=>HIDE?"R$ •••••":R.format(v);
+const IE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',IEO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M3 3l18 18"/></svg>';
+if(!window.PublicKeyCredential)document.getElementById("biow").classList.add("hid");
+function toast(m){const t=document.createElement("div");t.className="toast";t.setAttribute("role","status");t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),3200)}
+const bioOnDev=()=>{try{const c=JSON.parse(localStorage.getItem(BK));return !!(c&&U&&c.uid===U.id)}catch(e){return false}};
+function bioLabel(){$("bio").textContent=bioOnDev()?"Desativar entrada com biometria":"Ativar entrada com biometria"}
+async function bioToggle(){
+if(bioOnDev()){localStorage.removeItem(BK);toast("Biometria desativada.");bioLabel();return}
+try{const cr=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{name:"COBREI"},user:{id:crypto.getRandomValues(new Uint8Array(16)),name:U.email,displayName:S.cfg.nome||U.email},pubKeyCredParams:[{type:"public-key",alg:-7},{type:"public-key",alg:-257}],authenticatorSelection:{authenticatorAttachment:"platform",userVerification:"required",residentKey:"discouraged"},timeout:60000}});
+localStorage.setItem(BK,JSON.stringify({id:b64(new Uint8Array(cr.rawId)),uid:U.id}));toast("Biometria ativada neste aparelho.")}
+catch(e){toast("Não foi possível ativar a biometria neste aparelho.")}bioLabel()}
+async function unlock(){try{const c=JSON.parse(localStorage.getItem(BK));await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),allowCredentials:[{type:"public-key",id:unb(c.id)}],userVerification:"required",timeout:60000}});LOCK=false;await enter(PEND)}catch(e){toast("Não foi possível validar a biometria. Tente de novo.")}}
+function openNew(cid){["fc","fw","ft","fdc","fob"].forEach(i=>$(i).value="");$("fva").value=iso(7);$("ffp").value="";$("its").innerHTML="";addItem();
+$("fcl").innerHTML='<option value="">Novo cliente (digitar)</option>'+S.clientes.map(c=>`<option value="${c.id}">${esc(c.nome)}</option>`).join("");
+$("fcl").value=cid||"";const c=S.clientes.find(x=>x.id===cid);if(c){$("fc").value=c.nome;$("fw").value=c.whatsapp}
+calc();openS("sh-new")}
+const asc=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase().replace(/[^A-Z0-9 ]/g,"").trim();
+const tlv=(i,v)=>i+String(v.length).padStart(2,"0")+v;
+function crc(s){let c=0xFFFF;for(let i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(let j=0;j<8;j++)c=c&0x8000?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF}return c.toString(16).toUpperCase().padStart(4,"0")}
+function pixKey(){const k=(S.cfg.pix||"").trim(),t=S.perfil.pixt||"aleatoria";if(!k)return"";
+if(t==="email")return k.toLowerCase();
+if(t==="telefone"){const d=k.replace(/\D/g,"");return k.startsWith("+")?"+"+d:"+55"+d}
+if(t==="cpf"||t==="cnpj")return k.replace(/\D/g,"");return k}
+function pixCode(d){const k=pixKey(),n=asc(S.cfg.nome).slice(0,25),c=asc(S.perfil.cidade).slice(0,15);if(!k||!n||!c)return"";
+const v=tot(d),p=tlv("00","01")+tlv("01","11")+tlv("26",tlv("00","br.gov.bcb.pix")+tlv("01",k))+tlv("52","0000")+tlv("53","986")+(v>0?tlv("54",v.toFixed(2)):"")+tlv("58","BR")+tlv("59",n)+tlv("60",c)+tlv("62",tlv("05","***"));
+return p+"6304"+crc(p+"6304")}
+function qrSvg(t){try{const q=qrcode(0,"M");q.addData(t);q.make();const n=q.getModuleCount();let d="";for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(q.isDark(r,c))d+=`M${c+2} ${r+2}h1v1h-1z`;return`<svg viewBox="0 0 ${n+4} ${n+4}" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="#fff"/><path d="${d}" fill="#000"/></svg>`}catch(e){return""}}
+const MF=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+let MES=new Date().toISOString().slice(0,7),LOGO="";
+const mshift=(m,d)=>{const [y,o]=m.split("-").map(Number),t=new Date(y,o-1+d,1);return t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")};
+function renderPnl(){const hoje=iso(0);let rec=0,orc=0,ab=0,atr=0,na=0;const mm={};
+S.docs.forEach(d=>{const t=tot(d);if(d.data.slice(0,7)===MES)orc+=t;
+if(d.s==="pago"){const q=(d.pagoEm||d.data).slice(0,7);mm[q]=(mm[q]||0)+t;if(q===MES)rec+=t}
+if(d.s==="cob"){ab+=t;if(d.venc&&d.venc<hoje){atr+=t;na++}}});
+const [y,o]=MES.split("-").map(Number);$("mes-t").textContent=MF[o-1]+" de "+y;
+$("p-rec").textContent=fmt(rec);$("p-orc").textContent=fmt(orc);$("p-ab").textContent=fmt(ab);
+$("p-atr").classList.toggle("late",atr>0);$("p-atr").innerHTML=atr>0?`<b>Atrasado: ${fmt(atr)}</b><br>em ${na} ${na===1?"cobrança":"cobranças"}. Toque em Cobranças para cobrar.`:"Nenhuma cobrança atrasada.";
+const ms=[];for(let i=-5;i<=0;i++)ms.push(mshift(MES,i));const mx=Math.max(1,...ms.map(q=>mm[q]||0));
+$("p-ch").innerHTML=ms.map(q=>`<div class="${q===MES?"on":""}"><i style="height:${Math.round((mm[q]||0)/mx*100)}%"></i><span>${MF[Number(q.slice(5))-1].slice(0,3)}</span></div>`).join("")}
+function logoUI(){const i=$("lgp");i.src=LOGO||"";i.classList.toggle("hid",!LOGO);$("lgx").classList.toggle("hid",!LOGO)}
+function loadBind(){$("lgf").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const m=Math.min(1,240/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*m);c.height=Math.round(im.height*m);c.getContext("2d").drawImage(im,0,0,c.width,c.height);LOGO=c.toDataURL("image/png");logoUI()};im.onerror=()=>toast("Imagem inválida.");im.src=r.result};r.readAsDataURL(f)})}
+function pdf(d){const p=S.perfil,n=S.cfg.nome,tp=d.s==="pago"?"Recibo":d.s==="cob"?"Cobrança":"Orçamento",t=tot(d),code=d.s==="cob"?pixCode(d):"";
+const di=[p.documento,p.telefone,p.cidade].filter(Boolean).map(esc).join(" · ");
+$("doc").innerHTML=`<div class="dh"><div class="dl">${p.logo?`<img src="${p.logo}" alt="">`:""}<div><h1>${esc(n||"COBREI")}</h1><p>${di}</p></div></div><div class="dr"><b>${tp}</b><span>nº ${d.n} · ${br(d.data)}</span></div></div>
+<p class="dc"><span>Cliente</span><b>${esc(d.c)}</b></p><h2>${esc(d.t)}</h2>
+${d.s==="pago"?`<p class="dn">Recebi de <b>${esc(d.c)}</b> a quantia de <b>${R.format(t)}</b>${contaNome(d.conta)?`, via ${esc(contaNome(d.conta))}`:""}, em ${br(d.pagoEm)}, referente ao serviço descrito.</p>`:""}
+<table><tr><th>Item</th><th class="r">Qtd</th><th class="r">Valor</th><th class="r">Subtotal</th></tr>${d.itens.map(i=>`<tr><td>${esc(i.d)}</td><td class="r">${i.q}</td><td class="r">${R.format(i.v)}</td><td class="r">${R.format(i.q*i.v)}</td></tr>`).join("")}</table>
+${d.desc?`<p class="tt">Subtotal ${R.format(subt(d))} · Desconto -${R.format(d.desc)}</p>`:""}<p class="tt">Total <b>${R.format(t)}</b></p>
+${d.fp?`<p class="dn">Forma de pagamento: ${esc(d.fp)}</p>`:""}${d.val&&(d.s==="orc"||d.s==="apr")?`<p class="dn">Orçamento válido até ${br(d.val)}</p>`:""}${d.venc&&d.s==="cob"?`<p class="dn">Vencimento: ${br(d.venc)}</p>`:""}${d.ob?`<p class="dn">Observações: ${esc(d.ob)}</p>`:""}
+${code?`<div class="pxd">${qrSvg(code)}<div><b>Pague com Pix</b><br><code>${code}</code></div></div>`:""}
+<p class="ft">Documento sem valor fiscal · Gerado pelo COBREI</p>`;window.print()}
+function renderCli(){const by={};S.docs.forEach(d=>{if(d.k){const o=by[d.k]||(by[d.k]={n:0,p:0});o.n++;if(d.s==="pago")o.p+=tot(d)}});
+$("cli-n").textContent=S.clientes.length;
+$("cll").innerHTML=S.clientes.length?S.clientes.map(c=>{const o=by[c.id]||{n:0,p:0};return`<article class="card"><div class="top"><div class="av">${esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div></div>${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span><div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button></div><div class="sub"><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div></article>`}).join(""):`<div class="empty">Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque.</div>`}
 try{if(localStorage.getItem("cobrei:v"))MODE="login"}catch(e){}
 if(/type=recovery/.test(location.hash))MODE="recover";
 const msgErr=e=>{const m=String(e&&e.message||"").toLowerCase();
@@ -175,10 +300,12 @@ if(m.includes("rate limit")||m.includes("too many"))return"Muitas tentativas. Ag
 if(m.includes("password"))return"A senha não atende aos requisitos. Use 8 ou mais caracteres.";
 return"Não foi possível concluir. Verifique a conexão e tente de novo."};
 async function loadAll(){
-const [o,c]=await Promise.all([sb.from("orcamentos").select("*, itens(*)").order("criado_em",{ascending:false}),sb.from("contas").select("*").order("criado_em")]);
+const [o,c,k,pr]=await Promise.all([sb.from("orcamentos").select("*, itens(*)").order("criado_em",{ascending:false}),sb.from("contas").select("*").order("criado_em"),sb.from("clientes").select("*").order("nome"),sb.from("perfil").select("*").maybeSingle()]);
 if(o.error||c.error)throw(o.error||c.error);
-S.docs=o.data.map(r=>({id:r.id,n:r.numero,c:r.cliente,w:r.whatsapp||"",t:r.servico,itens:(r.itens||[]).map(i=>({d:i.descricao,q:Number(i.quantidade),v:Number(i.valor)})),s:r.status,data:(r.criado_em||"").slice(0,10),venc:r.vencimento||"",conta:r.conta_id||"",pagoEm:r.pago_em||""}));
-S.contas=c.data.map(x=>({id:x.id,nome:x.nome,tipo:x.tipo,chave:x.chave||""}))}
+S.docs=o.data.map(r=>({id:r.id,n:r.numero,c:r.cliente,w:r.whatsapp||"",t:r.servico,itens:(r.itens||[]).map(i=>({d:i.descricao,q:Number(i.quantidade),v:Number(i.valor)})),s:r.status,data:(r.criado_em||"").slice(0,10),venc:r.vencimento||"",conta:r.conta_id||"",k:r.cliente_id||"",val:r.validade||"",desc:Number(r.desconto||0),fp:r.forma_pagamento||"",ob:r.observacoes||"",pagoEm:r.pago_em||""}));
+S.contas=c.data.map(x=>({id:x.id,nome:x.nome,tipo:x.tipo,chave:x.chave||""}));
+S.clientes=k.error?[]:k.data.map(x=>({id:x.id,nome:x.nome,tipo:x.tipo,documento:x.documento||"",whatsapp:x.whatsapp||"",recorrente:!!x.recorrente}));
+const pd=(pr&&!pr.error&&pr.data)||{};S.perfil={documento:pd.documento||"",telefone:pd.telefone||"",cidade:pd.cidade||"",pixt:pd.pixt||"cpf",logo:pd.logo||""}}
 async function enter(user){U=user;const md=user.user_metadata||{};S.cfg={nome:md.nome||"",pix:md.pix||""};
 try{await loadAll()}catch(e){$("aerr").textContent="Não foi possível carregar seus dados. Verifique se as tabelas foram criadas e tente de novo.";return}
 OK=true;try{localStorage.setItem("cobrei:v","1")}catch(e){}render()}
@@ -201,76 +328,92 @@ if(!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite seu e-mail acima e toque em
 const r=await sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname});
 if(r.error)er.textContent=msgErr(r.error);else inf.textContent="Se esse e-mail tiver conta, enviamos um link para criar uma nova senha."}
 function authUI(){const m=MODE;
-$("intro").classList.toggle("hid",OK);$("app").classList.toggle("hid",!OK);document.querySelector(".fab").classList.toggle("hid",!OK||TAB==="ct");
+$("intro").classList.toggle("hid",OK||LOCK);$("lock").classList.toggle("hid",!LOCK||OK);$("app").classList.toggle("hid",!OK);document.querySelector(".fab").classList.toggle("hid",!OK||TAB==="ct");
 $("an").classList.toggle("hid",m!=="signup");$("ae").classList.toggle("hid",m==="recover");$("fg").classList.toggle("hid",m!=="login");$("sw").classList.toggle("hid",m==="recover");
 $("ap").autocomplete=m==="signup"||m==="recover"?"new-password":"current-password";
-$("at").textContent=m==="login"?"Entrar no COBREI":m==="signup"?"Crie sua conta":"Crie uma nova senha";
+$("at").textContent=m==="recover"?"Crie uma nova senha":"Orçou. Cobrou. Recebeu.";
 $("as").textContent=m==="login"?"Use o e-mail e a senha da sua conta.":m==="signup"?"Seus orçamentos ficam guardados na nuvem, só para você.":"Digite a nova senha que você quer usar.";
 $("ab").textContent=m==="login"?"Entrar":m==="signup"?"Criar conta":"Salvar nova senha";
-$("sw").textContent=m==="login"?"Ainda não tenho conta":"Já tenho conta"}
+$("sw").textContent=m==="login"?"Ainda não tenho conta":"Já tenho conta";const eb=document.querySelector(".eye");eb.innerHTML=HIDE?IEO:IE;eb.setAttribute("aria-pressed",String(HIDE));eb.setAttribute("aria-label",HIDE?"Mostrar valores":"Ocultar valores")}
 const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
 const $=i=>document.getElementById(i),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const num=v=>{const n=parseFloat(String(v).replace(/\./g,"").replace(",","."));return isNaN(n)?0:n};
-const tot=d=>d.itens.reduce((a,i)=>a+i.q*i.v,0);
+const subt=d=>d.itens.reduce((a,i)=>a+i.q*i.v,0),tot=d=>Math.max(0,subt(d)-(d.desc||0));
 const iso=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
 const br=s=>s?s.split("-").reverse().join("/"):"";
 const ST={orc:"Orçamento enviado",apr:"Aprovado — falta cobrar",pago:"Pago"};
 const FL={all:()=>true,orc:d=>d.s==="orc"||d.s==="apr",cob:d=>d.s==="cob",pago:d=>d.s==="pago"};
 function msg(d){const t=R.format(tot(d)),n=S.cfg.nome||"";
-if(d.s==="cob")return`Olá, ${d.c}! Passando para lembrar da cobrança "${d.t}", no valor de ${t}, com vencimento em ${br(d.venc)}.${S.cfg.pix?`\nPix: ${S.cfg.pix}`:""}\nObrigado!`;
-return`Olá, ${d.c}! Segue o orçamento nº ${d.n}${n?` de ${n}`:""}:\n\n${d.t}\n${d.itens.map(i=>`• ${i.d} (${i.q} x ${R.format(i.v)})`).join("\n")}\n\nTotal: ${t}\n\nSe estiver de acordo, é só me responder aqui.`}
+if(d.s==="cob")return`Olá, ${d.c}! Passando para lembrar da cobrança "${d.t}", no valor de ${t}, com vencimento em ${br(d.venc)}.${pixCode(d)?`\nPix copia e cola:\n${pixCode(d)}`:(S.cfg.pix?`\nPix: ${S.cfg.pix}`:"")}\nObrigado!`;
+return`Olá, ${d.c}! Segue o orçamento nº ${d.n}${n?` de ${n}`:""}:\n\n${d.t}\n${d.itens.map(i=>`• ${i.d} (${i.q} x ${R.format(i.v)})`).join("\n")}${d.desc?`\nDesconto: -${R.format(d.desc)}`:""}\n\nTotal: ${t}${d.fp?`\nPagamento: ${d.fp}`:""}${d.val?`\nValidade: ${br(d.val)}`:""}${d.ob?`\nObs.: ${d.ob}`:""}\n\nSe estiver de acordo, é só me responder aqui.`}
 function wa(d){let p=(d.w||"").replace(/\D/g,"");if(p&&p.length<=11)p="55"+p;return`https://wa.me/${p}?text=${encodeURIComponent(msg(d))}`}
 function render(){
 authUI();
 let a=0,b=0,c=0;S.docs.forEach(d=>{const t=tot(d);if(d.s==="pago")c+=t;else if(d.s==="cob")b+=t;else a+=t});
-$("s1").textContent=R.format(a);$("s2").textContent=R.format(b);$("s3").textContent=R.format(c);$("pg").style.width=(a+b+c?Math.round(c/(a+b+c)*100):0)+"%";
-$("ct-tot").textContent=R.format(c);
+$("s1").textContent=fmt(a);$("s2").textContent=fmt(b);$("s3").textContent=fmt(c);$("pg").style.width=(a+b+c?Math.round(c/(a+b+c)*100):0)+"%";
+$("ct-tot").textContent=fmt(c);
 const rec={};S.docs.forEach(d=>{if(d.s==="pago"&&d.conta)rec[d.conta]=(rec[d.conta]||0)+tot(d)});
 const other=c-S.contas.reduce((z,x)=>z+(rec[x.id]||0),0);
-$("ctl").innerHTML=S.contas.length?S.contas.map(x=>`<article class="card"><div class="top"><div class="av">${EM[x.tipo]}</div><div class="mid"><h3>${esc(x.nome)}</h3><p>${TP[x.tipo]}${x.chave?" · "+esc(x.chave):""}</p></div><div class="tot">${R.format(rec[x.id]||0)}</div></div><div class="sub"><button class="d" data-id="${x.id}" data-act="delct">Excluir</button></div></article>`).join("")+(other>0.004?`<p class="note">${R.format(other)} recebidos sem conta informada ou em contas excluídas.</p>`:""):`<div class="empty">Nenhuma conta cadastrada.<br>Cadastre onde você recebe — Pix, banco, carteira digital ou dinheiro — para saber quanto entrou em cada uma.</div>`;
-$("v-cob").classList.toggle("hid",TAB!=="cob");$("v-ct").classList.toggle("hid",TAB!=="ct");
+$("ctl").innerHTML=S.contas.length?S.contas.map(x=>`<article class="card"><div class="top"><div class="av">${EM[x.tipo]}</div><div class="mid"><h3>${esc(x.nome)}</h3><p>${TP[x.tipo]}${x.chave?" · "+esc(x.chave):""}</p></div><div class="tot">${fmt(rec[x.id]||0)}</div></div><div class="sub"><button class="d" data-id="${x.id}" data-act="delct">Excluir</button></div></article>`).join("")+(other>0.004?`<p class="note">${fmt(other)} recebidos sem conta informada ou em contas excluídas.</p>`:""):`<div class="empty">Nenhuma conta cadastrada.<br>Cadastre onde você recebe — Pix, banco, carteira digital ou dinheiro — para saber quanto entrou em cada uma.</div>`;
+$("v-pnl").classList.toggle("hid",TAB!=="pnl");renderPnl();$("v-cli").classList.toggle("hid",TAB!=="cli");renderCli();$("v-cob").classList.toggle("hid",TAB!=="cob");$("v-ct").classList.toggle("hid",TAB!=="ct");
 document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x.dataset.t===TAB));
 $("hi").textContent=S.cfg.nome?`Olá, ${S.cfg.nome}`:"Orçou. Cobrou. Recebeu.";
 document.querySelectorAll(".chips button").forEach(x=>x.classList.toggle("on",x.dataset.f===F));
 const L=S.docs.filter(FL[F]);
 $("list").innerHTML=L.length?L.map(d=>{
 const late=d.s==="cob"&&d.venc<iso(0),id=`data-id="${d.id}"`;
-const tag=d.s==="cob"?`<span class="tag ${late?"late":"cob"}">${late?"Atrasado desde ":"Vence em "}${br(d.venc)}</span>`:`<span class="tag ${d.s==="pago"?"pago":""}">${ST[d.s]}${d.s==="pago"&&contaNome(d.conta)?" · "+esc(contaNome(d.conta)):""}</span>`;
+const tag=d.s==="cob"?`<span class="tag ${late?"late":"cob"}">${late?"Atrasado desde ":"Vence em "}${br(d.venc)}</span>`:`<span class="tag ${d.s==="pago"?"pago":""}">${ST[d.s]}${d.s==="pago"&&contaNome(d.conta)?" · "+esc(contaNome(d.conta)):""}${d.s==="orc"&&d.val?" · válido até "+br(d.val).slice(0,5):""}</span>`;
 let ac="",sub="";
 if(d.s==="orc")ac=`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">Enviar no WhatsApp</a><button class="b" ${id} data-act="apr">Cliente aprovou</button>`;
 if(d.s==="apr")ac=`<button class="b p" ${id} data-act="cob">Gerar cobrança</button>`;
-if(d.s==="cob"){ac=`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">Cobrar no WhatsApp</a><button class="b" ${id} data-act="pago">Marcar como pago</button>`;sub=`<label>Vencimento <input type="date" value="${d.venc}" ${id} data-act="venc"></label>`}
-return`<article class="card"><div class="top"><div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${R.format(tot(d))}</div></div>${tag}<div class="act">${ac}</div><div class="sub">${sub}<button ${id} data-act="pdf">PDF</button><button class="d" ${id} data-act="del">Excluir</button></div></article>`}).join(""):`<div class="empty">${S.docs.length?"Nada por aqui neste filtro.":"Nenhum orçamento ainda.<br>Toque em “Novo orçamento” e envie o primeiro pelo WhatsApp em menos de um minuto."}</div>`}
+if(d.s==="cob"){ac=`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">Cobrar no WhatsApp</a><button class="b" ${id} data-act="pix">Pix / QR Code</button><button class="b" ${id} data-act="pago">Marcar como pago</button>`;sub=`<label>Vencimento <input type="date" value="${d.venc}" ${id} data-act="venc"></label>`}
+return`<article class="card"><div class="top"><div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div></div>${tag}<div class="act">${ac}</div><div class="sub">${sub}<button ${id} data-act="pdf">PDF</button><button class="d" ${id} data-act="del">Excluir</button></div></article>`}).join(""):`<div class="empty">${S.docs.length?"Nada por aqui neste filtro.":"Nenhum orçamento ainda.<br>Toque em “Novo orçamento” e envie o primeiro pelo WhatsApp em menos de um minuto."}</div>`}
 const openS=id=>{$("ov").classList.add("open");$(id).classList.add("open")};
 const closeS=()=>{$("ov").classList.remove("open");document.querySelectorAll(".sheet").forEach(s=>s.classList.remove("open"))};
 function addItem(){const r=document.createElement("div");r.className="it";r.innerHTML=`<input placeholder="Descrição" aria-label="Descrição"><input placeholder="Qtd" value="1" inputmode="decimal" aria-label="Quantidade"><input placeholder="R$" inputmode="decimal" aria-label="Valor unitário">`;$("its").appendChild(r)}
-function calc(){let t=0;document.querySelectorAll("#its .it").forEach(r=>{const i=r.querySelectorAll("input");t+=num(i[1].value)*num(i[2].value)});$("ftot").textContent=R.format(t)}
-function pdf(d){const t=R.format(tot(d)),n=S.cfg.nome;
-$("doc").innerHTML=`<h1>${esc(n||"Orçamento")}</h1><p>${d.s==="cob"||d.s==="pago"?"Cobrança":"Orçamento"} nº ${d.n} · ${br(d.data)}<br>Cliente: ${esc(d.c)}</p><h2>${esc(d.t)}</h2><table><tr><th>Item</th><th class="r">Qtd</th><th class="r">Valor</th><th class="r">Subtotal</th></tr>${d.itens.map(i=>`<tr><td>${esc(i.d)}</td><td class="r">${i.q}</td><td class="r">${R.format(i.v)}</td><td class="r">${R.format(i.q*i.v)}</td></tr>`).join("")}</table><h2 style="text-align:right">Total: ${t}</h2>${d.venc?`<p>Vencimento: ${br(d.venc)}</p>`:""}${S.cfg.pix?`<p>Pagamento via Pix: ${esc(S.cfg.pix)}</p>`:""}`;window.print()}
-document.addEventListener("input",e=>{if(e.target.closest("#its"))calc()});
+function calc(){let t=0;document.querySelectorAll("#its .it").forEach(r=>{const i=r.querySelectorAll("input");t+=num(i[1].value)*num(i[2].value)});t=Math.max(0,t-num($("fdc").value));$("ftot").textContent=R.format(t)}
+
+document.addEventListener("input",e=>{if(e.target.closest("#its")||e.target.id==="fdc")calc()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeS()});
 async function up(d,v){const r=await sb.from("orcamentos").update(v).eq("id",d.id);if(r.error)throw r.error;await loadAll();render()}
-const fail=()=>alert("Não foi possível salvar. Verifique sua conexão e tente de novo.");
-document.addEventListener("change",async e=>{const t=e.target;if(t.dataset.act==="venc"&&t.value){const d=S.docs.find(x=>x.id===t.dataset.id);if(d)try{await up(d,{vencimento:t.value})}catch(x){fail()}}});
+const fail=()=>toast("Não foi possível salvar. Verifique sua conexão e tente de novo.");
+document.addEventListener("change",async e=>{const t=e.target;if(t.id==="fcl"){const c=S.clientes.find(x=>x.id===t.value);if(c){$("fc").value=c.nome;$("fw").value=c.whatsapp}return}if(t.dataset.act==="venc"&&t.value){const d=S.docs.find(x=>x.id===t.dataset.id);if(d)try{await up(d,{vencimento:t.value})}catch(x){fail()}}});
 async function act(a,t){const d=S.docs.find(x=>x.id===t.dataset.id);
 try{
 if(a==="auth")await doAuth();else if(a==="forgot")await forgot();
+else if(a==="eye"){HIDE=!HIDE;try{localStorage.setItem("cobrei:hide",HIDE?"1":"0")}catch(e){}render()}
+else if(a==="unlock")await unlock();
+else if(a==="mes"){MES=mshift(MES,Number(t.dataset.d));render()}
+else if(a==="logo")$("lgf").click();else if(a==="logox"){LOGO="";logoUI()}
+else if(a==="pix"&&d){const c=pixCode(d);$("pixq").innerHTML=c?qrSvg(c):"";$("pixq").classList.toggle("hid",!c);$("pixc").value=c;
+$("pixm").textContent=c?"Valor: "+R.format(tot(d))+" · Mostre o QR Code ou envie o código ao cliente.":"Para gerar o Pix, preencha em Meus dados: nome, cidade e a chave Pix com o tipo dela.";openS("sh-pix")}
+else if(a==="pixcopy"){const v=$("pixc").value;if(!v){toast("Preencha seus dados Pix primeiro.");return}try{await navigator.clipboard.writeText(v);toast("Código Pix copiado.")}catch(e){$("pixc").select();toast("Selecione e copie o código.")}}
+else if(a==="usepw"){await sb.auth.signOut();LOCK=false;MODE="login";render()}
+else if(a==="bio")await bioToggle();
+else if(a==="newfor")openNew(t.dataset.id);
+else if(a==="newcli"){["cln","cld","clw"].forEach(i=>$(i).value="");$("clt").value="pf";$("clr").checked=false;openS("sh-cli")}
+else if(a==="savecli"){const n=$("cln").value.trim();if(!n){toast("Digite o nome do cliente.");return}
+const r=await sb.from("clientes").insert({nome:n,tipo:$("clt").value,documento:$("cld").value.trim()||null,whatsapp:$("clw").value.trim()||null,recorrente:$("clr").checked});if(r.error)throw r.error;await loadAll();closeS();toast("Cliente cadastrado.");render()}
+else if(a==="delcli"){if(!confirm("Excluir este cliente? Os orçamentos dele continuam no histórico."))return;const r=await sb.from("clientes").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
 else if(a==="swm"){MODE=MODE==="login"?"signup":"login";$("aerr").textContent="";$("ainfo").textContent="";render()}
 else if(a==="out"){closeS();await sb.auth.signOut();OK=false;S.docs=[];S.contas=[];MODE="login";render()}
-else if(a==="cfg"){$("cn").value=S.cfg.nome;$("cp").value=S.cfg.pix;openS("sh-cfg")}
-else if(a==="savecfg"){const c={nome:$("cn").value.trim(),pix:$("cp").value.trim()};const r=await sb.auth.updateUser({data:c});if(r.error)throw r.error;S.cfg=c;closeS();render()}
-else if(a==="new"){["fc","fw","ft"].forEach(i=>$(i).value="");$("its").innerHTML="";addItem();calc();openS("sh-new")}
+else if(a==="cfg"){$("cn").value=S.cfg.nome;$("cp").value=S.cfg.pix;$("cdc").value=S.perfil.documento||"";$("ctf").value=S.perfil.telefone||"";$("cci").value=S.perfil.cidade||"";$("cpt").value=S.perfil.pixt||"cpf";LOGO=S.perfil.logo||"";logoUI();bioLabel();openS("sh-cfg")}
+else if(a==="savecfg"){const c={nome:$("cn").value.trim(),pix:$("cp").value.trim()};
+const pf={user_id:U.id,documento:$("cdc").value.trim()||null,telefone:$("ctf").value.trim()||null,cidade:$("cci").value.trim()||null,pixt:$("cpt").value,logo:LOGO||null};
+const r=await sb.auth.updateUser({data:c});if(r.error)throw r.error;const r2=await sb.from("perfil").upsert(pf,{onConflict:"user_id"});if(r2.error)throw r2.error;
+S.cfg=c;S.perfil={documento:pf.documento||"",telefone:pf.telefone||"",cidade:pf.cidade||"",pixt:pf.pixt,logo:pf.logo||""};closeS();toast("Dados salvos.");render()}
+else if(a==="new")openNew("");
 else if(a==="close")closeS();else if(a==="additem")addItem();else if(a==="flt"){F=t.dataset.f;render()}
 else if(a==="tab"){TAB=t.dataset.t;render()}
 else if(a==="newct"){["ctn","ctk"].forEach(i=>$(i).value="");$("ctt").value="pix";openS("sh-ct")}
-else if(a==="savect"){const n=$("ctn").value.trim();if(!n){alert("Digite o nome da conta, por exemplo: Nubank.");return}
+else if(a==="savect"){const n=$("ctn").value.trim();if(!n){toast("Digite o nome da conta, por exemplo: Nubank.");return}
 const r=await sb.from("contas").insert({nome:n,tipo:$("ctt").value,chave:$("ctk").value.trim()||null});if(r.error)throw r.error;await loadAll();closeS();render()}
 else if(a==="delct"){if(!confirm("Excluir esta conta? Os valores já recebidos continuam no histórico."))return;const r=await sb.from("contas").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
 else if(a==="payto"){const x=S.docs.find(z=>z.id===PAY);if(x)await up(x,{status:"pago",pago_em:iso(0),conta_id:t.dataset.c||null});closeS()}
 else if(a==="save"){const itens=[...document.querySelectorAll("#its .it")].map(r=>{const i=r.querySelectorAll("input");return{d:i[0].value.trim(),q:num(i[1].value)||1,v:num(i[2].value)}}).filter(i=>i.d&&i.v>0);
-if(!$("fc").value.trim()||!$("ft").value.trim()||!itens.length){alert("Preencha o cliente, o serviço e pelo menos um item com valor.");return}
+if(!$("fc").value.trim()||!$("ft").value.trim()||!itens.length){toast("Preencha o cliente, o serviço e pelo menos um item com valor.");return}
 const n=S.docs.reduce((m,x)=>Math.max(m,x.n||0),0)+1;
-const r=await sb.from("orcamentos").insert({numero:n,cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servico:$("ft").value.trim()}).select("id").single();if(r.error)throw r.error;
+const r=await sb.from("orcamentos").insert(Object.assign({numero:n,cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servico:$("ft").value.trim(),validade:$("fva").value||null,desconto:num($("fdc").value),forma_pagamento:$("ffp").value||null,observacoes:$("fob").value.trim()||null},$("fcl").value?{cliente_id:$("fcl").value}:{})).select("id").single();if(r.error)throw r.error;
 const r2=await sb.from("itens").insert(itens.map(i=>({orcamento_id:r.data.id,descricao:i.d,quantidade:i.q,valor:i.v})));
 if(r2.error){await sb.from("orcamentos").delete().eq("id",r.data.id);throw r2.error}
 await loadAll();closeS();F="all";render()}
@@ -279,11 +422,12 @@ else if(a==="pago"){PAY=d.id;payList();openS("sh-pay")}else if(a==="pdf")pdf(d);
 else if(a==="del"){if(!confirm("Excluir este registro?"))return;const r=await sb.from("orcamentos").delete().eq("id",d.id);if(r.error)throw r.error;await loadAll();render()}}
 }catch(x){fail()}}
 document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.tagName==="INPUT")return;act(t.dataset.act,t)});
-async function init(){
+async function init(){loadBind();
 if(!sb){$("aerr").textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
 sb.auth.onAuthStateChange((ev)=>{if(ev==="PASSWORD_RECOVERY"){MODE="recover";OK=false;render()}});
 const g=await sb.auth.getSession();
-if(g.data.session&&MODE!=="recover")await enter(g.data.session.user)}
+if(g.data.session&&MODE!=="recover"){const u=g.data.session.user;let c=null;try{c=JSON.parse(localStorage.getItem(BK))}catch(e){}
+if(c&&c.uid===u.id&&window.PublicKeyCredential){PEND=u;LOCK=true;render()}else await enter(u)}}
 render();init();
 </script>
 </body>
