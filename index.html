@@ -3,6 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0a1230">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="COBREI">
 <title>COBREI — orçamentos e cobranças</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -155,6 +161,12 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 #doc .px .sg{margin-top:44px;text-align:center}#doc .px .sg div{border-top:1px solid #1a1f36;width:62%;margin:0 auto;padding-top:5px;font-size:9.5pt}
 #doc .px .ft{margin-top:34px;border-top:1px solid #c9cfe0;padding-top:10px;display:flex;justify-content:space-between;align-items:center;font-size:8pt;color:#6a7190}
 #doc .px .ft .logo{font-size:17pt;color:#0a1230}#doc .px .ft .tg{display:block;font-size:7.5pt;letter-spacing:.06em;margin-top:3px}
+
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:.3rem;background:var(--sf);border:1px solid var(--ln);border-radius:99px;padding:.25rem;margin-bottom:1rem}
+.seg button{border:0;background:none;border-radius:99px;min-height:2.5rem;font-weight:600;font-size:.85rem;color:var(--mu)}.seg button.on{background:var(--ac);color:#0a1230}
+.b.d{color:var(--bad)}.dr{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;font-size:.9rem}.dr span:first-child{color:var(--mu)}
+.intro .chk{display:flex;gap:.6rem;align-items:flex-start;text-align:left;font-size:.8rem;color:var(--mu);max-width:22rem;line-height:1.4}.intro .chk input{width:1.25rem;height:1.25rem;flex:none;margin-top:.1rem;padding:0}.intro .chk a{color:var(--ac)}
+.sheet .note a{color:var(--ac)}
 </style>
 </head>
 <body>
@@ -176,6 +188,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <input id="ae" type="email" placeholder="E-mail" autocomplete="email" inputmode="email" aria-label="E-mail">
 <input id="ap" type="password" placeholder="Senha (mínimo 8 caracteres)" aria-label="Senha">
 <p id="aerr" class="err" role="alert"></p><p id="ainfo" class="info" role="status"></p>
+<label class="chk" id="aceitew"><input type="checkbox" id="ace"><span>Li e aceito os <a href="termos.html" target="_blank" rel="noopener">Termos de Uso</a> e a <a href="privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</span></label>
 <button class="b p" id="ab" data-act="auth">Criar conta</button>
 </div>
 <button class="link hid" id="fg" data-act="forgot">Esqueci minha senha</button>
@@ -184,7 +197,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 </div>
 <div id="app" class="hid">
 <header><span class="logo" role="img" aria-label="Cobrei">C<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#ffc53d"/><path d="M11 21l6 6 12-14" fill="none" stroke="#0a1230" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>BREI</span><p id="hi"></p><button class="ic eye" data-act="eye"></button><button class="ic" data-act="cfg" aria-label="Meus dados"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg></button></header>
-<nav class="tabs" aria-label="Seções"><button class="on" data-act="tab" data-t="pnl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg><span>Painel</span><em id="bdg" class="bdg hid"></em></button><button data-act="tab" data-t="cob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6"/></svg><span>Cobranças</span></button><button data-act="tab" data-t="cli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.4 0 4 1.7 4 4"/></svg><span>Clientes</span></button><button data-act="tab" data-t="ct"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h14a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2zM4 7l11-3v3"/><circle cx="16" cy="13.5" r="1.2"/></svg><span>Recebimentos</span></button></nav>
+<nav class="tabs" aria-label="Seções"><button class="on" data-act="tab" data-t="pnl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg><span>Painel</span><em id="bdg" class="bdg hid"></em></button><button data-act="tab" data-t="cob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6"/></svg><span>Cobranças</span></button><button data-act="tab" data-t="cli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.4 0 4 1.7 4 4"/></svg><span>Clientes</span></button><button data-act="tab" data-t="ct"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h14a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2zM4 7l11-3v3"/><circle cx="16" cy="13.5" r="1.2"/></svg><span>Financeiro</span></button></nav>
 <div id="v-pnl">
 <section class="hero"><span>Falta receber</span><b id="p-ab"></b><div class="hs"><div><span>Atrasado</span><b id="p-atr"></b></div><div><span id="p-mn">Total recebido</span><b id="p-rec"></b></div></div></section>
 <h2 class="sec">Para fazer agora</h2>
@@ -201,9 +214,26 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <button class="b p wide" data-act="newcli">+ Cadastrar cliente</button>
 </div>
 <div id="v-ct" class="hid">
+<nav class="seg" aria-label="Financeiro"><button class="on" data-act="sub" data-s="ct">Contas</button><button data-act="sub" data-s="dp">Despesas</button><button data-act="sub" data-s="rl">Relatório</button></nav>
+<div id="v-nav" class="hid"><div class="mes"><button class="ic" data-act="mes" data-d="-1" aria-label="Período anterior">‹</button><b id="mes-t"></b><button class="ic" data-act="mes" data-d="1" aria-label="Próximo período">›</button></div></div>
+<div id="sv-ct">
 <section class="hero"><span>Total recebido</span><b id="ct-tot"></b><div class="pgb"><i style="width:100%"></i></div><p class="note">Cadastre onde o dinheiro cai e veja quanto entrou em cada lugar.</p></section>
 <div id="ctl"></div>
 <button class="b p wide" data-act="newct">+ Cadastrar onde recebo</button>
+</div>
+<div id="sv-dp" class="hid">
+<section class="hero"><span>Despesas no mês</span><b id="dp-tot"></b></section>
+<div id="dpl"></div>
+<button class="b p wide" data-act="newdp">+ Nova despesa</button>
+</div>
+<div id="sv-rl" class="hid">
+<nav class="seg seg2" aria-label="Período"><button class="on" data-act="rper" data-p="m">Mês</button><button data-act="rper" data-p="a">Ano</button></nav>
+<section class="hero"><span>Resultado do período</span><b id="rl-res"></b><div class="hs"><div><span>Recebido</span><b id="rl-rec"></b></div><div><span>Despesas</span><b id="rl-des"></b></div></div></section>
+<div class="card"><b>Despesas por categoria</b><div id="rl-cat"></div></div>
+<div class="card"><b>Recebido por conta</b><div id="rl-ct"></div></div>
+<button class="b p wide" data-act="rlpdf">Relatório em PDF</button>
+<button class="b wide" data-act="rlcsv">Baixar planilha (CSV) para o contador</button>
+</div>
 </div>
 </div>
 </div>
@@ -218,6 +248,12 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <label>Logo (aparece nos PDFs)</label><div class="lg"><img id="lgp" alt="" class="hid"><button class="b" data-act="logo">Escolher imagem</button><button class="b d hid" id="lgx" data-act="logox">Remover</button></div><input type="file" id="lgf" accept="image/*" class="hid">
 <label>Catálogo</label><button class="b wide" data-act="svc">Meus serviços e preços</button>
 <div id="biow"><label>Segurança</label><button class="b wide" id="bio" data-act="bio"></button></div>
+<div id="instw"><label>Aplicativo</label><button class="b wide hid" id="instb" data-act="inst">Instalar COBREI no celular</button><p id="insth" class="note"></p></div>
+<label>Plano</label><div class="card" id="plbox"></div>
+<label>Seus dados e privacidade</label>
+<button class="b wide" data-act="exp">Baixar meus dados (JSON)</button>
+<button class="b wide d" data-act="delacc">Excluir minha conta</button>
+<p class="note"><a href="termos.html" target="_blank" rel="noopener">Termos de Uso</a> · <a href="privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a></p>
 <div class="bar"><div class="act"><button class="b p" data-act="savecfg">Salvar</button><button class="b" data-act="out">Sair da conta</button></div></div>
 </aside>
 <aside id="sh-new" class="sheet" aria-label="Novo orçamento">
@@ -225,7 +261,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <label for="fcl">Cliente cadastrado</label><select id="fcl"></select>
 <label for="fc">Nome do cliente</label><input id="fc" autocomplete="off">
 <label for="fw">WhatsApp do cliente (opcional)</label><input id="fw" inputmode="tel" placeholder="43 99999-9999">
-<label for="ft">Serviço</label><input id="ft" placeholder="Ex.: Pintura da sala">
+<label for="ft">Serviço (opcional se usar o catálogo)</label><input id="ft" placeholder="Ex.: Pintura da sala">
 <label for="fsv">Catálogo de serviços</label><select id="fsv"></select>
 <label>Itens</label><div id="its"></div>
 <button class="link" data-act="additem">+ Adicionar outro item</button>
@@ -282,6 +318,18 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <label for="svp">Preço (R$)</label><input id="svp" inputmode="decimal">
 <div class="bar"><div class="act"><button class="b p" data-act="savesv">Adicionar ao catálogo</button></div></div>
 </aside>
+<aside id="sh-dp" class="sheet" aria-label="Nova despesa">
+<h2>Nova despesa</h2>
+<label for="dpd">Descrição</label><input id="dpd" placeholder="Ex.: Tinta e pincéis" autocomplete="off">
+<label for="dpv">Valor (R$)</label><input id="dpv" inputmode="decimal">
+<label for="dpt">Data</label><input id="dpt" type="date">
+<label for="dpc">Categoria</label><select id="dpc"><option>Material</option><option>Transporte</option><option>Alimentação</option><option>Ferramentas e equipamentos</option><option>Marketing</option><option>Impostos e taxas</option><option>Aluguel e contas</option><option>Outros</option></select>
+<div class="bar"><div class="act"><button class="b p" data-act="savedp">Salvar despesa</button></div></div>
+</aside>
+<aside id="sh-plano" class="sheet" aria-label="Planos">
+<h2>Planos do COBREI</h2><div id="planoc"></div>
+<div class="bar"><div class="act" id="planob"></div></div>
+</aside>
 <aside id="sh-pay" class="sheet" aria-label="Onde recebeu">
 <h2>Onde você recebeu?</h2>
 <div id="payl" class="pl"></div>
@@ -293,8 +341,9 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 const K="fechou:v1",R=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
 let S={cfg:{nome:"",pix:""},docs:[]},F="all";
 try{const r=localStorage.getItem(K);if(r)S=JSON.parse(r)}catch(e){}
-S.contas=S.contas||[];S.clientes=[];S.perfil={};S.servicos=[];S.recs=[];
-let TAB="pnl",PAY=null,CB=null,RC=null,FORCE=false,EC=null,CF="",PIXD=null;const CVT=new URLSearchParams(location.search).get("o");
+S.contas=S.contas||[];S.clientes=[];S.perfil={};S.servicos=[];S.recs=[];S.desp=[];S.plano={plano:"gratis",ate:""};
+const CFG={limite:10,preco:"R$ 19,90 por mês",checkout:"",contato:""};
+let TAB="pnl",PAY=null,CB=null,RC=null,FORCE=false,EC=null,CF="",PIXD=null,SUB="ct",PER="m",IP=null;const CVT=new URLSearchParams(location.search).get("o");
 const TP={pix:"Pix",banco:"Conta bancária",carteira:"Carteira digital",dinheiro:"Dinheiro em mãos"},EM={pix:"⚡",banco:"🏦",carteira:"📱",dinheiro:"💵"};
 const contaNome=id=>(S.contas.find(x=>x.id===id)||{}).nome;
 function payList(){$("payl").innerHTML=S.contas.map(x=>`<button class="b" data-act="payto" data-c="${x.id}">${EM[x.tipo]} ${esc(x.nome)}</button>`).join("")+`<button class="b" data-act="payto" data-c="">Não informar</button>`}
@@ -363,7 +412,7 @@ function imgData(f,max,cb){const r=new FileReader();r.onload=()=>{const im=new I
 function cfUI(){const i=$("cfp");i.src=CF||"";i.classList.toggle("hid",!CF);$("cfx").classList.toggle("hid",!CF)}
 function openCli(c){EC=c||null;$("clh").textContent=c?"Editar cliente":"Novo cliente";$("cln").value=c?c.nome:"";$("clt").value=c?c.tipo:"pf";$("cld").value=c?c.documento:"";$("clw").value=c?c.whatsapp:"";$("cle").value=c?c.email:"";$("clr").checked=c?c.recorrente:false;CF=c?c.foto:"";cfUI();openS("sh-cli")}
 const needProfile=()=>!(S.cfg.nome&&S.perfil.documento&&S.perfil.telefone&&S.perfil.cidade);
-function openProfile(force){FORCE=force;$("cn").value=S.cfg.nome||"";$("cdc").value=S.perfil.documento||"";$("ctf").value=S.perfil.telefone||"";$("cci").value=S.perfil.cidade||"";LOGO=S.perfil.logo||"";logoUI();bioLabel();
+function openProfile(force){planoBox();instUI();FORCE=force;$("cn").value=S.cfg.nome||"";$("cdc").value=S.perfil.documento||"";$("ctf").value=S.perfil.telefone||"";$("cci").value=S.perfil.cidade||"";LOGO=S.perfil.logo||"";logoUI();bioLabel();
 $("cfgt").textContent=force?"Complete seus dados":"Meus dados";const n=$("cfgn");n.classList.toggle("hid",!force);n.textContent="Esses dados aparecem nos seus orçamentos, cobranças e recibos. Preencha com atenção.";openS("sh-cfg")}
 function pixShow(){const d=S.docs.find(x=>x.id===PIXD);if(!d)return;const c=pixCode(d,$("pixa").value||undefined);$("pixq").innerHTML=c?qrSvg(c):"";$("pixq").classList.toggle("hid",!c);$("pixc").value=c;
 $("pixm").textContent=c?"Valor: "+R.format(tot(d))+" · Mostre o QR Code ou envie o código ao cliente.":(pixContas().length?"Complete seu nome e cidade em Meus dados para gerar o Pix.":"Cadastre uma conta Pix, com a chave, na aba Recebimentos para gerar o QR Code.");openS("sh-pix")}
@@ -427,6 +476,50 @@ ${o.forma_pagamento?`<p class="note" style="text-align:left">Pagamento: ${esc(o.
 async function cvAnswer(ok){const r=await sb.rpc("responder_orcamento",{p_token:CVT,p_aceite:ok});if(r.error)throw r.error;
 const m={apr:"Orçamento aprovado! Obrigado. Sua resposta foi registrada.",rec:"Resposta registrada. Obrigado pelo retorno.",vencido:"Este orçamento passou da validade. Peça uma nova versão.",nao_encontrado:"Este link não é válido."};
 $("cva").innerHTML=`<p class="note">${m[r.data]||"Este orçamento já foi respondido."}</p>`}
+const isPro=()=>S.plano.plano==="pro"&&(!S.plano.ate||S.plano.ate>=iso(0));
+const usados=()=>{const m=iso(0).slice(0,7);return S.docs.filter(d=>!d.pc&&!d.rc&&d.data.slice(0,7)===m).length};
+function planoBox(){$("plbox").innerHTML=isPro()?`<b>Plano Pro</b><p class="note" style="margin:.3rem 0 0;text-align:left">Orçamentos ilimitados${S.plano.ate?" · válido até "+br(S.plano.ate):""}.</p>`:`<b>Plano Grátis</b><p class="note" style="margin:.3rem 0 .6rem;text-align:left">${usados()} de ${CFG.limite} orçamentos novos usados este mês.</p><button class="b wide" data-act="plano">Conhecer o plano Pro</button>`}
+function planoOpen(){$("planoc").innerHTML=`<div class="ir"><span>Grátis</span><b>até ${CFG.limite} orçamentos novos por mês</b></div><div class="ir"><span>Pro</span><b>orçamentos ilimitados</b></div><p class="note" style="margin-top:1rem">Clientes, catálogo, cobranças, Pix, PDFs e relatórios funcionam nos dois planos. Parcelas e cobranças mensais geradas automaticamente não entram no limite.</p><p class="note"><b>${esc(CFG.preco)}</b></p>`;
+$("planob").innerHTML=CFG.checkout?`<a class="b p" href="${esc(CFG.checkout)}" target="_blank" rel="noopener">Assinar o Pro</a>`:CFG.contato?`<a class="b p" href="mailto:${esc(CFG.contato)}?subject=Quero%20o%20plano%20Pro%20do%20COBREI">Falar para assinar</a>`:`<button class="b" data-act="close">Assinatura em breve</button>`;openS("sh-plano")}
+function instUI(){const st=matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;$("instw").classList.toggle("hid",st);$("instb").classList.toggle("hid",!IP);
+$("insth").textContent=IP?"":/iphone|ipad|ipod/i.test(navigator.userAgent)?"No iPhone: toque em Compartilhar e depois em “Adicionar à Tela de Início”.":"No navegador, abra o menu e escolha “Instalar app” ou “Adicionar à tela inicial”."}
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();IP=e;instUI()});
+window.addEventListener("appinstalled",()=>{IP=null;instUI()});
+if("serviceWorker"in navigator&&location.protocol==="https:")window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+const inPer=x=>SUB==="rl"&&PER==="a"?String(x).slice(0,4)===MES.slice(0,4):String(x).slice(0,7)===MES;
+function finData(){const rec=S.docs.filter(d=>d.s==="pago"&&inPer(d.pagoEm||d.data)),des=S.desp.filter(x=>inPer(x.data));return{rec,des,tr:rec.reduce((a,d)=>a+tot(d),0),td:des.reduce((a,x)=>a+x.valor,0)}}
+function renderFin(){["ct","dp","rl"].forEach(q=>$("sv-"+q).classList.toggle("hid",SUB!==q));
+document.querySelectorAll("#v-ct>.seg:first-child button").forEach(x=>x.classList.toggle("on",x.dataset.s===SUB));
+document.querySelectorAll("#sv-rl .seg2 button").forEach(x=>x.classList.toggle("on",x.dataset.p===PER));
+$("v-nav").classList.toggle("hid",SUB==="ct");const [y,o]=MES.split("-");$("mes-t").textContent=SUB==="rl"&&PER==="a"?y:MF[Number(o)-1]+" de "+y;
+const FD=finData();$("dp-tot").textContent=fmt(FD.td);
+$("dpl").innerHTML=FD.des.length?FD.des.map(x=>`<article class="card"><div class="top"><div class="mid"><h3>${esc(x.desc)}</h3><p>${esc(x.cat)} · ${br(x.data)}</p></div><div class="tot">${fmt(x.valor)}</div></div><div class="sub"><button class="d" data-id="${x.id}" data-act="deldp">Excluir</button></div></article>`).join(""):`<div class="empty">Nenhuma despesa neste período.<br>Registre o que você gasta para ver o lucro de verdade.</div>`;
+$("rl-res").textContent=fmt(FD.tr-FD.td);$("rl-rec").textContent=fmt(FD.tr);$("rl-des").textContent=fmt(FD.td);
+const cat={},pc={};FD.des.forEach(x=>cat[x.cat]=(cat[x.cat]||0)+x.valor);FD.rec.forEach(d=>{const n=contaNome(d.conta)||"Sem conta informada";pc[n]=(pc[n]||0)+tot(d)});
+const lst=(m,v)=>Object.keys(m).length?Object.entries(m).sort((a,b)=>b[1]-a[1]).map(([q,w])=>`<div class="dr"><span>${esc(q)}</span><b>${fmt(w)}</b></div>`).join(""):`<p class="note">${v}</p>`;
+$("rl-cat").innerHTML=lst(cat,"Sem despesas no período.");$("rl-ct").innerHTML=lst(pc,"Sem recebimentos no período.")}
+function baixar(nome,txt,tipo){const b=new Blob([txt],{type:tipo}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=nome;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},800)}
+function rlCsv(){const FD=finData(),n=v=>v.toFixed(2).replace(".",","),sx=t=>/^[=+\-@]/.test(String(t))?"'"+t:String(t??""),q=c=>'"'+String(c??"").replace(/"/g,'""')+'"';
+const L=[["Data","Tipo","Descrição","Cliente ou categoria","Conta","Valor (R$)"]];
+FD.rec.slice().sort((a,b)=>(a.pagoEm||a.data).localeCompare(b.pagoEm||b.data)).forEach(d=>L.push([br(d.pagoEm||d.data),"Receita",sx(d.t+(d.pc?" (parcela "+d.pc+")":"")),sx(d.c),sx(contaNome(d.conta)||""),n(tot(d))]));
+FD.des.slice().sort((a,b)=>a.data.localeCompare(b.data)).forEach(x=>L.push([br(x.data),"Despesa",sx(x.desc),sx(x.cat),"",n(-x.valor)]));
+L.push([],["","","","","Total receitas",n(FD.tr)],["","","","","Total despesas",n(-FD.td)],["","","","","Resultado",n(FD.tr-FD.td)]);
+baixar("cobrei-relatorio-"+(PER==="a"?MES.slice(0,4):MES)+".csv","\ufeff"+L.map(r=>r.map(q).join(";")).join("\r\n"),"text/csv;charset=utf-8")}
+function rlPdf(){const FD=finData(),p=S.perfil,n=S.cfg.nome,brand=document.querySelector("header .logo").outerHTML,dl=dg(p.documento).length===14?"CNPJ":"CPF";
+const per=PER==="a"?MES.slice(0,4):MF[Number(MES.slice(5))-1]+" de "+MES.slice(0,4);
+const em=[p.documento?dl+" "+fdoc(p.documento):"",p.telefone?ftel(p.telefone):"",p.cidade||""].filter(Boolean).map(esc).join("  ·  ");
+const R1=FD.rec.slice().sort((a,b)=>(a.pagoEm||a.data).localeCompare(b.pagoEm||b.data)),D1=FD.des.slice().sort((a,b)=>a.data.localeCompare(b.data));
+$("doc").innerHTML=`<div class="px"><div class="top6"></div>
+<div class="hd"><div class="em">${p.logo?`<img src="${p.logo}" alt="">`:""}<div><h1>${esc(n||"")}</h1><p>${em}</p></div></div><div class="dk"><b>Relatório</b><span>${per}</span><span>Emitido em ${dlong(iso(0))}</span></div></div>
+<h2>Resumo do período</h2><div class="cn"><div class="rw"><span>Total recebido</span><b>${R.format(FD.tr)}</b></div><div class="rw"><span>Total de despesas</span><b>${R.format(FD.td)}</b></div><div class="rw"><span><b>Resultado</b></span><b>${R.format(FD.tr-FD.td)}</b></div></div>
+<div class="lb">Recebimentos</div>${R1.length?`<table><thead><tr><th>Data</th><th>Cliente</th><th>Serviço</th><th>Conta</th><th class="r">Valor</th></tr></thead><tbody>${R1.map(d=>`<tr><td>${br(d.pagoEm||d.data)}</td><td>${esc(d.c)}</td><td>${esc(d.t)}${d.pc?" ("+esc(d.pc)+")":""}</td><td>${esc(contaNome(d.conta)||"—")}</td><td class="r">${R.format(tot(d))}</td></tr>`).join("")}</tbody></table>`:`<p class="mu">Nenhum recebimento no período.</p>`}
+<div class="lb">Despesas</div>${D1.length?`<table><thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th class="r">Valor</th></tr></thead><tbody>${D1.map(x=>`<tr><td>${br(x.data)}</td><td>${esc(x.desc)}</td><td>${esc(x.cat)}</td><td class="r">${R.format(x.valor)}</td></tr>`).join("")}</tbody></table>`:`<p class="mu">Nenhuma despesa no período.</p>`}
+<div class="ft"><div>${brand}<span class="tg">Orçou. Cobrou. Recebeu.</span></div><div>Relatório gerencial, sem valor fiscal</div></div></div>`;window.print()}
+function expDados(){baixar("cobrei-meus-dados.json",JSON.stringify({exportado_em:new Date().toISOString(),conta:{email:U&&U.email,nome:S.cfg.nome},perfil:Object.assign({},S.perfil,{logo:S.perfil.logo?"(imagem)":""}),clientes:S.clientes.map(c=>Object.assign({},c,{foto:c.foto?"(imagem)":""})),orcamentos:S.docs,contas:S.contas,despesas:S.desp,servicos:S.servicos,cobrancas_mensais:S.recs},null,2),"application/json")}
+async function delConta(){if(!confirm("Excluir sua conta apaga TODOS os seus dados (orçamentos, clientes, contas e despesas) e não pode ser desfeito. Deseja continuar?"))return;
+const t=prompt("Para confirmar, digite EXCLUIR:");if((t||"").trim().toUpperCase()!=="EXCLUIR")return;
+const r=await sb.rpc("excluir_minha_conta");if(r.error)throw r.error;try{localStorage.removeItem(BK)}catch(e){}try{await sb.auth.signOut()}catch(e){}
+FORCE=false;closeS();OK=false;S.docs=[];S.contas=[];S.clientes=[];S.desp=[];MODE="signup";render();toast("Conta excluída.")}
 function renderCli(){const by={};S.docs.forEach(d=>{if(d.k){const o=by[d.k]||(by[d.k]={n:0,p:0});if(!d.pc)o.n++;if(d.s==="pago")o.p+=tot(d)}});
 $("cli-n").textContent=S.clientes.length;
 $("cll").innerHTML=S.clientes.length?S.clientes.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return`<article class="card"><div class="top"><div class="av">${c.foto?`<img src="${c.foto}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div></div>${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button>${c.recorrente?`<button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button>`:""}</div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div></article>`}).join(""):`<div class="empty">Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque.</div>`}
@@ -441,14 +534,16 @@ if(m.includes("rate limit")||m.includes("too many"))return"Muitas tentativas. Ag
 if(m.includes("password"))return"A senha não atende aos requisitos. Use 8 ou mais caracteres.";
 return"Não foi possível concluir. Verifique a conexão e tente de novo."};
 async function loadAll(){
-const [o,c,k,pr,sv,rr]=await Promise.all([sb.from("orcamentos").select("*, itens(*)").order("criado_em",{ascending:false}),sb.from("contas").select("*").order("criado_em"),sb.from("clientes").select("*").order("nome"),sb.from("perfil").select("*").maybeSingle(),sb.from("servicos").select("*").order("nome"),sb.from("recorrencias").select("*").order("criado_em")]);
+const [o,c,k,pr,sv,rr,dsp,asn]=await Promise.all([sb.from("orcamentos").select("*, itens(*)").order("criado_em",{ascending:false}),sb.from("contas").select("*").order("criado_em"),sb.from("clientes").select("*").order("nome"),sb.from("perfil").select("*").maybeSingle(),sb.from("servicos").select("*").order("nome"),sb.from("recorrencias").select("*").order("criado_em"),sb.from("despesas").select("*").order("data",{ascending:false}),sb.from("assinaturas").select("*").maybeSingle()]);
 if(o.error||c.error)throw(o.error||c.error);
 S.docs=o.data.map(r=>({id:r.id,n:r.numero,c:r.cliente,w:r.whatsapp||"",t:r.servico,itens:(r.itens||[]).map(i=>({d:i.descricao,q:Number(i.quantidade),v:Number(i.valor)})),s:r.status,data:(r.criado_em||"").slice(0,10),venc:r.vencimento||"",conta:r.conta_id||"",k:r.cliente_id||"",tk:r.token||"",rc:r.recorrencia_id||"",comp:r.competencia||"",pc:r.parcela||"",val:r.validade||"",desc:Number(r.desconto||0),fp:r.forma_pagamento||"",ob:r.observacoes||"",pagoEm:r.pago_em||""}));
 S.contas=c.data.map(x=>({id:x.id,nome:x.nome,tipo:x.tipo,chave:x.chave||""}));
 S.clientes=k.error?[]:k.data.map(x=>({id:x.id,nome:x.nome,tipo:x.tipo,documento:x.documento||"",whatsapp:x.whatsapp||"",recorrente:!!x.recorrente,email:x.email||"",foto:x.foto||""}));
 const pd=(pr&&!pr.error&&pr.data)||{};S.perfil={documento:pd.documento||"",telefone:pd.telefone||"",cidade:pd.cidade||"",pixt:pd.pixt||"cpf",logo:pd.logo||""};
 S.servicos=sv.error?[]:sv.data.map(x=>({id:x.id,nome:x.nome,preco:Number(x.preco)}));
-S.recs=rr.error?[]:rr.data.map(x=>({id:x.id,cid:x.cliente_id||"",cliente:x.cliente,whatsapp:x.whatsapp||"",servico:x.servico,valor:Number(x.valor),dia:x.dia,inicio:x.inicio,ativa:x.ativa}))}
+S.recs=rr.error?[]:rr.data.map(x=>({id:x.id,cid:x.cliente_id||"",cliente:x.cliente,whatsapp:x.whatsapp||"",servico:x.servico,valor:Number(x.valor),dia:x.dia,inicio:x.inicio,ativa:x.ativa}));
+S.desp=dsp.error?[]:dsp.data.map(x=>({id:x.id,desc:x.descricao,valor:Number(x.valor),data:x.data,cat:x.categoria||"Outros"}));
+const as_=(asn&&!asn.error&&asn.data)||{};S.plano={plano:as_.plano||"gratis",ate:as_.valido_ate||""}}
 async function enter(user){U=user;const md=user.user_metadata||{};S.cfg={nome:md.nome||"",pix:md.pix||""};
 try{await loadAll()}catch(e){$("aerr").textContent="Não foi possível carregar seus dados. Verifique se as tabelas foram criadas e tente de novo.";return}
 try{await genRecs()}catch(e){}OK=true;try{localStorage.setItem("cobrei:v","1")}catch(e){}render();if(needProfile())openProfile(true);else remind()}
@@ -458,10 +553,11 @@ if(!sb){er.textContent="O sistema de login não carregou. Verifique a internet e
 if(MODE!=="recover"&&!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite um e-mail válido.";return}
 if(p.length<8){er.textContent="A senha precisa ter pelo menos 8 caracteres.";return}
 if(MODE==="signup"&&!$("an").value.trim()){er.textContent="Digite seu nome.";return}
+if(MODE==="signup"&&!$("ace").checked){er.textContent="Para criar a conta, aceite os Termos de Uso e a Política de Privacidade.";return}
 const btn=$("ab");btn.disabled=true;
 try{
 if(MODE==="recover"){const r=await sb.auth.updateUser({password:p});if(r.error)throw r.error;MODE="login";history.replaceState(null,"",location.pathname);const g=await sb.auth.getSession();if(g.data.session)await enter(g.data.session.user);else render()}
-else if(MODE==="signup"){const r=await sb.auth.signUp({email:e,password:p,options:{data:{nome:$("an").value.trim()},emailRedirectTo:location.origin+location.pathname}});if(r.error)throw r.error;
+else if(MODE==="signup"){const r=await sb.auth.signUp({email:e,password:p,options:{data:{nome:$("an").value.trim(),aceite_termos:new Date().toISOString()},emailRedirectTo:location.origin+location.pathname}});if(r.error)throw r.error;
 if(r.data.user&&Array.isArray(r.data.user.identities)&&r.data.user.identities.length===0){er.textContent="Este e-mail já tem conta. Toque em “Já tenho conta” ou use “Esqueci minha senha”.";btn.disabled=false;return}
 if(r.data.session)await enter(r.data.session.user);else{MODE="login";render();inf.textContent="Enviamos um link de confirmação para o seu e-mail. Confirme e depois entre aqui."}}
 else{const r=await sb.auth.signInWithPassword({email:e,password:p});if(r.error)throw r.error;await enter(r.data.user)}
@@ -473,7 +569,7 @@ const r=await sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+locati
 if(r.error)er.textContent=msgErr(r.error);else inf.textContent="Se esse e-mail tiver conta, enviamos um link para criar uma nova senha."}
 function authUI(){const m=MODE;
 $("intro").classList.toggle("hid",OK||LOCK);$("lock").classList.toggle("hid",!LOCK||OK);$("app").classList.toggle("hid",!OK);document.querySelector(".fab").classList.toggle("hid",!OK||TAB==="ct");
-$("an").classList.toggle("hid",m!=="signup");$("ae").classList.toggle("hid",m==="recover");$("fg").classList.toggle("hid",m!=="login");$("sw").classList.toggle("hid",m==="recover");
+$("an").classList.toggle("hid",m!=="signup");$("ae").classList.toggle("hid",m==="recover");$("fg").classList.toggle("hid",m!=="login");$("sw").classList.toggle("hid",m==="recover");$("aceitew").classList.toggle("hid",m!=="signup");
 $("ap").autocomplete=m==="signup"||m==="recover"?"new-password":"current-password";
 $("at").textContent=m==="recover"?"Crie uma nova senha":"Orçou. Cobrou. Recebeu.";
 $("as").textContent=m==="login"?"Use o e-mail e a senha da sua conta.":m==="signup"?"Seus orçamentos ficam guardados na nuvem, só para você.":"Digite a nova senha que você quer usar.";
@@ -499,7 +595,7 @@ $("ct-tot").textContent=fmt(c);
 const rec={};S.docs.forEach(d=>{if(d.s==="pago"&&d.conta)rec[d.conta]=(rec[d.conta]||0)+tot(d)});
 const other=c-S.contas.reduce((z,x)=>z+(rec[x.id]||0),0);
 $("ctl").innerHTML=S.contas.length?S.contas.map(x=>`<article class="card"><div class="top"><div class="av">${EM[x.tipo]}</div><div class="mid"><h3>${esc(x.nome)}</h3><p>${TP[x.tipo]}${x.chave?" · "+esc(x.chave):""}</p></div><div class="tot">${fmt(rec[x.id]||0)}</div></div><div class="sub"><button class="d" data-id="${x.id}" data-act="delct">Excluir</button></div></article>`).join("")+(other>0.004?`<p class="note">${fmt(other)} recebidos sem conta informada ou em contas excluídas.</p>`:""):`<div class="empty">Nenhuma conta cadastrada.<br>Cadastre onde você recebe — Pix, banco, carteira digital ou dinheiro — para saber quanto entrou em cada uma.</div>`;
-$("v-pnl").classList.toggle("hid",TAB!=="pnl");renderPnl();$("v-cli").classList.toggle("hid",TAB!=="cli");renderCli();$("v-cob").classList.toggle("hid",TAB!=="cob");$("v-ct").classList.toggle("hid",TAB!=="ct");
+$("v-pnl").classList.toggle("hid",TAB!=="pnl");renderPnl();renderFin();$("v-cli").classList.toggle("hid",TAB!=="cli");renderCli();$("v-cob").classList.toggle("hid",TAB!=="cob");$("v-ct").classList.toggle("hid",TAB!=="ct");
 document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x.dataset.t===TAB));
 $("hi").textContent=S.cfg.nome?`Olá, ${S.cfg.nome}`:"Orçou. Cobrou. Recebeu.";
 document.querySelectorAll(".chips button").forEach(x=>x.classList.toggle("on",x.dataset.f===F));
@@ -520,16 +616,25 @@ function calc(){let t=0;document.querySelectorAll("#its .it").forEach(r=>{const 
 document.addEventListener("input",e=>{if(e.target.closest("#its")||e.target.id==="fdc")calc();if(e.target.id==="cbp"||e.target.id==="cbn")cbUI()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!FORCE)closeS()});
 async function up(d,v){const r=await sb.from("orcamentos").update(v).eq("id",d.id);if(r.error)throw r.error;await loadAll();render()}
-const fail=()=>toast("Não foi possível salvar. Verifique sua conexão e tente de novo.");
+const fail=x=>{if(String(x&&x.message||"").includes("limite_plano_gratis")){closeS();planoOpen()}else toast("Não foi possível salvar. Verifique sua conexão e tente de novo.")};
 document.addEventListener("change",async e=>{const t=e.target;if(t.id==="fcl"){const c=S.clientes.find(x=>x.id===t.value);if(c){$("fc").value=c.nome;$("fw").value=c.whatsapp}return}
-if(t.id==="fsv"){const x=S.servicos.find(z=>z.id===t.value);if(x){const rows=[...document.querySelectorAll("#its .it")];let r=rows[rows.length-1];if(!r||r.querySelector("input").value.trim()){addItem();r=[...document.querySelectorAll("#its .it")].pop()}const i=r.querySelectorAll("input");i[0].value=x.nome;i[1].value="1";i[2].value=String(x.preco).replace(".",",");calc()}t.value="";return}
+if(t.id==="fsv"){const x=S.servicos.find(z=>z.id===t.value);if(x){const rows=[...document.querySelectorAll("#its .it")];let r=rows[rows.length-1];if(!r||r.querySelector("input").value.trim()){addItem();r=[...document.querySelectorAll("#its .it")].pop()}const i=r.querySelectorAll("input");i[0].value=x.nome;i[1].value="1";i[2].value=String(x.preco).replace(".",",");if(!$("ft").value.trim())$("ft").value=x.nome;calc()}t.value="";return}
 if(t.id==="cbm"||t.id==="cbd"){cbUI();return}
-if(t.id==="pixa"){pixShow();return}if(t.dataset.act==="venc"&&t.value){const d=S.docs.find(x=>x.id===t.dataset.id);if(d)try{await up(d,{vencimento:t.value})}catch(x){fail()}}});
+if(t.id==="pixa"){pixShow();return}if(t.dataset.act==="venc"&&t.value){const d=S.docs.find(x=>x.id===t.dataset.id);if(d)try{await up(d,{vencimento:t.value})}catch(x){fail(x)}}});
 async function act(a,t){const d=S.docs.find(x=>x.id===t.dataset.id);
 try{
 if(a==="auth")await doAuth();else if(a==="forgot")await forgot();
 else if(a==="eye"){HIDE=!HIDE;try{localStorage.setItem("cobrei:hide",HIDE?"1":"0")}catch(e){}render()}
 else if(a==="unlock")await unlock();
+else if(a==="sub"){SUB=t.dataset.s;render()}
+else if(a==="rper"){PER=t.dataset.p;render()}
+else if(a==="mes"){MES=mshift(MES,Number(t.dataset.d)*(SUB==="rl"&&PER==="a"?12:1));render()}
+else if(a==="newdp"){["dpd","dpv"].forEach(i=>$(i).value="");$("dpt").value=iso(0);$("dpc").selectedIndex=0;openS("sh-dp")}
+else if(a==="savedp"){const v=num($("dpv").value),n=$("dpd").value.trim();if(!n||v<=0||!$("dpt").value){toast("Preencha descrição, valor e data.");return}
+const r=await sb.from("despesas").insert({descricao:n,valor:v,data:$("dpt").value,categoria:$("dpc").value});if(r.error)throw r.error;await loadAll();closeS();toast("Despesa registrada.");render()}
+else if(a==="deldp"){if(!confirm("Excluir esta despesa?"))return;const r=await sb.from("despesas").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
+else if(a==="rlcsv")rlCsv();else if(a==="rlpdf")rlPdf();else if(a==="plano")planoOpen();else if(a==="exp")expDados();else if(a==="delacc")await delConta();
+else if(a==="inst"){if(IP){IP.prompt();try{await IP.userChoice}catch(e){}IP=null;instUI()}}
 else if(a==="cvok")await cvAnswer(true);else if(a==="cvno")await cvAnswer(false);else if(a==="cbgo")await cbGo();
 else if(a==="svc"){closeS();svcList();$("svn").value="";$("svp").value="";openS("sh-svc")}
 else if(a==="savesv"){const n=$("svn").value.trim();if(!n){toast("Digite o nome do serviço.");return}const r=await sb.from("servicos").insert({nome:n,preco:num($("svp").value)});if(r.error)throw r.error;await loadAll();$("svn").value="";$("svp").value="";svcList();toast("Serviço adicionado.")}
@@ -538,13 +643,12 @@ else if(a==="newrc"){RC=S.clientes.find(x=>x.id===t.dataset.id);if(!RC)return;$(
 else if(a==="saverc"){const v=num($("rcv").value),sv_=$("rcs").value.trim(),dt=$("rcd").value;if(!RC||!sv_||v<=0||!dt){toast("Preencha serviço, valor e primeiro vencimento.");return}
 const r=await sb.from("recorrencias").insert({cliente_id:RC.id,cliente:RC.nome,whatsapp:RC.whatsapp||null,servico:sv_,valor:v,dia:Math.min(28,Number(dt.slice(8,10))),inicio:dt});if(r.error)throw r.error;await loadAll();await genRecs();closeS();toast("Cobrança mensal ativada.");render()}
 else if(a==="delrc"){if(!confirm("Encerrar esta cobrança mensal? As cobranças já geradas continuam."))return;const r=await sb.from("recorrencias").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
-else if(a==="mes"){MES=mshift(MES,Number(t.dataset.d));render()}
 else if(a==="logo")$("lgf").click();else if(a==="cfoto")$("cff").click();else if(a==="cfotox"){CF="";cfUI()}else if(a==="logox"){LOGO="";logoUI()}
 else if(a==="pix"&&d){PIXD=d.id;const pc=pixContas();$("pixa").innerHTML=pc.map(x=>`<option value="${x.id}">${esc(x.nome)}</option>`).join("");$("pixaw").classList.toggle("hid",pc.length<2);pixShow()}
 else if(a==="pixcopy"){const v=$("pixc").value;if(!v){toast("Preencha seus dados Pix primeiro.");return}try{await navigator.clipboard.writeText(v);toast("Código Pix copiado.")}catch(e){$("pixc").select();toast("Selecione e copie o código.")}}
 else if(a==="usepw"){await sb.auth.signOut();LOCK=false;MODE="login";render()}
 else if(a==="bio")await bioToggle();
-else if(a==="newfor")openNew(t.dataset.id);
+else if(a==="newfor"){if(!isPro()&&usados()>=CFG.limite)planoOpen();else openNew(t.dataset.id)}
 else if(a==="newcli")openCli(null);else if(a==="editcli")openCli(S.clientes.find(x=>x.id===t.dataset.id));
 else if(a==="savecli"){const n=$("cln").value.trim();if(!n){toast("Digite o nome do cliente.");return}
 const v={nome:n,tipo:$("clt").value,documento:$("cld").value.trim()||null,whatsapp:$("clw").value.trim()||null,email:$("cle").value.trim()||null,recorrente:$("clr").checked,foto:CF||null};
@@ -558,7 +662,7 @@ if(!c.nome||!f.documento||!f.telefone||!f.cidade){toast("Preencha nome, CPF/CNPJ
 const pf=Object.assign({user_id:U.id},f);
 const r=await sb.auth.updateUser({data:c});if(r.error)throw r.error;const r2=await sb.from("perfil").upsert(pf,{onConflict:"user_id"});if(r2.error)throw r2.error;
 S.cfg=Object.assign(S.cfg,c);S.perfil={documento:pf.documento||"",telefone:pf.telefone||"",cidade:pf.cidade||"",pixt:"cpf",logo:pf.logo||""};FORCE=false;closeS();toast("Dados salvos.");render()}
-else if(a==="new")openNew("");
+else if(a==="new"){if(!isPro()&&usados()>=CFG.limite)planoOpen();else openNew("")}
 else if(a==="close"){if(!FORCE)closeS()}else if(a==="additem")addItem();else if(a==="flt"){F=t.dataset.f;render()}
 else if(a==="tab"){TAB=t.dataset.t;render()}
 else if(a==="newct"){["ctn","ctk"].forEach(i=>$(i).value="");$("ctt").value="pix";openS("sh-ct")}
@@ -567,9 +671,10 @@ const r=await sb.from("contas").insert({nome:n,tipo:$("ctt").value,chave:$("ctk"
 else if(a==="delct"){if(!confirm("Excluir esta conta? Os valores já recebidos continuam no histórico."))return;const r=await sb.from("contas").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
 else if(a==="payto"){const x=S.docs.find(z=>z.id===PAY);if(x)await up(x,{status:"pago",pago_em:iso(0),conta_id:t.dataset.c||null});closeS()}
 else if(a==="save"){const itens=[...document.querySelectorAll("#its .it")].map(r=>{const i=r.querySelectorAll("input");return{d:i[0].value.trim(),q:num(i[1].value)||1,v:num(i[2].value)}}).filter(i=>i.d&&i.v>0);
-if(!$("fc").value.trim()||!$("ft").value.trim()||!itens.length){toast("Preencha o cliente, o serviço e pelo menos um item com valor.");return}
+if(!$("fc").value.trim()||!itens.length){toast("Preencha o cliente e pelo menos um item com valor.");return}
+const svc_=$("ft").value.trim()||(itens[0].d+(itens.length>1?" e mais "+(itens.length-1)+(itens.length===2?" item":" itens"):""));
 const n=S.docs.reduce((m,x)=>Math.max(m,x.n||0),0)+1;
-const r=await sb.from("orcamentos").insert(Object.assign({numero:n,cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servico:$("ft").value.trim(),validade:$("fva").value||null,desconto:num($("fdc").value),forma_pagamento:$("ffp").value||null,observacoes:$("fob").value.trim()||null},$("fcl").value?{cliente_id:$("fcl").value}:{})).select("id").single();if(r.error)throw r.error;
+const r=await sb.from("orcamentos").insert(Object.assign({numero:n,cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servico:svc_,validade:$("fva").value||null,desconto:num($("fdc").value),forma_pagamento:$("ffp").value||null,observacoes:$("fob").value.trim()||null},$("fcl").value?{cliente_id:$("fcl").value}:{})).select("id").single();if(r.error)throw r.error;
 const r2=await sb.from("itens").insert(itens.map(i=>({orcamento_id:r.data.id,descricao:i.d,quantidade:i.q,valor:i.v})));
 if(r2.error){await sb.from("orcamentos").delete().eq("id",r.data.id);throw r2.error}
 await loadAll();closeS();F="all";render()}
@@ -577,7 +682,7 @@ else if(d){if(a==="apr")await up(d,{status:"apr"});else if(a==="lnk"){await copy
 else if(a==="cob"){CB=d.id;$("cbm").value="avista";$("cbd").value=iso(7);$("cbn").value="3";$("cbp").value="50";cbUI();openS("sh-cb")}
 else if(a==="pago"){PAY=d.id;payList();openS("sh-pay")}else if(a==="pdf")pdf(d);
 else if(a==="del"){if(!confirm("Excluir este registro?"))return;const r=await sb.from("orcamentos").delete().eq("id",d.id);if(r.error)throw r.error;await loadAll();render()}}
-}catch(x){fail()}}
+}catch(x){fail(x)}}
 document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.tagName==="INPUT")return;act(t.dataset.act,t)});
 async function init(){loadBind();
 if(!sb){$("aerr").textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
