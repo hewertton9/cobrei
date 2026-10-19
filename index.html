@@ -170,6 +170,18 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 
 .tabs{grid-template-columns:repeat(5,1fr)}.tabs button{font-size:.68rem}
 .par{border:1px solid var(--ln);border-radius:1rem;padding:.8rem .9rem;margin-bottom:.6rem}#pars{padding-bottom:1.5rem}
+
+.more{display:none}.open>.more{display:block}
+.top[role=button]{cursor:pointer}.top[role=button]:focus-visible{outline:3px solid var(--ac);outline-offset:3px;border-radius:.6rem}
+.chv{flex:none;width:.55rem;height:.55rem;border-right:2px solid var(--mu);border-bottom:2px solid var(--mu);transform:rotate(45deg);margin:0 .2rem 0 .1rem;transition:transform .2s}
+.open>.top .chv{transform:rotate(-135deg)}
+.more>.act:first-child{margin-top:.2rem}
+.plans{display:grid;gap:1rem;margin:.8rem 0 .6rem}
+.plc{position:relative;border:1px solid var(--ln);border-radius:1rem;padding:1rem 1.1rem;text-align:left}
+.plc h3{margin:0;font-size:1.1rem}.plc .pr{margin:.2rem 0 .6rem;color:var(--mu);font-weight:600;white-space:normal}
+.plc ul{margin:0;padding-left:1.1rem}.plc li{margin:.3rem 0;font-size:.92rem}
+.plc.pro{border:2px solid var(--ac)}.plc .bd{position:absolute;top:-.75rem;right:1rem;background:var(--ac);color:#0a1230;font-size:.7rem;font-weight:800;padding:.15rem .65rem;border-radius:99px}
+@media (prefers-reduced-motion:reduce){.chv{transition:none}}
 </style>
 </head>
 <body>
@@ -485,7 +497,7 @@ $("cva").innerHTML=`<p class="note">${m[r.data]||"Este orçamento já foi respon
 const isPro=()=>S.plano.plano==="pro"&&(!S.plano.ate||S.plano.ate>=iso(0));
 const usados=()=>{const m=iso(0).slice(0,7);return S.docs.filter(d=>!d.pc&&!d.rc&&d.data.slice(0,7)===m).length};
 function planoBox(){$("plbox").innerHTML=isPro()?`<b>Plano Pro</b><p class="note" style="margin:.3rem 0 0;text-align:left">Orçamentos ilimitados${S.plano.ate?" · válido até "+br(S.plano.ate):""}.</p>`:`<b>Plano Grátis</b><p class="note" style="margin:.3rem 0 .6rem;text-align:left">${usados()} de ${CFG.limite} orçamentos novos usados este mês.</p><button class="b wide" data-act="plano">Conhecer o plano Pro</button>`}
-function planoOpen(){$("planoc").innerHTML=`<div class="ir"><span>Grátis</span><b>até ${CFG.limite} orçamentos novos por mês</b></div><div class="ir"><span>Pro</span><b>orçamentos ilimitados</b></div><p class="note" style="margin-top:1rem">Clientes, catálogo, cobranças, Pix, PDFs e relatórios funcionam nos dois planos. Parcelas e cobranças mensais geradas automaticamente não entram no limite.</p><p class="note"><b>${esc(CFG.preco)}</b></p>`;
+function planoOpen(){$("planoc").innerHTML=`<div class="plans"><div class="plc"><h3>Grátis</h3><p class="pr">R$ 0</p><ul><li>Até ${CFG.limite} orçamentos novos por mês</li><li>Clientes, serviços, cobranças e Pix</li><li>PDFs e relatórios</li></ul></div><div class="plc pro"><span class="bd">Recomendado</span><h3>Pro</h3><p class="pr">${esc(CFG.preco)}</p><ul><li>Orçamentos ilimitados</li><li>Todas as funções do plano Grátis</li></ul></div></div><p class="note">Parcelas e cobranças mensais geradas automaticamente não contam no limite do plano Grátis.</p>`;
 $("planob").innerHTML=CFG.checkout?`<a class="b p" href="${esc(CFG.checkout)}" target="_blank" rel="noopener">Assinar o Pro</a>`:CFG.contato?`<a class="b p" href="mailto:${esc(CFG.contato)}?subject=Quero%20o%20plano%20Pro%20do%20COBREI">Falar para assinar</a>`:`<button class="b" data-act="close">Assinatura em breve</button>`;openS("sh-plano")}
 function instUI(){const st=matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;$("instw").classList.toggle("hid",st);$("instb").classList.toggle("hid",!IP);
 $("insth").textContent=IP?"":/iphone|ipad|ipod/i.test(navigator.userAgent)?"No iPhone: toque em Compartilhar e depois em “Adicionar à Tela de Início”.":"No navegador, abra o menu e escolha “Instalar app” ou “Adicionar à tela inicial”."}
@@ -499,7 +511,7 @@ document.querySelectorAll("#v-ct>.seg:first-child button").forEach(x=>x.classLis
 document.querySelectorAll("#sv-rl .seg2 button").forEach(x=>x.classList.toggle("on",x.dataset.p===PER));
 $("v-nav").classList.toggle("hid",SUB==="ct");const [y,o]=MES.split("-");$("mes-t").textContent=SUB==="rl"&&PER==="a"?y:MF[Number(o)-1]+" de "+y;
 const FD=finData();$("dp-tot").textContent=fmt(FD.td);
-$("dpl").innerHTML=FD.des.length?FD.des.map(x=>`<article class="card"><div class="top"><div class="mid"><h3>${esc(x.desc)}</h3><p>${esc(x.cat)} · ${br(x.data)}</p></div><div class="tot">${fmt(x.valor)}</div></div><div class="sub"><button class="d" data-id="${x.id}" data-act="deldp">Excluir</button></div></article>`).join(""):`<div class="empty">Nenhuma despesa neste período.<br>Registre o que você gasta para ver o lucro de verdade.</div>`;
+$("dpl").innerHTML=FD.des.length?FD.des.map(x=>cardX(x.id,`<div class="mid"><h3>${esc(x.desc)}</h3><p>${esc(x.cat)} · ${br(x.data)}</p></div><div class="tot">${fmt(x.valor)}</div>`,"",`<div class="sub"><button class="d" data-id="${x.id}" data-act="deldp">Excluir</button></div>`)).join(""):`<div class="empty">Nenhuma despesa neste período.<br>Registre o que você gasta para ver o lucro de verdade.</div>`;
 $("rl-res").textContent=fmt(FD.tr-FD.td);$("rl-rec").textContent=fmt(FD.tr);$("rl-des").textContent=fmt(FD.td);
 const cat={},pc={};FD.des.forEach(x=>cat[x.cat]=(cat[x.cat]||0)+x.valor);FD.rec.forEach(d=>{const n=contaNome(d.conta)||"Sem conta informada";pc[n]=(pc[n]||0)+tot(d)});
 const lst=(m,v)=>Object.keys(m).length?Object.entries(m).sort((a,b)=>b[1]-a[1]).map(([q,w])=>`<div class="dr"><span>${esc(q)}</span><b>${fmt(w)}</b></div>`).join(""):`<p class="note">${v}</p>`;
@@ -526,6 +538,9 @@ async function delConta(){if(!confirm("Excluir sua conta apaga TODOS os seus dad
 const t=prompt("Para confirmar, digite EXCLUIR:");if((t||"").trim().toUpperCase()!=="EXCLUIR")return;
 const r=await sb.rpc("excluir_minha_conta");if(r.error)throw r.error;try{localStorage.removeItem(BK)}catch(e){}try{await sb.auth.signOut()}catch(e){}
 FORCE=false;closeS();OK=false;S.docs=[];S.contas=[];S.clientes=[];S.desp=[];MODE="signup";render();toast("Conta excluída.")}
+const OPEN=new Set(),chv='<i class="chv" aria-hidden="true"></i>';
+const cardX=(k,top,vis,more)=>`<article class="card${OPEN.has(k)?" open":""}" data-k="${k}"><div class="top" data-act="tg" role="button" tabindex="0" aria-expanded="${OPEN.has(k)}">${top}${chv}</div>${vis||""}<div class="more">${more}</div></article>`;
+document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches&&e.target.matches(".top[role=button]")){e.preventDefault();e.target.click()}});
 const kids=d=>S.docs.filter(x=>x.g===d.id).sort((a,b)=>Number(a.pc.split("/")[0])-Number(b.pc.split("/")[0]));
 function payTxt(fp,np,en,t){if(!fp)return"";let x=fp;if(en)x+=` · entrada de ${en}% e saldo em 30 dias`;else if(np>1)x+=` em ${np}x de ${R.format(t/np)}`;else if(fp==="Cartão de crédito")x+=" à vista";return x}
 function fpUI(){const f=$("ffp").value,show=f&&f!=="Cartão de débito";$("fpw").classList.toggle("hid",!show);if(!show){$("fenw").classList.add("hid");return}
@@ -533,17 +548,17 @@ const cc=f==="Cartão de crédito",cur=$("fpn").value,o=cc?[["1","À vista (1x)"
 $("fpl").textContent=cc?"Parcelas no cartão":"Condição de pagamento";$("fpn").innerHTML=o.map(x=>`<option value="${x[0]}">${x[1]}</option>`).join("");if(o.some(x=>x[0]===cur))$("fpn").value=cur;$("fenw").classList.toggle("hid",$("fpn").value!=="ent")}
 function grpCard(d){const ks=kids(d),pg=ks.filter(x=>x.s==="pago").length,ab=ks.filter(x=>x.s==="cob"),atr=ab.filter(x=>x.venc&&x.venc<iso(0)).length,prox=ab.map(x=>x.venc).filter(Boolean).sort()[0];
 const tg=pg===ks.length?`<span class="tag pago">Todas as parcelas pagas</span>`:atr?`<span class="tag late">${atr} ${atr===1?"parcela atrasada":"parcelas atrasadas"}</span>`:`<span class="tag cob">Próxima parcela: ${prox?br(prox).slice(0,5):"—"}</span>`;
-return`<article class="card"><div class="top"><div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div></div><span class="tag">Parcelado em ${ks.length}x</span> ${tg}<div class="pgb" style="margin:.8rem 0 0"><i style="width:${Math.round(pg/ks.length*100)}%"></i></div><div class="act"><button class="b p" data-id="${d.id}" data-act="grp">Ver parcelas (${pg} de ${ks.length} pagas)</button></div><div class="sub"><button class="d" data-id="${d.id}" data-act="del">Excluir</button></div></article>`}
+return`<article class="card"><div class="top" data-act="grp" data-id="${d.id}" role="button" tabindex="0"><div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div>${chv}</div><span class="tag">Parcelado em ${ks.length}x · ${pg} ${pg===1?"paga":"pagas"}</span> ${tg}<div class="pgb" style="margin:.8rem 0 0"><i style="width:${Math.round(pg/ks.length*100)}%"></i></div></article>`}
 function openGrp(id){const p=S.docs.find(x=>x.id===id);if(!p)return;GRP=id;const ks=kids(p),h=iso(0);$("parh").textContent=p.c;
 $("pars").innerHTML=`<p class="note">${esc(p.t)} · ${fmt(tot(p))} em ${ks.length}x${p.fp?" · "+esc(p.fp):""}</p>`+ks.map(k=>{const id_=`data-id="${k.id}"`,late=k.s==="cob"&&k.venc&&k.venc<h;
 const tg=k.s==="pago"?`<span class="tag pago">Pago em ${br(k.pagoEm||k.data)}${contaNome(k.conta)?" · "+esc(contaNome(k.conta)):""}</span>`:`<span class="tag ${late?"late":"cob"}">${late?"Atrasada desde ":"Vence em "}${br(k.venc)}</span>`;
 const ac=k.s==="pago"?`<button class="b" ${id_} data-act="pdf">Recibo</button>`:`<a class="b p" href="${esc(wa(k))}" target="_blank" rel="noopener">Cobrar</a><button class="b" ${id_} data-act="pix">Pix / QR</button><button class="b" ${id_} data-act="pago">Marcar pago</button>`;
-return`<div class="par"><div class="top"><div class="mid"><h3>Parcela ${esc(k.pc)}</h3></div><div class="tot">${fmt(tot(k))}</div></div>${tg}<div class="act">${ac}</div></div>`}).join("");openS("sh-par")}
-function renderSv(){$("sv-n").textContent=S.servicos.length;$("svl").innerHTML=S.servicos.length?S.servicos.map(x=>`<article class="card"><div class="top"><div class="mid"><h3>${esc(x.nome)}</h3></div><div class="tot">${fmt(x.preco)}</div></div><div class="sub"><button data-id="${x.id}" data-act="editsv">Editar</button><button class="d" data-id="${x.id}" data-act="delsv">Excluir</button></div></article>`).join(""):`<div class="empty">Nenhum serviço cadastrado.<br>Cadastre os serviços que você mais faz, com o valor de cada um.</div>`}
+return`<div class="par${OPEN.has(k.id)?" open":""}" data-k="${k.id}"><div class="top" data-act="tg" role="button" tabindex="0" aria-expanded="${OPEN.has(k.id)}"><div class="mid"><h3>Parcela ${esc(k.pc)}</h3></div><div class="tot">${fmt(tot(k))}</div>${chv}</div>${tg}<div class="more"><div class="act">${ac}</div></div></div>`}).join("")+`<button class="b d wide" data-id="${p.id}" data-act="del">Excluir parcelamento</button>`;openS("sh-par")}
+function renderSv(){$("sv-n").textContent=S.servicos.length;$("svl").innerHTML=S.servicos.length?S.servicos.map(x=>cardX(x.id,`<div class="mid"><h3>${esc(x.nome)}</h3></div><div class="tot">${fmt(x.preco)}</div>`,"",`<div class="sub"><button data-id="${x.id}" data-act="editsv">Editar</button><button class="d" data-id="${x.id}" data-act="delsv">Excluir</button></div>`)).join(""):`<div class="empty">Nenhum serviço cadastrado.<br>Cadastre os serviços que você mais faz, com o valor de cada um.</div>`}
 function openSv(x){EV=x||null;$("svh").textContent=x?"Editar serviço":"Novo serviço";$("svn").value=x?x.nome:"";$("svp").value=x?String(x.preco).replace(".",","):"";openS("sh-svc")}
 function renderCli(){const by={};S.docs.forEach(d=>{if(d.k){const o=by[d.k]||(by[d.k]={n:0,p:0});if(!d.pc)o.n++;if(d.s==="pago")o.p+=tot(d)}});
 $("cli-n").textContent=S.clientes.length;
-$("cll").innerHTML=S.clientes.length?S.clientes.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return`<article class="card"><div class="top"><div class="av">${c.foto?`<img src="${c.foto}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div></div>${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button>${c.recorrente?`<button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button>`:""}</div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div></article>`}).join(""):`<div class="empty">Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque.</div>`}
+$("cll").innerHTML=S.clientes.length?S.clientes.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return cardX(c.id,`<div class="av">${c.foto?`<img src="${c.foto}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div>`,`${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}`,`<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button>${c.recorrente?`<button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button>`:""}</div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div>`)}).join(""):`<div class="empty">Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque.</div>`}
 try{if(localStorage.getItem("cobrei:v"))MODE="login"}catch(e){}
 if(/type=recovery/.test(location.hash))MODE="recover";
 const msgErr=e=>{const m=String(e&&e.message||"").toLowerCase();
@@ -606,6 +621,7 @@ const ST={orc:"Orçamento enviado",apr:"Aprovado — falta cobrar",pago:"Pago",r
 const FL={all:()=>true,orc:d=>d.s==="orc"||d.s==="apr",cob:d=>d.s==="cob"||(d.s==="parc"&&kids(d).some(x=>x.s==="cob")),pago:d=>d.s==="pago"||(d.s==="parc"&&kids(d).length>0&&kids(d).every(x=>x.s==="pago")),rec:d=>d.s==="rec"};
 function msg(d){const t=R.format(tot(d)),n=S.cfg.nome||"";
 if(d.s==="cob")return`Olá, ${d.c}! Passando para lembrar da cobrança "${d.t}${d.pc?" (parcela "+d.pc+")":""}", no valor de ${t}, com vencimento em ${br(d.venc)}.${d.venc&&d.venc<iso(0)?" Ela está em atraso. Poderia me confirmar o pagamento?":""}${pixCode(d)?`\nPix copia e cola:\n${pixCode(d)}`:(pixContas()[0]?`\nPix: ${pixContas()[0].chave}`:"")}\nObrigado!`;
+if(d.tk)return`Olá, ${d.c}! Segue o link do seu orçamento. É só abrir e confirmar com 1 clique:\n${linkOf(d)}`;
 return`Olá, ${d.c}! Segue o orçamento nº ${d.n}${n?` de ${n}`:""}:\n\n${d.t}\n${d.itens.map(i=>`• ${i.d} (${i.q} x ${R.format(i.v)})`).join("\n")}${d.desc?`\nDesconto: -${R.format(d.desc)}`:""}\n\nTotal: ${t}${d.fp?`\nPagamento: ${payTxt(d.fp,d.np,d.en,tot(d))}`:""}${d.val?`\nValidade: ${br(d.val)}`:""}${d.ob?`\nObs.: ${d.ob}`:""}\n\n${d.tk?`Para aprovar com um toque, acesse:\n${linkOf(d)}`:"Se estiver de acordo, é só me responder aqui."}`}
 function wa(d){let p=(d.w||"").replace(/\D/g,"");if(p&&p.length<=11)p="55"+p;return`https://wa.me/${p}?text=${encodeURIComponent(msg(d))}`}
 function render(){
@@ -615,7 +631,7 @@ $("s1").textContent=fmt(a);$("s2").textContent=fmt(b);$("s3").textContent=fmt(c)
 $("ct-tot").textContent=fmt(c);
 const rec={};S.docs.forEach(d=>{if(d.s==="pago"&&d.conta)rec[d.conta]=(rec[d.conta]||0)+tot(d)});
 const other=c-S.contas.reduce((z,x)=>z+(rec[x.id]||0),0);
-$("ctl").innerHTML=S.contas.length?S.contas.map(x=>`<article class="card"><div class="top"><div class="av">${EM[x.tipo]}</div><div class="mid"><h3>${esc(x.nome)}</h3><p>${TP[x.tipo]}${x.chave?" · "+esc(x.chave):""}</p></div><div class="tot">${fmt(rec[x.id]||0)}</div></div><div class="sub"><button class="d" data-id="${x.id}" data-act="delct">Excluir</button></div></article>`).join("")+(other>0.004?`<p class="note">${fmt(other)} recebidos sem conta informada ou em contas excluídas.</p>`:""):`<div class="empty">Nenhuma conta cadastrada.<br>Cadastre onde você recebe — Pix, banco, carteira digital ou dinheiro — para saber quanto entrou em cada uma.</div>`;
+$("ctl").innerHTML=S.contas.length?S.contas.map(x=>cardX(x.id,`<div class="av">${EM[x.tipo]}</div><div class="mid"><h3>${esc(x.nome)}</h3><p>${TP[x.tipo]}${x.chave?" · "+esc(x.chave):""}</p></div><div class="tot">${fmt(rec[x.id]||0)}</div>`,"",`<div class="sub"><button class="d" data-id="${x.id}" data-act="delct">Excluir</button></div>`)).join("")+(other>0.004?`<p class="note">${fmt(other)} recebidos sem conta informada ou em contas excluídas.</p>`:""):`<div class="empty">Nenhuma conta cadastrada.<br>Cadastre onde você recebe — Pix, banco, carteira digital ou dinheiro — para saber quanto entrou em cada uma.</div>`;
 $("v-pnl").classList.toggle("hid",TAB!=="pnl");renderPnl();renderFin();$("v-sv").classList.toggle("hid",TAB!=="sv");renderSv();$("v-cli").classList.toggle("hid",TAB!=="cli");renderCli();$("v-cob").classList.toggle("hid",TAB!=="cob");$("v-ct").classList.toggle("hid",TAB!=="ct");
 document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x.dataset.t===TAB));
 $("hi").textContent=S.cfg.nome?`Olá, ${S.cfg.nome}`:"Orçou. Cobrou. Recebeu.";
@@ -629,7 +645,7 @@ let ac="",sub="";
 if(d.s==="orc")ac=`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">Enviar no WhatsApp</a><button class="b" ${id} data-act="lnk">Copiar link</button><button class="b" ${id} data-act="apr">Cliente aprovou</button>`;
 if(d.s==="apr")ac=`<button class="b p" ${id} data-act="cob">Gerar cobrança</button>`;
 if(d.s==="cob"){ac=`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">Cobrar no WhatsApp</a><button class="b" ${id} data-act="pix">Pix / QR Code</button><button class="b" ${id} data-act="pago">Marcar como pago</button>`;sub=`<label>Vencimento <input type="date" value="${d.venc}" ${id} data-act="venc"></label>`}
-return`<article class="card"><div class="top"><div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div></div>${tag}<div class="act">${ac}</div><div class="sub">${sub}<button ${id} data-act="pdf">PDF</button><button class="d" ${id} data-act="del">Excluir</button></div></article>`}).join(""):`<div class="empty">${S.docs.length?"Nada por aqui neste filtro.":"Nenhum orçamento ainda.<br>Toque em “Novo orçamento” e envie o primeiro pelo WhatsApp em menos de um minuto."}</div>`}
+return cardX(d.id,`<div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div>`,tag,`<div class="act">${ac}</div><div class="sub">${sub}<button ${id} data-act="pdf">PDF</button><button class="d" ${id} data-act="del">Excluir</button></div>`)}).join(""):`<div class="empty">${S.docs.length?"Nada por aqui neste filtro.":"Nenhum orçamento ainda.<br>Toque em “Novo orçamento” e envie o primeiro pelo WhatsApp em menos de um minuto."}</div>`}
 const openS=id=>{$("ov").classList.add("open");$(id).classList.add("open")};
 const closeS=()=>{$("ov").classList.remove("open");document.querySelectorAll(".sheet").forEach(s=>s.classList.remove("open"))};
 function addItem(){const r=document.createElement("div");r.className="it";r.innerHTML=`<input placeholder="Descrição" aria-label="Descrição"><input placeholder="Qtd" value="1" inputmode="decimal" aria-label="Quantidade"><input placeholder="R$" inputmode="decimal" aria-label="Valor unitário">`;$("its").appendChild(r)}
@@ -649,6 +665,7 @@ try{
 if(a==="auth")await doAuth();else if(a==="forgot")await forgot();
 else if(a==="eye"){HIDE=!HIDE;try{localStorage.setItem("cobrei:hide",HIDE?"1":"0")}catch(e){}render()}
 else if(a==="unlock")await unlock();
+else if(a==="tg"){const c=t.closest("[data-k]");if(!c)return;const o=c.classList.toggle("open");o?OPEN.add(c.dataset.k):OPEN.delete(c.dataset.k);t.setAttribute("aria-expanded",String(o))}
 else if(a==="sub"){SUB=t.dataset.s;render()}
 else if(a==="rper"){PER=t.dataset.p;render()}
 else if(a==="mes"){MES=mshift(MES,Number(t.dataset.d)*(SUB==="rl"&&PER==="a"?12:1));render()}
@@ -706,7 +723,7 @@ await loadAll();closeS();F="all";render()}
 else if(d){if(a==="apr")await up(d,{status:"apr"});else if(a==="lnk"){await copyText(linkOf(d));toast("Link copiado. Envie ao cliente.")}
 else if(a==="cob"){CB=d.id;$("cbd").value=iso(7);cbUI();openS("sh-cb")}
 else if(a==="pago"){PAY=d.id;payList();openS("sh-pay")}else if(a==="pdf")pdf(d);else if(a==="grp")openGrp(d.id);
-else if(a==="del"){const ks=kids(d);if(!confirm(ks.length?"Excluir este parcelamento e as "+ks.length+" parcelas?":"Excluir este registro?"))return;const r=await sb.from("orcamentos").delete().in("id",[d.id].concat(ks.map(x=>x.id)));if(r.error)throw r.error;await loadAll();render()}}
+else if(a==="del"){const ks=kids(d);if(!confirm(ks.length?"Excluir este parcelamento e as "+ks.length+" parcelas?":"Excluir este registro?"))return;const r=await sb.from("orcamentos").delete().in("id",[d.id].concat(ks.map(x=>x.id)));if(r.error)throw r.error;await loadAll();closeS();render()}}
 }catch(x){fail(x)}}
 document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.tagName==="INPUT")return;act(t.dataset.act,t)});
 async function init(){loadBind();
