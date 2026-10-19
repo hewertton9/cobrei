@@ -167,6 +167,9 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 .b.d{color:var(--bad)}.dr{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;font-size:.9rem}.dr span:first-child{color:var(--mu)}
 .intro .chk{display:flex;gap:.6rem;align-items:flex-start;text-align:left;font-size:.8rem;color:var(--mu);max-width:22rem;line-height:1.4}.intro .chk input{width:1.25rem;height:1.25rem;flex:none;margin-top:.1rem;padding:0}.intro .chk a{color:var(--ac)}
 .sheet .note a{color:var(--ac)}
+
+.tabs{grid-template-columns:repeat(5,1fr)}.tabs button{font-size:.68rem}
+.par{border:1px solid var(--ln);border-radius:1rem;padding:.8rem .9rem;margin-bottom:.6rem}#pars{padding-bottom:1.5rem}
 </style>
 </head>
 <body>
@@ -197,7 +200,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 </div>
 <div id="app" class="hid">
 <header><span class="logo" role="img" aria-label="Cobrei">C<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#ffc53d"/><path d="M11 21l6 6 12-14" fill="none" stroke="#0a1230" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>BREI</span><p id="hi"></p><button class="ic eye" data-act="eye"></button><button class="ic" data-act="cfg" aria-label="Meus dados"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg></button></header>
-<nav class="tabs" aria-label="Seções"><button class="on" data-act="tab" data-t="pnl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg><span>Painel</span><em id="bdg" class="bdg hid"></em></button><button data-act="tab" data-t="cob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6"/></svg><span>Cobranças</span></button><button data-act="tab" data-t="cli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.4 0 4 1.7 4 4"/></svg><span>Clientes</span></button><button data-act="tab" data-t="ct"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h14a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2zM4 7l11-3v3"/><circle cx="16" cy="13.5" r="1.2"/></svg><span>Financeiro</span></button></nav>
+<nav class="tabs" aria-label="Seções"><button class="on" data-act="tab" data-t="pnl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg><span>Painel</span><em id="bdg" class="bdg hid"></em></button><button data-act="tab" data-t="cob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6"/></svg><span>Cobranças</span></button><button data-act="tab" data-t="cli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.4 0 4 1.7 4 4"/></svg><span>Clientes</span></button><button data-act="tab" data-t="sv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M3 13h18"/></svg><span>Serviços</span></button><button data-act="tab" data-t="ct"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h14a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2zM4 7l11-3v3"/><circle cx="16" cy="13.5" r="1.2"/></svg><span>Financeiro</span></button></nav>
 <div id="v-pnl">
 <section class="hero"><span>Falta receber</span><b id="p-ab"></b><div class="hs"><div><span>Atrasado</span><b id="p-atr"></b></div><div><span id="p-mn">Total recebido</span><b id="p-rec"></b></div></div></section>
 <h2 class="sec">Para fazer agora</h2>
@@ -207,6 +210,11 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <section class="hero"><span>A receber</span><b id="s2"></b><div class="pgb"><i id="pg"></i></div><div class="hs"><div><span>Em orçamento</span><b id="s1"></b></div><div><span>Já recebido</span><b id="s3"></b></div></div></section>
 <nav class="chips" aria-label="Filtrar"><button data-act="flt" data-f="all">Todos</button><button data-act="flt" data-f="orc">Orçamentos</button><button data-act="flt" data-f="cob">A receber</button><button data-act="flt" data-f="pago">Pagos</button><button data-act="flt" data-f="rec">Recusados</button></nav>
 <div id="list"></div>
+</div>
+<div id="v-sv" class="hid">
+<section class="hero"><span>Serviços cadastrados</span><b id="sv-n"></b><p class="note">Cadastre uma vez, com o valor, e use nos orçamentos com um toque.</p></section>
+<div id="svl"></div>
+<button class="b p wide" data-act="newsv">+ Novo serviço</button>
 </div>
 <div id="v-cli" class="hid">
 <section class="hero"><span>Clientes cadastrados</span><b id="cli-n"></b><p class="note">O valor em cada cliente é o total já recebido dele.</p></section>
@@ -246,7 +254,6 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <label for="ctf">Telefone / WhatsApp *</label><input id="ctf" inputmode="tel">
 <label for="cci">Cidade *</label><input id="cci" autocomplete="address-level2">
 <label>Logo (aparece nos PDFs)</label><div class="lg"><img id="lgp" alt="" class="hid"><button class="b" data-act="logo">Escolher imagem</button><button class="b d hid" id="lgx" data-act="logox">Remover</button></div><input type="file" id="lgf" accept="image/*" class="hid">
-<label>Catálogo</label><button class="b wide" data-act="svc">Meus serviços e preços</button>
 <div id="biow"><label>Segurança</label><button class="b wide" id="bio" data-act="bio"></button></div>
 <div id="instw"><label>Aplicativo</label><button class="b wide hid" id="instb" data-act="inst">Instalar COBREI no celular</button><p id="insth" class="note"></p></div>
 <label>Plano</label><div class="card" id="plbox"></div>
@@ -268,6 +275,8 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <label for="fdc">Desconto em R$ (opcional)</label><input id="fdc" inputmode="decimal" placeholder="0,00">
 <label for="fva">Validade do orçamento</label><input id="fva" type="date">
 <label for="ffp">Forma de pagamento</label><select id="ffp"><option value="">A combinar</option><option>Pix</option><option>Dinheiro</option><option>Cartão de crédito</option><option>Cartão de débito</option><option>Transferência bancária</option><option>Boleto</option></select>
+<div id="fpw" class="hid"><label for="fpn" id="fpl">Parcelas</label><select id="fpn"></select></div>
+<div id="fenw" class="hid"><label for="fen">Entrada (% do total)</label><input id="fen" inputmode="numeric" placeholder="50"></div>
 <label for="fob">Observações (opcional)</label><textarea id="fob" rows="3" placeholder="Prazo de entrega, garantia, condições..."></textarea>
 <div class="bar"><p><span>Total</span><span id="ftot">R$ 0,00</span></p><div class="act"><button class="b p" data-act="save">Salvar orçamento</button></div></div>
 </aside>
@@ -296,13 +305,12 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <div class="bar"><div class="act"><button class="b p" data-act="pixcopy">Copiar código Pix</button></div></div>
 </aside>
 <aside id="sh-cb" class="sheet" aria-label="Gerar cobrança">
-<h2>Gerar cobrança</h2>
-<label for="cbm">Como o cliente vai pagar?</label><select id="cbm"><option value="avista">À vista</option><option value="entrada">Entrada + saldo</option><option value="parcelas">Parcelado (mensal)</option></select>
+<h2>Gerar cobrança</h2><p id="cbs" class="note"></p>
 <label for="cbd">Primeiro vencimento</label><input id="cbd" type="date">
-<div id="cbpw" class="hid"><label for="cbp">Entrada (% do total)</label><input id="cbp" inputmode="numeric"></div>
-<div id="cbnw" class="hid"><label for="cbn">Número de parcelas (2 a 12)</label><input id="cbn" inputmode="numeric"></div>
-<p id="cbs" class="note"></p>
 <div class="bar"><div class="act"><button class="b p" data-act="cbgo">Gerar cobrança</button></div></div>
+</aside>
+<aside id="sh-par" class="sheet" aria-label="Parcelas">
+<h2 id="parh">Parcelas</h2><div id="pars"></div>
 </aside>
 <aside id="sh-rc" class="sheet" aria-label="Cobrança mensal">
 <h2>Cobrança mensal</h2><p id="rcc" class="note"></p>
@@ -312,11 +320,11 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <p class="note">As cobranças são criadas ao abrir o app, até 5 dias antes de cada vencimento.</p>
 <div class="bar"><div class="act"><button class="b p" data-act="saverc">Ativar cobrança mensal</button></div></div>
 </aside>
-<aside id="sh-svc" class="sheet" aria-label="Catálogo de serviços">
-<h2>Catálogo de serviços</h2><div id="svl"></div>
-<label for="svn">Novo serviço</label><input id="svn" placeholder="Ex.: Pintura de parede">
-<label for="svp">Preço (R$)</label><input id="svp" inputmode="decimal">
-<div class="bar"><div class="act"><button class="b p" data-act="savesv">Adicionar ao catálogo</button></div></div>
+<aside id="sh-svc" class="sheet" aria-label="Serviço">
+<h2 id="svh">Novo serviço</h2>
+<label for="svn">Nome do serviço</label><input id="svn" placeholder="Ex.: Pintura de parede" autocomplete="off">
+<label for="svp">Valor (R$)</label><input id="svp" inputmode="decimal" placeholder="0,00">
+<div class="bar"><div class="act"><button class="b p" data-act="savesv">Salvar serviço</button></div></div>
 </aside>
 <aside id="sh-dp" class="sheet" aria-label="Nova despesa">
 <h2>Nova despesa</h2>
@@ -343,7 +351,7 @@ let S={cfg:{nome:"",pix:""},docs:[]},F="all";
 try{const r=localStorage.getItem(K);if(r)S=JSON.parse(r)}catch(e){}
 S.contas=S.contas||[];S.clientes=[];S.perfil={};S.servicos=[];S.recs=[];S.desp=[];S.plano={plano:"gratis",ate:""};
 const CFG={limite:10,preco:"R$ 19,90 por mês",checkout:"",contato:""};
-let TAB="pnl",PAY=null,CB=null,RC=null,FORCE=false,EC=null,CF="",PIXD=null,SUB="ct",PER="m",IP=null;const CVT=new URLSearchParams(location.search).get("o");
+let TAB="pnl",PAY=null,CB=null,RC=null,FORCE=false,EC=null,CF="",PIXD=null,SUB="ct",PER="m",IP=null,EV=null,GRP=null;const CVT=new URLSearchParams(location.search).get("o");
 const TP={pix:"Pix",banco:"Conta bancária",carteira:"Carteira digital",dinheiro:"Dinheiro em mãos"},EM={pix:"⚡",banco:"🏦",carteira:"📱",dinheiro:"💵"};
 const contaNome=id=>(S.contas.find(x=>x.id===id)||{}).nome;
 function payList(){$("payl").innerHTML=S.contas.map(x=>`<button class="b" data-act="payto" data-c="${x.id}">${EM[x.tipo]} ${esc(x.nome)}</button>`).join("")+`<button class="b" data-act="payto" data-c="">Não informar</button>`}
@@ -364,7 +372,7 @@ try{const cr=await navigator.credentials.create({publicKey:{challenge:crypto.get
 localStorage.setItem(BK,JSON.stringify({id:b64(new Uint8Array(cr.rawId)),uid:U.id}));toast("Biometria ativada neste aparelho.")}
 catch(e){toast("Não foi possível ativar a biometria neste aparelho.")}bioLabel()}
 async function unlock(){try{const c=JSON.parse(localStorage.getItem(BK));await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),allowCredentials:[{type:"public-key",id:unb(c.id)}],userVerification:"required",timeout:60000}});LOCK=false;await enter(PEND)}catch(e){toast("Não foi possível validar a biometria. Tente de novo.")}}
-function openNew(cid){$("fsv").innerHTML='<option value="">'+(S.servicos.length?"Adicionar serviço do catálogo…":"Catálogo vazio (cadastre em Meus dados)")+'</option>'+S.servicos.map(x=>`<option value="${x.id}">${esc(x.nome)} — ${R.format(x.preco)}</option>`).join("");["fc","fw","ft","fdc","fob"].forEach(i=>$(i).value="");$("fva").value=iso(7);$("ffp").value="";$("its").innerHTML="";addItem();
+function openNew(cid){$("fsv").innerHTML='<option value="">'+(S.servicos.length?"Adicionar serviço do catálogo…":"Catálogo vazio (cadastre na aba Serviços)")+'</option>'+S.servicos.map(x=>`<option value="${x.id}">${esc(x.nome)} — ${R.format(x.preco)}</option>`).join("");["fc","fw","ft","fdc","fob"].forEach(i=>$(i).value="");$("fva").value=iso(7);$("ffp").value="";$("fen").value="";fpUI();$("its").innerHTML="";addItem();
 $("fcl").innerHTML='<option value="">Novo cliente (digitar)</option>'+S.clientes.map(c=>`<option value="${c.id}">${esc(c.nome)}</option>`).join("");
 $("fcl").value=cid||"";const c=S.clientes.find(x=>x.id===cid);if(c){$("fc").value=c.nome;$("fw").value=c.whatsapp}
 calc();openS("sh-new")}
@@ -395,7 +403,7 @@ else if(d.s==="apr")T.push({p:2,k:0,cls:"apr",d,tx:"Aprovado — falta gerar a c
 else if(d.s==="orc"){const x=dd(hoje,d.data);if(x>=3)T.push({p:4,k:-x,cls:"",d,tx:`Orçamento enviado há ${x} dias, sem resposta`,bt:"Reenviar"})}});
 T.sort((a,b)=>a.p-b.p||a.k-b.k);const nb=T.filter(o=>o.p<=2).length;$("bdg").textContent=nb;$("bdg").classList.toggle("hid",!nb);
 $("p-ab").textContent=fmt(ab);$("p-atr").textContent=fmt(atr);$("p-atr").style.color=atr>0?"#ff9d8f":"";$("p-rec").textContent=fmt(rec);
-$("p-tasks").innerHTML=T.length?T.slice(0,8).map(o=>{const d=o.d,id=`data-id="${d.id}"`;return`<article class="task"><i class="dot ${o.cls}"></i><div class="mid"><h3>${esc(d.c)}</h3><p><b>${fmt(tot(d))}</b> · ${o.tx}</p></div>${o.a?`<button class="b p" ${id} data-act="${o.a}">${o.bt}</button>`:`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">${o.bt}</a>`}</article>`}).join("")+(T.length>8?`<p class="note">e mais ${T.length-8} pendências em Cobranças</p>`:""):`<div class="empty">Tudo em dia por aqui.<br>Nenhuma cobrança atrasada nem orçamento esperando resposta.</div>`}
+$("p-tasks").innerHTML=T.length?T.slice(0,8).map(o=>{const d=o.d,id=`data-id="${d.id}"`;return`<article class="task"><i class="dot ${o.cls}"></i><div class="mid"><h3>${esc(d.c)}</h3><p><b>${fmt(tot(d))}</b> · ${d.pc?"parcela "+d.pc+" · ":""}${o.tx}</p></div>${o.a?`<button class="b p" ${id} data-act="${o.a}">${o.bt}</button>`:`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">${o.bt}</a>`}</article>`}).join("")+(T.length>8?`<p class="note">e mais ${T.length-8} pendências em Cobranças</p>`:""):`<div class="empty">Tudo em dia por aqui.<br>Nenhuma cobrança atrasada nem orçamento esperando resposta.</div>`}
 function logoUI(){const i=$("lgp");i.src=LOGO||"";i.classList.toggle("hid",!LOGO);$("lgx").classList.toggle("hid",!LOGO)}
 function loadBind(){$("cff").addEventListener("change",e=>{const f=e.target.files[0];e.target.value="";if(f)imgData(f,160,u=>{CF=u;cfUI()})});$("lgf").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const m=Math.min(1,240/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*m);c.height=Math.round(im.height*m);c.getContext("2d").drawImage(im,0,0,c.width,c.height);LOGO=c.toDataURL("image/png");logoUI()};im.onerror=()=>toast("Imagem inválida.");im.src=r.result};r.readAsDataURL(f)})}
 const U1=["","um","dois","três","quatro","cinco","seis","sete","oito","nove","dez","onze","doze","treze","quatorze","quinze","dezesseis","dezessete","dezoito","dezenove"],DZ=["","","vinte","trinta","quarenta","cinquenta","sessenta","setenta","oitenta","noventa"],CT=["","cento","duzentos","trezentos","quatrocentos","quinhentos","seiscentos","setecentos","oitocentos","novecentos"];
@@ -421,7 +429,7 @@ const cl=S.clientes.find(x=>x.id===d.k)||{},code=isC?pixCode(d):"",brand=documen
 const em=[p.documento?dl+" "+fdoc(p.documento):"",p.telefone?ftel(p.telefone):"",p.cidade||""].filter(Boolean).map(esc).join("  ·  ");
 const num="Nº "+String(d.n||0).padStart(4,"0")+(d.pc?" · Parcela "+d.pc:""),emit=isR?(d.pagoEm||iso(0)):d.data;
 const cinfo=[cl.documento?(dg(cl.documento).length===14?"CNPJ ":"CPF ")+fdoc(cl.documento):"",cl.whatsapp?ftel(cl.whatsapp):(d.w?ftel(d.w):""),cl.email||""].filter(Boolean).map(esc).join("  ·  ");
-const rows=[];if(d.fp)rows.push(["Forma de pagamento",d.fp]);if(d.val&&(d.s==="orc"||d.s==="apr"))rows.push(["Validade do orçamento",dlong(d.val)]);if(isC&&d.venc)rows.push(["Vencimento",dlong(d.venc)]);if(isR&&contaNome(d.conta))rows.push(["Recebido em",contaNome(d.conta)]);
+const rows=[];if(d.fp)rows.push(["Forma de pagamento",payTxt(d.fp,d.np,d.en,t)]);if(d.val&&(d.s==="orc"||d.s==="apr"))rows.push(["Validade do orçamento",dlong(d.val)]);if(isC&&d.venc)rows.push(["Vencimento",dlong(d.venc)]);if(isR&&contaNome(d.conta))rows.push(["Recebido em",contaNome(d.conta)]);
 $("doc").innerHTML=`<div class="px"><div class="top6"></div>
 <div class="hd"><div class="em">${p.logo?`<img src="${p.logo}" alt="">`:""}<div><h1>${esc(n||"")}</h1><p>${em}</p></div></div><div class="dk"><b>${tp}</b><span>${num}</span><span>${dlong(emit)}</span></div></div>
 <div class="lb">Cliente</div><div class="cn"><b>${esc(d.c)}</b>${cinfo?`<br><span class="mu">${cinfo}</span>`:""}</div>
@@ -437,21 +445,19 @@ const linkOf=d=>location.origin+location.pathname+"?o="+d.tk;
 async function copyText(v){try{await navigator.clipboard.writeText(v)}catch(e){const t=document.createElement("textarea");t.value=v;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove()}}
 const addDays=(s,n)=>{const d=new Date(s+"T12:00");d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
 const addMonths=(s,n)=>{const d=new Date(s+"T12:00"),day=d.getDate();d.setDate(1);d.setMonth(d.getMonth()+n);const last=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();d.setDate(Math.min(day,last));return d.toISOString().slice(0,10)};
-function svcList(){$("svl").innerHTML=S.servicos.length?S.servicos.map(x=>`<div class="ir"><span>${esc(x.nome)}</span><span><b>${R.format(x.preco)}</b> <button class="link" data-act="delsv" data-id="${x.id}">Excluir</button></span></div>`).join(""):`<p class="note">Nenhum serviço cadastrado ainda.</p>`}
 function parcelas(t,m,pc,n,d0){if(m==="entrada"){const p=Math.min(95,Math.max(5,pc||50)),e=Math.round(t*p)/100;return[[e,d0],[Math.round((t-e)*100)/100,addDays(d0,30)]]}
 const q=Math.min(12,Math.max(2,n||2)),v=Math.floor(t/q*100)/100,P=[];for(let i=0;i<q;i++)P.push([i<q-1?v:Math.round((t-v*(q-1))*100)/100,addMonths(d0,i)]);return P}
-function cbUI(){const m=$("cbm").value,d=S.docs.find(x=>x.id===CB);$("cbpw").classList.toggle("hid",m!=="entrada");$("cbnw").classList.toggle("hid",m!=="parcelas");if(!d)return;const t=tot(d);let x="";
-if(m==="avista")x=`Uma cobrança de ${R.format(t)}.`;
-else{const P=parcelas(t,m,num($("cbp").value),parseInt($("cbn").value),$("cbd").value||iso(7));x=m==="entrada"?`Entrada de ${R.format(P[0][0])} e saldo de ${R.format(P[1][0])} em ${br(P[1][1])}.`:`${P.length} parcelas mensais de ${R.format(P[0][0])}.`}
-$("cbs").textContent=x}
-async function cbGo(){const d=S.docs.find(x=>x.id===CB);if(!d)return;const m=$("cbm").value,d0=$("cbd").value||iso(7),t=tot(d);
+function planOf(d){return d.en?"entrada":d.np>1?"parcelas":"avista"}
+function cbUI(){const d=S.docs.find(x=>x.id===CB);if(!d)return;const t=tot(d),m=planOf(d),P=parcelas(t,m,d.en,d.np,$("cbd").value||iso(7));
+const fp=d.fp?d.fp+". ":"";$("cbs").textContent=fp+(m==="avista"?"Uma cobrança de "+R.format(t)+".":m==="entrada"?`Entrada de ${R.format(P[0][0])} e saldo de ${R.format(P[1][0])} em ${br(P[1][1])}.`:`${P.length} parcelas mensais de ${R.format(P[0][0])}.`)}
+async function cbGo(){const d=S.docs.find(x=>x.id===CB);if(!d)return;const m=planOf(d),d0=$("cbd").value||iso(7),t=tot(d);
 if(m==="avista"){await up(d,{status:"cob",vencimento:d0});closeS();return}
-const P=parcelas(t,m,num($("cbp").value),parseInt($("cbn").value),d0),N=P.length;
+const P=parcelas(t,m,d.en,d.np,d0),N=P.length;
 const rows=P.map((p,i)=>Object.assign({numero:d.n,cliente:d.c,whatsapp:d.w||null,servico:d.t,status:"cob",vencimento:p[1],parcela:(i+1)+"/"+N,grupo_id:d.id,forma_pagamento:d.fp||null},d.k?{cliente_id:d.k}:{}));
 const r=await sb.from("orcamentos").insert(rows).select("id,parcela");if(r.error)throw r.error;
 const it=r.data.map(x=>{const i=Number(x.parcela.split("/")[0])-1;return{orcamento_id:x.id,descricao:d.t+" — "+(m==="entrada"?(i===0?"entrada":"saldo"):"parcela "+(i+1)+"/"+N),quantidade:1,valor:P[i][0]}});
 const r2=await sb.from("itens").insert(it);if(r2.error){await sb.from("orcamentos").delete().in("id",r.data.map(x=>x.id));throw r2.error}
-await up(d,{status:"parc"});closeS();toast(N+" cobranças geradas.")}
+await up(d,{status:"parc"});closeS();toast(N+" parcelas geradas.")}
 async function genRecs(){const hoje=iso(0);let n=S.docs.reduce((m,x)=>Math.max(m,x.n||0),0)+1,nov=0;
 for(const rc of S.recs){if(!rc.ativa)continue;let m=rc.inicio.slice(0,7);
 for(let i=0;i<36;i++,m=mshift(m,1)){const due=m+"-"+String(rc.dia).padStart(2,"0");if(due<rc.inicio)continue;if(hoje<addDays(due,-5))break;
@@ -471,7 +477,7 @@ cv.innerHTML=`<div style="text-align:center;margin:1rem 0">${pr.logo?`<img src="
 <section class="card"><p class="note" style="text-align:left">Orçamento nº ${o.numero} para <b>${esc(o.cliente)}</b></p><h2 style="margin:.2rem 0 .8rem">${esc(o.servico)}</h2>
 ${o.itens.map(i=>`<div class="ir"><span>${esc(i.descricao)}${Number(i.quantidade)!==1?" ×"+i.quantidade:""}</span><b>${R.format(i.quantidade*i.valor)}</b></div>`).join("")}
 ${o.desconto>0?`<div class="ir"><span>Desconto</span><b>-${R.format(o.desconto)}</b></div>`:""}<div class="ir tt"><span>Total</span><b>${R.format(t)}</b></div>
-${o.forma_pagamento?`<p class="note" style="text-align:left">Pagamento: ${esc(o.forma_pagamento)}</p>`:""}${o.validade?`<p class="note" style="text-align:left">Válido até ${br(o.validade)}</p>`:""}${o.observacoes?`<p class="note" style="text-align:left">${esc(o.observacoes)}</p>`:""}</section>
+${o.forma_pagamento?`<p class="note" style="text-align:left">Pagamento: ${esc(payTxt(o.forma_pagamento,o.parcelas,o.entrada_pct,t))}</p>`:""}${o.validade?`<p class="note" style="text-align:left">Válido até ${br(o.validade)}</p>`:""}${o.observacoes?`<p class="note" style="text-align:left">${esc(o.observacoes)}</p>`:""}</section>
 <div id="cva">${o.status==="orc"&&!venc?`<button class="b p wide" data-act="cvok">Aprovar orçamento</button><button class="link" data-act="cvno">Recusar</button>`:`<p class="note">${o.status==="orc"?"Este orçamento passou da validade. Peça uma nova versão ao profissional.":(msgs[o.status]||"")}</p>`}</div>`}
 async function cvAnswer(ok){const r=await sb.rpc("responder_orcamento",{p_token:CVT,p_aceite:ok});if(r.error)throw r.error;
 const m={apr:"Orçamento aprovado! Obrigado. Sua resposta foi registrada.",rec:"Resposta registrada. Obrigado pelo retorno.",vencido:"Este orçamento passou da validade. Peça uma nova versão.",nao_encontrado:"Este link não é válido."};
@@ -520,6 +526,21 @@ async function delConta(){if(!confirm("Excluir sua conta apaga TODOS os seus dad
 const t=prompt("Para confirmar, digite EXCLUIR:");if((t||"").trim().toUpperCase()!=="EXCLUIR")return;
 const r=await sb.rpc("excluir_minha_conta");if(r.error)throw r.error;try{localStorage.removeItem(BK)}catch(e){}try{await sb.auth.signOut()}catch(e){}
 FORCE=false;closeS();OK=false;S.docs=[];S.contas=[];S.clientes=[];S.desp=[];MODE="signup";render();toast("Conta excluída.")}
+const kids=d=>S.docs.filter(x=>x.g===d.id).sort((a,b)=>Number(a.pc.split("/")[0])-Number(b.pc.split("/")[0]));
+function payTxt(fp,np,en,t){if(!fp)return"";let x=fp;if(en)x+=` · entrada de ${en}% e saldo em 30 dias`;else if(np>1)x+=` em ${np}x de ${R.format(t/np)}`;else if(fp==="Cartão de crédito")x+=" à vista";return x}
+function fpUI(){const f=$("ffp").value,show=f&&f!=="Cartão de débito";$("fpw").classList.toggle("hid",!show);if(!show){$("fenw").classList.add("hid");return}
+const cc=f==="Cartão de crédito",cur=$("fpn").value,o=cc?[["1","À vista (1x)"]]:[["1","À vista"],["ent","Entrada + saldo"]];for(let i=2;i<=12;i++)o.push([String(i),i+"x"+(cc?" no cartão":" (parcelas mensais)")]);
+$("fpl").textContent=cc?"Parcelas no cartão":"Condição de pagamento";$("fpn").innerHTML=o.map(x=>`<option value="${x[0]}">${x[1]}</option>`).join("");if(o.some(x=>x[0]===cur))$("fpn").value=cur;$("fenw").classList.toggle("hid",$("fpn").value!=="ent")}
+function grpCard(d){const ks=kids(d),pg=ks.filter(x=>x.s==="pago").length,ab=ks.filter(x=>x.s==="cob"),atr=ab.filter(x=>x.venc&&x.venc<iso(0)).length,prox=ab.map(x=>x.venc).filter(Boolean).sort()[0];
+const tg=pg===ks.length?`<span class="tag pago">Todas as parcelas pagas</span>`:atr?`<span class="tag late">${atr} ${atr===1?"parcela atrasada":"parcelas atrasadas"}</span>`:`<span class="tag cob">Próxima parcela: ${prox?br(prox).slice(0,5):"—"}</span>`;
+return`<article class="card"><div class="top"><div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div></div><span class="tag">Parcelado em ${ks.length}x</span> ${tg}<div class="pgb" style="margin:.8rem 0 0"><i style="width:${Math.round(pg/ks.length*100)}%"></i></div><div class="act"><button class="b p" data-id="${d.id}" data-act="grp">Ver parcelas (${pg} de ${ks.length} pagas)</button></div><div class="sub"><button class="d" data-id="${d.id}" data-act="del">Excluir</button></div></article>`}
+function openGrp(id){const p=S.docs.find(x=>x.id===id);if(!p)return;GRP=id;const ks=kids(p),h=iso(0);$("parh").textContent=p.c;
+$("pars").innerHTML=`<p class="note">${esc(p.t)} · ${fmt(tot(p))} em ${ks.length}x${p.fp?" · "+esc(p.fp):""}</p>`+ks.map(k=>{const id_=`data-id="${k.id}"`,late=k.s==="cob"&&k.venc&&k.venc<h;
+const tg=k.s==="pago"?`<span class="tag pago">Pago em ${br(k.pagoEm||k.data)}${contaNome(k.conta)?" · "+esc(contaNome(k.conta)):""}</span>`:`<span class="tag ${late?"late":"cob"}">${late?"Atrasada desde ":"Vence em "}${br(k.venc)}</span>`;
+const ac=k.s==="pago"?`<button class="b" ${id_} data-act="pdf">Recibo</button>`:`<a class="b p" href="${esc(wa(k))}" target="_blank" rel="noopener">Cobrar</a><button class="b" ${id_} data-act="pix">Pix / QR</button><button class="b" ${id_} data-act="pago">Marcar pago</button>`;
+return`<div class="par"><div class="top"><div class="mid"><h3>Parcela ${esc(k.pc)}</h3></div><div class="tot">${fmt(tot(k))}</div></div>${tg}<div class="act">${ac}</div></div>`}).join("");openS("sh-par")}
+function renderSv(){$("sv-n").textContent=S.servicos.length;$("svl").innerHTML=S.servicos.length?S.servicos.map(x=>`<article class="card"><div class="top"><div class="mid"><h3>${esc(x.nome)}</h3></div><div class="tot">${fmt(x.preco)}</div></div><div class="sub"><button data-id="${x.id}" data-act="editsv">Editar</button><button class="d" data-id="${x.id}" data-act="delsv">Excluir</button></div></article>`).join(""):`<div class="empty">Nenhum serviço cadastrado.<br>Cadastre os serviços que você mais faz, com o valor de cada um.</div>`}
+function openSv(x){EV=x||null;$("svh").textContent=x?"Editar serviço":"Novo serviço";$("svn").value=x?x.nome:"";$("svp").value=x?String(x.preco).replace(".",","):"";openS("sh-svc")}
 function renderCli(){const by={};S.docs.forEach(d=>{if(d.k){const o=by[d.k]||(by[d.k]={n:0,p:0});if(!d.pc)o.n++;if(d.s==="pago")o.p+=tot(d)}});
 $("cli-n").textContent=S.clientes.length;
 $("cll").innerHTML=S.clientes.length?S.clientes.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return`<article class="card"><div class="top"><div class="av">${c.foto?`<img src="${c.foto}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div></div>${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button>${c.recorrente?`<button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button>`:""}</div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div></article>`}).join(""):`<div class="empty">Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque.</div>`}
@@ -536,7 +557,7 @@ return"Não foi possível concluir. Verifique a conexão e tente de novo."};
 async function loadAll(){
 const [o,c,k,pr,sv,rr,dsp,asn]=await Promise.all([sb.from("orcamentos").select("*, itens(*)").order("criado_em",{ascending:false}),sb.from("contas").select("*").order("criado_em"),sb.from("clientes").select("*").order("nome"),sb.from("perfil").select("*").maybeSingle(),sb.from("servicos").select("*").order("nome"),sb.from("recorrencias").select("*").order("criado_em"),sb.from("despesas").select("*").order("data",{ascending:false}),sb.from("assinaturas").select("*").maybeSingle()]);
 if(o.error||c.error)throw(o.error||c.error);
-S.docs=o.data.map(r=>({id:r.id,n:r.numero,c:r.cliente,w:r.whatsapp||"",t:r.servico,itens:(r.itens||[]).map(i=>({d:i.descricao,q:Number(i.quantidade),v:Number(i.valor)})),s:r.status,data:(r.criado_em||"").slice(0,10),venc:r.vencimento||"",conta:r.conta_id||"",k:r.cliente_id||"",tk:r.token||"",rc:r.recorrencia_id||"",comp:r.competencia||"",pc:r.parcela||"",val:r.validade||"",desc:Number(r.desconto||0),fp:r.forma_pagamento||"",ob:r.observacoes||"",pagoEm:r.pago_em||""}));
+S.docs=o.data.map(r=>({id:r.id,n:r.numero,c:r.cliente,w:r.whatsapp||"",t:r.servico,itens:(r.itens||[]).map(i=>({d:i.descricao,q:Number(i.quantidade),v:Number(i.valor)})),s:r.status,data:(r.criado_em||"").slice(0,10),venc:r.vencimento||"",conta:r.conta_id||"",k:r.cliente_id||"",tk:r.token||"",np:Number(r.parcelas||1),en:Number(r.entrada_pct||0),g:r.grupo_id||"",rc:r.recorrencia_id||"",comp:r.competencia||"",pc:r.parcela||"",val:r.validade||"",desc:Number(r.desconto||0),fp:r.forma_pagamento||"",ob:r.observacoes||"",pagoEm:r.pago_em||""}));
 S.contas=c.data.map(x=>({id:x.id,nome:x.nome,tipo:x.tipo,chave:x.chave||""}));
 S.clientes=k.error?[]:k.data.map(x=>({id:x.id,nome:x.nome,tipo:x.tipo,documento:x.documento||"",whatsapp:x.whatsapp||"",recorrente:!!x.recorrente,email:x.email||"",foto:x.foto||""}));
 const pd=(pr&&!pr.error&&pr.data)||{};S.perfil={documento:pd.documento||"",telefone:pd.telefone||"",cidade:pd.cidade||"",pixt:pd.pixt||"cpf",logo:pd.logo||""};
@@ -568,7 +589,7 @@ if(!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite seu e-mail acima e toque em
 const r=await sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname});
 if(r.error)er.textContent=msgErr(r.error);else inf.textContent="Se esse e-mail tiver conta, enviamos um link para criar uma nova senha."}
 function authUI(){const m=MODE;
-$("intro").classList.toggle("hid",OK||LOCK);$("lock").classList.toggle("hid",!LOCK||OK);$("app").classList.toggle("hid",!OK);document.querySelector(".fab").classList.toggle("hid",!OK||TAB==="ct");
+$("intro").classList.toggle("hid",OK||LOCK);$("lock").classList.toggle("hid",!LOCK||OK);$("app").classList.toggle("hid",!OK);document.querySelector(".fab").classList.toggle("hid",!OK||TAB==="ct"||TAB==="sv");
 $("an").classList.toggle("hid",m!=="signup");$("ae").classList.toggle("hid",m==="recover");$("fg").classList.toggle("hid",m!=="login");$("sw").classList.toggle("hid",m==="recover");$("aceitew").classList.toggle("hid",m!=="signup");
 $("ap").autocomplete=m==="signup"||m==="recover"?"new-password":"current-password";
 $("at").textContent=m==="recover"?"Crie uma nova senha":"Orçou. Cobrou. Recebeu.";
@@ -582,10 +603,10 @@ const subt=d=>d.itens.reduce((a,i)=>a+i.q*i.v,0),tot=d=>Math.max(0,subt(d)-(d.de
 const iso=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
 const br=s=>s?s.split("-").reverse().join("/"):"";
 const ST={orc:"Orçamento enviado",apr:"Aprovado — falta cobrar",pago:"Pago",rec:"Recusado pelo cliente",parc:"Parcelado em várias cobranças"};
-const FL={all:()=>true,orc:d=>d.s==="orc"||d.s==="apr",cob:d=>d.s==="cob",pago:d=>d.s==="pago",rec:d=>d.s==="rec"};
+const FL={all:()=>true,orc:d=>d.s==="orc"||d.s==="apr",cob:d=>d.s==="cob"||(d.s==="parc"&&kids(d).some(x=>x.s==="cob")),pago:d=>d.s==="pago"||(d.s==="parc"&&kids(d).length>0&&kids(d).every(x=>x.s==="pago")),rec:d=>d.s==="rec"};
 function msg(d){const t=R.format(tot(d)),n=S.cfg.nome||"";
 if(d.s==="cob")return`Olá, ${d.c}! Passando para lembrar da cobrança "${d.t}${d.pc?" (parcela "+d.pc+")":""}", no valor de ${t}, com vencimento em ${br(d.venc)}.${d.venc&&d.venc<iso(0)?" Ela está em atraso. Poderia me confirmar o pagamento?":""}${pixCode(d)?`\nPix copia e cola:\n${pixCode(d)}`:(pixContas()[0]?`\nPix: ${pixContas()[0].chave}`:"")}\nObrigado!`;
-return`Olá, ${d.c}! Segue o orçamento nº ${d.n}${n?` de ${n}`:""}:\n\n${d.t}\n${d.itens.map(i=>`• ${i.d} (${i.q} x ${R.format(i.v)})`).join("\n")}${d.desc?`\nDesconto: -${R.format(d.desc)}`:""}\n\nTotal: ${t}${d.fp?`\nPagamento: ${d.fp}`:""}${d.val?`\nValidade: ${br(d.val)}`:""}${d.ob?`\nObs.: ${d.ob}`:""}\n\n${d.tk?`Para aprovar com um toque, acesse:\n${linkOf(d)}`:"Se estiver de acordo, é só me responder aqui."}`}
+return`Olá, ${d.c}! Segue o orçamento nº ${d.n}${n?` de ${n}`:""}:\n\n${d.t}\n${d.itens.map(i=>`• ${i.d} (${i.q} x ${R.format(i.v)})`).join("\n")}${d.desc?`\nDesconto: -${R.format(d.desc)}`:""}\n\nTotal: ${t}${d.fp?`\nPagamento: ${payTxt(d.fp,d.np,d.en,tot(d))}`:""}${d.val?`\nValidade: ${br(d.val)}`:""}${d.ob?`\nObs.: ${d.ob}`:""}\n\n${d.tk?`Para aprovar com um toque, acesse:\n${linkOf(d)}`:"Se estiver de acordo, é só me responder aqui."}`}
 function wa(d){let p=(d.w||"").replace(/\D/g,"");if(p&&p.length<=11)p="55"+p;return`https://wa.me/${p}?text=${encodeURIComponent(msg(d))}`}
 function render(){
 authUI();
@@ -595,12 +616,13 @@ $("ct-tot").textContent=fmt(c);
 const rec={};S.docs.forEach(d=>{if(d.s==="pago"&&d.conta)rec[d.conta]=(rec[d.conta]||0)+tot(d)});
 const other=c-S.contas.reduce((z,x)=>z+(rec[x.id]||0),0);
 $("ctl").innerHTML=S.contas.length?S.contas.map(x=>`<article class="card"><div class="top"><div class="av">${EM[x.tipo]}</div><div class="mid"><h3>${esc(x.nome)}</h3><p>${TP[x.tipo]}${x.chave?" · "+esc(x.chave):""}</p></div><div class="tot">${fmt(rec[x.id]||0)}</div></div><div class="sub"><button class="d" data-id="${x.id}" data-act="delct">Excluir</button></div></article>`).join("")+(other>0.004?`<p class="note">${fmt(other)} recebidos sem conta informada ou em contas excluídas.</p>`:""):`<div class="empty">Nenhuma conta cadastrada.<br>Cadastre onde você recebe — Pix, banco, carteira digital ou dinheiro — para saber quanto entrou em cada uma.</div>`;
-$("v-pnl").classList.toggle("hid",TAB!=="pnl");renderPnl();renderFin();$("v-cli").classList.toggle("hid",TAB!=="cli");renderCli();$("v-cob").classList.toggle("hid",TAB!=="cob");$("v-ct").classList.toggle("hid",TAB!=="ct");
+$("v-pnl").classList.toggle("hid",TAB!=="pnl");renderPnl();renderFin();$("v-sv").classList.toggle("hid",TAB!=="sv");renderSv();$("v-cli").classList.toggle("hid",TAB!=="cli");renderCli();$("v-cob").classList.toggle("hid",TAB!=="cob");$("v-ct").classList.toggle("hid",TAB!=="ct");
 document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x.dataset.t===TAB));
 $("hi").textContent=S.cfg.nome?`Olá, ${S.cfg.nome}`:"Orçou. Cobrou. Recebeu.";
 document.querySelectorAll(".chips button").forEach(x=>x.classList.toggle("on",x.dataset.f===F));
-const L=S.docs.filter(FL[F]);
+const L=S.docs.filter(d=>!d.g).filter(FL[F]);
 $("list").innerHTML=L.length?L.map(d=>{
+if(d.s==="parc"&&kids(d).length)return grpCard(d);
 const late=d.s==="cob"&&d.venc<iso(0),id=`data-id="${d.id}"`;
 const tag=d.s==="cob"?`<span class="tag ${late?"late":"cob"}">${late?"Atrasado desde ":"Vence em "}${br(d.venc)}${d.pc?" · parcela "+d.pc:""}</span>`:`<span class="tag ${d.s==="pago"?"pago":""}">${ST[d.s]}${d.s==="pago"&&contaNome(d.conta)?" · "+esc(contaNome(d.conta)):""}${d.s==="orc"&&d.val?" · válido até "+br(d.val).slice(0,5):""}</span>`;
 let ac="",sub="";
@@ -619,7 +641,8 @@ async function up(d,v){const r=await sb.from("orcamentos").update(v).eq("id",d.i
 const fail=x=>{if(String(x&&x.message||"").includes("limite_plano_gratis")){closeS();planoOpen()}else toast("Não foi possível salvar. Verifique sua conexão e tente de novo.")};
 document.addEventListener("change",async e=>{const t=e.target;if(t.id==="fcl"){const c=S.clientes.find(x=>x.id===t.value);if(c){$("fc").value=c.nome;$("fw").value=c.whatsapp}return}
 if(t.id==="fsv"){const x=S.servicos.find(z=>z.id===t.value);if(x){const rows=[...document.querySelectorAll("#its .it")];let r=rows[rows.length-1];if(!r||r.querySelector("input").value.trim()){addItem();r=[...document.querySelectorAll("#its .it")].pop()}const i=r.querySelectorAll("input");i[0].value=x.nome;i[1].value="1";i[2].value=String(x.preco).replace(".",",");if(!$("ft").value.trim())$("ft").value=x.nome;calc()}t.value="";return}
-if(t.id==="cbm"||t.id==="cbd"){cbUI();return}
+if(t.id==="cbd"){cbUI();return}
+if(t.id==="ffp"||t.id==="fpn"){fpUI();return}
 if(t.id==="pixa"){pixShow();return}if(t.dataset.act==="venc"&&t.value){const d=S.docs.find(x=>x.id===t.dataset.id);if(d)try{await up(d,{vencimento:t.value})}catch(x){fail(x)}}});
 async function act(a,t){const d=S.docs.find(x=>x.id===t.dataset.id);
 try{
@@ -636,9 +659,10 @@ else if(a==="deldp"){if(!confirm("Excluir esta despesa?"))return;const r=await s
 else if(a==="rlcsv")rlCsv();else if(a==="rlpdf")rlPdf();else if(a==="plano")planoOpen();else if(a==="exp")expDados();else if(a==="delacc")await delConta();
 else if(a==="inst"){if(IP){IP.prompt();try{await IP.userChoice}catch(e){}IP=null;instUI()}}
 else if(a==="cvok")await cvAnswer(true);else if(a==="cvno")await cvAnswer(false);else if(a==="cbgo")await cbGo();
-else if(a==="svc"){closeS();svcList();$("svn").value="";$("svp").value="";openS("sh-svc")}
-else if(a==="savesv"){const n=$("svn").value.trim();if(!n){toast("Digite o nome do serviço.");return}const r=await sb.from("servicos").insert({nome:n,preco:num($("svp").value)});if(r.error)throw r.error;await loadAll();$("svn").value="";$("svp").value="";svcList();toast("Serviço adicionado.")}
-else if(a==="delsv"){const r=await sb.from("servicos").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();svcList()}
+else if(a==="newsv")openSv(null);else if(a==="editsv")openSv(S.servicos.find(x=>x.id===t.dataset.id));
+else if(a==="savesv"){const n=$("svn").value.trim();if(!n){toast("Digite o nome do serviço.");return}const v={nome:n,preco:num($("svp").value)};
+const r=EV?await sb.from("servicos").update(v).eq("id",EV.id):await sb.from("servicos").insert(v);if(r.error)throw r.error;await loadAll();closeS();toast(EV?"Serviço atualizado.":"Serviço adicionado.");render()}
+else if(a==="delsv"){if(!confirm("Excluir este serviço do catálogo?"))return;const r=await sb.from("servicos").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
 else if(a==="newrc"){RC=S.clientes.find(x=>x.id===t.dataset.id);if(!RC)return;$("rcc").textContent="Cliente: "+RC.nome;$("rcs").value="";$("rcv").value="";$("rcd").value=iso(7);openS("sh-rc")}
 else if(a==="saverc"){const v=num($("rcv").value),sv_=$("rcs").value.trim(),dt=$("rcd").value;if(!RC||!sv_||v<=0||!dt){toast("Preencha serviço, valor e primeiro vencimento.");return}
 const r=await sb.from("recorrencias").insert({cliente_id:RC.id,cliente:RC.nome,whatsapp:RC.whatsapp||null,servico:sv_,valor:v,dia:Math.min(28,Number(dt.slice(8,10))),inicio:dt});if(r.error)throw r.error;await loadAll();await genRecs();closeS();toast("Cobrança mensal ativada.");render()}
@@ -669,19 +693,20 @@ else if(a==="newct"){["ctn","ctk"].forEach(i=>$(i).value="");$("ctt").value="pix
 else if(a==="savect"){const n=$("ctn").value.trim();if(!n){toast("Digite o nome da conta, por exemplo: Nubank.");return}
 const r=await sb.from("contas").insert({nome:n,tipo:$("ctt").value,chave:$("ctk").value.trim()||null});if(r.error)throw r.error;await loadAll();closeS();render()}
 else if(a==="delct"){if(!confirm("Excluir esta conta? Os valores já recebidos continuam no histórico."))return;const r=await sb.from("contas").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
-else if(a==="payto"){const x=S.docs.find(z=>z.id===PAY);if(x)await up(x,{status:"pago",pago_em:iso(0),conta_id:t.dataset.c||null});closeS()}
+else if(a==="payto"){const x=S.docs.find(z=>z.id===PAY);const g=x&&x.g;if(x)await up(x,{status:"pago",pago_em:iso(0),conta_id:t.dataset.c||null});closeS();if(g)openGrp(g)}
 else if(a==="save"){const itens=[...document.querySelectorAll("#its .it")].map(r=>{const i=r.querySelectorAll("input");return{d:i[0].value.trim(),q:num(i[1].value)||1,v:num(i[2].value)}}).filter(i=>i.d&&i.v>0);
 if(!$("fc").value.trim()||!itens.length){toast("Preencha o cliente e pelo menos um item com valor.");return}
+const fpv=$("ffp").value,pn=$("fpn").value,pOk=fpv&&fpv!=="Cartão de débito",np_=pOk&&pn!=="ent"?Number(pn)||1:1,en_=pOk&&pn==="ent"?Math.min(95,Math.max(5,Math.round(num($("fen").value))||50)):null;
 const svc_=$("ft").value.trim()||(itens[0].d+(itens.length>1?" e mais "+(itens.length-1)+(itens.length===2?" item":" itens"):""));
 const n=S.docs.reduce((m,x)=>Math.max(m,x.n||0),0)+1;
-const r=await sb.from("orcamentos").insert(Object.assign({numero:n,cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servico:svc_,validade:$("fva").value||null,desconto:num($("fdc").value),forma_pagamento:$("ffp").value||null,observacoes:$("fob").value.trim()||null},$("fcl").value?{cliente_id:$("fcl").value}:{})).select("id").single();if(r.error)throw r.error;
+const r=await sb.from("orcamentos").insert(Object.assign({numero:n,cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servico:svc_,validade:$("fva").value||null,desconto:num($("fdc").value),forma_pagamento:$("ffp").value||null,parcelas:np_,entrada_pct:en_,observacoes:$("fob").value.trim()||null},$("fcl").value?{cliente_id:$("fcl").value}:{})).select("id").single();if(r.error)throw r.error;
 const r2=await sb.from("itens").insert(itens.map(i=>({orcamento_id:r.data.id,descricao:i.d,quantidade:i.q,valor:i.v})));
 if(r2.error){await sb.from("orcamentos").delete().eq("id",r.data.id);throw r2.error}
 await loadAll();closeS();F="all";render()}
 else if(d){if(a==="apr")await up(d,{status:"apr"});else if(a==="lnk"){await copyText(linkOf(d));toast("Link copiado. Envie ao cliente.")}
-else if(a==="cob"){CB=d.id;$("cbm").value="avista";$("cbd").value=iso(7);$("cbn").value="3";$("cbp").value="50";cbUI();openS("sh-cb")}
-else if(a==="pago"){PAY=d.id;payList();openS("sh-pay")}else if(a==="pdf")pdf(d);
-else if(a==="del"){if(!confirm("Excluir este registro?"))return;const r=await sb.from("orcamentos").delete().eq("id",d.id);if(r.error)throw r.error;await loadAll();render()}}
+else if(a==="cob"){CB=d.id;$("cbd").value=iso(7);cbUI();openS("sh-cb")}
+else if(a==="pago"){PAY=d.id;payList();openS("sh-pay")}else if(a==="pdf")pdf(d);else if(a==="grp")openGrp(d.id);
+else if(a==="del"){const ks=kids(d);if(!confirm(ks.length?"Excluir este parcelamento e as "+ks.length+" parcelas?":"Excluir este registro?"))return;const r=await sb.from("orcamentos").delete().in("id",[d.id].concat(ks.map(x=>x.id)));if(r.error)throw r.error;await loadAll();render()}}
 }catch(x){fail(x)}}
 document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.tagName==="INPUT")return;act(t.dataset.act,t)});
 async function init(){loadBind();
