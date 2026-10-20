@@ -182,6 +182,13 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 .plc ul{margin:0;padding-left:1.1rem}.plc li{margin:.3rem 0;font-size:.92rem}
 .plc.pro{border:2px solid var(--ac)}.plc .bd{position:absolute;top:-.75rem;right:1rem;background:var(--ac);color:#0a1230;font-size:.7rem;font-weight:800;padding:.15rem .65rem;border-radius:99px}
 @media (prefers-reduced-motion:reduce){.chv{transition:none}}
+
+.tabs{grid-template-columns:repeat(4,1fr)}.tabs button{font-size:.72rem}
+.menu{display:grid;gap:.6rem}
+.mi{display:flex;align-items:center;justify-content:space-between;gap:1rem;text-align:left;background:var(--sf);border:1px solid var(--ln);border-radius:1rem;padding:1rem;min-height:3.6rem;width:100%}
+.mi b{display:block;font-size:1rem}.mi small{display:block;color:var(--mu);font-size:.8rem;margin-top:.1rem}.mi .chv{transform:rotate(-45deg)}
+.back{background:none;border:0;color:var(--mu);font-weight:600;padding:.2rem 0 .9rem;font-size:.95rem}
+.gd{text-align:left}.gd h3{margin:0 0 .6rem;font-size:1.1rem}.gd ol{margin:0 0 1rem;padding-left:1.2rem}.gd li{margin:.4rem 0;color:var(--mu)}
 </style>
 </head>
 <body>
@@ -212,10 +219,10 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 </div>
 <div id="app" class="hid">
 <header><span class="logo" role="img" aria-label="Cobrei">C<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#ffc53d"/><path d="M11 21l6 6 12-14" fill="none" stroke="#0a1230" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>BREI</span><p id="hi"></p><button class="ic eye" data-act="eye"></button><button class="ic" data-act="cfg" aria-label="Meus dados"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg></button></header>
-<nav class="tabs" aria-label="Seções"><button class="on" data-act="tab" data-t="pnl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg><span>Painel</span><em id="bdg" class="bdg hid"></em></button><button data-act="tab" data-t="cob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6"/></svg><span>Cobranças</span></button><button data-act="tab" data-t="cli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.4 0 4 1.7 4 4"/></svg><span>Clientes</span></button><button data-act="tab" data-t="sv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M3 13h18"/></svg><span>Serviços</span></button><button data-act="tab" data-t="ct"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h14a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2zM4 7l11-3v3"/><circle cx="16" cy="13.5" r="1.2"/></svg><span>Financeiro</span></button></nav>
+<nav class="tabs" aria-label="Seções"><button class="on" data-act="tab" data-t="pnl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6H9v6H5a1 1 0 01-1-1z"/></svg><span>Início</span><em id="bdg" class="bdg hid"></em></button><button data-act="tab" data-t="cob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6"/></svg><span>Orçamentos</span></button><button data-act="tab" data-t="cli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.4 0 4 1.7 4 4"/></svg><span>Clientes</span></button><button data-act="tab" data-t="mais"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></svg><span>Mais</span></button></nav>
 <div id="v-pnl">
 <section class="hero"><span>Falta receber</span><b id="p-ab"></b><div class="hs"><div><span>Atrasado</span><b id="p-atr"></b></div><div><span id="p-mn">Total recebido</span><b id="p-rec"></b></div></div></section>
-<h2 class="sec">Para fazer agora</h2>
+<h2 class="sec hid" id="pt">Para fazer agora</h2>
 <div id="p-tasks"></div>
 </div>
 <div id="v-cob" class="hid">
@@ -223,7 +230,19 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <nav class="chips" aria-label="Filtrar"><button data-act="flt" data-f="all">Todos</button><button data-act="flt" data-f="orc">Orçamentos</button><button data-act="flt" data-f="cob">A receber</button><button data-act="flt" data-f="pago">Pagos</button><button data-act="flt" data-f="rec">Recusados</button></nav>
 <div id="list"></div>
 </div>
+<div id="v-mais" class="hid">
+<h2 class="sec">Mais opções</h2>
+<div class="menu">
+<button class="mi" data-act="goto" data-t="sv"><span><b>Serviços e preços</b><small>Seu catálogo, para orçar mais rápido</small></span><i class="chv"></i></button>
+<button class="mi" data-act="goto" data-t="ct" data-s="ct"><span><b>Onde eu recebo</b><small>Contas e chave Pix</small></span><i class="chv"></i></button>
+<button class="mi" data-act="goto" data-t="ct" data-s="dp"><span><b>Despesas</b><small>Registre o que você gasta</small></span><i class="chv"></i></button>
+<button class="mi" data-act="goto" data-t="ct" data-s="rl"><span><b>Relatório</b><small>Resumo do mês ou do ano para o contador</small></span><i class="chv"></i></button>
+<button class="mi" data-act="cfg"><span><b>Meus dados</b><small>Nome, logo, biometria e privacidade</small></span><i class="chv"></i></button>
+<button class="mi" data-act="plano"><span><b>Meu plano</b><small>Veja o que está incluso</small></span><i class="chv"></i></button>
+</div>
+</div>
 <div id="v-sv" class="hid">
+<button class="back" data-act="goto" data-t="mais">‹ Mais</button>
 <section class="hero"><span>Serviços cadastrados</span><b id="sv-n"></b><p class="note">Cadastre uma vez, com o valor, e use nos orçamentos com um toque.</p></section>
 <div id="svl"></div>
 <button class="b p wide" data-act="newsv">+ Novo serviço</button>
@@ -234,6 +253,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <button class="b p wide" data-act="newcli">+ Cadastrar cliente</button>
 </div>
 <div id="v-ct" class="hid">
+<button class="back" data-act="goto" data-t="mais">‹ Mais</button>
 <nav class="seg" aria-label="Financeiro"><button class="on" data-act="sub" data-s="ct">Contas</button><button data-act="sub" data-s="dp">Despesas</button><button data-act="sub" data-s="rl">Relatório</button></nav>
 <div id="v-nav" class="hid"><div class="mes"><button class="ic" data-act="mes" data-d="-1" aria-label="Período anterior">‹</button><b id="mes-t"></b><button class="ic" data-act="mes" data-d="1" aria-label="Próximo período">›</button></div></div>
 <div id="sv-ct">
@@ -265,6 +285,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <label for="cdc">CPF ou CNPJ *</label><input id="cdc" inputmode="numeric">
 <label for="ctf">Telefone / WhatsApp *</label><input id="ctf" inputmode="tel">
 <label for="cci">Cidade *</label><input id="cci" autocomplete="address-level2">
+<div id="cfgx">
 <label>Logo (aparece nos PDFs)</label><div class="lg"><img id="lgp" alt="" class="hid"><button class="b" data-act="logo">Escolher imagem</button><button class="b d hid" id="lgx" data-act="logox">Remover</button></div><input type="file" id="lgf" accept="image/*" class="hid">
 <div id="biow"><label>Segurança</label><button class="b wide" id="bio" data-act="bio"></button></div>
 <div id="instw"><label>Aplicativo</label><button class="b wide hid" id="instb" data-act="inst">Instalar COBREI no celular</button><p id="insth" class="note"></p></div>
@@ -273,23 +294,27 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <button class="b wide" data-act="exp">Baixar meus dados (JSON)</button>
 <button class="b wide d" data-act="delacc">Excluir minha conta</button>
 <p class="note"><a href="termos.html" target="_blank" rel="noopener">Termos de Uso</a> · <a href="privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a></p>
-<div class="bar"><div class="act"><button class="b p" data-act="savecfg">Salvar</button><button class="b" data-act="out">Sair da conta</button></div></div>
+</div>
+<div class="bar"><div class="act"><button class="b p" id="cfgb" data-act="savecfg">Salvar</button><button class="b" data-act="out">Sair da conta</button></div></div>
 </aside>
 <aside id="sh-new" class="sheet" aria-label="Novo orçamento">
 <h2>Novo orçamento</h2>
-<label for="fcl">Cliente cadastrado</label><select id="fcl"></select>
+<label for="fcl" id="fcll">Cliente cadastrado</label><select id="fcl"></select>
 <label for="fc">Nome do cliente</label><input id="fc" autocomplete="off">
 <label for="fw">WhatsApp do cliente (opcional)</label><input id="fw" inputmode="tel" placeholder="43 99999-9999">
-<label for="ft">Serviço (opcional se usar o catálogo)</label><input id="ft" placeholder="Ex.: Pintura da sala">
-<label for="fsv">Catálogo de serviços</label><select id="fsv"></select>
-<label>Itens</label><div id="its"></div>
+<label for="fsv" id="fsvl">Adicionar do catálogo</label><select id="fsv"></select>
+<label>O que será feito</label><div id="its"></div>
 <button class="link" data-act="additem">+ Adicionar outro item</button>
+<button class="link" id="fmb" data-act="fmore">Mais opções (desconto, validade, pagamento)</button>
+<div id="fmore" class="hid">
+<label for="ft">Título do orçamento (opcional)</label><input id="ft" placeholder="Ex.: Pintura da sala">
 <label for="fdc">Desconto em R$ (opcional)</label><input id="fdc" inputmode="decimal" placeholder="0,00">
 <label for="fva">Validade do orçamento</label><input id="fva" type="date">
 <label for="ffp">Forma de pagamento</label><select id="ffp"><option value="">A combinar</option><option>Pix</option><option>Dinheiro</option><option>Cartão de crédito</option><option>Cartão de débito</option><option>Transferência bancária</option><option>Boleto</option></select>
 <div id="fpw" class="hid"><label for="fpn" id="fpl">Parcelas</label><select id="fpn"></select></div>
 <div id="fenw" class="hid"><label for="fen">Entrada (% do total)</label><input id="fen" inputmode="numeric" placeholder="50"></div>
 <label for="fob">Observações (opcional)</label><textarea id="fob" rows="3" placeholder="Prazo de entrega, garantia, condições..."></textarea>
+</div>
 <div class="bar"><p><span>Total</span><span id="ftot">R$ 0,00</span></p><div class="act"><button class="b p" data-act="save">Salvar orçamento</button></div></div>
 </aside>
 <aside id="sh-ct" class="sheet" aria-label="Cadastrar conta">
@@ -313,8 +338,9 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <aside id="sh-pix" class="sheet" aria-label="Pix">
 <h2>Pagar com Pix</h2><p id="pixm" class="note"></p><div id="pixq" class="qr"></div>
 <div id="pixaw" class="hid"><label for="pixa">Receber em</label><select id="pixa"></select></div>
-<label for="pixc">Pix copia e cola</label><textarea id="pixc" rows="4" readonly></textarea>
-<div class="bar"><div class="act"><button class="b p" data-act="pixcopy">Copiar código Pix</button></div></div>
+<div id="pixnw" class="hid"><label for="pixk">Sua chave Pix</label><input id="pixk" placeholder="CPF, e-mail, telefone ou chave aleatória"><button class="b p wide" data-act="savepixk">Salvar chave e gerar QR Code</button></div>
+<div id="pixcw"><label for="pixc">Pix copia e cola</label><textarea id="pixc" rows="4" readonly></textarea></div>
+<div class="bar"><div class="act"><button class="b p" id="pixcp" data-act="pixcopy">Copiar código Pix</button></div></div>
 </aside>
 <aside id="sh-cb" class="sheet" aria-label="Gerar cobrança">
 <h2>Gerar cobrança</h2><p id="cbs" class="note"></p>
@@ -384,7 +410,7 @@ try{const cr=await navigator.credentials.create({publicKey:{challenge:crypto.get
 localStorage.setItem(BK,JSON.stringify({id:b64(new Uint8Array(cr.rawId)),uid:U.id}));toast("Biometria ativada neste aparelho.")}
 catch(e){toast("Não foi possível ativar a biometria neste aparelho.")}bioLabel()}
 async function unlock(){try{const c=JSON.parse(localStorage.getItem(BK));await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),allowCredentials:[{type:"public-key",id:unb(c.id)}],userVerification:"required",timeout:60000}});LOCK=false;await enter(PEND)}catch(e){toast("Não foi possível validar a biometria. Tente de novo.")}}
-function openNew(cid){$("fsv").innerHTML='<option value="">'+(S.servicos.length?"Adicionar serviço do catálogo…":"Catálogo vazio (cadastre na aba Serviços)")+'</option>'+S.servicos.map(x=>`<option value="${x.id}">${esc(x.nome)} — ${R.format(x.preco)}</option>`).join("");["fc","fw","ft","fdc","fob"].forEach(i=>$(i).value="");$("fva").value=iso(7);$("ffp").value="";$("fen").value="";fpUI();$("its").innerHTML="";addItem();
+function openNew(cid){$("fmore").classList.add("hid");$("fmb").textContent="Mais opções (desconto, validade, pagamento)";[["fcl","fcll",S.clientes.length],["fsv","fsvl",S.servicos.length]].forEach(([i,l,n])=>{$(i).classList.toggle("hid",!n);$(l).classList.toggle("hid",!n)});$("fsv").innerHTML='<option value="">'+(S.servicos.length?"Escolher serviço do catálogo…":"")+'</option>'+S.servicos.map(x=>`<option value="${x.id}">${esc(x.nome)} — ${R.format(x.preco)}</option>`).join("");["fc","fw","ft","fdc","fob"].forEach(i=>$(i).value="");$("fva").value=iso(7);$("ffp").value="";$("fen").value="";fpUI();$("its").innerHTML="";addItem();
 $("fcl").innerHTML='<option value="">Novo cliente (digitar)</option>'+S.clientes.map(c=>`<option value="${c.id}">${esc(c.nome)}</option>`).join("");
 $("fcl").value=cid||"";const c=S.clientes.find(x=>x.id===cid);if(c){$("fc").value=c.nome;$("fw").value=c.whatsapp}
 calc();openS("sh-new")}
@@ -414,8 +440,8 @@ else if(x!==null&&x<=3)T.push({p:3,k:x,cls:"today",d,tx:x===1?"Vence amanhã":`V
 else if(d.s==="apr")T.push({p:2,k:0,cls:"apr",d,tx:"Aprovado — falta gerar a cobrança",bt:"Gerar cobrança",a:"cob"});
 else if(d.s==="orc"){const x=dd(hoje,d.data);if(x>=3)T.push({p:4,k:-x,cls:"",d,tx:`Orçamento enviado há ${x} dias, sem resposta`,bt:"Reenviar"})}});
 T.sort((a,b)=>a.p-b.p||a.k-b.k);const nb=T.filter(o=>o.p<=2).length;$("bdg").textContent=nb;$("bdg").classList.toggle("hid",!nb);
-$("p-ab").textContent=fmt(ab);$("p-atr").textContent=fmt(atr);$("p-atr").style.color=atr>0?"#ff9d8f":"";$("p-rec").textContent=fmt(rec);
-$("p-tasks").innerHTML=T.length?T.slice(0,8).map(o=>{const d=o.d,id=`data-id="${d.id}"`;return`<article class="task"><i class="dot ${o.cls}"></i><div class="mid"><h3>${esc(d.c)}</h3><p><b>${fmt(tot(d))}</b> · ${d.pc?"parcela "+d.pc+" · ":""}${o.tx}</p></div>${o.a?`<button class="b p" ${id} data-act="${o.a}">${o.bt}</button>`:`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">${o.bt}</a>`}</article>`}).join("")+(T.length>8?`<p class="note">e mais ${T.length-8} pendências em Cobranças</p>`:""):`<div class="empty">Tudo em dia por aqui.<br>Nenhuma cobrança atrasada nem orçamento esperando resposta.</div>`}
+$("pt").classList.toggle("hid",!S.docs.length);$("p-ab").textContent=fmt(ab);$("p-atr").textContent=fmt(atr);$("p-atr").style.color=atr>0?"#ff9d8f":"";$("p-rec").textContent=fmt(rec);
+$("p-tasks").innerHTML=T.length?T.slice(0,8).map(o=>{const d=o.d,id=`data-id="${d.id}"`;return`<article class="task"><i class="dot ${o.cls}"></i><div class="mid"><h3>${esc(d.c)}</h3><p><b>${fmt(tot(d))}</b> · ${d.pc?"parcela "+d.pc+" · ":""}${o.tx}</p></div>${o.a?`<button class="b p" ${id} data-act="${o.a}">${o.bt}</button>`:`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">${o.bt}</a>`}</article>`}).join("")+(T.length>8?`<p class="note">e mais ${T.length-8} pendências em Cobranças</p>`:""):(S.docs.length?`<div class="empty">Tudo em dia por aqui.<br>Nenhuma cobrança atrasada nem orçamento esperando resposta.</div>`:`<div class="card gd"><h3>Comece em 3 passos</h3><ol><li>Crie o seu primeiro orçamento</li><li>Envie o link pelo WhatsApp: o cliente aprova com 1 toque</li><li>Gere a cobrança e receba pelo Pix</li></ol><button class="b p wide" data-act="new">Criar meu primeiro orçamento</button></div>`)}
 function logoUI(){const i=$("lgp");i.src=LOGO||"";i.classList.toggle("hid",!LOGO);$("lgx").classList.toggle("hid",!LOGO)}
 function loadBind(){$("cff").addEventListener("change",e=>{const f=e.target.files[0];e.target.value="";if(f)imgData(f,160,u=>{CF=u;cfUI()})});$("lgf").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const m=Math.min(1,240/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*m);c.height=Math.round(im.height*m);c.getContext("2d").drawImage(im,0,0,c.width,c.height);LOGO=c.toDataURL("image/png");logoUI()};im.onerror=()=>toast("Imagem inválida.");im.src=r.result};r.readAsDataURL(f)})}
 const U1=["","um","dois","três","quatro","cinco","seis","sete","oito","nove","dez","onze","doze","treze","quatorze","quinze","dezesseis","dezessete","dezoito","dezenove"],DZ=["","","vinte","trinta","quarenta","cinquenta","sessenta","setenta","oitenta","noventa"],CT=["","cento","duzentos","trezentos","quatrocentos","quinhentos","seiscentos","setecentos","oitocentos","novecentos"];
@@ -433,9 +459,9 @@ function cfUI(){const i=$("cfp");i.src=CF||"";i.classList.toggle("hid",!CF);$("c
 function openCli(c){EC=c||null;$("clh").textContent=c?"Editar cliente":"Novo cliente";$("cln").value=c?c.nome:"";$("clt").value=c?c.tipo:"pf";$("cld").value=c?c.documento:"";$("clw").value=c?c.whatsapp:"";$("cle").value=c?c.email:"";$("clr").checked=c?c.recorrente:false;CF=c?c.foto:"";cfUI();openS("sh-cli")}
 const needProfile=()=>!(S.cfg.nome&&S.perfil.documento&&S.perfil.telefone&&S.perfil.cidade);
 function openProfile(force){planoBox();instUI();FORCE=force;$("cn").value=S.cfg.nome||"";$("cdc").value=S.perfil.documento||"";$("ctf").value=S.perfil.telefone||"";$("cci").value=S.perfil.cidade||"";LOGO=S.perfil.logo||"";logoUI();bioLabel();
-$("cfgt").textContent=force?"Complete seus dados":"Meus dados";const n=$("cfgn");n.classList.toggle("hid",!force);n.textContent="Esses dados aparecem nos seus orçamentos, cobranças e recibos. Preencha com atenção.";openS("sh-cfg")}
+$("cfgt").textContent=force?"Falta pouco!":"Meus dados";$("cfgx").classList.toggle("hid",force);$("cfgb").textContent=force?"Salvar e começar":"Salvar";const n=$("cfgn");n.classList.toggle("hid",!force);n.textContent="Falta só isto para começar. Esses dados aparecem nos seus orçamentos e recibos.";openS("sh-cfg")}
 function pixShow(){const d=S.docs.find(x=>x.id===PIXD);if(!d)return;const c=pixCode(d,$("pixa").value||undefined);$("pixq").innerHTML=c?qrSvg(c):"";$("pixq").classList.toggle("hid",!c);$("pixc").value=c;
-$("pixm").textContent=c?"Valor: "+R.format(tot(d))+" · Mostre o QR Code ou envie o código ao cliente.":(pixContas().length?"Complete seu nome e cidade em Meus dados para gerar o Pix.":"Cadastre uma conta Pix, com a chave, na aba Recebimentos para gerar o QR Code.");openS("sh-pix")}
+const sem=!pixContas().length;$("pixnw").classList.toggle("hid",!sem);$("pixcw").classList.toggle("hid",sem);$("pixcp").classList.toggle("hid",sem);$("pixm").textContent=c?"Valor: "+R.format(tot(d))+" · Mostre o QR Code ou envie o código ao cliente.":(sem?"Para gerar o QR Code, informe a sua chave Pix. É só uma vez.":"Complete seu nome e cidade em Meus dados para gerar o Pix.");openS("sh-pix")}
 function pdf(d){const p=S.perfil,n=S.cfg.nome,t=tot(d),isR=d.s==="pago",isC=d.s==="cob",tp=isR?"Recibo":isC?"Cobrança":"Orçamento";
 const cl=S.clientes.find(x=>x.id===d.k)||{},code=isC?pixCode(d):"",brand=document.querySelector("header .logo").outerHTML,dl=dg(p.documento).length===14?"CNPJ":"CPF";
 const em=[p.documento?dl+" "+fdoc(p.documento):"",p.telefone?ftel(p.telefone):"",p.cidade||""].filter(Boolean).map(esc).join("  ·  ");
@@ -604,7 +630,7 @@ if(!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite seu e-mail acima e toque em
 const r=await sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname});
 if(r.error)er.textContent=msgErr(r.error);else inf.textContent="Se esse e-mail tiver conta, enviamos um link para criar uma nova senha."}
 function authUI(){const m=MODE;
-$("intro").classList.toggle("hid",OK||LOCK);$("lock").classList.toggle("hid",!LOCK||OK);$("app").classList.toggle("hid",!OK);document.querySelector(".fab").classList.toggle("hid",!OK||TAB==="ct"||TAB==="sv");
+$("intro").classList.toggle("hid",OK||LOCK);$("lock").classList.toggle("hid",!LOCK||OK);$("app").classList.toggle("hid",!OK);document.querySelector(".fab").classList.toggle("hid",!OK||TAB==="ct"||TAB==="sv"||TAB==="mais");
 $("an").classList.toggle("hid",m!=="signup");$("ae").classList.toggle("hid",m==="recover");$("fg").classList.toggle("hid",m!=="login");$("sw").classList.toggle("hid",m==="recover");$("aceitew").classList.toggle("hid",m!=="signup");
 $("ap").autocomplete=m==="signup"||m==="recover"?"new-password":"current-password";
 $("at").textContent=m==="recover"?"Crie uma nova senha":"Orçou. Cobrou. Recebeu.";
@@ -632,8 +658,8 @@ $("ct-tot").textContent=fmt(c);
 const rec={};S.docs.forEach(d=>{if(d.s==="pago"&&d.conta)rec[d.conta]=(rec[d.conta]||0)+tot(d)});
 const other=c-S.contas.reduce((z,x)=>z+(rec[x.id]||0),0);
 $("ctl").innerHTML=S.contas.length?S.contas.map(x=>cardX(x.id,`<div class="av">${EM[x.tipo]}</div><div class="mid"><h3>${esc(x.nome)}</h3><p>${TP[x.tipo]}${x.chave?" · "+esc(x.chave):""}</p></div><div class="tot">${fmt(rec[x.id]||0)}</div>`,"",`<div class="sub"><button class="d" data-id="${x.id}" data-act="delct">Excluir</button></div>`)).join("")+(other>0.004?`<p class="note">${fmt(other)} recebidos sem conta informada ou em contas excluídas.</p>`:""):`<div class="empty">Nenhuma conta cadastrada.<br>Cadastre onde você recebe — Pix, banco, carteira digital ou dinheiro — para saber quanto entrou em cada uma.</div>`;
-$("v-pnl").classList.toggle("hid",TAB!=="pnl");renderPnl();renderFin();$("v-sv").classList.toggle("hid",TAB!=="sv");renderSv();$("v-cli").classList.toggle("hid",TAB!=="cli");renderCli();$("v-cob").classList.toggle("hid",TAB!=="cob");$("v-ct").classList.toggle("hid",TAB!=="ct");
-document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x.dataset.t===TAB));
+$("v-pnl").classList.toggle("hid",TAB!=="pnl");renderPnl();renderFin();$("v-sv").classList.toggle("hid",TAB!=="sv");renderSv();$("v-mais").classList.toggle("hid",TAB!=="mais");$("v-cli").classList.toggle("hid",TAB!=="cli");renderCli();$("v-cob").classList.toggle("hid",TAB!=="cob");$("v-ct").classList.toggle("hid",TAB!=="ct");
+const NT=TAB==="sv"||TAB==="ct"?"mais":TAB;document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x.dataset.t===NT));
 $("hi").textContent=S.cfg.nome?`Olá, ${S.cfg.nome}`:"Orçou. Cobrou. Recebeu.";
 document.querySelectorAll(".chips button").forEach(x=>x.classList.toggle("on",x.dataset.f===F));
 const L=S.docs.filter(d=>!d.g).filter(FL[F]);
@@ -702,10 +728,13 @@ else if(a==="savecfg"){const c={nome:$("cn").value.trim()},f={documento:$("cdc")
 if(!c.nome||!f.documento||!f.telefone||!f.cidade){toast("Preencha nome, CPF/CNPJ, telefone e cidade.");return}
 const pf=Object.assign({user_id:U.id},f);
 const r=await sb.auth.updateUser({data:c});if(r.error)throw r.error;const r2=await sb.from("perfil").upsert(pf,{onConflict:"user_id"});if(r2.error)throw r2.error;
-S.cfg=Object.assign(S.cfg,c);S.perfil={documento:pf.documento||"",telefone:pf.telefone||"",cidade:pf.cidade||"",pixt:"cpf",logo:pf.logo||""};FORCE=false;closeS();toast("Dados salvos.");render()}
+S.cfg=Object.assign(S.cfg,c);S.perfil={documento:pf.documento||"",telefone:pf.telefone||"",cidade:pf.cidade||"",pixt:"cpf",logo:pf.logo||""};const was=FORCE;FORCE=false;closeS();toast("Dados salvos.");render();if(was&&!S.docs.length)openNew("")}
 else if(a==="new"){if(!isPro()&&usados()>=CFG.limite)planoOpen();else openNew("")}
 else if(a==="close"){if(!FORCE)closeS()}else if(a==="additem")addItem();else if(a==="flt"){F=t.dataset.f;render()}
-else if(a==="tab"){TAB=t.dataset.t;render()}
+else if(a==="tab"){TAB=t.dataset.t;render();scrollTo(0,0)}
+else if(a==="goto"){TAB=t.dataset.t;if(t.dataset.s)SUB=t.dataset.s;render();scrollTo(0,0)}
+else if(a==="fmore"){const h=$("fmore").classList.toggle("hid");$("fmb").textContent=h?"Mais opções (desconto, validade, pagamento)":"Menos opções"}
+else if(a==="savepixk"){const k=$("pixk").value.trim();if(!k){toast("Digite a sua chave Pix.");return}const r=await sb.from("contas").insert({nome:"Pix",tipo:"pix",chave:k});if(r.error)throw r.error;await loadAll();$("pixk").value="";pixShow()}
 else if(a==="newct"){["ctn","ctk"].forEach(i=>$(i).value="");$("ctt").value="pix";openS("sh-ct")}
 else if(a==="savect"){const n=$("ctn").value.trim();if(!n){toast("Digite o nome da conta, por exemplo: Nubank.");return}
 const r=await sb.from("contas").insert({nome:n,tipo:$("ctt").value,chave:$("ctk").value.trim()||null});if(r.error)throw r.error;await loadAll();closeS();render()}
@@ -719,7 +748,7 @@ const n=S.docs.reduce((m,x)=>Math.max(m,x.n||0),0)+1;
 const r=await sb.from("orcamentos").insert(Object.assign({numero:n,cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servico:svc_,validade:$("fva").value||null,desconto:num($("fdc").value),forma_pagamento:$("ffp").value||null,parcelas:np_,entrada_pct:en_,observacoes:$("fob").value.trim()||null},$("fcl").value?{cliente_id:$("fcl").value}:{})).select("id").single();if(r.error)throw r.error;
 const r2=await sb.from("itens").insert(itens.map(i=>({orcamento_id:r.data.id,descricao:i.d,quantidade:i.q,valor:i.v})));
 if(r2.error){await sb.from("orcamentos").delete().eq("id",r.data.id);throw r2.error}
-await loadAll();closeS();F="all";render()}
+OPEN.add(r.data.id);TAB="cob";await loadAll();closeS();F="all";render();scrollTo(0,0);toast("Orçamento criado! Toque em “Enviar no WhatsApp” para mandar ao cliente.")}
 else if(d){if(a==="apr")await up(d,{status:"apr"});else if(a==="lnk"){await copyText(linkOf(d));toast("Link copiado. Envie ao cliente.")}
 else if(a==="cob"){CB=d.id;$("cbd").value=iso(7);cbUI();openS("sh-cb")}
 else if(a==="pago"){PAY=d.id;payList();openS("sh-pay")}else if(a==="pdf")pdf(d);else if(a==="grp")openGrp(d.id);
