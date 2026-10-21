@@ -311,23 +311,67 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <div class="bar"><div class="act"><button class="b p" id="cfgb" data-act="savecfg">Salvar</button><button class="b" data-act="out">Sair da conta</button></div></div>
 </aside>
 <aside id="sh-new" class="sheet" aria-label="Novo orçamento">
-<h2>Novo orçamento</h2>
-<label for="fcl" id="fcll">Cliente cadastrado</label><select id="fcl"></select>
-<label for="fc">Nome do cliente</label><input id="fc" autocomplete="off">
-<label for="fw">WhatsApp do cliente (opcional)</label><input id="fw" inputmode="tel" placeholder="43 99999-9999">
-<label for="fsv" id="fsvl">Adicionar do catálogo</label><select id="fsv"></select>
-<label>O que será feito</label><div id="its"></div>
-<button class="link" data-act="additem">+ Adicionar outro item</button>
+  <h2>Novo orçamento</h2>
 
-<label for="ft">Título do orçamento (opcional)</label><input id="ft" placeholder="Ex.: Pintura da sala">
-<label for="fdc">Desconto em R$ (opcional)</label><input id="fdc" inputmode="decimal" placeholder="0,00">
-<label for="fva">Validade do orçamento</label><input id="fva" type="date">
-<label for="ffp">Forma de pagamento</label><select id="ffp"><option value="">A combinar</option><option>Pix</option><option>Dinheiro</option><option>Cartão de crédito</option><option>Cartão de débito</option><option>Transferência bancária</option><option>Boleto</option></select>
-<div id="fpw" class="hid"><label for="fpn" id="fpl">Parcelas</label><select id="fpn"></select></div>
-<div id="fenw" class="hid"><label for="fen">Entrada (% do total)</label><input id="fen" inputmode="numeric" placeholder="50"></div>
-<label for="fob">Observações (opcional)</label><textarea id="fob" rows="3" placeholder="Prazo de entrega, garantia, condições..."></textarea>
+  <label for="fcl" id="fcll">Cliente cadastrado</label>
+  <select id="fcl"></select>
 
-<div class="bar"><p><span>Total</span><span id="ftot">R$ 0,00</span></p><div class="act"><button class="b p" data-act="save">Salvar orçamento</button></div></div>
+  <label for="fc">Nome do cliente</label>
+  <input id="fc" type="text" autocomplete="off">
+
+  <label for="fw">WhatsApp do cliente (opcional)</label>
+  <input id="fw" type="tel" inputmode="tel" placeholder="43 99999-9999">
+
+  <label for="fsv" id="fsvl">Adicionar do catálogo</label>
+  <select id="fsv"></select>
+
+  <!-- Substituído <label> por um indicador visual/semântico ou fieldset -->
+  <span class="label-title">O que será feito</span>
+  <div id="its"></div>
+  <button type="button" class="link" data-act="additem">+ Adicionar outro item</button>
+
+  <label for="ft">Título do orçamento (opcional)</label>
+  <input id="ft" type="text" placeholder="Ex.: Pintura da sala">
+
+  <label for="fdc">Desconto em R$ (opcional)</label>
+  <input id="fdc" type="text" inputmode="decimal" placeholder="0,00">
+
+  <label for="fva">Validade do orçamento</label>
+  <input id="fva" type="date">
+
+  <label for="ffp">Forma de pagamento</label>
+  <select id="ffp">
+    <option value="">A combinar</option>
+    <option value="pix">Pix</option>
+    <option value="dinheiro">Dinheiro</option>
+    <option value="cartao_credito">Cartão de crédito</option>
+    <option value="cartao_debito">Cartão de débito</option>
+    <option value="transferencia">Transferência bancária</option>
+    <option value="boleto">Boleto</option>
+  </select>
+
+  <div id="fpw" class="hid">
+    <label for="fpn" id="fpl">Parcelas</label>
+    <select id="fpn"></select>
+  </div>
+
+  <div id="fenw" class="hid">
+    <label for="fen">Entrada (% do total)</label>
+    <input id="fen" type="number" inputmode="numeric" placeholder="50">
+  </div>
+
+  <label for="fob">Observações (opcional)</label>
+  <textarea id="fob" rows="3" placeholder="Prazo de entrega, garantia, condições..."></textarea>
+
+  <div class="bar">
+    <p>
+      <span>Total</span>
+      <span id="ftot">R$ 0,00</span>
+    </p>
+    <div class="act">
+      <button type="button" class="b p" data-act="save">Salvar orçamento</button>
+    </div>
+  </div>
 </aside>
 <aside id="sh-ct" class="sheet" aria-label="Cadastrar conta">
 <h2>Onde você recebe?</h2>
