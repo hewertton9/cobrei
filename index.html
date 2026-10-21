@@ -595,6 +595,11 @@ const t=prompt("Para confirmar, digite EXCLUIR:");if((t||"").trim().toUpperCase(
 const r=await sb.rpc("excluir_minha_conta");if(r.error)throw r.error;try{localStorage.removeItem(BK)}catch(e){}try{await sb.auth.signOut()}catch(e){}
 FORCE=false;closeS();OK=false;S.docs=[];S.contas=[];S.clientes=[];S.desp=[];MODE="signup";render();toast("Conta excluída.")}
 const OPEN=new Set(),chv='<i class="chv" aria-hidden="true"></i>';
+const SENT=new Set();try{const _s=localStorage.getItem("cobrei:sent");if(_s)JSON.parse(_s).forEach(id=>SENT.add(id))}catch(e){}
+function markSent(id){if(!id)return;SENT.add(id);try{localStorage.setItem("cobrei:sent",JSON.stringify([...SENT]))}catch(e){}}
+function autoSend(id){const d=S.docs.find(x=>x.id===id);if(!d)return;markSent(id);const a=$("sentwa");if(a){a.href=wa(d);a.setAttribute("data-id",d.id)}openS("sh-sent")}
+function party(d){$("partyv").textContent=d?`Você recebeu ${R.format(tot(d))} de ${d.c}.`:"";const box=$("partyc");if(box){box.innerHTML="";const cols=["#ffc53d","#5ad08a","#5b8cff","#ff8f80"];for(let i=0;i<48;i++){const c=document.createElement("i");c.style.left=(Math.random()*100)+"%";c.style.background=cols[i%cols.length];c.style.animationDuration=(1.4+Math.random()*1.8)+"s";c.style.animationDelay=(Math.random()*0.5)+"s";box.appendChild(c)}}openS("sh-party")}
+
 const cardX=(k,top,vis,more)=>`<article class="card${OPEN.has(k)?" open":""}" data-k="${k}"><div class="top" data-act="tg" role="button" tabindex="0" aria-expanded="${OPEN.has(k)}">${top}${chv}</div>${vis||""}<div class="more">${more}</div></article>`;
 document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches&&e.target.matches(".top[role=button]")){e.preventDefault();e.target.click()}});
 const kids=d=>S.docs.filter(x=>x.g===d.id).sort((a,b)=>Number(a.pc.split("/")[0])-Number(b.pc.split("/")[0]));
