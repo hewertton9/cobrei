@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -65,9 +65,10 @@ h1 i{display:inline-block;width:.45rem;height:.45rem;border-radius:50%;backgroun
 @media (prefers-reduced-motion:reduce){.sheet,.ov{transition:none}}
 @media print{body>*{display:none!important}body>#doc{display:block!important;padding:2rem;color:#000;background:#fff;font-family:Sora,Arial,sans-serif}#doc table{width:100%;border-collapse:collapse;margin:1rem 0}#doc td,#doc th{border-bottom:1px solid #ccc;padding:.4rem;text-align:left}#doc .r{text-align:right}}
 
-:root:root:root{color-scheme:dark;--bg:#0a1230;--sf:#121c42;--ink:#f2f5ff;--mu:#a3aed0;--ln:#26336a;--ok:#5ad08a;--bad:#ff8f80;--inp:#0a1230}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0a1230;--sf:#121c42;--ink:#f2f5ff;--mu:#a3aed0;--ln:#26336a;--ok:#5ad08a;--bad:#ff8f80;--inp:#0a1230}
+:root[data-theme="light"]{color-scheme:light;--bg:#f3f4f8;--sf:#fff;--ink:#0b1b3a;--mu:#5d667a;--ln:#e3e6ee;--ok:#13783a;--bad:#b42318;--hero:#0b1b3a;--inp:#f3f4f8}
 body{background:radial-gradient(60rem 30rem at 90% -5%,rgba(255,197,61,.2),transparent 60%),radial-gradient(50rem 30rem at -10% 105%,rgba(90,130,255,.3),transparent 60%),var(--bg);background-attachment:fixed}
-body::before{content:"";position:fixed;inset:0;background:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1.5px) 0 0/24px 24px;pointer-events:none}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1.5px) 0 0/24px 24px;pointer-events:none}:root[data-theme="light"] body::before{background:radial-gradient(rgba(10,18,48,.06) 1px,transparent 1.5px) 0 0/24px 24px}
 .w{position:relative}.hid{display:none!important}
 .logo{display:inline-flex;align-items:center;font-weight:800;letter-spacing:-.03em;line-height:1}.logo svg{width:.82em;height:.82em;margin:0 .03em}
 header{flex-direction:column;gap:.45rem;text-align:center;position:relative;padding-top:.5rem}header .logo{font-size:2rem}header .ic{position:absolute;right:0;top:.5rem}#hi{margin:0}
@@ -82,9 +83,13 @@ header{flex-direction:column;gap:.45rem;text-align:center;position:relative;padd
 .logo.big svg{animation:pop .8s cubic-bezier(.2,1.4,.4,1) both}
 @media (prefers-reduced-motion:reduce){.logo.big svg{animation:none}}
 
-.hero{background:#16235a;color:var(--ink);border:1px solid rgba(255,255,255,.12);box-shadow:none}
-.hero span{opacity:.7}.hero>b{color:#fff;margin:.2rem 0 .8rem}.hs{border-top-color:rgba(255,255,255,.14)}
-.pgb{height:.4rem;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;margin:0 0 1rem}.pgb i{display:block;height:100%;width:0;background:var(--ac);border-radius:99px;transition:width .5s}
+:root[data-theme="dark"] .hero{background:#16235a;color:var(--ink);border:1px solid rgba(255,255,255,.12);box-shadow:none}
+:root[data-theme="dark"] .hero span{opacity:.7}:root[data-theme="dark"] .hero>b{color:#fff;margin:.2rem 0 .8rem}:root[data-theme="dark"] .hs{border-top-color:rgba(255,255,255,.14)}
+:root[data-theme="light"] .hero{background:var(--ac);color:#0a1230;border:0;box-shadow:0 12px 40px rgba(255,197,61,.22)}
+:root[data-theme="light"] .hero span{opacity:.75;color:inherit}:root[data-theme="light"] .hero>b{color:#0a1230;margin:.2rem 0 .8rem}:root[data-theme="light"] .hs{border-top-color:rgba(10,18,48,.2)}
+:root[data-theme="light"] .hero .note{color:#0a1230;opacity:.7}
+.pgb{height:.4rem;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;margin:0 0 1rem}
+:root[data-theme="light"] .pgb{background:rgba(10,18,48,.12)}.pgb i{display:block;height:100%;width:0;background:var(--ac);border-radius:99px;transition:width .5s}
 .af{display:grid;gap:.6rem;width:100%;max-width:22rem}.err{color:var(--bad);font-size:.85rem;margin:0;min-height:1.2rem}
 .intro small{color:var(--mu);max-width:20rem;font-size:.75rem;line-height:1.5}
 @media (prefers-reduced-motion:reduce){.pgb i{transition:none}}
@@ -315,7 +320,9 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <div id="cfgx">
 <label>Logo (aparece nos PDFs)</label><div class="lg"><img id="lgp" alt="" class="hid"><button class="b" data-act="logo">Escolher imagem</button><button class="b d hid" id="lgx" data-act="logox">Remover</button></div><input type="file" id="lgf" accept="image/*" class="hid">
 <div id="biow"><label>Segurança</label><button class="b wide" id="bio" data-act="bio"></button></div>
-<div id="instw"><label>Aplicativo</label><button class="b wide hid" id="instb" data-act="inst">Instalar COBREI no celular</button><p id="insth" class="note"></p></div>
+<div id="instw"><label>Aplicativo</label>
+<label class="chk" style="margin:.5rem 0 0"><input type="checkbox" id="thdark"><span>Tema escuro</span></label>
+<button class="b wide hid" id="instb" data-act="inst">Instalar COBREI no celular</button><p id="insth" class="note"></p></div>
 <label>Plano</label><div class="card" id="plbox"></div>
 <label>Seus dados e privacidade</label>
 <button class="b wide" data-act="exp">Baixar meus dados (JSON)</button>
@@ -329,7 +336,6 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <label for="fcl" id="fcll">Cliente cadastrado</label><select id="fcl"></select>
 <label for="fc">Nome do cliente</label><input id="fc" autocomplete="off">
 <label for="fw">WhatsApp do cliente (opcional)</label><input id="fw" inputmode="tel" placeholder="43 99999-9999">
-<label for="ft">Serviço (opcional se usar o catálogo)</label><input id="ft" placeholder="Ex.: Pintura da sala">
 <label for="fsv" id="fsvl">Catálogo de serviços</label><select id="fsv"></select>
 <label>Itens</label><div id="its"></div>
 <button class="link" data-act="additem">+ Adicionar outro item</button>
@@ -438,6 +444,9 @@ let OK=false,MODE="signup",U=null,sb=null;
 try{sb=supabase.createClient(SUPA_URL,SUPA_KEY)}catch(e){}
 const BK="cobrei:bio",enc=new TextEncoder(),b64=u=>btoa(String.fromCharCode(...u)),unb=t=>Uint8Array.from(atob(t),c=>c.charCodeAt(0));
 let LOCK=false,PEND=null,HIDE=false;try{HIDE=localStorage.getItem("cobrei:hide")==="1"}catch(e){}
+let THEME="dark";try{const t=localStorage.getItem("cobrei:theme");if(t==="light"||t==="dark")THEME=t}catch(e){}
+function applyTheme(){document.documentElement.setAttribute("data-theme",THEME);const m=document.querySelector('meta[name="theme-color"]');if(m)m.content=THEME==="dark"?"#0a1230":"#f3f4f8"}
+applyTheme();
 const fmt=v=>HIDE?"R$ •••••":R.format(v);
 const IE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',IEO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M3 3l18 18"/></svg>';
 if(!window.PublicKeyCredential)document.getElementById("biow").classList.add("hid");
@@ -450,7 +459,7 @@ try{const cr=await navigator.credentials.create({publicKey:{challenge:crypto.get
 localStorage.setItem(BK,JSON.stringify({id:b64(new Uint8Array(cr.rawId)),uid:U.id}));toast("Biometria ativada neste aparelho.")}
 catch(e){toast("Não foi possível ativar a biometria neste aparelho.")}bioLabel()}
 async function unlock(){try{const c=JSON.parse(localStorage.getItem(BK));await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),allowCredentials:[{type:"public-key",id:unb(c.id)}],userVerification:"required",timeout:60000}});LOCK=false;await enter(PEND)}catch(e){toast("Não foi possível validar a biometria. Tente de novo.")}}
-function openNew(cid){$("fsv").innerHTML='<option value="">'+(S.servicos.length?"Escolher serviço do catálogo…":"Catálogo vazio (cadastre em Mais › Serviços)")+'</option>'+S.servicos.map(x=>`<option value="${x.id}">${esc(x.nome)} — ${R.format(x.preco)}</option>`).join("");["fc","fw","ft","fdc","fob"].forEach(i=>$(i).value="");$("fva").value=iso(7);$("ffp").value="";$("fen").value="";fpUI();$("its").innerHTML="";addItem();
+function openNew(cid){$("fsv").innerHTML='<option value="">'+(S.servicos.length?"Escolher serviço do catálogo…":"Catálogo vazio (cadastre em Mais › Serviços)")+'</option>'+S.servicos.map(x=>`<option value="${x.id}">${esc(x.nome)} — ${R.format(x.preco)}</option>`).join("");["fc","fw","fdc","fob"].forEach(i=>$(i).value="");$("fva").value=iso(7);$("ffp").value="";$("fen").value="";fpUI();$("its").innerHTML="";addItem();
 $("fcl").innerHTML='<option value="">Novo cliente (digitar)</option>'+S.clientes.map(c=>`<option value="${c.id}">${esc(c.nome)}</option>`).join("");
 $("fcl").value=cid||"";const c=S.clientes.find(x=>x.id===cid);if(c){$("fc").value=c.nome;$("fw").value=c.whatsapp}
 calc();openS("sh-new")}
@@ -499,7 +508,7 @@ function imgData(f,max,cb){const r=new FileReader();r.onload=()=>{const im=new I
 function cfUI(){const i=$("cfp");i.src=CF||"";i.classList.toggle("hid",!CF);$("cfx").classList.toggle("hid",!CF)}
 function openCli(c){EC=c||null;$("clh").textContent=c?"Editar cliente":"Novo cliente";$("cln").value=c?c.nome:"";$("clt").value=c?c.tipo:"pf";$("cld").value=c?c.documento:"";$("clw").value=c?c.whatsapp:"";$("cle").value=c?c.email:"";$("clr").checked=c?c.recorrente:false;CF=c?c.foto:"";cfUI();openS("sh-cli")}
 const needProfile=()=>!(S.cfg.nome&&S.perfil.documento&&S.perfil.telefone&&S.perfil.cidade);
-function openProfile(force){planoBox();instUI();FORCE=force;$("cn").value=S.cfg.nome||"";$("cdc").value=S.perfil.documento||"";$("ctf").value=S.perfil.telefone||"";$("cci").value=S.perfil.cidade||"";LOGO=S.perfil.logo||"";logoUI();bioLabel();
+function openProfile(force){planoBox();instUI();FORCE=force;const td=$("thdark");if(td)td.checked=THEME==="dark";$("cn").value=S.cfg.nome||"";$("cdc").value=S.perfil.documento||"";$("ctf").value=S.perfil.telefone||"";$("cci").value=S.perfil.cidade||"";LOGO=S.perfil.logo||"";logoUI();bioLabel();
 $("cfgt").textContent=force?"Falta pouco!":"Meus dados";$("cfgx").classList.toggle("hid",force);$("cfgb").textContent=force?"Salvar e começar":"Salvar";const n=$("cfgn");n.classList.toggle("hid",!force);n.textContent="Falta só isto para começar. Esses dados aparecem nos seus orçamentos e recibos.";openS("sh-cfg")}
 function pixShow(){const d=S.docs.find(x=>x.id===PIXD);if(!d)return;const c=pixCode(d,$("pixa").value||undefined);$("pixq").innerHTML=c?qrSvg(c):"";$("pixq").classList.toggle("hid",!$("pixq").innerHTML);$("pixc").value=c;
 const sem=!pixContas().length;$("pixnw").classList.toggle("hid",!sem);$("pixcw").classList.toggle("hid",sem);$("pixcp").classList.toggle("hid",sem);$("pixm").textContent=c?"Valor: "+R.format(tot(d))+" · Mostre o QR Code ou envie o código ao cliente.":(sem?"Para gerar o QR Code, informe a sua chave Pix. É só uma vez.":"Complete seu nome e cidade em Meus dados para gerar o Pix.");openS("sh-pix")}
@@ -750,10 +759,10 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!FORCE)closeS()});
 async function up(d,v){const r=await sb.from("orcamentos").update(v).eq("id",d.id);if(r.error)throw r.error;await loadAll();render()}
 const fail=x=>{if(String(x&&x.message||"").includes("limite_plano_gratis")){closeS();planoOpen()}else toast("Não foi possível salvar. Verifique sua conexão e tente de novo.")};
 document.addEventListener("change",async e=>{const t=e.target;if(t.id==="fcl"){const c=S.clientes.find(x=>x.id===t.value);if(c){$("fc").value=c.nome;$("fw").value=c.whatsapp}return}
-if(t.id==="fsv"){const x=S.servicos.find(z=>z.id===t.value);if(x){const rows=[...document.querySelectorAll("#its .it")];let r=rows[rows.length-1];if(!r||r.querySelector("input").value.trim()){addItem();r=[...document.querySelectorAll("#its .it")].pop()}const i=r.querySelectorAll("input");i[0].value=x.nome;i[1].value="1";i[2].value=String(x.preco).replace(".",",");if(!$("ft").value.trim())$("ft").value=x.nome;calc()}t.value="";return}
+if(t.id==="fsv"){const x=S.servicos.find(z=>z.id===t.value);if(x){const rows=[...document.querySelectorAll("#its .it")];let r=rows[rows.length-1];if(!r||r.querySelector("input").value.trim()){addItem();r=[...document.querySelectorAll("#its .it")].pop()}const i=r.querySelectorAll("input");i[0].value=x.nome;i[1].value="1";i[2].value=String(x.preco).replace(".",",");calc()}t.value="";return}
 if(t.id==="cbd"){cbUI();return}
 if(t.id==="ffp"||t.id==="fpn"){fpUI();return}
-if(t.id==="pixa"){pixShow();return}if(t.dataset.act==="venc"&&t.value){const d=S.docs.find(x=>x.id===t.dataset.id);if(d)try{await up(d,{vencimento:t.value})}catch(x){fail(x)}}});
+if(t.id==="thdark"){THEME=t.checked?"dark":"light";try{localStorage.setItem("cobrei:theme",THEME)}catch(e){}applyTheme();return}if(t.id==="pixa"){pixShow();return}if(t.dataset.act==="venc"&&t.value){const d=S.docs.find(x=>x.id===t.dataset.id);if(d)try{await up(d,{vencimento:t.value})}catch(x){fail(x)}}});
 async function act(a,t){const d=S.docs.find(x=>x.id===t.dataset.id);
 try{
 if(a==="auth")await doAuth();else if(a==="forgot")await forgot();
@@ -814,7 +823,7 @@ else if(a==="payto"){const x=S.docs.find(z=>z.id===PAY);const g=x&&x.g,first=!S.
 else if(a==="save"){const itens=[...document.querySelectorAll("#its .it")].map(r=>{const i=r.querySelectorAll("input");return{d:i[0].value.trim(),q:num(i[1].value)||1,v:num(i[2].value)}}).filter(i=>i.d&&i.v>0);
 if(!$("fc").value.trim()||!itens.length){toast("Preencha o cliente e pelo menos um item com valor.");return}
 const fpv=$("ffp").value,pn=$("fpn").value,pOk=fpv&&fpv!=="Cartão de débito",np_=pOk&&pn!=="ent"?Number(pn)||1:1,en_=pOk&&pn==="ent"?Math.min(95,Math.max(5,Math.round(num($("fen").value))||50)):null;
-const svc_=$("ft").value.trim()||(itens[0].d+(itens.length>1?" e mais "+(itens.length-1)+(itens.length===2?" item":" itens"):""));
+const svc_=itens[0].d+(itens.length>1?" e mais "+(itens.length-1)+(itens.length===2?" item":" itens"):"");
 const n=S.docs.reduce((m,x)=>Math.max(m,x.n||0),0)+1;
 const r=await sb.from("orcamentos").insert(Object.assign({numero:n,cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servico:svc_,validade:$("fva").value||null,desconto:num($("fdc").value),forma_pagamento:$("ffp").value||null,parcelas:np_,entrada_pct:en_,observacoes:$("fob").value.trim()||null},$("fcl").value?{cliente_id:$("fcl").value}:{})).select("id").single();if(r.error)throw r.error;
 const r2=await sb.from("itens").insert(itens.map(i=>({orcamento_id:r.data.id,descricao:i.d,quantidade:i.q,valor:i.v})));
