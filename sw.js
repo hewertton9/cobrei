@@ -19,6 +19,7 @@ self.addEventListener("fetch", (e) => {
   if (r.method !== "GET") return;
   const u = new URL(r.url);
   if (u.origin !== location.origin) return; // nunca guarda dados do Supabase nem de outros sites
+  if (u.search) return; // links com código (aprovação, pagamento) não ficam guardados no aparelho
   e.respondWith(
     fetch(r)
       .then((res) => {
