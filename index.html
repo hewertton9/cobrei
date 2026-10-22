@@ -204,6 +204,14 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 #partyc i{position:absolute;top:-14px;width:8px;height:14px;border-radius:2px;animation:fall linear forwards}
 @keyframes fall{to{transform:translateY(560px) rotate(540deg);opacity:0}}
 .party{text-align:center;position:relative;padding-top:.6rem}.party .big{font-size:3.2rem;line-height:1;margin-bottom:.4rem}.party h2{margin:.2rem 0 .6rem}
+
+.search-wrap{position:relative;margin:0 0 .75rem}
+.search-wrap svg{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);width:1.1rem;height:1.1rem;color:var(--mu);pointer-events:none}
+.search-wrap input{width:100%;height:2.7rem;padding:0 2.4rem 0 2.5rem;border:1px solid var(--ln);border-radius:.9rem;background:var(--sf);font-size:16px;color:var(--ink)}
+.search-wrap input::placeholder{color:var(--mu)}
+.search-wrap .xclear{position:absolute;right:.25rem;top:50%;transform:translateY(-50%);border:0;background:none;color:var(--mu);width:2rem;height:2rem;border-radius:50%;font-size:1.15rem;display:none;place-items:center;padding:0}
+.search-wrap.hasq .xclear{display:grid}
+
 </style>
 </head>
 <body>
@@ -243,6 +251,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 </div>
 <div id="v-cob" class="hid">
 <section class="hero"><span>A receber</span><b id="s2"></b><div class="pgb"><i id="pg"></i></div><div class="hs"><div><span>Em orçamento</span><b id="s1"></b></div><div><span>Já recebido</span><b id="s3"></b></div></div></section>
+<div class="search-wrap" id="sw-cob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg><input id="q-cob" placeholder="Buscar cliente, serviço ou nº" aria-label="Buscar orçamentos" autocomplete="off"><button type="button" class="xclear" data-act="xq" data-q="cob" aria-label="Limpar">×</button></div>
 <nav class="chips" aria-label="Filtrar"><button data-act="flt" data-f="all">Todos</button><button data-act="flt" data-f="orc">Orçamentos</button><button data-act="flt" data-f="cob">A receber</button><button data-act="flt" data-f="pago">Pagos</button><button data-act="flt" data-f="rec">Recusados</button></nav>
 <div id="list"></div>
 </div>
@@ -260,11 +269,13 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <div id="v-sv" class="hid">
 <button class="back" data-act="goto" data-t="mais">‹ Mais</button>
 <section class="hero"><span>Serviços cadastrados</span><b id="sv-n"></b><p class="note">Cadastre uma vez, com o valor, e use nos orçamentos com um toque.</p></section>
+<div class="search-wrap" id="sw-sv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg><input id="q-sv" placeholder="Buscar serviço" aria-label="Buscar serviços" autocomplete="off"><button type="button" class="xclear" data-act="xq" data-q="sv" aria-label="Limpar">×</button></div>
 <div id="svl"></div>
 <button class="b p wide" data-act="newsv">+ Novo serviço</button>
 </div>
 <div id="v-cli" class="hid">
 <section class="hero"><span>Clientes cadastrados</span><b id="cli-n"></b><p class="note">O valor em cada cliente é o total já recebido dele.</p></section>
+<div class="search-wrap" id="sw-cli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg><input id="q-cli" placeholder="Buscar nome, documento ou WhatsApp" aria-label="Buscar clientes" autocomplete="off"><button type="button" class="xclear" data-act="xq" data-q="cli" aria-label="Limpar">×</button></div>
 <div id="cll"></div>
 <button class="b p wide" data-act="newcli">+ Cadastrar cliente</button>
 </div>
@@ -418,7 +429,7 @@ let S={cfg:{nome:"",pix:""},docs:[]},F="all";
 try{const r=localStorage.getItem(K);if(r)S=JSON.parse(r)}catch(e){}
 S.contas=S.contas||[];S.clientes=[];S.perfil={};S.servicos=[];S.recs=[];S.desp=[];S.plano={plano:"gratis",ate:""};
 const CFG={limite:10,preco:"R$ 19,90 por mês",checkout:"",contato:""};
-let TAB="pnl",PAY=null,CB=null,RC=null,ONB=false,FORCE=false,EC=null,CF="",PIXD=null,SUB="ct",PER="m",IP=null,EV=null,GRP=null;const CVT=new URLSearchParams(location.search).get("o"),CCT=new URLSearchParams(location.search).get("c");
+let TAB="pnl",QCOB="",QCLI="",QSV="",PAY=null,CB=null,RC=null,ONB=false,FORCE=false,EC=null,CF="",PIXD=null,SUB="ct",PER="m",IP=null,EV=null,GRP=null;const CVT=new URLSearchParams(location.search).get("o"),CCT=new URLSearchParams(location.search).get("c");
 const TP={pix:"Pix",banco:"Conta bancária",carteira:"Carteira digital",dinheiro:"Dinheiro em mãos"},EM={pix:"⚡",banco:"🏦",carteira:"📱",dinheiro:"💵"};
 const contaNome=id=>(S.contas.find(x=>x.id===id)||{}).nome;
 function payList(){$("payl").innerHTML=S.contas.map(x=>`<button class="b" data-act="payto" data-c="${x.id}">${EM[x.tipo]} ${esc(x.nome)}</button>`).join("")+`<button class="b" data-act="payto" data-c="">Não informar</button>`}
@@ -615,7 +626,7 @@ $("pars").innerHTML=`<p class="note">${esc(p.t)} · ${fmt(tot(p))} em ${ks.lengt
 const tg=k.s==="pago"?`<span class="tag pago">Pago em ${br(k.pagoEm||k.data)}${contaNome(k.conta)?" · "+esc(contaNome(k.conta)):""}</span>`:`<span class="tag ${late?"late":"cob"}">${late?"Atrasada desde ":"Vence em "}${br(k.venc)}</span>`;
 const ac=k.s==="pago"?`<button class="b" ${id_} data-act="pdf">Recibo</button>`:`<a class="b p" href="${esc(wa(k))}" target="_blank" rel="noopener">Cobrar</a><button class="b" ${id_} data-act="pix">Pix / QR</button><button class="b" ${id_} data-act="pago">Marcar pago</button>`;
 return`<div class="par${OPEN.has(k.id)?" open":""}" data-k="${k.id}"><div class="top" data-act="tg" role="button" tabindex="0" aria-expanded="${OPEN.has(k.id)}"><div class="mid"><h3>Parcela ${esc(k.pc)}</h3></div><div class="tot">${fmt(tot(k))}</div>${chv}</div>${tg}<div class="more"><div class="act">${ac}</div></div></div>`}).join("")+`<button class="b d wide" data-id="${p.id}" data-act="del">Excluir parcelamento</button>`;openS("sh-par")}
-function renderSv(){$("sv-n").textContent=S.servicos.length;$("svl").innerHTML=S.servicos.length?S.servicos.map(x=>cardX(x.id,`<div class="mid"><h3>${esc(x.nome)}</h3></div><div class="tot">${fmt(x.preco)}</div>`,"",`<div class="sub"><button data-id="${x.id}" data-act="editsv">Editar</button><button class="d" data-id="${x.id}" data-act="delsv">Excluir</button></div>`)).join(""):`<div class="empty">Nenhum serviço cadastrado.<br>Cadastre os serviços que você mais faz, com o valor de cada um.</div>`}
+function renderSv(){$("sv-n").textContent=S.servicos.length;const qsv=QSV.trim().toLowerCase();const SL=qsv?S.servicos.filter(x=>x.nome.toLowerCase().includes(qsv)):S.servicos;const qsi=$("q-sv"),sws=$("sw-sv");if(qsi&&qsi.value!==QSV)qsi.value=QSV;if(sws)sws.classList.toggle("hasq",!!QSV.trim());$("svl").innerHTML=SL.length?SL.map(x=>cardX(x.id,`<div class="mid"><h3>${esc(x.nome)}</h3></div><div class="tot">${fmt(x.preco)}</div>`,"",`<div class="sub"><button data-id="${x.id}" data-act="editsv">Editar</button><button class="d" data-id="${x.id}" data-act="delsv">Excluir</button></div>`)).join(""):`<div class="empty">${S.servicos.length?"Nenhum serviço encontrado.":"Nenhum serviço cadastrado.<br>Cadastre os serviços que você mais faz, com o valor de cada um."}</div>`}
 function openSv(x){EV=x||null;$("svh").textContent=x?"Editar serviço":"Novo serviço";$("svn").value=x?x.nome:"";$("svp").value=x?String(x.preco).replace(".",","):"";openS("sh-svc")}
 const onbSteps=()=>[{t:"Cadastre um cliente",d:"Para quem você vai fazer orçamentos",ok:S.clientes.length>0,a:"newcli"},{t:"Cadastre um serviço",d:"Com o valor, para orçar mais rápido",ok:S.servicos.length>0,a:"newsv"},{t:"Cadastre onde você recebe",d:"Sua chave Pix ou conta, para cobrar",ok:S.contas.length>0,a:"newct"}];
 const onbDone=()=>onbSteps().every(x=>x.ok);
@@ -635,7 +646,10 @@ cv.innerHTML=`<div style="text-align:center;margin:1rem 0">${pr.logo?`<img src="
 ${o.status==="pago"?`<div class="card" style="text-align:center"><b>Pagamento confirmado. Obrigado!</b></div>`:code?`<section class="card" style="text-align:center"><b>Pague com Pix</b>${qrSvg(code)?`<div class="qr">${qrSvg(code)}</div>`:""}<p class="note">No app do seu banco, escolha Pix e leia o QR Code, ou copie o código.</p><button class="b p wide" data-act="cpix">Copiar código Pix</button></section>`:`<div class="card"><p class="note">Fale com ${esc(pr.nome||"o profissional")} para combinar a forma de pagamento.</p></div>`}`}
 function renderCli(){const by={};S.docs.forEach(d=>{if(d.k){const o=by[d.k]||(by[d.k]={n:0,p:0});if(!d.pc)o.n++;if(d.s==="pago")o.p+=tot(d)}});
 $("cli-n").textContent=S.clientes.length;
-$("cll").innerHTML=S.clientes.length?S.clientes.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return cardX(c.id,`<div class="av">${c.foto?`<img src="${c.foto}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div>`,`${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}`,`<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button>${c.recorrente?`<button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button>`:""}</div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div>`)}).join(""):`<div class="empty">Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque.</div>`}
+const qcli=QCLI.trim().toLowerCase();
+const CL=qcli?S.clientes.filter(c=>(c.nome+" "+(c.documento||"")+" "+(c.whatsapp||"")+" "+(c.email||"")).toLowerCase().includes(qcli)):S.clientes;
+const qci=$("q-cli"),swl=$("sw-cli");if(qci&&qci.value!==QCLI)qci.value=QCLI;if(swl)swl.classList.toggle("hasq",!!QCLI.trim());
+$("cll").innerHTML=CL.length?CL.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return cardX(c.id,`<div class="av">${c.foto?`<img src="${c.foto}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div>`,`${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}`,`<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button>${c.recorrente?`<button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button>`:""}</div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div>`)}).join(""):`<div class="empty">${S.clientes.length?"Nenhum cliente encontrado.":"Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque."}</div>`}
 try{if(localStorage.getItem("cobrei:v"))MODE="login"}catch(e){}
 if(/type=recovery/.test(location.hash))MODE="recover";
 const msgErr=e=>{const m=String(e&&e.message||"").toLowerCase();
@@ -713,7 +727,10 @@ $("v-pnl").classList.toggle("hid",TAB!=="pnl");renderPnl();renderPnlX();renderFi
 const NT=TAB==="sv"||TAB==="ct"?"mais":TAB;document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x.dataset.t===NT));
 $("hi").textContent=S.cfg.nome?`Olá, ${S.cfg.nome}`:"Orçou. Cobrou. Recebeu.";
 document.querySelectorAll(".chips button").forEach(x=>x.classList.toggle("on",x.dataset.f===F));
-const L=S.docs.filter(d=>!d.g).filter(FL[F]);
+let L=S.docs.filter(d=>!d.g).filter(FL[F]);
+const qq=QCOB.trim().toLowerCase();
+if(qq)L=L.filter(d=>(d.c+" "+d.t+" "+(d.n||"")+" "+(d.pc||"")).toLowerCase().includes(qq));
+const qc=$("q-cob"),swc=$("sw-cob");if(qc&&qc.value!==QCOB)qc.value=QCOB;if(swc)swc.classList.toggle("hasq",!!QCOB.trim());
 $("list").innerHTML=L.length?L.map(d=>{
 if(d.s==="parc"&&kids(d).length)return grpCard(d);
 const late=d.s==="cob"&&d.venc<iso(0),id=`data-id="${d.id}"`;
@@ -722,13 +739,13 @@ let ac="",sub="";
 if(d.s==="orc")ac=`<a class="b p" ${id} data-act="wsent" href="${esc(wa(d))}" target="_blank" rel="noopener">Enviar no WhatsApp</a><button class="b" ${id} data-act="lnk">Copiar link</button><button class="b" ${id} data-act="apr">Cliente aprovou</button>`;
 if(d.s==="apr")ac=`<button class="b p" ${id} data-act="cob">Gerar cobrança</button>`;
 if(d.s==="cob"){ac=`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">Cobrar no WhatsApp</a><button class="b" ${id} data-act="pix">Pix / QR Code</button><button class="b" ${id} data-act="pago">Marcar como pago</button>`;sub=`<label>Vencimento <input type="date" value="${d.venc}" ${id} data-act="venc"></label>`}
-return cardX(d.id,`<div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div>`,tag,`<div class="act">${ac}</div><div class="sub">${sub}<button ${id} data-act="pdf">PDF</button><button class="d" ${id} data-act="del">Excluir</button></div>`)}).join(""):`<div class="empty">${S.docs.length?"Nada por aqui neste filtro.":"Nenhum orçamento ainda.<br>Toque em “Novo orçamento” e envie o primeiro pelo WhatsApp em menos de um minuto."}</div>`}
+return cardX(d.id,`<div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div>`,tag,`<div class="act">${ac}</div><div class="sub">${sub}<button ${id} data-act="pdf">PDF</button><button class="d" ${id} data-act="del">Excluir</button></div>`)}).join(""):`<div class="empty">${QCOB.trim()?"Nenhum orçamento encontrado.":(S.docs.length?"Nada por aqui neste filtro.":"Nenhum orçamento ainda.<br>Toque em “Novo orçamento” e envie o primeiro pelo WhatsApp em menos de um minuto.")}</div>`}
 const openS=id=>{$("ov").classList.add("open");$(id).classList.add("open")};
 const closeS=()=>{$("ov").classList.remove("open");document.querySelectorAll(".sheet").forEach(s=>s.classList.remove("open"))};
 function addItem(){const r=document.createElement("div");r.className="it";r.innerHTML=`<input placeholder="Descrição" aria-label="Descrição"><input placeholder="Qtd" value="1" inputmode="decimal" aria-label="Quantidade"><input placeholder="R$" inputmode="decimal" aria-label="Valor unitário">`;$("its").appendChild(r)}
 function calc(){let t=0;document.querySelectorAll("#its .it").forEach(r=>{const i=r.querySelectorAll("input");t+=num(i[1].value)*num(i[2].value)});t=Math.max(0,t-num($("fdc").value));$("ftot").textContent=R.format(t)}
 
-document.addEventListener("input",e=>{if(e.target.closest("#its")||e.target.id==="fdc")calc();if(e.target.id==="cbp"||e.target.id==="cbn")cbUI()});
+document.addEventListener("input",e=>{if(e.target.closest("#its")||e.target.id==="fdc")calc();if(e.target.id==="cbp"||e.target.id==="cbn")cbUI();if(e.target.id==="q-cob"){QCOB=e.target.value;render()}if(e.target.id==="q-cli"){QCLI=e.target.value;render()}if(e.target.id==="q-sv"){QSV=e.target.value;render()}});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!FORCE)closeS()});
 async function up(d,v){const r=await sb.from("orcamentos").update(v).eq("id",d.id);if(r.error)throw r.error;await loadAll();render()}
 const fail=x=>{if(String(x&&x.message||"").includes("limite_plano_gratis")){closeS();planoOpen()}else toast("Não foi possível salvar. Verifique sua conexão e tente de novo.")};
@@ -785,7 +802,7 @@ const pf=Object.assign({user_id:U.id},f);
 const r=await sb.auth.updateUser({data:c});if(r.error)throw r.error;const r2=await sb.from("perfil").upsert(pf,{onConflict:"user_id"});if(r2.error)throw r2.error;
 S.cfg=Object.assign(S.cfg,c);S.perfil={documento:pf.documento||"",telefone:pf.telefone||"",cidade:pf.cidade||"",pixt:"cpf",logo:pf.logo||""};const was=FORCE;FORCE=false;closeS();toast("Dados salvos.");render();if(was&&!onbDone())openOnb();else if(was&&!S.docs.length)openNew("")}
 else if(a==="new"){ONB=false;closeS();if(!isPro()&&usados()>=CFG.limite)planoOpen();else openNew("")}
-else if(a==="close"){if(!FORCE){ONB=false;closeS()}}else if(a==="additem")addItem();else if(a==="flt"){F=t.dataset.f;render()}
+else if(a==="close"){if(!FORCE){ONB=false;closeS()}}else if(a==="additem")addItem();else if(a==="flt"){F=t.dataset.f;render()}else if(a==="xq"){const q=t.dataset.q;if(q==="cob")QCOB="";if(q==="cli")QCLI="";if(q==="sv")QSV="";render()}
 else if(a==="tab"){TAB=t.dataset.t;render();scrollTo(0,0)}
 else if(a==="goto"){TAB=t.dataset.t;if(t.dataset.s)SUB=t.dataset.s;render();scrollTo(0,0)}
 else if(a==="savepixk"){const k=$("pixk").value.trim();if(!k){toast("Digite a sua chave Pix.");return}const r=await sb.from("contas").insert({nome:"Pix",tipo:"pix",chave:k});if(r.error)throw r.error;await loadAll();$("pixk").value="";pixShow()}
