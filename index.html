@@ -576,7 +576,7 @@ if("serviceWorker"in navigator&&location.protocol==="https:")window.addEventList
 const inPer=x=>SUB==="rl"&&PER==="a"?String(x).slice(0,4)===MES.slice(0,4):String(x).slice(0,7)===MES;
 function finData(){const rec=S.docs.filter(d=>d.s==="pago"&&inPer(d.pagoEm||d.data)),des=S.desp.filter(x=>inPer(x.data));return{rec,des,tr:rec.reduce((a,d)=>a+tot(d),0),td:des.reduce((a,x)=>a+x.valor,0)}}
 function renderFin(){["ct","dp","rl"].forEach(q=>$("sv-"+q).classList.toggle("hid",SUB!==q));
-document.querySelectorAll("#v-ct>.seg:first-child button").forEach(x=>x.classList.toggle("on",x.dataset.s===SUB));
+document.querySelectorAll("#v-ct .seg button").forEach(x=>x.classList.toggle("on",x.dataset.s===SUB));
 document.querySelectorAll("#sv-rl .seg2 button").forEach(x=>x.classList.toggle("on",x.dataset.p===PER));
 $("v-nav").classList.toggle("hid",SUB==="ct");const [y,o]=MES.split("-");$("mes-t").textContent=SUB==="rl"&&PER==="a"?y:MF[Number(o)-1]+" de "+y;
 const FD=finData();$("dp-tot").textContent=fmt(FD.td);
