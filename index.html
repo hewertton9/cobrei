@@ -205,6 +205,8 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 #partyc i{position:absolute;top:-14px;width:8px;height:14px;border-radius:2px;animation:fall linear forwards}
 @keyframes fall{to{transform:translateY(560px) rotate(540deg);opacity:0}}
 .party{text-align:center;position:relative;padding-top:.6rem}.party .big{font-size:3.2rem;line-height:1;margin-bottom:.4rem}.party h2{margin:.2rem 0 .6rem}
+.sch{width:100%;height:3rem;padding:0 1rem;font-size:16px;border:1px solid var(--ln);border-radius:99px;background:var(--sf);color:var(--ink);margin-bottom:.8rem}
+#ajs{margin-top:1rem;display:grid;gap:.6rem}.hlp p{margin:.4rem 0;color:var(--mu);font-size:.92rem;line-height:1.5}
 </style>
 </head>
 <body>
@@ -244,6 +246,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 </div>
 <div id="v-cob" class="hid">
 <section class="hero"><span>A receber</span><b id="s2"></b><div class="pgb"><i id="pg"></i></div><div class="hs"><div><span>Em orçamento</span><b id="s1"></b></div><div><span>Já recebido</span><b id="s3"></b></div></div></section>
+<input id="busca" class="sch" type="search" placeholder="Buscar por cliente ou serviço" aria-label="Buscar orçamentos" autocomplete="off">
 <nav class="chips" aria-label="Filtrar"><button data-act="flt" data-f="all">Todos</button><button data-act="flt" data-f="orc">Orçamentos</button><button data-act="flt" data-f="cob">A receber</button><button data-act="flt" data-f="pago">Pagos</button><button data-act="flt" data-f="rec">Recusados</button></nav>
 <div id="list"></div>
 </div>
@@ -256,7 +259,14 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <button class="mi" data-act="goto" data-t="ct" data-s="rl"><span><b>Relatório</b><small>Resumo do mês ou do ano para o contador</small></span><i class="chv"></i></button>
 <button class="mi" data-act="cfg"><span><b>Meus dados</b><small>Nome, logo, biometria e privacidade</small></span><i class="chv"></i></button>
 <button class="mi" data-act="plano"><span><b>Meu plano</b><small>Veja o que está incluso</small></span><i class="chv"></i></button>
+<button class="mi" data-act="goto" data-t="aj"><span><b>Ajuda e suporte</b><small>Passo a passo e atendimento</small></span><i class="chv"></i></button>
 </div>
+</div>
+<div id="v-aj" class="hid">
+<button class="back" data-act="goto" data-t="mais">‹ Mais</button>
+<h2 class="sec">Ajuda</h2>
+<div id="ajl"></div>
+<div id="ajs"></div>
 </div>
 <div id="v-sv" class="hid">
 <button class="back" data-act="goto" data-t="mais">‹ Mais</button>
@@ -306,6 +316,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <label>Logo (aparece nos PDFs)</label><div class="lg"><img id="lgp" alt="" class="hid"><button class="b" data-act="logo">Escolher imagem</button><button class="b d hid" id="lgx" data-act="logox">Remover</button></div><input type="file" id="lgf" accept="image/*" class="hid">
 <div id="biow"><label>Segurança</label><button class="b wide" id="bio" data-act="bio"></button></div>
 <div id="instw"><label>Aplicativo</label><button class="b wide hid" id="instb" data-act="inst">Instalar COBREI no celular</button><p id="insth" class="note"></p></div>
+<div id="pushw" class="hid"><label>Avisos no celular</label><button class="b wide" id="pushb" data-act="push"></button><button class="b wide hid" id="pusht" data-act="pushtest">Enviar aviso de teste</button><p id="pushh" class="note"></p></div>
 <label>Plano</label><div class="card" id="plbox"></div>
 <label>Seus dados e privacidade</label>
 <button class="b wide" data-act="exp">Baixar meus dados (JSON)</button>
@@ -315,7 +326,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <div class="bar"><div class="act"><button class="b p" id="cfgb" data-act="savecfg">Salvar</button><button class="b" data-act="out">Sair da conta</button></div></div>
 </aside>
 <aside id="sh-new" class="sheet" aria-label="Novo orçamento">
-<h2>Novo orçamento</h2>
+<h2 id="fnt">Novo orçamento</h2>
 <label for="fcl" id="fcll">Cliente cadastrado</label><select id="fcl"></select>
 <label for="fc">Nome do cliente</label><input id="fc" autocomplete="off">
 <label for="fw">WhatsApp do cliente (opcional)</label><input id="fw" inputmode="tel" placeholder="43 99999-9999">
@@ -329,7 +340,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <div id="fpw" class="hid"><label for="fpn" id="fpl">Parcelas</label><select id="fpn"></select></div>
 <div id="fenw" class="hid"><label for="fen">Entrada (% do total)</label><input id="fen" inputmode="numeric" placeholder="50"></div>
 <label for="fob">Observações (opcional)</label><textarea id="fob" rows="3" placeholder="Prazo de entrega, garantia, condições..."></textarea>
-<div class="bar"><p><span>Total</span><span id="ftot">R$ 0,00</span></p><div class="act"><button class="b p" data-act="save">Salvar orçamento</button></div></div>
+<div class="bar"><p><span>Total</span><span id="ftot">R$ 0,00</span></p><div class="act"><button class="b p" id="fsb" data-act="save">Salvar orçamento</button></div></div>
 </aside>
 <aside id="sh-ct" class="sheet" aria-label="Cadastrar conta">
 <h2>Onde você recebe?</h2>
@@ -418,8 +429,8 @@ const K="fechou:v1",R=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"
 let S={cfg:{nome:"",pix:""},docs:[]},F="all";
 try{const r=localStorage.getItem(K);if(r)S=JSON.parse(r)}catch(e){}
 S.contas=S.contas||[];S.clientes=[];S.perfil={};S.servicos=[];S.recs=[];S.desp=[];S.plano={plano:"gratis",ate:""};
-const CFG={limite:10,preco:"R$ 19,90 por mês",checkout:"",contato:""};
-let TAB="pnl",PAY=null,CB=null,RC=null,ONB=false,FORCE=false,EC=null,CF="",PIXD=null,PREW=null,SUB="ct",PER="m",IP=null,EV=null,GRP=null;const CVT=new URLSearchParams(location.search).get("o"),CCT=new URLSearchParams(location.search).get("c");
+const CFG={limite:10,preco:"R$ 19,90 por mês",checkout:"",contato:"",suporte:"",vapid:"BICPy8HTn2xAoIILLQEVhKSSIsVpypooY0Y8nahSA9f6UXv0wJ_uEdJthffXz63tdIA0CrdQaYRRdiALYup9Tow"};
+let TAB="pnl",PAY=null,CB=null,RC=null,ONB=false,FORCE=false,EC=null,CF="",PIXD=null,PREW=null,EDQ=null,SUB="ct",PER="m",IP=null,EV=null,GRP=null;const CVT=new URLSearchParams(location.search).get("o"),CCT=new URLSearchParams(location.search).get("c");
 const TP={pix:"Pix",banco:"Conta bancária",carteira:"Carteira digital",dinheiro:"Dinheiro em mãos"},EM={pix:"⚡",banco:"🏦",carteira:"📱",dinheiro:"💵"};
 const contaNome=id=>(S.contas.find(x=>x.id===id)||{}).nome;
 function payList(){$("payl").innerHTML=S.contas.map(x=>`<button class="b" data-act="payto" data-c="${x.id}">${EM[x.tipo]} ${esc(x.nome)}</button>`).join("")+`<button class="b" data-act="payto" data-c="">Não informar</button>`}
@@ -440,7 +451,7 @@ try{const cr=await navigator.credentials.create({publicKey:{challenge:crypto.get
 localStorage.setItem(BK,JSON.stringify({id:b64(new Uint8Array(cr.rawId)),uid:U.id}));toast("Biometria ativada neste aparelho.")}
 catch(e){toast("Não foi possível ativar a biometria neste aparelho.")}bioLabel()}
 async function unlock(){try{const c=JSON.parse(localStorage.getItem(BK));await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),allowCredentials:[{type:"public-key",id:unb(c.id)}],userVerification:"required",timeout:60000}});LOCK=false;await enter(PEND)}catch(e){toast("Não foi possível validar a biometria. Tente de novo.")}}
-function openNew(cid){$("fsv").innerHTML='<option value="">'+(S.servicos.length?"Escolher serviço do catálogo…":"Catálogo vazio (cadastre em Mais › Serviços)")+'</option>'+S.servicos.map(x=>`<option value="${x.id}">${esc(x.nome)} — ${R.format(x.preco)}</option>`).join("");["fc","fw","ft","fdc","fob"].forEach(i=>$(i).value="");$("fva").value=iso(7);$("ffp").value="";$("fen").value="";fpUI();$("its").innerHTML="";addItem();
+function openNew(cid){EDQ=null;$("fnt").textContent="Novo orçamento";$("fsb").textContent="Salvar orçamento";$("fsv").innerHTML='<option value="">'+(S.servicos.length?"Escolher serviço do catálogo…":"Catálogo vazio (cadastre em Mais › Serviços)")+'</option>'+S.servicos.map(x=>`<option value="${x.id}">${esc(x.nome)} — ${R.format(x.preco)}</option>`).join("");["fc","fw","ft","fdc","fob"].forEach(i=>$(i).value="");$("fva").value=iso(7);$("ffp").value="";$("fen").value="";fpUI();$("its").innerHTML="";addItem();
 $("fcl").innerHTML='<option value="">Novo cliente (digitar)</option>'+S.clientes.map(c=>`<option value="${c.id}">${esc(c.nome)}</option>`).join("");
 $("fcl").value=cid||"";const c=S.clientes.find(x=>x.id===cid);if(c){$("fc").value=c.nome;$("fw").value=c.whatsapp}
 calc();openS("sh-new")}
@@ -489,7 +500,7 @@ function imgData(f,max,cb){const r=new FileReader();r.onload=()=>{const im=new I
 function cfUI(){const i=$("cfp");i.src=CF||"";i.classList.toggle("hid",!CF);$("cfx").classList.toggle("hid",!CF)}
 function openCli(c){EC=c||null;$("clh").textContent=c?"Editar cliente":"Novo cliente";$("cln").value=c?c.nome:"";$("clt").value=c?c.tipo:"pf";$("cld").value=c?c.documento:"";$("clw").value=c?c.whatsapp:"";$("cle").value=c?c.email:"";$("clr").checked=c?c.recorrente:false;CF=c?c.foto:"";cfUI();openS("sh-cli")}
 const needProfile=()=>!(S.cfg.nome&&S.perfil.documento&&S.perfil.telefone&&S.perfil.cidade);
-function openProfile(force){planoBox();instUI();FORCE=force;$("cn").value=S.cfg.nome||"";$("cdc").value=S.perfil.documento||"";$("ctf").value=S.perfil.telefone||"";$("cci").value=S.perfil.cidade||"";LOGO=S.perfil.logo||"";logoUI();bioLabel();
+function openProfile(force){planoBox();instUI();pushState();FORCE=force;$("cn").value=S.cfg.nome||"";$("cdc").value=S.perfil.documento||"";$("ctf").value=S.perfil.telefone||"";$("cci").value=S.perfil.cidade||"";LOGO=S.perfil.logo||"";logoUI();bioLabel();
 $("cfgt").textContent=force?"Falta pouco!":"Meus dados";$("cfgx").classList.toggle("hid",force);$("cfgb").textContent=force?"Salvar e começar":"Salvar";const n=$("cfgn");n.classList.toggle("hid",!force);n.textContent="Falta só isto para começar. Esses dados aparecem nos seus orçamentos e recibos.";openS("sh-cfg")}
 function pixShow(){const d=S.docs.find(x=>x.id===PIXD);if(!d)return;const c=pixCode(d,$("pixa").value||undefined);$("pixq").innerHTML=c?qrSvg(c):"";$("pixq").classList.toggle("hid",!$("pixq").innerHTML);$("pixc").value=c;
 const sem=!pixContas().length;$("pixnw").classList.toggle("hid",!sem);$("pixcw").classList.toggle("hid",sem);$("pixcp").classList.toggle("hid",sem);$("pixm").textContent=c?"Valor: "+R.format(tot(d))+" · Mostre o QR Code ou envie o código ao cliente.":(sem?"Para gerar o QR Code, informe a sua chave Pix. É só uma vez.":"Complete seu nome e cidade em Meus dados para gerar o Pix.");openS("sh-pix")}
@@ -564,7 +575,7 @@ if("serviceWorker"in navigator&&location.protocol==="https:")window.addEventList
 const inPer=x=>SUB==="rl"&&PER==="a"?String(x).slice(0,4)===MES.slice(0,4):String(x).slice(0,7)===MES;
 function finData(){const rec=S.docs.filter(d=>d.s==="pago"&&inPer(d.pagoEm||d.data)),des=S.desp.filter(x=>inPer(x.data));return{rec,des,tr:rec.reduce((a,d)=>a+tot(d),0),td:des.reduce((a,x)=>a+x.valor,0)}}
 function renderFin(){["ct","dp","rl"].forEach(q=>$("sv-"+q).classList.toggle("hid",SUB!==q));
-document.querySelectorAll("#v-ct .seg button").forEach(x=>x.classList.toggle("on",x.dataset.s===SUB));
+document.querySelectorAll("#v-ct>.seg:first-child button").forEach(x=>x.classList.toggle("on",x.dataset.s===SUB));
 document.querySelectorAll("#sv-rl .seg2 button").forEach(x=>x.classList.toggle("on",x.dataset.p===PER));
 $("v-nav").classList.toggle("hid",SUB==="ct");const [y,o]=MES.split("-");$("mes-t").textContent=SUB==="rl"&&PER==="a"?y:MF[Number(o)-1]+" de "+y;
 const FD=finData();$("dp-tot").textContent=fmt(FD.td);
@@ -640,6 +651,42 @@ let w2=null;try{w2=window.open(wa(d),"_blank")}catch(e){}
 if(w2){try{w2.opener=null}catch(e){}markSent(id);toast("Orçamento criado! Abrindo o WhatsApp…")}else openSent(d)}
 function party(d){$("partyv").textContent=fmt(tot(d))+" recebidos de "+d.c+".";openS("sh-party");
 if(!matchMedia("(prefers-reduced-motion: reduce)").matches){const c=$("partyc"),cs=["#ffc53d","#5ad08a","#5b8cff","#ff8f80","#ffffff"];c.innerHTML="";for(let i=0;i<28;i++){const e=document.createElement("i");e.style.cssText=`left:${Math.random()*100}%;background:${cs[i%5]};animation-delay:${(Math.random()*.8).toFixed(2)}s;animation-duration:${(2+Math.random()*1.6).toFixed(2)}s`;c.appendChild(e)}}}
+const norm=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+function openEdit(d){if(d.s==="apr"&&!confirm("O cliente já aprovou este orçamento. Se você editar, ele precisará aprovar de novo. Continuar?"))return;
+openNew("");EDQ=d.id;$("fnt").textContent="Editar orçamento";$("fsb").textContent="Salvar alterações";
+$("fcl").value=d.k||"";$("fc").value=d.c;$("fw").value=d.w||"";$("ft").value=d.t||"";$("fdc").value=d.desc?String(d.desc).replace(".",","):"";$("fva").value=d.val||"";$("fob").value=d.ob||"";
+$("its").innerHTML="";d.itens.forEach(i=>{addItem();const r=[...document.querySelectorAll("#its .it")].pop().querySelectorAll("input");r[0].value=i.d;r[1].value=String(i.q).replace(".",",");r[2].value=String(i.v).replace(".",",")});
+$("ffp").value=d.fp||"";fpUI();$("fpn").value=d.en?"ent":String(d.np||1);fpUI();$("fen").value=d.en||"";calc()}
+async function editSave(itens,svc,np,en){const d=S.docs.find(x=>x.id===EDQ);if(!d)return;
+const v={cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servico:svc,validade:$("fva").value||null,desconto:num($("fdc").value),forma_pagamento:$("ffp").value||null,parcelas:np,entrada_pct:en,observacoes:$("fob").value.trim()||null,cliente_id:$("fcl").value||null};
+if(d.s!=="orc")v.status="orc";
+const r=await sb.from("orcamentos").update(v).eq("id",d.id);if(r.error)throw r.error;
+const r2=await sb.from("itens").insert(itens.map(i=>({orcamento_id:d.id,descricao:i.d,quantidade:i.q,valor:i.v}))).select("id");if(r2.error)throw r2.error;
+const r3=await sb.from("itens").delete().eq("orcamento_id",d.id).not("id","in","("+r2.data.map(x=>x.id).join(",")+")");if(r3.error)throw r3.error;
+if(d.s!=="orc"){SENT.delete(d.id);try{localStorage.setItem("cobrei:env",JSON.stringify([...SENT]))}catch(e){}}
+EDQ=null;OPEN.add(d.id);await loadAll();closeS();render();toast("Orçamento atualizado.")}
+const AJ=[["Como criar e enviar um orçamento","1. Toque em “+ Novo orçamento”.<br>2. Informe o cliente e o que será feito, com o valor.<br>3. Salve: o WhatsApp abre com o link pronto.<br>4. Seu cliente abre o link e aprova com 1 toque."],
+["Como cobrar e receber","Quando o cliente aprova, o orçamento aparece em “Para fazer agora”, no Início. Toque em “Gerar cobrança”, escolha o primeiro vencimento e cobre pelo WhatsApp. O cliente paga pelo link do Pix. Depois, toque em “Marcar pago” e escolha a conta que recebeu."],
+["Parcelamento e cobrança mensal","Defina o parcelamento na forma de pagamento do orçamento: as parcelas ficam juntas, no mesmo cliente. Para clientes que contratam todo mês, marque o cliente como recorrente e use “Cobrança mensal”."],
+["Pix e QR Code","Cadastre sua chave em Mais › Onde você recebe, ou quando o app pedir. O QR Code aparece em “Pix / QR” e no PDF da cobrança."],
+["Corrigir um orçamento","Toque no orçamento e depois em “Editar”. Se o cliente já tinha aprovado, ele precisará aprovar de novo, pelo mesmo link."],
+["Instalar no celular","Android: no menu do navegador, escolha “Instalar app”. iPhone: toque em Compartilhar e depois em “Adicionar à Tela de Início”."],
+["Esqueci minha senha","Na tela de entrada, digite seu e-mail e toque em “Esqueci minha senha”. Enviaremos um link para criar outra."]];
+function renderAj(){$("ajl").innerHTML=AJ.map((x,i)=>cardX("aj"+i,`<div class="mid"><h3>${x[0]}</h3></div>`,"",`<div class="hlp"><p>${x[1]}</p></div>`)).join("");
+const msg_="Olá! Preciso de ajuda com o COBREI.\nMeu e-mail: "+((U&&U.email)||"");
+$("ajs").innerHTML=`<button class="b" data-act="onbopen">Rever os primeiros passos</button>`+(CFG.suporte?`<a class="b p" href="https://wa.me/${CFG.suporte}?text=${encodeURIComponent(msg_)}" target="_blank" rel="noopener">Falar com o suporte no WhatsApp</a>`:`<p class="note">O atendimento pelo WhatsApp estará disponível em breve.</p>`)}
+const b64u=t=>{const p="=".repeat((4-t.length%4)%4),r=atob((t+p).replace(/-/g,"+").replace(/_/g,"/"));return Uint8Array.from(r,c=>c.charCodeAt(0))};
+const pushOk=()=>CFG.vapid&&"serviceWorker"in navigator&&"PushManager"in window&&"Notification"in window;
+async function pushState(){if(!pushOk()){$("pushw").classList.add("hid");return}$("pushw").classList.remove("hid");let on=false;
+try{const reg=await navigator.serviceWorker.ready;on=!!(await reg.pushManager.getSubscription())&&Notification.permission==="granted"}catch(e){}
+$("pushb").textContent=on?"Desativar avisos no celular":"Ativar avisos no celular";$("pusht").classList.toggle("hid",!on);
+$("pushh").textContent=on?"Você recebe um resumo de manhã (cobranças atrasadas ou vencendo) e um aviso na hora em que um cliente aprova ou recusa um orçamento.":(/iphone|ipad|ipod/i.test(navigator.userAgent)&&navigator.standalone!==true?"No iPhone, instale o app na tela inicial antes de ativar os avisos.":"")}
+async function pushToggle(){const reg=await navigator.serviceWorker.ready,cur=await reg.pushManager.getSubscription();
+if(cur&&Notification.permission==="granted"){await sb.from("push_subs").delete().eq("endpoint",cur.endpoint);await cur.unsubscribe();toast("Avisos desativados.");pushState();return}
+if(await Notification.requestPermission()!=="granted"){toast("Para receber avisos, permita as notificações do app nas configurações do celular.");return}
+const sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(CFG.vapid)}),j=sub.toJSON();
+const r=await sb.from("push_subs").upsert({endpoint:j.endpoint,p256dh:j.keys.p256dh,auth:j.keys.auth,user_id:U.id},{onConflict:"endpoint"});if(r.error)throw r.error;toast("Avisos ativados!");pushState()}
+async function pushTest(){const r=await sb.functions.invoke("lembretes",{body:{teste:true}});if(r.error)throw r.error;toast("Aviso de teste enviado. Aguarde alguns segundos.")}
 function renderCli(){const by={};S.docs.forEach(d=>{if(d.k){const o=by[d.k]||(by[d.k]={n:0,p:0});if(!d.pc)o.n++;if(d.s==="pago")o.p+=tot(d)}});
 $("cli-n").textContent=S.clientes.length;
 $("cll").innerHTML=S.clientes.length?S.clientes.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return cardX(c.id,`<div class="av">${safeImg(c.foto)?`<img src="${safeImg(c.foto)}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div>`,`${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}`,`<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button>${c.recorrente?`<button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button>`:""}</div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div>`)}).join(""):`<div class="empty">Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque.</div>`}
@@ -688,7 +735,7 @@ if(!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite seu e-mail acima e toque em
 const r=await sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname});
 if(r.error)er.textContent=msgErr(r.error);else inf.textContent="Se esse e-mail tiver conta, enviamos um link para criar uma nova senha."}
 function authUI(){const m=MODE;
-$("intro").classList.toggle("hid",OK||LOCK);$("lock").classList.toggle("hid",!LOCK||OK);$("app").classList.toggle("hid",!OK);document.querySelector(".fab").classList.toggle("hid",!OK||TAB==="ct"||TAB==="sv"||TAB==="mais");
+$("intro").classList.toggle("hid",OK||LOCK);$("lock").classList.toggle("hid",!LOCK||OK);$("app").classList.toggle("hid",!OK);document.querySelector(".fab").classList.toggle("hid",!OK||TAB==="ct"||TAB==="sv"||TAB==="mais"||TAB==="aj");
 $("an").classList.toggle("hid",m!=="signup");$("ae").classList.toggle("hid",m==="recover");$("fg").classList.toggle("hid",m!=="login");$("sw").classList.toggle("hid",m==="recover");$("aceitew").classList.toggle("hid",m!=="signup");
 $("ap").autocomplete=m==="signup"||m==="recover"?"new-password":"current-password";
 $("at").textContent=m==="recover"?"Crie uma nova senha":"Orçou. Cobrou. Recebeu.";
@@ -716,11 +763,11 @@ $("ct-tot").textContent=fmt(c);
 const rec={};S.docs.forEach(d=>{if(d.s==="pago"&&d.conta)rec[d.conta]=(rec[d.conta]||0)+tot(d)});
 const other=c-S.contas.reduce((z,x)=>z+(rec[x.id]||0),0);
 $("ctl").innerHTML=S.contas.length?S.contas.map(x=>cardX(x.id,`<div class="av">${EM[x.tipo]}</div><div class="mid"><h3>${esc(x.nome)}</h3><p>${TP[x.tipo]}${x.chave?" · "+esc(x.chave):""}</p></div><div class="tot">${fmt(rec[x.id]||0)}</div>`,"",`<div class="sub"><button class="d" data-id="${x.id}" data-act="delct">Excluir</button></div>`)).join("")+(other>0.004?`<p class="note">${fmt(other)} recebidos sem conta informada ou em contas excluídas.</p>`:""):`<div class="empty">Nenhuma conta cadastrada.<br>Cadastre onde você recebe — Pix, banco, carteira digital ou dinheiro — para saber quanto entrou em cada uma.</div>`;
-$("v-pnl").classList.toggle("hid",TAB!=="pnl");renderPnl();renderPnlX();renderFin();$("v-sv").classList.toggle("hid",TAB!=="sv");renderSv();$("v-mais").classList.toggle("hid",TAB!=="mais");$("v-cli").classList.toggle("hid",TAB!=="cli");renderCli();$("v-cob").classList.toggle("hid",TAB!=="cob");$("v-ct").classList.toggle("hid",TAB!=="ct");
-const NT=TAB==="sv"||TAB==="ct"?"mais":TAB;document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x.dataset.t===NT));
+$("v-pnl").classList.toggle("hid",TAB!=="pnl");renderPnl();renderPnlX();renderFin();$("v-sv").classList.toggle("hid",TAB!=="sv");renderSv();$("v-mais").classList.toggle("hid",TAB!=="mais");$("v-aj").classList.toggle("hid",TAB!=="aj");if(TAB==="aj")renderAj();$("v-cli").classList.toggle("hid",TAB!=="cli");renderCli();$("v-cob").classList.toggle("hid",TAB!=="cob");$("v-ct").classList.toggle("hid",TAB!=="ct");
+const NT=TAB==="sv"||TAB==="ct"||TAB==="aj"?"mais":TAB;document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x.dataset.t===NT));
 $("hi").textContent=S.cfg.nome?`Olá, ${S.cfg.nome}`:"Orçou. Cobrou. Recebeu.";
 document.querySelectorAll(".chips button").forEach(x=>x.classList.toggle("on",x.dataset.f===F));
-const L=S.docs.filter(d=>!d.g).filter(FL[F]);
+const Q=norm($("busca").value.trim()),L=S.docs.filter(d=>!d.g).filter(FL[F]).filter(d=>!Q||norm(d.c+" "+d.t).includes(Q));
 $("list").innerHTML=L.length?L.map(d=>{
 if(d.s==="parc"&&kids(d).length)return grpCard(d);
 const late=d.s==="cob"&&d.venc<iso(0),id=`data-id="${d.id}"`;
@@ -729,13 +776,13 @@ let ac="",sub="";
 if(d.s==="orc")ac=`<a class="b p" ${id} data-act="wsent" href="${esc(wa(d))}" target="_blank" rel="noopener">Enviar no WhatsApp</a><button class="b" ${id} data-act="lnk">Copiar link</button><button class="b" ${id} data-act="apr">Cliente aprovou</button>`;
 if(d.s==="apr")ac=`<button class="b p" ${id} data-act="cob">Gerar cobrança</button>`;
 if(d.s==="cob"){ac=`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">Cobrar no WhatsApp</a><button class="b" ${id} data-act="pix">Pix / QR Code</button><button class="b" ${id} data-act="pago">Marcar como pago</button>`;sub=`<label>Vencimento <input type="date" value="${esc(d.venc)}" ${id} data-act="venc"></label>`}
-return cardX(d.id,`<div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div>`,tag,`<div class="act">${ac}</div><div class="sub">${sub}<button ${id} data-act="pdf">PDF</button><button class="d" ${id} data-act="del">Excluir</button></div>`)}).join(""):`<div class="empty">${S.docs.length?"Nada por aqui neste filtro.":"Nenhum orçamento ainda.<br>Toque em “Novo orçamento” e envie o primeiro pelo WhatsApp em menos de um minuto."}</div>`}
+return cardX(d.id,`<div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div>`,tag,`<div class="act">${ac}</div><div class="sub">${sub}${["orc","apr","rec"].includes(d.s)?`<button ${id} data-act="editq">Editar</button>`:""}<button ${id} data-act="pdf">PDF</button><button class="d" ${id} data-act="del">Excluir</button></div>`)}).join(""):`<div class="empty">${Q?"Nenhum resultado para “"+esc($("busca").value.trim())+"”.":S.docs.length?"Nada por aqui neste filtro.":"Nenhum orçamento ainda.<br>Toque em “Novo orçamento” e envie o primeiro pelo WhatsApp em menos de um minuto."}</div>`}
 const openS=id=>{$("ov").classList.add("open");$(id).classList.add("open")};
 const closeS=()=>{$("ov").classList.remove("open");document.querySelectorAll(".sheet").forEach(s=>s.classList.remove("open"))};
 function addItem(){const r=document.createElement("div");r.className="it";r.innerHTML=`<input placeholder="Descrição" aria-label="Descrição"><input placeholder="Qtd" value="1" inputmode="decimal" aria-label="Quantidade"><input placeholder="R$" inputmode="decimal" aria-label="Valor unitário">`;$("its").appendChild(r)}
 function calc(){let t=0;document.querySelectorAll("#its .it").forEach(r=>{const i=r.querySelectorAll("input");t+=num(i[1].value)*num(i[2].value)});t=Math.max(0,t-num($("fdc").value));$("ftot").textContent=R.format(t)}
 
-document.addEventListener("input",e=>{if(e.target.closest("#its")||e.target.id==="fdc")calc();if(e.target.id==="cbp"||e.target.id==="cbn")cbUI()});
+document.addEventListener("input",e=>{if(e.target.id==="busca")render();if(e.target.closest("#its")||e.target.id==="fdc")calc();if(e.target.id==="cbp"||e.target.id==="cbn")cbUI()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!FORCE)closeS()});
 async function up(d,v){const r=await sb.from("orcamentos").update(v).eq("id",d.id);if(r.error)throw r.error;await loadAll();render()}
 const fail=x=>{if(PREW){try{PREW.close()}catch(e){}PREW=null}if(String(x&&x.message||"").includes("limite_plano_gratis")){closeS();planoOpen()}else toast("Não foi possível salvar. Verifique sua conexão e tente de novo.")};
@@ -754,6 +801,9 @@ else if(a==="onbgo"){closeS();ONB=true;const q=t.dataset.a;if(q==="newcli")openC
 else if(a==="onbskip"){ONB=false;closeS();toast("Sem problema! Os passos continuam no seu Início.")}
 else if(a==="wsent"){markSent(t.dataset.id);if(t.id==="sentwa")setTimeout(closeS,400)}
 else if(a==="cpix"){await copyText(window.PIXV||"");toast("Código Pix copiado. Cole no app do seu banco.")}
+else if(a==="push"){try{await pushToggle()}catch(e){console.error(e);toast("Não foi possível ativar os avisos agora.")}}
+else if(a==="pushtest"){try{await pushTest()}catch(e){console.error(e);toast("Não foi possível enviar o teste. Confira se a função de avisos foi criada.")}}
+else if(a==="onbopen")openOnb();
 else if(a==="sub"){SUB=t.dataset.s;render()}
 else if(a==="rper"){PER=t.dataset.p;render()}
 else if(a==="mes"){MES=mshift(MES,Number(t.dataset.d)*(SUB==="rl"&&PER==="a"?12:1));render()}
@@ -805,6 +855,7 @@ else if(a==="save"){const itens=[...document.querySelectorAll("#its .it")].map(r
 if(!$("fc").value.trim()||!itens.length){toast("Preencha o cliente e pelo menos um item com valor.");return}
 const fpv=$("ffp").value,pn=$("fpn").value,pOk=fpv&&fpv!=="Cartão de débito",np_=pOk&&pn!=="ent"?Number(pn)||1:1,en_=pOk&&pn==="ent"?Math.min(95,Math.max(5,Math.round(num($("fen").value))||50)):null;
 const svc_=$("ft").value.trim()||(itens[0].d+(itens.length>1?" e mais "+(itens.length-1)+(itens.length===2?" item":" itens"):""));
+if(EDQ){await editSave(itens,svc_,np_,en_);return}
 PREW=null;try{PREW=window.open("","_blank")}catch(e){}
 const n=S.docs.reduce((m,x)=>Math.max(m,x.n||0),0)+1;
 const r=await sb.from("orcamentos").insert(Object.assign({numero:n,cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servico:svc_,validade:$("fva").value||null,desconto:num($("fdc").value),forma_pagamento:$("ffp").value||null,parcelas:np_,entrada_pct:en_,observacoes:$("fob").value.trim()||null},$("fcl").value?{cliente_id:$("fcl").value}:{})).select("id").single();if(r.error)throw r.error;
@@ -813,7 +864,7 @@ if(r2.error){await sb.from("orcamentos").delete().eq("id",r.data.id);throw r2.er
 OPEN.add(r.data.id);await loadAll();closeS();F="all";render();scrollTo(0,0);autoSend(r.data.id)}
 else if(d){if(a==="apr")await up(d,{status:"apr"});else if(a==="lnk"){await copyText(linkOf(d));toast("Link copiado. Envie ao cliente.")}
 else if(a==="cob"){CB=d.id;$("cbd").value=iso(7);cbUI();openS("sh-cb")}
-else if(a==="pago"){PAY=d.id;payList();openS("sh-pay")}else if(a==="pdf")pdf(d);else if(a==="grp")openGrp(d.id);
+else if(a==="pago"){PAY=d.id;payList();openS("sh-pay")}else if(a==="pdf")pdf(d);else if(a==="grp")openGrp(d.id);else if(a==="editq")openEdit(d);
 else if(a==="del"){const ks=kids(d);if(!confirm(ks.length?"Excluir este parcelamento e as "+ks.length+" parcelas?":"Excluir este registro?"))return;const r=await sb.from("orcamentos").delete().in("id",[d.id].concat(ks.map(x=>x.id)));if(r.error)throw r.error;await loadAll();closeS();render()}}
 }catch(x){fail(x)}}
 document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.tagName==="INPUT")return;act(t.dataset.act,t)});
