@@ -207,6 +207,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 .party{text-align:center;position:relative;padding-top:.6rem}.party .big{font-size:3.2rem;line-height:1;margin-bottom:.4rem}.party h2{margin:.2rem 0 .6rem}
 .sch{width:100%;height:3rem;padding:0 1rem;font-size:16px;border:1px solid var(--ln);border-radius:99px;background:var(--sf);color:var(--ink);margin-bottom:.8rem}
 #ajs{margin-top:1rem;display:grid;gap:.6rem}.hlp p{margin:.4rem 0;color:var(--mu);font-size:.92rem;line-height:1.5}
+.sheet.force>.back{display:none}.sheet>.back{padding:.1rem 0 .7rem}
 </style>
 </head>
 <body>
@@ -501,7 +502,7 @@ function cfUI(){const i=$("cfp");i.src=CF||"";i.classList.toggle("hid",!CF);$("c
 function openCli(c){EC=c||null;$("clh").textContent=c?"Editar cliente":"Novo cliente";$("cln").value=c?c.nome:"";$("clt").value=c?c.tipo:"pf";$("cld").value=c?c.documento:"";$("clw").value=c?c.whatsapp:"";$("cle").value=c?c.email:"";$("clr").checked=c?c.recorrente:false;CF=c?c.foto:"";cfUI();openS("sh-cli")}
 const needProfile=()=>!(S.cfg.nome&&S.perfil.documento&&S.perfil.telefone&&S.perfil.cidade);
 function openProfile(force){planoBox();instUI();pushState();FORCE=force;$("cn").value=S.cfg.nome||"";$("cdc").value=S.perfil.documento||"";$("ctf").value=S.perfil.telefone||"";$("cci").value=S.perfil.cidade||"";LOGO=S.perfil.logo||"";logoUI();bioLabel();
-$("cfgt").textContent=force?"Falta pouco!":"Meus dados";$("cfgx").classList.toggle("hid",force);$("cfgb").textContent=force?"Salvar e começar":"Salvar";const n=$("cfgn");n.classList.toggle("hid",!force);n.textContent="Falta só isto para começar. Esses dados aparecem nos seus orçamentos e recibos.";openS("sh-cfg")}
+$("sh-cfg").classList.toggle("force",!!force);$("cfgt").textContent=force?"Falta pouco!":"Meus dados";$("cfgx").classList.toggle("hid",force);$("cfgb").textContent=force?"Salvar e começar":"Salvar";const n=$("cfgn");n.classList.toggle("hid",!force);n.textContent="Falta só isto para começar. Esses dados aparecem nos seus orçamentos e recibos.";openS("sh-cfg")}
 function pixShow(){const d=S.docs.find(x=>x.id===PIXD);if(!d)return;const c=pixCode(d,$("pixa").value||undefined);$("pixq").innerHTML=c?qrSvg(c):"";$("pixq").classList.toggle("hid",!$("pixq").innerHTML);$("pixc").value=c;
 const sem=!pixContas().length;$("pixnw").classList.toggle("hid",!sem);$("pixcw").classList.toggle("hid",sem);$("pixcp").classList.toggle("hid",sem);$("pixm").textContent=c?"Valor: "+R.format(tot(d))+" · Mostre o QR Code ou envie o código ao cliente.":(sem?"Para gerar o QR Code, informe a sua chave Pix. É só uma vez.":"Complete seu nome e cidade em Meus dados para gerar o Pix.");openS("sh-pix")}
 function pdf(d){const p=S.perfil,n=S.cfg.nome,t=tot(d),isR=d.s==="pago",isC=d.s==="cob",tp=isR?"Recibo":isC?"Cobrança":"Orçamento";
@@ -687,6 +688,16 @@ if(await Notification.requestPermission()!=="granted"){toast("Para receber aviso
 const sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(CFG.vapid)}),j=sub.toJSON();
 const r=await sb.from("push_subs").upsert({endpoint:j.endpoint,p256dh:j.keys.p256dh,auth:j.keys.auth,user_id:U.id},{onConflict:"endpoint"});if(r.error)throw r.error;toast("Avisos ativados!");pushState()}
 async function pushTest(){const r=await sb.functions.invoke("lembretes",{body:{teste:true}});if(r.error)throw r.error;toast("Aviso de teste enviado. Aguarde alguns segundos.")}
+function trapInit(){if(TRAP)return;TRAP=true;const st=history.state||{};if(st.app)return;
+try{if(st.root)history.pushState({app:1},"");else{history.replaceState({root:1},"");history.pushState({app:1},"")}}catch(e){TRAP=false}}
+window.addEventListener("popstate",()=>{if(!TRAP)return;const st=history.state||{};if(!st.root)return;
+if(!OK){TRAP=false;history.back();return}
+const rep=()=>{try{history.pushState({app:1},"")}catch(e){}};
+if(FORCE){rep();return}
+if(STK.length){rep();if(STK[STK.length-1]==="sh-onb")ONB=false;closeTop();return}
+if(TAB!=="pnl"){rep();TAB=UP[TAB]||"pnl";render();scrollTo(0,0);return}
+if(Date.now()-EXIT<2500){TRAP=false;history.back();return}
+EXIT=Date.now();rep();toast("Toque em voltar de novo para sair do app.")});
 function renderCli(){const by={};S.docs.forEach(d=>{if(d.k){const o=by[d.k]||(by[d.k]={n:0,p:0});if(!d.pc)o.n++;if(d.s==="pago")o.p+=tot(d)}});
 $("cli-n").textContent=S.clientes.length;
 $("cll").innerHTML=S.clientes.length?S.clientes.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return cardX(c.id,`<div class="av">${safeImg(c.foto)?`<img src="${safeImg(c.foto)}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div>`,`${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}`,`<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button>${c.recorrente?`<button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button>`:""}</div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div>`)}).join(""):`<div class="empty">Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque.</div>`}
@@ -713,7 +724,7 @@ S.desp=dsp.error?[]:dsp.data.map(x=>({id:x.id,desc:x.descricao,valor:Number(x.va
 const as_=(asn&&!asn.error&&asn.data)||{};S.plano={plano:as_.plano||"gratis",ate:as_.valido_ate||""}}
 async function enter(user){U=user;const md=user.user_metadata||{};S.cfg={nome:md.nome||"",pix:md.pix||""};
 try{await loadAll()}catch(e){console.error("loadAll",e);$("aerr").textContent="Não foi possível carregar seus dados agora. Verifique a conexão e tente de novo.";return}
-try{await genRecs()}catch(e){}OK=true;try{localStorage.setItem("cobrei:v","1")}catch(e){}render();if(needProfile())openProfile(true);else remind()}
+try{await genRecs()}catch(e){}OK=true;trapInit();try{localStorage.setItem("cobrei:v","1")}catch(e){}render();if(needProfile())openProfile(true);else remind()}
 async function doAuth(){
 const e=$("ae").value.trim().toLowerCase(),p=$("ap").value,er=$("aerr"),inf=$("ainfo");er.textContent="";inf.textContent="";
 if(!sb){er.textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
@@ -777,8 +788,11 @@ if(d.s==="orc")ac=`<a class="b p" ${id} data-act="wsent" href="${esc(wa(d))}" ta
 if(d.s==="apr")ac=`<button class="b p" ${id} data-act="cob">Gerar cobrança</button>`;
 if(d.s==="cob"){ac=`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">Cobrar no WhatsApp</a><button class="b" ${id} data-act="pix">Pix / QR Code</button><button class="b" ${id} data-act="pago">Marcar como pago</button>`;sub=`<label>Vencimento <input type="date" value="${esc(d.venc)}" ${id} data-act="venc"></label>`}
 return cardX(d.id,`<div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div>`,tag,`<div class="act">${ac}</div><div class="sub">${sub}${["orc","apr","rec"].includes(d.s)?`<button ${id} data-act="editq">Editar</button>`:""}<button ${id} data-act="pdf">PDF</button><button class="d" ${id} data-act="del">Excluir</button></div>`)}).join(""):`<div class="empty">${Q?"Nenhum resultado para “"+esc($("busca").value.trim())+"”.":S.docs.length?"Nada por aqui neste filtro.":"Nenhum orçamento ainda.<br>Toque em “Novo orçamento” e envie o primeiro pelo WhatsApp em menos de um minuto."}</div>`}
-const openS=id=>{$("ov").classList.add("open");$(id).classList.add("open")};
-const closeS=()=>{$("ov").classList.remove("open");document.querySelectorAll(".sheet").forEach(s=>s.classList.remove("open"))};
+const STK=[],UP={sv:"mais",ct:"mais",aj:"mais",mais:"pnl",cob:"pnl",cli:"pnl"};let TRAP=false,EXIT=0;
+const openS=id=>{if(!STK.includes(id))STK.push(id);const el=$(id);el.style.zIndex=String(21+STK.indexOf(id));$("ov").classList.add("open");el.classList.add("open")};
+function shut(id){const el=$(id);el.classList.remove("open");el.style.zIndex="";const i=STK.indexOf(id);if(i>=0)STK.splice(i,1);if(!STK.length)$("ov").classList.remove("open")}
+const closeTop=()=>{if(STK.length)shut(STK[STK.length-1])};
+const closeS=()=>{STK.length=0;$("ov").classList.remove("open");document.querySelectorAll(".sheet").forEach(s=>{s.classList.remove("open");s.style.zIndex=""})};
 function addItem(){const r=document.createElement("div");r.className="it";r.innerHTML=`<input placeholder="Descrição" aria-label="Descrição"><input placeholder="Qtd" value="1" inputmode="decimal" aria-label="Quantidade"><input placeholder="R$" inputmode="decimal" aria-label="Valor unitário">`;$("its").appendChild(r)}
 function calc(){let t=0;document.querySelectorAll("#its .it").forEach(r=>{const i=r.querySelectorAll("input");t+=num(i[1].value)*num(i[2].value)});t=Math.max(0,t-num($("fdc").value));$("ftot").textContent=R.format(t)}
 
@@ -797,13 +811,14 @@ if(a==="auth")await doAuth();else if(a==="forgot")await forgot();
 else if(a==="eye"){HIDE=!HIDE;try{localStorage.setItem("cobrei:hide",HIDE?"1":"0")}catch(e){}render()}
 else if(a==="unlock")await unlock();
 else if(a==="tg"){const c=t.closest("[data-k]");if(!c)return;const o=c.classList.toggle("open");o?OPEN.add(c.dataset.k):OPEN.delete(c.dataset.k);t.setAttribute("aria-expanded",String(o))}
-else if(a==="onbgo"){closeS();ONB=true;const q=t.dataset.a;if(q==="newcli")openCli(null);else if(q==="newsv")openSv(null);else{["ctn","ctk"].forEach(i=>$(i).value="");$("ctt").value="pix";openS("sh-ct")}}
+else if(a==="onbgo"){ONB=true;const q=t.dataset.a;if(q==="newcli")openCli(null);else if(q==="newsv")openSv(null);else{["ctn","ctk"].forEach(i=>$(i).value="");$("ctt").value="pix";openS("sh-ct")}}
 else if(a==="onbskip"){ONB=false;closeS();toast("Sem problema! Os passos continuam no seu Início.")}
 else if(a==="wsent"){markSent(t.dataset.id);if(t.id==="sentwa")setTimeout(closeS,400)}
 else if(a==="cpix"){await copyText(window.PIXV||"");toast("Código Pix copiado. Cole no app do seu banco.")}
 else if(a==="push"){try{await pushToggle()}catch(e){console.error(e);toast("Não foi possível ativar os avisos agora.")}}
 else if(a==="pushtest"){try{await pushTest()}catch(e){console.error(e);toast("Não foi possível enviar o teste. Confira se a função de avisos foi criada.")}}
 else if(a==="onbopen")openOnb();
+else if(a==="back"){if(!FORCE){if(STK[STK.length-1]==="sh-onb")ONB=false;closeTop()}}
 else if(a==="sub"){SUB=t.dataset.s;render()}
 else if(a==="rper"){PER=t.dataset.p;render()}
 else if(a==="mes"){MES=mshift(MES,Number(t.dataset.d)*(SUB==="rl"&&PER==="a"?12:1));render()}
@@ -874,6 +889,7 @@ sb.auth.onAuthStateChange((ev)=>{if(ev==="PASSWORD_RECOVERY"){MODE="recover";OK=
 const g=await sb.auth.getSession();
 if(g.data.session&&MODE!=="recover"){const u=g.data.session.user;let c=null;try{c=JSON.parse(localStorage.getItem(BK))}catch(e){}
 if(c&&c.uid===u.id&&window.PublicKeyCredential){PEND=u;LOCK=true;render()}else await enter(u)}}
+document.querySelectorAll(".sheet").forEach(sh=>{const b=document.createElement("button");b.type="button";b.className="back";b.dataset.act="back";b.textContent="‹ Voltar";sh.insertBefore(b,sh.firstChild)});
 if(CVT&&sb&&/^[0-9a-f-]{36}$/i.test(CVT))clientView(CVT);else if(CCT&&sb&&/^[0-9a-f-]{36}$/i.test(CCT))cobView(CCT);else{render();init()}
 </script>
 </body>
