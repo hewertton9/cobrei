@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#0a1230">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -35,13 +36,13 @@ h1 i{display:inline-block;width:.45rem;height:.45rem;border-radius:50%;backgroun
 .chips{display:flex;gap:.5rem;overflow-x:auto;margin:0 -1rem 1rem;padding:0 1rem;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
 .chips button{flex:none;border:1px solid var(--ln);background:var(--sf);border-radius:99px;padding:.55rem 1rem;font-size:.85rem;font-weight:600;min-height:2.5rem}
 .chips button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.card{background:var(--sf);border:1px solid var(--ln);border-radius:1rem;padding:.75rem .85rem;margin-bottom:.55rem}
-.top{display:flex;gap:.65rem;align-items:center}
-.av{flex:none;width:2.2rem;height:2.2rem;border-radius:50%;background:color-mix(in srgb,var(--ac) 35%,var(--sf));display:grid;place-items:center;font-weight:800;font-size:.9rem}
-.mid{flex:1;min-width:0}.mid h3{margin:0;font-size:.95rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.mid p{margin:0;color:var(--mu);font-size:.75rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.tot{font-weight:800;font-size:1rem;white-space:nowrap}
-.tag{display:inline-block;font-size:.7rem;font-weight:600;padding:.15rem .55rem;border-radius:99px;margin:.45rem 0 0;background:color-mix(in srgb,var(--mu) 16%,transparent)}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:1.1rem;padding:1rem;margin-bottom:.75rem}
+.top{display:flex;gap:.8rem;align-items:center}
+.av{flex:none;width:2.8rem;height:2.8rem;border-radius:50%;background:color-mix(in srgb,var(--ac) 35%,var(--sf));display:grid;place-items:center;font-weight:800}
+.mid{flex:1;min-width:0}.mid h3{margin:0;font-size:1rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mid p{margin:0;color:var(--mu);font-size:.8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tot{font-weight:800;font-size:1.05rem;white-space:nowrap}
+.tag{display:inline-block;font-size:.75rem;font-weight:600;padding:.2rem .65rem;border-radius:99px;margin:.7rem 0 0;background:color-mix(in srgb,var(--mu) 16%,transparent)}
 .tag.cob{background:color-mix(in srgb,var(--ac) 40%,transparent)}.tag.pago{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.tag.late{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
 .act{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem}
 .b{display:inline-flex;align-items:center;justify-content:center;min-height:3rem;padding:.6rem 1rem;border-radius:.8rem;border:1px solid var(--ln);background:var(--sf);font-size:.9rem;font-weight:600;text-decoration:none;flex:1}
@@ -65,10 +66,9 @@ h1 i{display:inline-block;width:.45rem;height:.45rem;border-radius:50%;backgroun
 @media (prefers-reduced-motion:reduce){.sheet,.ov{transition:none}}
 @media print{body>*{display:none!important}body>#doc{display:block!important;padding:2rem;color:#000;background:#fff;font-family:Sora,Arial,sans-serif}#doc table{width:100%;border-collapse:collapse;margin:1rem 0}#doc td,#doc th{border-bottom:1px solid #ccc;padding:.4rem;text-align:left}#doc .r{text-align:right}}
 
-:root[data-theme="dark"]{color-scheme:dark;--bg:#0a1230;--sf:#121c42;--ink:#f2f5ff;--mu:#a3aed0;--ln:#26336a;--ok:#5ad08a;--bad:#ff8f80;--inp:#0a1230}
-:root[data-theme="light"]{color-scheme:light;--bg:#f3f4f8;--sf:#fff;--ink:#0b1b3a;--mu:#5d667a;--ln:#e3e6ee;--ok:#13783a;--bad:#b42318;--hero:#0b1b3a;--inp:#f3f4f8}
+:root:root:root{color-scheme:dark;--bg:#0a1230;--sf:#121c42;--ink:#f2f5ff;--mu:#a3aed0;--ln:#26336a;--ok:#5ad08a;--bad:#ff8f80;--inp:#0a1230}
 body{background:radial-gradient(60rem 30rem at 90% -5%,rgba(255,197,61,.2),transparent 60%),radial-gradient(50rem 30rem at -10% 105%,rgba(90,130,255,.3),transparent 60%),var(--bg);background-attachment:fixed}
-body::before{content:"";position:fixed;inset:0;background:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1.5px) 0 0/24px 24px;pointer-events:none}:root[data-theme="light"] body::before{background:radial-gradient(rgba(10,18,48,.06) 1px,transparent 1.5px) 0 0/24px 24px}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1.5px) 0 0/24px 24px;pointer-events:none}
 .w{position:relative}.hid{display:none!important}
 .logo{display:inline-flex;align-items:center;font-weight:800;letter-spacing:-.03em;line-height:1}.logo svg{width:.82em;height:.82em;margin:0 .03em}
 header{flex-direction:column;gap:.45rem;text-align:center;position:relative;padding-top:.5rem}header .logo{font-size:2rem}header .ic{position:absolute;right:0;top:.5rem}#hi{margin:0}
@@ -83,13 +83,9 @@ header{flex-direction:column;gap:.45rem;text-align:center;position:relative;padd
 .logo.big svg{animation:pop .8s cubic-bezier(.2,1.4,.4,1) both}
 @media (prefers-reduced-motion:reduce){.logo.big svg{animation:none}}
 
-:root[data-theme="dark"] .hero{background:#16235a;color:var(--ink);border:1px solid rgba(255,255,255,.12);box-shadow:none}
-:root[data-theme="dark"] .hero span{opacity:.7}:root[data-theme="dark"] .hero>b{color:#fff;margin:.2rem 0 .8rem}:root[data-theme="dark"] .hs{border-top-color:rgba(255,255,255,.14)}
-:root[data-theme="light"] .hero{background:var(--ac);color:#0a1230;border:0;box-shadow:0 12px 40px rgba(255,197,61,.22)}
-:root[data-theme="light"] .hero span{opacity:.75;color:inherit}:root[data-theme="light"] .hero>b{color:#0a1230;margin:.2rem 0 .8rem}:root[data-theme="light"] .hs{border-top-color:rgba(10,18,48,.2)}
-:root[data-theme="light"] .hero .note{color:#0a1230;opacity:.7}
-.pgb{height:.4rem;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;margin:0 0 1rem}
-:root[data-theme="light"] .pgb{background:rgba(10,18,48,.12)}.pgb i{display:block;height:100%;width:0;background:var(--ac);border-radius:99px;transition:width .5s}
+.hero{background:#16235a;color:var(--ink);border:1px solid rgba(255,255,255,.12);box-shadow:none}
+.hero span{opacity:.7}.hero>b{color:#fff;margin:.2rem 0 .8rem}.hs{border-top-color:rgba(255,255,255,.14)}
+.pgb{height:.4rem;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;margin:0 0 1rem}.pgb i{display:block;height:100%;width:0;background:var(--ac);border-radius:99px;transition:width .5s}
 .af{display:grid;gap:.6rem;width:100%;max-width:22rem}.err{color:var(--bad);font-size:.85rem;margin:0;min-height:1.2rem}
 .intro small{color:var(--mu);max-width:20rem;font-size:.75rem;line-height:1.5}
 @media (prefers-reduced-motion:reduce){.pgb i{transition:none}}
@@ -209,14 +205,9 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 #partyc i{position:absolute;top:-14px;width:8px;height:14px;border-radius:2px;animation:fall linear forwards}
 @keyframes fall{to{transform:translateY(560px) rotate(540deg);opacity:0}}
 .party{text-align:center;position:relative;padding-top:.6rem}.party .big{font-size:3.2rem;line-height:1;margin-bottom:.4rem}.party h2{margin:.2rem 0 .6rem}
-
-.search-wrap{position:relative;margin:0 0 .75rem}
-.search-wrap svg{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);width:1.1rem;height:1.1rem;color:var(--mu);pointer-events:none}
-.search-wrap input{width:100%;height:2.7rem;padding:0 2.4rem 0 2.5rem;border:1px solid var(--ln);border-radius:.9rem;background:var(--sf);font-size:16px;color:var(--ink)}
-.search-wrap input::placeholder{color:var(--mu)}
-.search-wrap .xclear{position:absolute;right:.25rem;top:50%;transform:translateY(-50%);border:0;background:none;color:var(--mu);width:2rem;height:2rem;border-radius:50%;font-size:1.15rem;display:none;place-items:center;padding:0}
-.search-wrap.hasq .xclear{display:grid}
-
+.sch{width:100%;height:3rem;padding:0 1rem;font-size:16px;border:1px solid var(--ln);border-radius:99px;background:var(--sf);color:var(--ink);margin-bottom:.8rem}
+#ajs{margin-top:1rem;display:grid;gap:.6rem}.hlp p{margin:.4rem 0;color:var(--mu);font-size:.92rem;line-height:1.5}
+.sheet.force>.back{display:none}.sheet>.back{padding:.1rem 0 .7rem}
 </style>
 </head>
 <body>
@@ -250,37 +241,42 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <nav class="tabs" aria-label="Seções"><button class="on" data-act="tab" data-t="pnl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6H9v6H5a1 1 0 01-1-1z"/></svg><span>Início</span><em id="bdg" class="bdg hid"></em></button><button data-act="tab" data-t="cob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6"/></svg><span>Orçamentos</span></button><button data-act="tab" data-t="cli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.4 0 4 1.7 4 4"/></svg><span>Clientes</span></button><button data-act="tab" data-t="mais"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></svg><span>Mais</span></button></nav>
 <div id="v-pnl">
 <section class="hero"><span>Falta receber</span><b id="p-ab"></b><div class="hs"><div><span>Atrasado</span><b id="p-atr"></b></div><div><span id="p-mn">Total recebido</span><b id="p-rec"></b></div></div></section>
-<h2 class="sec hid" id="pt">Para fazer agora</h2>
+<h2 class="sec hid" id="pt">O que fazer agora</h2>
 <div id="p-onb"></div>
 <div id="p-tasks"></div>
 </div>
 <div id="v-cob" class="hid">
 <section class="hero"><span>A receber</span><b id="s2"></b><div class="pgb"><i id="pg"></i></div><div class="hs"><div><span>Em orçamento</span><b id="s1"></b></div><div><span>Já recebido</span><b id="s3"></b></div></div></section>
+<input id="busca" class="sch" type="search" placeholder="Buscar por cliente ou serviço" aria-label="Buscar orçamentos" autocomplete="off">
 <nav class="chips" aria-label="Filtrar"><button data-act="flt" data-f="all">Todos</button><button data-act="flt" data-f="orc">Orçamentos</button><button data-act="flt" data-f="cob">A receber</button><button data-act="flt" data-f="pago">Pagos</button><button data-act="flt" data-f="rec">Recusados</button></nav>
-<div class="search-wrap" id="sw-cob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg><input id="q-cob" placeholder="Buscar cliente, serviço ou nº" aria-label="Buscar orçamentos" autocomplete="off"><button type="button" class="xclear" data-act="xq" data-q="cob" aria-label="Limpar">×</button></div>
 <div id="list"></div>
 </div>
 <div id="v-mais" class="hid">
 <h2 class="sec">Mais opções</h2>
 <div class="menu">
 <button class="mi" data-act="goto" data-t="sv"><span><b>Serviços e preços</b><small>Seu catálogo, para orçar mais rápido</small></span><i class="chv"></i></button>
-<button class="mi" data-act="goto" data-t="ct" data-s="ct"><span><b>Onde eu recebo</b><small>Contas e chave Pix</small></span><i class="chv"></i></button>
+<button class="mi" data-act="goto" data-t="ct" data-s="ct"><span><b>Onde você recebe</b><small>Contas e chave Pix</small></span><i class="chv"></i></button>
 <button class="mi" data-act="goto" data-t="ct" data-s="dp"><span><b>Despesas</b><small>Registre o que você gasta</small></span><i class="chv"></i></button>
 <button class="mi" data-act="goto" data-t="ct" data-s="rl"><span><b>Relatório</b><small>Resumo do mês ou do ano para o contador</small></span><i class="chv"></i></button>
 <button class="mi" data-act="cfg"><span><b>Meus dados</b><small>Nome, logo, biometria e privacidade</small></span><i class="chv"></i></button>
 <button class="mi" data-act="plano"><span><b>Meu plano</b><small>Veja o que está incluso</small></span><i class="chv"></i></button>
+<button class="mi" data-act="goto" data-t="aj"><span><b>Ajuda e suporte</b><small>Passo a passo e atendimento</small></span><i class="chv"></i></button>
 </div>
+</div>
+<div id="v-aj" class="hid">
+<button class="back" data-act="goto" data-t="mais">‹ Mais</button>
+<h2 class="sec">Ajuda</h2>
+<div id="ajl"></div>
+<div id="ajs"></div>
 </div>
 <div id="v-sv" class="hid">
 <button class="back" data-act="goto" data-t="mais">‹ Mais</button>
 <section class="hero"><span>Serviços cadastrados</span><b id="sv-n"></b><p class="note">Cadastre uma vez, com o valor, e use nos orçamentos com um toque.</p></section>
-<div class="search-wrap" id="sw-sv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg><input id="q-sv" placeholder="Buscar serviço" aria-label="Buscar serviços" autocomplete="off"><button type="button" class="xclear" data-act="xq" data-q="sv" aria-label="Limpar">×</button></div>
 <div id="svl"></div>
 <button class="b p wide" data-act="newsv">+ Novo serviço</button>
 </div>
 <div id="v-cli" class="hid">
 <section class="hero"><span>Clientes cadastrados</span><b id="cli-n"></b><p class="note">O valor em cada cliente é o total já recebido dele.</p></section>
-<div class="search-wrap" id="sw-cli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg><input id="q-cli" placeholder="Buscar cliente" aria-label="Buscar clientes" autocomplete="off"><button type="button" class="xclear" data-act="xq" data-q="cli" aria-label="Limpar">×</button></div>
 <div id="cll"></div>
 <button class="b p wide" data-act="newcli">+ Cadastrar cliente</button>
 </div>
@@ -291,7 +287,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <div id="sv-ct">
 <section class="hero"><span>Total recebido</span><b id="ct-tot"></b><div class="pgb"><i style="width:100%"></i></div><p class="note">Cadastre onde o dinheiro cai e veja quanto entrou em cada lugar.</p></section>
 <div id="ctl"></div>
-<button class="b p wide" data-act="newct">+ Cadastrar onde recebo</button>
+<button class="b p wide" data-act="newct">+ Cadastrar onde você recebe</button>
 </div>
 <div id="sv-dp" class="hid">
 <section class="hero"><span>Despesas no mês</span><b id="dp-tot"></b></section>
@@ -320,9 +316,8 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <div id="cfgx">
 <label>Logo (aparece nos PDFs)</label><div class="lg"><img id="lgp" alt="" class="hid"><button class="b" data-act="logo">Escolher imagem</button><button class="b d hid" id="lgx" data-act="logox">Remover</button></div><input type="file" id="lgf" accept="image/*" class="hid">
 <div id="biow"><label>Segurança</label><button class="b wide" id="bio" data-act="bio"></button></div>
-<div id="instw"><label>Aplicativo</label>
-<label class="chk" style="margin:.5rem 0 0"><input type="checkbox" id="thdark"><span>Tema escuro</span></label>
-<button class="b wide hid" id="instb" data-act="inst">Instalar COBREI no celular</button><p id="insth" class="note"></p></div>
+<div id="instw"><label>Aplicativo</label><button class="b wide hid" id="instb" data-act="inst">Instalar COBREI no celular</button><p id="insth" class="note"></p></div>
+<div id="pushw" class="hid"><label>Avisos no celular</label><button class="b wide" id="pushb" data-act="push"></button><button class="b wide hid" id="pusht" data-act="pushtest">Enviar aviso de teste</button><p id="pushh" class="note"></p></div>
 <label>Plano</label><div class="card" id="plbox"></div>
 <label>Seus dados e privacidade</label>
 <button class="b wide" data-act="exp">Baixar meus dados (JSON)</button>
@@ -332,10 +327,11 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <div class="bar"><div class="act"><button class="b p" id="cfgb" data-act="savecfg">Salvar</button><button class="b" data-act="out">Sair da conta</button></div></div>
 </aside>
 <aside id="sh-new" class="sheet" aria-label="Novo orçamento">
-<h2>Novo orçamento</h2>
+<h2 id="fnt">Novo orçamento</h2>
 <label for="fcl" id="fcll">Cliente cadastrado</label><select id="fcl"></select>
 <label for="fc">Nome do cliente</label><input id="fc" autocomplete="off">
 <label for="fw">WhatsApp do cliente (opcional)</label><input id="fw" inputmode="tel" placeholder="43 99999-9999">
+<label for="ft">Serviço (opcional se usar o catálogo)</label><input id="ft" placeholder="Ex.: Pintura da sala">
 <label for="fsv" id="fsvl">Catálogo de serviços</label><select id="fsv"></select>
 <label>Itens</label><div id="its"></div>
 <button class="link" data-act="additem">+ Adicionar outro item</button>
@@ -345,7 +341,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <div id="fpw" class="hid"><label for="fpn" id="fpl">Parcelas</label><select id="fpn"></select></div>
 <div id="fenw" class="hid"><label for="fen">Entrada (% do total)</label><input id="fen" inputmode="numeric" placeholder="50"></div>
 <label for="fob">Observações (opcional)</label><textarea id="fob" rows="3" placeholder="Prazo de entrega, garantia, condições..."></textarea>
-<div class="bar"><p><span>Total</span><span id="ftot">R$ 0,00</span></p><div class="act"><button class="b p" data-act="save">Salvar orçamento</button></div></div>
+<div class="bar"><p><span>Total</span><span id="ftot">R$ 0,00</span></p><div class="act"><button class="b p" id="fsb" data-act="save">Salvar orçamento</button></div></div>
 </aside>
 <aside id="sh-ct" class="sheet" aria-label="Cadastrar conta">
 <h2>Onde você recebe?</h2>
@@ -362,7 +358,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <label for="clw">WhatsApp (opcional)</label><input id="clw" inputmode="tel" placeholder="43 99999-9999">
 <label for="cle">E-mail (opcional)</label><input id="cle" type="email" inputmode="email">
 <label>Foto ou logo do cliente</label><div class="lg"><img id="cfp" alt="" class="hid"><button class="b" data-act="cfoto">Escolher imagem</button><button class="b d hid" id="cfx" data-act="cfotox">Remover</button></div><input type="file" id="cff" accept="image/*" class="hid">
-<label class="chk"><input type="checkbox" id="clr"> Cliente recorrente (pede serviços direto)</label>
+<label class="chk"><input type="checkbox" id="clr"> Cliente recorrente (contrata serviços com frequência)</label>
 <div class="bar"><div class="act"><button class="b p" data-act="savecli">Salvar cliente</button></div></div>
 </aside>
 <aside id="sh-pix" class="sheet" aria-label="Pix">
@@ -435,8 +431,8 @@ const K="fechou:v1",R=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"
 let S={cfg:{nome:"",pix:""},docs:[]},F="all";
 try{const r=localStorage.getItem(K);if(r)S=JSON.parse(r)}catch(e){}
 S.contas=S.contas||[];S.clientes=[];S.perfil={};S.servicos=[];S.recs=[];S.desp=[];S.plano={plano:"gratis",ate:""};
-const CFG={limite:10,preco:"R$ 19,90 por mês",checkout:"",contato:""};
-let TAB="pnl",QCOB="",QCLI="",QSV="",PAY=null,CB=null,RC=null,ONB=false,FORCE=false,EC=null,CF="",PIXD=null,SUB="ct",PER="m",IP=null,EV=null,GRP=null;const CVT=new URLSearchParams(location.search).get("o"),CCT=new URLSearchParams(location.search).get("c");
+const CFG={limite:10,preco:"R$ 19,90 por mês",checkout:"",contato:"",suporte:"",vapid:"BICPy8HTn2xAoIILLQEVhKSSIsVpypooY0Y8nahSA9f6UXv0wJ_uEdJthffXz63tdIA0CrdQaYRRdiALYup9Tow"};
+let TAB="pnl",PAY=null,CB=null,RC=null,ONB=false,FORCE=false,EC=null,CF="",PIXD=null,PREW=null,EDQ=null,SUB="ct",PER="m",IP=null,EV=null,GRP=null;const CVT=new URLSearchParams(location.search).get("o"),CCT=new URLSearchParams(location.search).get("c");
 const TP={pix:"Pix",banco:"Conta bancária",carteira:"Carteira digital",dinheiro:"Dinheiro em mãos"},EM={pix:"⚡",banco:"🏦",carteira:"📱",dinheiro:"💵"};
 const contaNome=id=>(S.contas.find(x=>x.id===id)||{}).nome;
 function payList(){$("payl").innerHTML=S.contas.map(x=>`<button class="b" data-act="payto" data-c="${x.id}">${EM[x.tipo]} ${esc(x.nome)}</button>`).join("")+`<button class="b" data-act="payto" data-c="">Não informar</button>`}
@@ -445,9 +441,6 @@ let OK=false,MODE="signup",U=null,sb=null;
 try{sb=supabase.createClient(SUPA_URL,SUPA_KEY)}catch(e){}
 const BK="cobrei:bio",enc=new TextEncoder(),b64=u=>btoa(String.fromCharCode(...u)),unb=t=>Uint8Array.from(atob(t),c=>c.charCodeAt(0));
 let LOCK=false,PEND=null,HIDE=false;try{HIDE=localStorage.getItem("cobrei:hide")==="1"}catch(e){}
-let THEME="dark";try{const t=localStorage.getItem("cobrei:theme");if(t==="light"||t==="dark")THEME=t}catch(e){}
-function applyTheme(){document.documentElement.setAttribute("data-theme",THEME);const m=document.querySelector('meta[name="theme-color"]');if(m)m.content=THEME==="dark"?"#0a1230":"#f3f4f8"}
-applyTheme();
 const fmt=v=>HIDE?"R$ •••••":R.format(v);
 const IE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',IEO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M3 3l18 18"/></svg>';
 if(!window.PublicKeyCredential)document.getElementById("biow").classList.add("hid");
@@ -460,12 +453,11 @@ try{const cr=await navigator.credentials.create({publicKey:{challenge:crypto.get
 localStorage.setItem(BK,JSON.stringify({id:b64(new Uint8Array(cr.rawId)),uid:U.id}));toast("Biometria ativada neste aparelho.")}
 catch(e){toast("Não foi possível ativar a biometria neste aparelho.")}bioLabel()}
 async function unlock(){try{const c=JSON.parse(localStorage.getItem(BK));await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),allowCredentials:[{type:"public-key",id:unb(c.id)}],userVerification:"required",timeout:60000}});LOCK=false;await enter(PEND)}catch(e){toast("Não foi possível validar a biometria. Tente de novo.")}}
-function openNew(cid){$("fsv").innerHTML='<option value="">'+(S.servicos.length?"Escolher serviço do catálogo…":"Catálogo vazio (cadastre em Mais › Serviços)")+'</option>'+S.servicos.map(x=>`<option value="${x.id}">${esc(x.nome)} — ${R.format(x.preco)}</option>`).join("");["fc","fw","fdc","fob"].forEach(i=>$(i).value="");$("fva").value=iso(7);$("ffp").value="";$("fen").value="";fpUI();$("its").innerHTML="";addItem();
+function openNew(cid){EDQ=null;$("fnt").textContent="Novo orçamento";$("fsb").textContent="Salvar orçamento";$("fsv").innerHTML='<option value="">'+(S.servicos.length?"Escolher serviço do catálogo…":"Catálogo vazio (cadastre em Mais › Serviços)")+'</option>'+S.servicos.map(x=>`<option value="${x.id}">${esc(x.nome)} — ${R.format(x.preco)}</option>`).join("");["fc","fw","ft","fdc","fob"].forEach(i=>$(i).value="");$("fva").value=iso(7);$("ffp").value="";$("fen").value="";fpUI();$("its").innerHTML="";addItem();
 $("fcl").innerHTML='<option value="">Novo cliente (digitar)</option>'+S.clientes.map(c=>`<option value="${c.id}">${esc(c.nome)}</option>`).join("");
 $("fcl").value=cid||"";const c=S.clientes.find(x=>x.id===cid);if(c){$("fc").value=c.nome;$("fw").value=c.whatsapp}
 calc();openS("sh-new")}
-const asc=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase().replace(/[^A-Z0-9 ]/g,"").trim();
-const tlv=(i,v)=>i+String(v.length).padStart(2,"0")+v;
+
 function openDup(src){
 if(!src)return;
 if(!isPro()&&usados()>=CFG.limite){planoOpen();return}
@@ -473,18 +465,21 @@ openNew(src.k||"");
 $("fc").value=src.c||"";
 $("fw").value=src.w||"";
 if(src.k)$("fcl").value=src.k;
+$("ft").value=src.t||"";
 $("fdc").value=src.desc?String(src.desc).replace(".",","):"";
 $("fob").value=src.ob||"";
-if(src.fp)$("ffp").value=src.fp;
-if(src.np>1){$("fpn").value=String(src.np);if(src.en)$("fen").value=String(src.en)}
+if(src.fp){$("ffp").value=src.fp;fpUI()}
+if(src.np>1){const p=$("fpn");if(p)p.value=String(src.np);if(src.en){const e=$("fen");if(e)e.value=String(src.en)}}
 fpUI();
 $("its").innerHTML="";
-const its=src.itens&&src.itens.length?src.itens:[{d:src.t||"",q:1,v:0}];
+const its=(src.itens&&src.itens.length)?src.itens:[{d:src.t||"",q:1,v:0}];
 its.forEach(it=>{addItem();const r=[...document.querySelectorAll("#its .it")].pop();const inp=r.querySelectorAll("input");inp[0].value=it.d||"";inp[1].value=String(it.q||1);inp[2].value=String(it.v||"").replace(".",",")});
 calc();
 toast("Cópia pronta — revise e salve como novo orçamento.");
 }
 
+const asc=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase().replace(/[^A-Z0-9 ]/g,"").trim();
+const tlv=(i,v)=>i+String(v.length).padStart(2,"0")+v;
 function crc(s){let c=0xFFFF;for(let i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(let j=0;j<8;j++)c=c&0x8000?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF}return c.toString(16).toUpperCase().padStart(4,"0")}
 const okCPF=c=>{if(c.length!==11||/^(\d)\1+$/.test(c))return false;for(let t=9;t<11;t++){let s=0;for(let i=0;i<t;i++)s+=Number(c[i])*(t+1-i);if((s*10)%11%10!==Number(c[t]))return false}return true};
 function pixNorm(k){k=String(k||"").trim();if(!k)return"";if(k.includes("@"))return k.toLowerCase();
@@ -509,13 +504,13 @@ else if(x===0)T.push({p:1,k:0,cls:"today",d,tx:"Vence hoje",bt:"Cobrar"});
 else if(x!==null&&x<=7)T.push({p:3,k:x,cls:"today",d,tx:x===1?"Vence amanhã":`Vence em ${x} dias`,bt:"Lembrar"})}
 else if(d.s==="apr")T.push({p:2,k:0,cls:"apr",d,tx:"Cliente aprovou — gere a cobrança",bt:"Gerar cobrança",a:"cob"});
 else if(d.s==="orc"){const x=dd(hoje,d.data);if(x>=3)T.push({p:5,k:-x,cls:"",d,tx:`Sem resposta há ${x} dias`,bt:"Reenviar"});else if(!SENT.has(d.id))T.push({p:4,k:-x,cls:"new",d,tx:"Novo orçamento — envie ao cliente",bt:"Enviar"})}});
-T.sort((a,b)=>a.p-b.p||a.k-b.k);const nLate=T.filter(o=>o.p===0).length,nApr=T.filter(o=>o.p===2).length,nNow=T.filter(o=>o.p<=2||o.p===4).length;
-const nb=nNow;$("bdg").textContent=nb;$("bdg").classList.toggle("hid",!nb);
+T.sort((a,b)=>a.p-b.p||a.k-b.k);
+const nLate=T.filter(o=>o.p===0).length,nApr=T.filter(o=>o.p===2).length,nb=T.filter(o=>o.p<=2||o.p===4).length;
+$("bdg").textContent=nb;$("bdg").classList.toggle("hid",!nb);
 $("pt").classList.toggle("hid",!S.docs.length);
-$("pt").textContent=T.length?"O que fazer agora":"O que fazer agora";
+$("pt").textContent="O que fazer agora"+(nLate||nApr?" · "+[nLate?nLate+" atrasada"+(nLate>1?"s":""):"",nApr?nApr+" p/ cobrar":""].filter(Boolean).join(" · "):"");
 $("p-ab").textContent=fmt(ab);$("p-atr").textContent=fmt(atr);$("p-atr").style.color=atr>0?"#ff9d8f":"";$("p-rec").textContent=fmt(rec);
-const sum=[];if(nLate)sum.push(`${nLate} atrasada${nLate>1?"s":""}`);if(nApr)sum.push(`${nApr} p/ cobrar`);if(sum.length)$("pt").textContent="O que fazer agora · "+sum.join(" · ");
-$("p-tasks").innerHTML=T.length?((nLate||nApr)?`<p class="note" style="text-align:left;margin:0 0 .6rem">Prioridade: cobranças atrasadas e orçamentos aprovados.</p>`:"")+T.slice(0,8).map(o=>{const d=o.d,id=`data-id="${d.id}"`;return`<article class="task"><i class="dot ${o.cls}"></i><div class="mid"><h3>${esc(d.c)}</h3><p><b>${fmt(tot(d))}</b> · ${d.pc?"parcela "+d.pc+" · ":""}${o.tx}</p></div>${o.a?`<button class="b p" ${id} data-act="${o.a}">${o.bt}</button>`:`<a class="b p" ${d.s==="orc"?`data-act="wsent" data-id="${d.id}" `:""}href="${esc(wa(d))}" target="_blank" rel="noopener">${o.bt}</a>`}</article>`}).join("")+(T.length>8?`<p class="note">e mais ${T.length-8} pendências em Cobranças</p>`:""):(S.docs.length?`<div class="empty">Tudo em dia por aqui.<br>Nenhuma cobrança atrasada nem aprovado esperando cobrança.</div>`:"")}
+$("p-tasks").innerHTML=T.length?((nLate||nApr)?`<p class="note" style="text-align:left;margin:0 0 .6rem">Prioridade: cobranças atrasadas e orçamentos aprovados.</p>`:"")+T.slice(0,8).map(o=>{const d=o.d,id=`data-id="${d.id}"`;return`<article class="task"><i class="dot ${o.cls}"></i><div class="mid"><h3>${esc(d.c)}</h3><p><b>${fmt(tot(d))}</b> · ${d.pc?"parcela "+esc(d.pc)+" · ":""}${o.tx}</p></div>${o.a?`<button class="b p" ${id} data-act="${o.a}">${o.bt}</button>`:`<a class="b p" ${d.s==="orc"?`data-act="wsent" data-id="${d.id}" `:""}href="${esc(wa(d))}" target="_blank" rel="noopener">${o.bt}</a>`}</article>`}).join("")+(T.length>8?`<p class="note">e mais ${T.length-8} pendências em Cobranças</p>`:""):(S.docs.length?`<div class="empty">Tudo em dia por aqui.<br>Nenhuma cobrança atrasada nem aprovado esperando cobrança.</div>`:"")}
 function logoUI(){const i=$("lgp");i.src=LOGO||"";i.classList.toggle("hid",!LOGO);$("lgx").classList.toggle("hid",!LOGO)}
 function loadBind(){$("cff").addEventListener("change",e=>{const f=e.target.files[0];e.target.value="";if(f)imgData(f,160,u=>{CF=u;cfUI()})});$("lgf").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const m=Math.min(1,240/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*m);c.height=Math.round(im.height*m);c.getContext("2d").drawImage(im,0,0,c.width,c.height);LOGO=c.toDataURL("image/png");logoUI()};im.onerror=()=>toast("Imagem inválida.");im.src=r.result};r.readAsDataURL(f)})}
 const U1=["","um","dois","três","quatro","cinco","seis","sete","oito","nove","dez","onze","doze","treze","quatorze","quinze","dezesseis","dezessete","dezoito","dezenove"],DZ=["","","vinte","trinta","quarenta","cinquenta","sessenta","setenta","oitenta","noventa"],CT=["","cento","duzentos","trezentos","quatrocentos","quinhentos","seiscentos","setecentos","oitocentos","novecentos"];
@@ -532,8 +527,8 @@ function imgData(f,max,cb){const r=new FileReader();r.onload=()=>{const im=new I
 function cfUI(){const i=$("cfp");i.src=CF||"";i.classList.toggle("hid",!CF);$("cfx").classList.toggle("hid",!CF)}
 function openCli(c){EC=c||null;$("clh").textContent=c?"Editar cliente":"Novo cliente";$("cln").value=c?c.nome:"";$("clt").value=c?c.tipo:"pf";$("cld").value=c?c.documento:"";$("clw").value=c?c.whatsapp:"";$("cle").value=c?c.email:"";$("clr").checked=c?c.recorrente:false;CF=c?c.foto:"";cfUI();openS("sh-cli")}
 const needProfile=()=>!(S.cfg.nome&&S.perfil.documento&&S.perfil.telefone&&S.perfil.cidade);
-function openProfile(force){planoBox();instUI();FORCE=force;const td=$("thdark");if(td)td.checked=THEME==="dark";$("cn").value=S.cfg.nome||"";$("cdc").value=S.perfil.documento||"";$("ctf").value=S.perfil.telefone||"";$("cci").value=S.perfil.cidade||"";LOGO=S.perfil.logo||"";logoUI();bioLabel();
-$("cfgt").textContent=force?"Falta pouco!":"Meus dados";$("cfgx").classList.toggle("hid",force);$("cfgb").textContent=force?"Salvar e começar":"Salvar";const n=$("cfgn");n.classList.toggle("hid",!force);n.textContent="Falta só isto para começar. Esses dados aparecem nos seus orçamentos e recibos.";openS("sh-cfg")}
+function openProfile(force){planoBox();instUI();pushState();FORCE=force;$("cn").value=S.cfg.nome||"";$("cdc").value=S.perfil.documento||"";$("ctf").value=S.perfil.telefone||"";$("cci").value=S.perfil.cidade||"";LOGO=S.perfil.logo||"";logoUI();bioLabel();
+$("sh-cfg").classList.toggle("force",!!force);$("cfgt").textContent=force?"Falta pouco!":"Meus dados";$("cfgx").classList.toggle("hid",force);$("cfgb").textContent=force?"Salvar e começar":"Salvar";const n=$("cfgn");n.classList.toggle("hid",!force);n.textContent="Falta só isto para começar. Esses dados aparecem nos seus orçamentos e recibos.";openS("sh-cfg")}
 function pixShow(){const d=S.docs.find(x=>x.id===PIXD);if(!d)return;const c=pixCode(d,$("pixa").value||undefined);$("pixq").innerHTML=c?qrSvg(c):"";$("pixq").classList.toggle("hid",!$("pixq").innerHTML);$("pixc").value=c;
 const sem=!pixContas().length;$("pixnw").classList.toggle("hid",!sem);$("pixcw").classList.toggle("hid",sem);$("pixcp").classList.toggle("hid",sem);$("pixm").textContent=c?"Valor: "+R.format(tot(d))+" · Mostre o QR Code ou envie o código ao cliente.":(sem?"Para gerar o QR Code, informe a sua chave Pix. É só uma vez.":"Complete seu nome e cidade em Meus dados para gerar o Pix.");openS("sh-pix")}
 function pdf(d){const p=S.perfil,n=S.cfg.nome,t=tot(d),isR=d.s==="pago",isC=d.s==="cob",tp=isR?"Recibo":isC?"Cobrança":"Orçamento";
@@ -543,7 +538,7 @@ const num="Nº "+String(d.n||0).padStart(4,"0")+(d.pc?" · Parcela "+d.pc:""),em
 const cinfo=[cl.documento?(dg(cl.documento).length===14?"CNPJ ":"CPF ")+fdoc(cl.documento):"",cl.whatsapp?ftel(cl.whatsapp):(d.w?ftel(d.w):""),cl.email||""].filter(Boolean).map(esc).join("  ·  ");
 const rows=[];if(d.fp)rows.push(["Forma de pagamento",payTxt(d.fp,d.np,d.en,t)]);if(d.val&&(d.s==="orc"||d.s==="apr"))rows.push(["Validade do orçamento",dlong(d.val)]);if(isC&&d.venc)rows.push(["Vencimento",dlong(d.venc)]);if(isR&&contaNome(d.conta))rows.push(["Recebido em",contaNome(d.conta)]);
 $("doc").innerHTML=`<div class="px"><div class="top6"></div>
-<div class="hd"><div class="em">${p.logo?`<img src="${p.logo}" alt="">`:""}<div><h1>${esc(n||"")}</h1><p>${em}</p></div></div><div class="dk"><b>${tp}</b><span>${num}</span><span>${dlong(emit)}</span></div></div>
+<div class="hd"><div class="em">${safeImg(p.logo)?`<img src="${safeImg(p.logo)}" alt="">`:""}<div><h1>${esc(n||"")}</h1><p>${em}</p></div></div><div class="dk"><b>${tp}</b><span>${num}</span><span>${dlong(emit)}</span></div></div>
 <div class="lb">Cliente</div><div class="cn"><b>${esc(d.c)}</b>${cinfo?`<br><span class="mu">${cinfo}</span>`:""}</div>
 <h2>${esc(d.t)}</h2>
 ${isR?`<p class="rc">Recebi de <b>${esc(d.c)}</b> a importância de <b>${R.format(t)}</b> (${ext(t)}), referente ao serviço descrito abaixo.</p>`:""}
@@ -585,7 +580,7 @@ const r=await sb.rpc("ver_orcamento",{p_token:tk});
 if(r.error||!r.data){cv.innerHTML=`<div class="empty">Este link não é válido ou foi removido.</div>`;return}
 const o=r.data,pr=o.profissional||{},sub=o.itens.reduce((a,i)=>a+i.quantidade*i.valor,0),t=Math.max(0,sub-(o.desconto||0)),venc=o.validade&&o.validade<iso(0);
 const msgs={apr:"Este orçamento já foi aprovado.",rec:"Este orçamento foi recusado.",cob:"Este orçamento já foi aprovado e está em andamento.",pago:"Este orçamento já foi aprovado e pago.",parc:"Este orçamento já foi aprovado e está em andamento."};
-cv.innerHTML=`<div style="text-align:center;margin:1rem 0">${pr.logo?`<img src="${pr.logo}" alt="" style="max-height:64px;max-width:160px;background:#fff;border-radius:.5rem;padding:.3rem"><br>`:""}<h1 class="cvh">${esc(pr.nome||"Orçamento")}</h1><p class="note">${esc([pr.documento?fdoc(pr.documento):"",pr.telefone?ftel(pr.telefone):"",pr.cidade].filter(Boolean).join(" · "))}</p></div>
+cv.innerHTML=`<div style="text-align:center;margin:1rem 0">${safeImg(pr.logo)?`<img src="${safeImg(pr.logo)}" alt="" style="max-height:64px;max-width:160px;background:#fff;border-radius:.5rem;padding:.3rem"><br>`:""}<h1 class="cvh">${esc(pr.nome||"Orçamento")}</h1><p class="note">${esc([pr.documento?fdoc(pr.documento):"",pr.telefone?ftel(pr.telefone):"",pr.cidade].filter(Boolean).join(" · "))}</p></div>
 <section class="card"><p class="note" style="text-align:left">Orçamento nº ${o.numero} para <b>${esc(o.cliente)}</b></p><h2 style="margin:.2rem 0 .8rem">${esc(o.servico)}</h2>
 ${o.itens.map(i=>`<div class="ir"><span>${esc(i.descricao)}${Number(i.quantidade)!==1?" ×"+i.quantidade:""}</span><b>${R.format(i.quantidade*i.valor)}</b></div>`).join("")}
 ${o.desconto>0?`<div class="ir"><span>Desconto</span><b>-${R.format(o.desconto)}</b></div>`:""}<div class="ir tt"><span>Total</span><b>${R.format(t)}</b></div>
@@ -628,7 +623,7 @@ const per=PER==="a"?MES.slice(0,4):MF[Number(MES.slice(5))-1]+" de "+MES.slice(0
 const em=[p.documento?dl+" "+fdoc(p.documento):"",p.telefone?ftel(p.telefone):"",p.cidade||""].filter(Boolean).map(esc).join("  ·  ");
 const R1=FD.rec.slice().sort((a,b)=>(a.pagoEm||a.data).localeCompare(b.pagoEm||b.data)),D1=FD.des.slice().sort((a,b)=>a.data.localeCompare(b.data));
 $("doc").innerHTML=`<div class="px"><div class="top6"></div>
-<div class="hd"><div class="em">${p.logo?`<img src="${p.logo}" alt="">`:""}<div><h1>${esc(n||"")}</h1><p>${em}</p></div></div><div class="dk"><b>Relatório</b><span>${per}</span><span>Emitido em ${dlong(iso(0))}</span></div></div>
+<div class="hd"><div class="em">${safeImg(p.logo)?`<img src="${safeImg(p.logo)}" alt="">`:""}<div><h1>${esc(n||"")}</h1><p>${em}</p></div></div><div class="dk"><b>Relatório</b><span>${per}</span><span>Emitido em ${dlong(iso(0))}</span></div></div>
 <h2>Resumo do período</h2><div class="cn"><div class="rw"><span>Total recebido</span><b>${R.format(FD.tr)}</b></div><div class="rw"><span>Total de despesas</span><b>${R.format(FD.td)}</b></div><div class="rw"><span><b>Resultado</b></span><b>${R.format(FD.tr-FD.td)}</b></div></div>
 <div class="lb">Recebimentos</div>${R1.length?`<table><thead><tr><th>Data</th><th>Cliente</th><th>Serviço</th><th>Conta</th><th class="r">Valor</th></tr></thead><tbody>${R1.map(d=>`<tr><td>${br(d.pagoEm||d.data)}</td><td>${esc(d.c)}</td><td>${esc(d.t)}${d.pc?" ("+esc(d.pc)+")":""}</td><td>${esc(contaNome(d.conta)||"—")}</td><td class="r">${R.format(tot(d))}</td></tr>`).join("")}</tbody></table>`:`<p class="mu">Nenhum recebimento no período.</p>`}
 <div class="lb">Despesas</div>${D1.length?`<table><thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th class="r">Valor</th></tr></thead><tbody>${D1.map(x=>`<tr><td>${br(x.data)}</td><td>${esc(x.desc)}</td><td>${esc(x.cat)}</td><td class="r">${R.format(x.valor)}</td></tr>`).join("")}</tbody></table>`:`<p class="mu">Nenhuma despesa no período.</p>`}
@@ -639,11 +634,6 @@ const t=prompt("Para confirmar, digite EXCLUIR:");if((t||"").trim().toUpperCase(
 const r=await sb.rpc("excluir_minha_conta");if(r.error)throw r.error;try{localStorage.removeItem(BK)}catch(e){}try{await sb.auth.signOut()}catch(e){}
 FORCE=false;closeS();OK=false;S.docs=[];S.contas=[];S.clientes=[];S.desp=[];MODE="signup";render();toast("Conta excluída.")}
 const OPEN=new Set(),chv='<i class="chv" aria-hidden="true"></i>';
-const SENT=new Set();try{const _s=localStorage.getItem("cobrei:sent");if(_s)JSON.parse(_s).forEach(id=>SENT.add(id))}catch(e){}
-function markSent(id){if(!id)return;SENT.add(id);try{localStorage.setItem("cobrei:sent",JSON.stringify([...SENT]))}catch(e){}}
-function autoSend(id){const d=S.docs.find(x=>x.id===id);if(!d)return;markSent(id);const a=$("sentwa");if(a){a.href=wa(d);a.setAttribute("data-id",d.id)}openS("sh-sent")}
-function party(d){$("partyv").textContent=d?`Você recebeu ${R.format(tot(d))} de ${d.c}.`:"";const box=$("partyc");if(box){box.innerHTML="";const cols=["#ffc53d","#5ad08a","#5b8cff","#ff8f80"];for(let i=0;i<48;i++){const c=document.createElement("i");c.style.left=(Math.random()*100)+"%";c.style.background=cols[i%cols.length];c.style.animationDuration=(1.4+Math.random()*1.8)+"s";c.style.animationDelay=(Math.random()*0.5)+"s";box.appendChild(c)}}openS("sh-party")}
-
 const cardX=(k,top,vis,more)=>`<article class="card${OPEN.has(k)?" open":""}" data-k="${k}"><div class="top" data-act="tg" role="button" tabindex="0" aria-expanded="${OPEN.has(k)}">${top}${chv}</div>${vis||""}<div class="more">${more}</div></article>`;
 document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches&&e.target.matches(".top[role=button]")){e.preventDefault();e.target.click()}});
 const kids=d=>S.docs.filter(x=>x.g===d.id).sort((a,b)=>Number(a.pc.split("/")[0])-Number(b.pc.split("/")[0]));
@@ -659,7 +649,7 @@ $("pars").innerHTML=`<p class="note">${esc(p.t)} · ${fmt(tot(p))} em ${ks.lengt
 const tg=k.s==="pago"?`<span class="tag pago">Pago em ${br(k.pagoEm||k.data)}${contaNome(k.conta)?" · "+esc(contaNome(k.conta)):""}</span>`:`<span class="tag ${late?"late":"cob"}">${late?"Atrasada desde ":"Vence em "}${br(k.venc)}</span>`;
 const ac=k.s==="pago"?`<button class="b" ${id_} data-act="pdf">Recibo</button>`:`<a class="b p" href="${esc(wa(k))}" target="_blank" rel="noopener">Cobrar</a><button class="b" ${id_} data-act="pix">Pix / QR</button><button class="b" ${id_} data-act="pago">Marcar pago</button>`;
 return`<div class="par${OPEN.has(k.id)?" open":""}" data-k="${k.id}"><div class="top" data-act="tg" role="button" tabindex="0" aria-expanded="${OPEN.has(k.id)}"><div class="mid"><h3>Parcela ${esc(k.pc)}</h3></div><div class="tot">${fmt(tot(k))}</div>${chv}</div>${tg}<div class="more"><div class="act">${ac}</div></div></div>`}).join("")+`<button class="b d wide" data-id="${p.id}" data-act="del">Excluir parcelamento</button>`;openS("sh-par")}
-function renderSv(){$("sv-n").textContent=S.servicos.length;const qsv=QSV.trim().toLowerCase();const SL=qsv?S.servicos.filter(x=>x.nome.toLowerCase().includes(qsv)):S.servicos;const qsi=$("q-sv"),sws=$("sw-sv");if(qsi&&qsi.value!==QSV)qsi.value=QSV;if(sws)sws.classList.toggle("hasq",!!QSV.trim());$("svl").innerHTML=SL.length?SL.map(x=>cardX(x.id,`<div class="mid"><h3>${esc(x.nome)}</h3></div><div class="tot">${fmt(x.preco)}</div>`,"",`<div class="sub"><button data-id="${x.id}" data-act="editsv">Editar</button><button class="d" data-id="${x.id}" data-act="delsv">Excluir</button></div>`)).join(""):`<div class="empty">${S.servicos.length?"Nenhum serviço encontrado.":"Nenhum serviço cadastrado.<br>Cadastre os serviços que você mais faz, com o valor de cada um."}</div>`}
+function renderSv(){$("sv-n").textContent=S.servicos.length;$("svl").innerHTML=S.servicos.length?S.servicos.map(x=>cardX(x.id,`<div class="mid"><h3>${esc(x.nome)}</h3></div><div class="tot">${fmt(x.preco)}</div>`,"",`<div class="sub"><button data-id="${x.id}" data-act="editsv">Editar</button><button class="d" data-id="${x.id}" data-act="delsv">Excluir</button></div>`)).join(""):`<div class="empty">Nenhum serviço cadastrado.<br>Cadastre os serviços que você mais faz, com o valor de cada um.</div>`}
 function openSv(x){EV=x||null;$("svh").textContent=x?"Editar serviço":"Novo serviço";$("svn").value=x?x.nome:"";$("svp").value=x?String(x.preco).replace(".",","):"";openS("sh-svc")}
 const onbSteps=()=>[{t:"Cadastre um cliente",d:"Para quem você vai fazer orçamentos",ok:S.clientes.length>0,a:"newcli"},{t:"Cadastre um serviço",d:"Com o valor, para orçar mais rápido",ok:S.servicos.length>0,a:"newsv"},{t:"Cadastre onde você recebe",d:"Sua chave Pix ou conta, para cobrar",ok:S.contas.length>0,a:"newct"}];
 const onbDone=()=>onbSteps().every(x=>x.ok);
@@ -674,15 +664,69 @@ async function cobView(tk){["intro","lock","app"].forEach(i=>$(i).classList.add(
 const r=await sb.rpc("ver_cobranca",{p_token:tk});
 if(r.error||!r.data){cv.innerHTML=`<div class="empty">Este link não é válido ou foi removido.</div>`;return}
 const o=r.data,pr=o.profissional||{},code=pixBuild(o.pix_chave,pr.nome,pr.cidade,Number(o.total));window.PIXV=code;
-cv.innerHTML=`<div style="text-align:center;margin:1rem 0">${pr.logo?`<img src="${pr.logo}" alt="" style="max-height:64px;max-width:160px;background:#fff;border-radius:.5rem;padding:.3rem"><br>`:""}<h1 class="cvh">${esc(pr.nome||"Cobrança")}</h1><p class="note">${esc([pr.documento?fdoc(pr.documento):"",pr.telefone?ftel(pr.telefone):"",pr.cidade].filter(Boolean).join(" · "))}</p></div>
+cv.innerHTML=`<div style="text-align:center;margin:1rem 0">${safeImg(pr.logo)?`<img src="${safeImg(pr.logo)}" alt="" style="max-height:64px;max-width:160px;background:#fff;border-radius:.5rem;padding:.3rem"><br>`:""}<h1 class="cvh">${esc(pr.nome||"Cobrança")}</h1><p class="note">${esc([pr.documento?fdoc(pr.documento):"",pr.telefone?ftel(pr.telefone):"",pr.cidade].filter(Boolean).join(" · "))}</p></div>
 <section class="card" style="text-align:center"><p class="note">Cobrança nº ${o.numero}${o.parcela?" · parcela "+esc(o.parcela):""} para <b>${esc(o.cliente)}</b></p><h2 style="margin:.2rem 0">${esc(o.servico)}</h2><p style="font-size:2rem;font-weight:800;margin:.4rem 0">${R.format(o.total)}</p>${o.vencimento&&o.status==="cob"?`<p class="note">Vence em ${br(o.vencimento)}</p>`:""}</section>
 ${o.status==="pago"?`<div class="card" style="text-align:center"><b>Pagamento confirmado. Obrigado!</b></div>`:code?`<section class="card" style="text-align:center"><b>Pague com Pix</b>${qrSvg(code)?`<div class="qr">${qrSvg(code)}</div>`:""}<p class="note">No app do seu banco, escolha Pix e leia o QR Code, ou copie o código.</p><button class="b p wide" data-act="cpix">Copiar código Pix</button></section>`:`<div class="card"><p class="note">Fale com ${esc(pr.nome||"o profissional")} para combinar a forma de pagamento.</p></div>`}`}
+const safeImg=u=>/^data:image\/(png|jpeg|webp|gif);base64,[A-Za-z0-9+\/=]+$/.test(String(u||""))?u:"";
+const SENT=new Set();try{JSON.parse(localStorage.getItem("cobrei:env")||"[]").forEach(i=>SENT.add(i))}catch(e){}
+function markSent(id){if(!id||SENT.has(id))return;SENT.add(id);try{localStorage.setItem("cobrei:env",JSON.stringify([...SENT].slice(-300)))}catch(e){}setTimeout(render,500)}
+function openSent(d){const a=$("sentwa");a.href=wa(d);a.dataset.id=d.id;openS("sh-sent")}
+function autoSend(id){const d=S.docs.find(x=>x.id===id),w=PREW;PREW=null;
+if(!d){if(w){try{w.close()}catch(e){}}toast("Orçamento criado!");return}
+if(w){try{w.opener=null}catch(e){}try{w.location.href=wa(d);markSent(id);toast("Orçamento criado! Abrindo o WhatsApp…");return}catch(e){}}
+let w2=null;try{w2=window.open(wa(d),"_blank")}catch(e){}
+if(w2){try{w2.opener=null}catch(e){}markSent(id);toast("Orçamento criado! Abrindo o WhatsApp…")}else openSent(d)}
+function party(d){$("partyv").textContent=fmt(tot(d))+" recebidos de "+d.c+".";openS("sh-party");
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches){const c=$("partyc"),cs=["#ffc53d","#5ad08a","#5b8cff","#ff8f80","#ffffff"];c.innerHTML="";for(let i=0;i<28;i++){const e=document.createElement("i");e.style.cssText=`left:${Math.random()*100}%;background:${cs[i%5]};animation-delay:${(Math.random()*.8).toFixed(2)}s;animation-duration:${(2+Math.random()*1.6).toFixed(2)}s`;c.appendChild(e)}}}
+const norm=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+function openEdit(d){if(d.s==="apr"&&!confirm("O cliente já aprovou este orçamento. Se você editar, ele precisará aprovar de novo. Continuar?"))return;
+openNew("");EDQ=d.id;$("fnt").textContent="Editar orçamento";$("fsb").textContent="Salvar alterações";
+$("fcl").value=d.k||"";$("fc").value=d.c;$("fw").value=d.w||"";$("ft").value=d.t||"";$("fdc").value=d.desc?String(d.desc).replace(".",","):"";$("fva").value=d.val||"";$("fob").value=d.ob||"";
+$("its").innerHTML="";d.itens.forEach(i=>{addItem();const r=[...document.querySelectorAll("#its .it")].pop().querySelectorAll("input");r[0].value=i.d;r[1].value=String(i.q).replace(".",",");r[2].value=String(i.v).replace(".",",")});
+$("ffp").value=d.fp||"";fpUI();$("fpn").value=d.en?"ent":String(d.np||1);fpUI();$("fen").value=d.en||"";calc()}
+async function editSave(itens,svc,np,en){const d=S.docs.find(x=>x.id===EDQ);if(!d)return;
+const v={cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servico:svc,validade:$("fva").value||null,desconto:num($("fdc").value),forma_pagamento:$("ffp").value||null,parcelas:np,entrada_pct:en,observacoes:$("fob").value.trim()||null,cliente_id:$("fcl").value||null};
+if(d.s!=="orc")v.status="orc";
+const r=await sb.from("orcamentos").update(v).eq("id",d.id);if(r.error)throw r.error;
+const r2=await sb.from("itens").insert(itens.map(i=>({orcamento_id:d.id,descricao:i.d,quantidade:i.q,valor:i.v}))).select("id");if(r2.error)throw r2.error;
+const r3=await sb.from("itens").delete().eq("orcamento_id",d.id).not("id","in","("+r2.data.map(x=>x.id).join(",")+")");if(r3.error)throw r3.error;
+if(d.s!=="orc"){SENT.delete(d.id);try{localStorage.setItem("cobrei:env",JSON.stringify([...SENT]))}catch(e){}}
+EDQ=null;OPEN.add(d.id);await loadAll();closeS();render();toast("Orçamento atualizado.")}
+const AJ=[["Como criar e enviar um orçamento","1. Toque em “+ Novo orçamento”.<br>2. Informe o cliente e o que será feito, com o valor.<br>3. Salve: o WhatsApp abre com o link pronto.<br>4. Seu cliente abre o link e aprova com 1 toque."],
+["Como cobrar e receber","Quando o cliente aprova, o orçamento aparece em “Para fazer agora”, no Início. Toque em “Gerar cobrança”, escolha o primeiro vencimento e cobre pelo WhatsApp. O cliente paga pelo link do Pix. Depois, toque em “Marcar pago” e escolha a conta que recebeu."],
+["Parcelamento e cobrança mensal","Defina o parcelamento na forma de pagamento do orçamento: as parcelas ficam juntas, no mesmo cliente. Para clientes que contratam todo mês, marque o cliente como recorrente e use “Cobrança mensal”."],
+["Pix e QR Code","Cadastre sua chave em Mais › Onde você recebe, ou quando o app pedir. O QR Code aparece em “Pix / QR” e no PDF da cobrança."],
+["Corrigir um orçamento","Toque no orçamento e depois em “Editar”. Se o cliente já tinha aprovado, ele precisará aprovar de novo, pelo mesmo link."],
+["Instalar no celular","Android: no menu do navegador, escolha “Instalar app”. iPhone: toque em Compartilhar e depois em “Adicionar à Tela de Início”."],
+["Esqueci minha senha","Na tela de entrada, digite seu e-mail e toque em “Esqueci minha senha”. Enviaremos um link para criar outra."]];
+function renderAj(){$("ajl").innerHTML=AJ.map((x,i)=>cardX("aj"+i,`<div class="mid"><h3>${x[0]}</h3></div>`,"",`<div class="hlp"><p>${x[1]}</p></div>`)).join("");
+const msg_="Olá! Preciso de ajuda com o COBREI.\nMeu e-mail: "+((U&&U.email)||"");
+$("ajs").innerHTML=`<button class="b" data-act="onbopen">Rever os primeiros passos</button>`+(CFG.suporte?`<a class="b p" href="https://wa.me/${CFG.suporte}?text=${encodeURIComponent(msg_)}" target="_blank" rel="noopener">Falar com o suporte no WhatsApp</a>`:`<p class="note">O atendimento pelo WhatsApp estará disponível em breve.</p>`)}
+const b64u=t=>{const p="=".repeat((4-t.length%4)%4),r=atob((t+p).replace(/-/g,"+").replace(/_/g,"/"));return Uint8Array.from(r,c=>c.charCodeAt(0))};
+const pushOk=()=>CFG.vapid&&"serviceWorker"in navigator&&"PushManager"in window&&"Notification"in window;
+async function pushState(){if(!pushOk()){$("pushw").classList.add("hid");return}$("pushw").classList.remove("hid");let on=false;
+try{const reg=await navigator.serviceWorker.ready;on=!!(await reg.pushManager.getSubscription())&&Notification.permission==="granted"}catch(e){}
+$("pushb").textContent=on?"Desativar avisos no celular":"Ativar avisos no celular";$("pusht").classList.toggle("hid",!on);
+$("pushh").textContent=on?"Você recebe um resumo de manhã (cobranças atrasadas ou vencendo) e um aviso na hora em que um cliente aprova ou recusa um orçamento.":(/iphone|ipad|ipod/i.test(navigator.userAgent)&&navigator.standalone!==true?"No iPhone, instale o app na tela inicial antes de ativar os avisos.":"")}
+async function pushToggle(){const reg=await navigator.serviceWorker.ready,cur=await reg.pushManager.getSubscription();
+if(cur&&Notification.permission==="granted"){await sb.from("push_subs").delete().eq("endpoint",cur.endpoint);await cur.unsubscribe();toast("Avisos desativados.");pushState();return}
+if(await Notification.requestPermission()!=="granted"){toast("Para receber avisos, permita as notificações do app nas configurações do celular.");return}
+const sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(CFG.vapid)}),j=sub.toJSON();
+const r=await sb.from("push_subs").upsert({endpoint:j.endpoint,p256dh:j.keys.p256dh,auth:j.keys.auth,user_id:U.id},{onConflict:"endpoint"});if(r.error)throw r.error;toast("Avisos ativados!");pushState()}
+async function pushTest(){const r=await sb.functions.invoke("lembretes",{body:{teste:true}});if(r.error)throw r.error;toast("Aviso de teste enviado. Aguarde alguns segundos.")}
+function trapInit(){if(TRAP)return;TRAP=true;const st=history.state||{};if(st.app)return;
+try{if(st.root)history.pushState({app:1},"");else{history.replaceState({root:1},"");history.pushState({app:1},"")}}catch(e){TRAP=false}}
+window.addEventListener("popstate",()=>{if(!TRAP)return;const st=history.state||{};if(!st.root)return;
+if(!OK){TRAP=false;history.back();return}
+const rep=()=>{try{history.pushState({app:1},"")}catch(e){}};
+if(FORCE){rep();return}
+if(STK.length){rep();if(STK[STK.length-1]==="sh-onb")ONB=false;closeTop();return}
+if(TAB!=="pnl"){rep();TAB=UP[TAB]||"pnl";render();scrollTo(0,0);return}
+if(Date.now()-EXIT<2500){TRAP=false;history.back();return}
+EXIT=Date.now();rep();toast("Toque em voltar de novo para sair do app.")});
 function renderCli(){const by={};S.docs.forEach(d=>{if(d.k){const o=by[d.k]||(by[d.k]={n:0,p:0});if(!d.pc)o.n++;if(d.s==="pago")o.p+=tot(d)}});
 $("cli-n").textContent=S.clientes.length;
-const qcli=QCLI.trim().toLowerCase();
-const CL=qcli?S.clientes.filter(c=>(c.nome+" "+(c.documento||"")+" "+(c.whatsapp||"")+" "+(c.email||"")).toLowerCase().includes(qcli)):S.clientes;
-const qci=$("q-cli"),swl=$("sw-cli");if(qci&&qci.value!==QCLI)qci.value=QCLI;if(swl)swl.classList.toggle("hasq",!!QCLI.trim());
-$("cll").innerHTML=CL.length?CL.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return cardX(c.id,`<div class="av">${c.foto?`<img src="${c.foto}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div>`,`${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}`,`<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button>${c.recorrente?`<button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button>`:""}</div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div>`)}).join(""):`<div class="empty">${S.clientes.length?"Nenhum cliente encontrado.":"Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque."}</div>`}
+$("cll").innerHTML=S.clientes.length?S.clientes.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return cardX(c.id,`<div class="av">${safeImg(c.foto)?`<img src="${safeImg(c.foto)}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div>`,`${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}`,`<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button>${c.recorrente?`<button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button>`:""}</div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div>`)}).join(""):`<div class="empty">Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque.</div>`}
 try{if(localStorage.getItem("cobrei:v"))MODE="login"}catch(e){}
 if(/type=recovery/.test(location.hash))MODE="recover";
 const msgErr=e=>{const m=String(e&&e.message||"").toLowerCase();
@@ -705,8 +749,8 @@ S.recs=rr.error?[]:rr.data.map(x=>({id:x.id,cid:x.cliente_id||"",cliente:x.clien
 S.desp=dsp.error?[]:dsp.data.map(x=>({id:x.id,desc:x.descricao,valor:Number(x.valor),data:x.data,cat:x.categoria||"Outros"}));
 const as_=(asn&&!asn.error&&asn.data)||{};S.plano={plano:as_.plano||"gratis",ate:as_.valido_ate||""}}
 async function enter(user){U=user;const md=user.user_metadata||{};S.cfg={nome:md.nome||"",pix:md.pix||""};
-try{await loadAll()}catch(e){$("aerr").textContent="Não foi possível carregar seus dados. Verifique se as tabelas foram criadas e tente de novo.";return}
-try{await genRecs()}catch(e){}OK=true;try{localStorage.setItem("cobrei:v","1")}catch(e){}render();if(needProfile())openProfile(true);else remind()}
+try{await loadAll()}catch(e){console.error("loadAll",e);$("aerr").textContent="Não foi possível carregar seus dados agora. Verifique a conexão e tente de novo.";return}
+try{await genRecs()}catch(e){}OK=true;trapInit();try{localStorage.setItem("cobrei:v","1")}catch(e){}render();if(needProfile())openProfile(true);else remind()}
 async function doAuth(){
 const e=$("ae").value.trim().toLowerCase(),p=$("ap").value,er=$("aerr"),inf=$("ainfo");er.textContent="";inf.textContent="";
 if(!sb){er.textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
@@ -728,7 +772,7 @@ if(!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite seu e-mail acima e toque em
 const r=await sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname});
 if(r.error)er.textContent=msgErr(r.error);else inf.textContent="Se esse e-mail tiver conta, enviamos um link para criar uma nova senha."}
 function authUI(){const m=MODE;
-$("intro").classList.toggle("hid",OK||LOCK);$("lock").classList.toggle("hid",!LOCK||OK);$("app").classList.toggle("hid",!OK);document.querySelector(".fab").classList.toggle("hid",!OK||TAB==="ct"||TAB==="sv"||TAB==="mais");
+$("intro").classList.toggle("hid",OK||LOCK);$("lock").classList.toggle("hid",!LOCK||OK);$("app").classList.toggle("hid",!OK);document.querySelector(".fab").classList.toggle("hid",!OK||TAB==="ct"||TAB==="sv"||TAB==="mais"||TAB==="aj");
 $("an").classList.toggle("hid",m!=="signup");$("ae").classList.toggle("hid",m==="recover");$("fg").classList.toggle("hid",m!=="login");$("sw").classList.toggle("hid",m==="recover");$("aceitew").classList.toggle("hid",m!=="signup");
 $("ap").autocomplete=m==="signup"||m==="recover"?"new-password":"current-password";
 $("at").textContent=m==="recover"?"Crie uma nova senha":"Orçou. Cobrou. Recebeu.";
@@ -756,14 +800,11 @@ $("ct-tot").textContent=fmt(c);
 const rec={};S.docs.forEach(d=>{if(d.s==="pago"&&d.conta)rec[d.conta]=(rec[d.conta]||0)+tot(d)});
 const other=c-S.contas.reduce((z,x)=>z+(rec[x.id]||0),0);
 $("ctl").innerHTML=S.contas.length?S.contas.map(x=>cardX(x.id,`<div class="av">${EM[x.tipo]}</div><div class="mid"><h3>${esc(x.nome)}</h3><p>${TP[x.tipo]}${x.chave?" · "+esc(x.chave):""}</p></div><div class="tot">${fmt(rec[x.id]||0)}</div>`,"",`<div class="sub"><button class="d" data-id="${x.id}" data-act="delct">Excluir</button></div>`)).join("")+(other>0.004?`<p class="note">${fmt(other)} recebidos sem conta informada ou em contas excluídas.</p>`:""):`<div class="empty">Nenhuma conta cadastrada.<br>Cadastre onde você recebe — Pix, banco, carteira digital ou dinheiro — para saber quanto entrou em cada uma.</div>`;
-$("v-pnl").classList.toggle("hid",TAB!=="pnl");renderPnl();renderPnlX();renderFin();$("v-sv").classList.toggle("hid",TAB!=="sv");renderSv();$("v-mais").classList.toggle("hid",TAB!=="mais");$("v-cli").classList.toggle("hid",TAB!=="cli");renderCli();$("v-cob").classList.toggle("hid",TAB!=="cob");$("v-ct").classList.toggle("hid",TAB!=="ct");
-const NT=TAB==="sv"||TAB==="ct"?"mais":TAB;document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x.dataset.t===NT));
+$("v-pnl").classList.toggle("hid",TAB!=="pnl");renderPnl();renderPnlX();renderFin();$("v-sv").classList.toggle("hid",TAB!=="sv");renderSv();$("v-mais").classList.toggle("hid",TAB!=="mais");$("v-aj").classList.toggle("hid",TAB!=="aj");if(TAB==="aj")renderAj();$("v-cli").classList.toggle("hid",TAB!=="cli");renderCli();$("v-cob").classList.toggle("hid",TAB!=="cob");$("v-ct").classList.toggle("hid",TAB!=="ct");
+const NT=TAB==="sv"||TAB==="ct"||TAB==="aj"?"mais":TAB;document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x.dataset.t===NT));
 $("hi").textContent=S.cfg.nome?`Olá, ${S.cfg.nome}`:"Orçou. Cobrou. Recebeu.";
 document.querySelectorAll(".chips button").forEach(x=>x.classList.toggle("on",x.dataset.f===F));
-let L=S.docs.filter(d=>!d.g).filter(FL[F]);
-const qq=QCOB.trim().toLowerCase();
-if(qq)L=L.filter(d=>(d.c+" "+d.t+" "+(d.n||"")+" "+(d.pc||"")).toLowerCase().includes(qq));
-const qc=$("q-cob"),swc=$("sw-cob");if(qc&&qc.value!==QCOB)qc.value=QCOB;if(swc)swc.classList.toggle("hasq",!!QCOB.trim());
+const Q=norm($("busca").value.trim()),L=S.docs.filter(d=>!d.g).filter(FL[F]).filter(d=>!Q||norm(d.c+" "+d.t).includes(Q));
 $("list").innerHTML=L.length?L.map(d=>{
 if(d.s==="parc"&&kids(d).length)return grpCard(d);
 const late=d.s==="cob"&&d.venc<iso(0),id=`data-id="${d.id}"`;
@@ -771,32 +812,39 @@ const tag=d.s==="cob"?`<span class="tag ${late?"late":"cob"}">${late?"Atrasado d
 let ac="",sub="";
 if(d.s==="orc")ac=`<a class="b p" ${id} data-act="wsent" href="${esc(wa(d))}" target="_blank" rel="noopener">Enviar no WhatsApp</a><button class="b" ${id} data-act="lnk">Copiar link</button><button class="b" ${id} data-act="apr">Cliente aprovou</button>`;
 if(d.s==="apr")ac=`<button class="b p" ${id} data-act="cob">Gerar cobrança</button>`;
-if(d.s==="cob"){ac=`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">Cobrar no WhatsApp</a><button class="b" ${id} data-act="pix">Pix / QR Code</button><button class="b" ${id} data-act="pago">Marcar como pago</button>`;sub=`<label>Vencimento <input type="date" value="${d.venc}" ${id} data-act="venc"></label>`}
-return cardX(d.id,`<div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div>`,tag,`<div class="act">${ac}</div><div class="sub">${sub}<button ${id} data-act="pdf">PDF</button><button ${id} data-act="dup">Duplicar</button><button class="d" ${id} data-act="del">Excluir</button></div>`)}).join(""):`<div class="empty">${QCOB.trim()?"Nenhum orçamento encontrado.":(S.docs.length?"Nada por aqui neste filtro.":"Nenhum orçamento ainda.<br>Toque em “Novo orçamento” e envie o primeiro pelo WhatsApp em menos de um minuto.")}</div>`}
-const openS=id=>{$("ov").classList.add("open");$(id).classList.add("open")};
-const closeS=()=>{$("ov").classList.remove("open");document.querySelectorAll(".sheet").forEach(s=>s.classList.remove("open"))};
+if(d.s==="cob"){ac=`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">Cobrar no WhatsApp</a><button class="b" ${id} data-act="pix">Pix / QR Code</button><button class="b" ${id} data-act="pago">Marcar como pago</button>`;sub=`<label>Vencimento <input type="date" value="${esc(d.venc)}" ${id} data-act="venc"></label>`}
+return cardX(d.id,`<div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div>`,tag,`<div class="act">${ac}</div><div class="sub">${sub}${["orc","apr","rec"].includes(d.s)?`<button ${id} data-act="editq">Editar</button>`:""}<button ${id} data-act="pdf">PDF</button><button ${id} data-act="dup">Duplicar</button><button class="d" ${id} data-act="del">Excluir</button></div>`)}).join(""):`<div class="empty">${Q?"Nenhum resultado para “"+esc($("busca").value.trim())+"”.":S.docs.length?"Nada por aqui neste filtro.":"Nenhum orçamento ainda.<br>Toque em “Novo orçamento” e envie o primeiro pelo WhatsApp em menos de um minuto."}</div>`}
+const STK=[],UP={sv:"mais",ct:"mais",aj:"mais",mais:"pnl",cob:"pnl",cli:"pnl"};let TRAP=false,EXIT=0;
+const openS=id=>{if(!STK.includes(id))STK.push(id);const el=$(id);el.style.zIndex=String(21+STK.indexOf(id));$("ov").classList.add("open");el.classList.add("open")};
+function shut(id){const el=$(id);el.classList.remove("open");el.style.zIndex="";const i=STK.indexOf(id);if(i>=0)STK.splice(i,1);if(!STK.length)$("ov").classList.remove("open")}
+const closeTop=()=>{if(STK.length)shut(STK[STK.length-1])};
+const closeS=()=>{STK.length=0;$("ov").classList.remove("open");document.querySelectorAll(".sheet").forEach(s=>{s.classList.remove("open");s.style.zIndex=""})};
 function addItem(){const r=document.createElement("div");r.className="it";r.innerHTML=`<input placeholder="Descrição" aria-label="Descrição"><input placeholder="Qtd" value="1" inputmode="decimal" aria-label="Quantidade"><input placeholder="R$" inputmode="decimal" aria-label="Valor unitário">`;$("its").appendChild(r)}
 function calc(){let t=0;document.querySelectorAll("#its .it").forEach(r=>{const i=r.querySelectorAll("input");t+=num(i[1].value)*num(i[2].value)});t=Math.max(0,t-num($("fdc").value));$("ftot").textContent=R.format(t)}
 
-document.addEventListener("input",e=>{if(e.target.closest("#its")||e.target.id==="fdc")calc();if(e.target.id==="cbp"||e.target.id==="cbn")cbUI();if(e.target.id==="q-cob"){QCOB=e.target.value;render()}if(e.target.id==="q-cli"){QCLI=e.target.value;render()}if(e.target.id==="q-sv"){QSV=e.target.value;render()}});
+document.addEventListener("input",e=>{if(e.target.id==="busca")render();if(e.target.closest("#its")||e.target.id==="fdc")calc();if(e.target.id==="cbp"||e.target.id==="cbn")cbUI()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!FORCE)closeS()});
 async function up(d,v){const r=await sb.from("orcamentos").update(v).eq("id",d.id);if(r.error)throw r.error;await loadAll();render()}
-const fail=x=>{if(String(x&&x.message||"").includes("limite_plano_gratis")){closeS();planoOpen()}else toast("Não foi possível salvar. Verifique sua conexão e tente de novo.")};
+const fail=x=>{if(PREW){try{PREW.close()}catch(e){}PREW=null}if(String(x&&x.message||"").includes("limite_plano_gratis")){closeS();planoOpen()}else toast("Não foi possível salvar. Verifique sua conexão e tente de novo.")};
 document.addEventListener("change",async e=>{const t=e.target;if(t.id==="fcl"){const c=S.clientes.find(x=>x.id===t.value);if(c){$("fc").value=c.nome;$("fw").value=c.whatsapp}return}
-if(t.id==="fsv"){const x=S.servicos.find(z=>z.id===t.value);if(x){const rows=[...document.querySelectorAll("#its .it")];let r=rows[rows.length-1];if(!r||r.querySelector("input").value.trim()){addItem();r=[...document.querySelectorAll("#its .it")].pop()}const i=r.querySelectorAll("input");i[0].value=x.nome;i[1].value="1";i[2].value=String(x.preco).replace(".",",");calc()}t.value="";return}
+if(t.id==="fsv"){const x=S.servicos.find(z=>z.id===t.value);if(x){const rows=[...document.querySelectorAll("#its .it")];let r=rows[rows.length-1];if(!r||r.querySelector("input").value.trim()){addItem();r=[...document.querySelectorAll("#its .it")].pop()}const i=r.querySelectorAll("input");i[0].value=x.nome;i[1].value="1";i[2].value=String(x.preco).replace(".",",");if(!$("ft").value.trim())$("ft").value=x.nome;calc()}t.value="";return}
 if(t.id==="cbd"){cbUI();return}
 if(t.id==="ffp"||t.id==="fpn"){fpUI();return}
-if(t.id==="thdark"){THEME=t.checked?"dark":"light";try{localStorage.setItem("cobrei:theme",THEME)}catch(e){}applyTheme();return}if(t.id==="pixa"){pixShow();return}if(t.dataset.act==="venc"&&t.value){const d=S.docs.find(x=>x.id===t.dataset.id);if(d)try{await up(d,{vencimento:t.value})}catch(x){fail(x)}}});
+if(t.id==="pixa"){pixShow();return}if(t.dataset.act==="venc"&&t.value){const d=S.docs.find(x=>x.id===t.dataset.id);if(d)try{await up(d,{vencimento:t.value})}catch(x){fail(x)}}});
 async function act(a,t){const d=S.docs.find(x=>x.id===t.dataset.id);
 try{
 if(a==="auth")await doAuth();else if(a==="forgot")await forgot();
 else if(a==="eye"){HIDE=!HIDE;try{localStorage.setItem("cobrei:hide",HIDE?"1":"0")}catch(e){}render()}
 else if(a==="unlock")await unlock();
 else if(a==="tg"){const c=t.closest("[data-k]");if(!c)return;const o=c.classList.toggle("open");o?OPEN.add(c.dataset.k):OPEN.delete(c.dataset.k);t.setAttribute("aria-expanded",String(o))}
-else if(a==="onbgo"){closeS();ONB=true;const q=t.dataset.a;if(q==="newcli")openCli(null);else if(q==="newsv")openSv(null);else{["ctn","ctk"].forEach(i=>$(i).value="");$("ctt").value="pix";openS("sh-ct")}}
+else if(a==="onbgo"){ONB=true;const q=t.dataset.a;if(q==="newcli")openCli(null);else if(q==="newsv")openSv(null);else{["ctn","ctk"].forEach(i=>$(i).value="");$("ctt").value="pix";openS("sh-ct")}}
 else if(a==="onbskip"){ONB=false;closeS();toast("Sem problema! Os passos continuam no seu Início.")}
 else if(a==="wsent"){markSent(t.dataset.id);if(t.id==="sentwa")setTimeout(closeS,400)}
 else if(a==="cpix"){await copyText(window.PIXV||"");toast("Código Pix copiado. Cole no app do seu banco.")}
+else if(a==="push"){try{await pushToggle()}catch(e){console.error(e);toast("Não foi possível ativar os avisos agora.")}}
+else if(a==="pushtest"){try{await pushTest()}catch(e){console.error(e);toast("Não foi possível enviar o teste. Confira se a função de avisos foi criada.")}}
+else if(a==="onbopen")openOnb();
+else if(a==="back"){if(!FORCE){if(STK[STK.length-1]==="sh-onb")ONB=false;closeTop()}}
 else if(a==="sub"){SUB=t.dataset.s;render()}
 else if(a==="rper"){PER=t.dataset.p;render()}
 else if(a==="mes"){MES=mshift(MES,Number(t.dataset.d)*(SUB==="rl"&&PER==="a"?12:1));render()}
@@ -835,7 +883,7 @@ const pf=Object.assign({user_id:U.id},f);
 const r=await sb.auth.updateUser({data:c});if(r.error)throw r.error;const r2=await sb.from("perfil").upsert(pf,{onConflict:"user_id"});if(r2.error)throw r2.error;
 S.cfg=Object.assign(S.cfg,c);S.perfil={documento:pf.documento||"",telefone:pf.telefone||"",cidade:pf.cidade||"",pixt:"cpf",logo:pf.logo||""};const was=FORCE;FORCE=false;closeS();toast("Dados salvos.");render();if(was&&!onbDone())openOnb();else if(was&&!S.docs.length)openNew("")}
 else if(a==="new"){ONB=false;closeS();if(!isPro()&&usados()>=CFG.limite)planoOpen();else openNew("")}
-else if(a==="close"){if(!FORCE){ONB=false;closeS()}}else if(a==="additem")addItem();else if(a==="flt"){F=t.dataset.f;render()}else if(a==="xq"){const q=t.dataset.q;if(q==="cob")QCOB="";if(q==="cli")QCLI="";if(q==="sv")QSV="";render()}
+else if(a==="close"){if(!FORCE){ONB=false;closeS()}}else if(a==="additem")addItem();else if(a==="flt"){F=t.dataset.f;render()}
 else if(a==="tab"){TAB=t.dataset.t;render();scrollTo(0,0)}
 else if(a==="goto"){TAB=t.dataset.t;if(t.dataset.s)SUB=t.dataset.s;render();scrollTo(0,0)}
 else if(a==="savepixk"){const k=$("pixk").value.trim();if(!k){toast("Digite a sua chave Pix.");return}const r=await sb.from("contas").insert({nome:"Pix",tipo:"pix",chave:k});if(r.error)throw r.error;await loadAll();$("pixk").value="";pixShow()}
@@ -847,7 +895,9 @@ else if(a==="payto"){const x=S.docs.find(z=>z.id===PAY);const g=x&&x.g,first=!S.
 else if(a==="save"){const itens=[...document.querySelectorAll("#its .it")].map(r=>{const i=r.querySelectorAll("input");return{d:i[0].value.trim(),q:num(i[1].value)||1,v:num(i[2].value)}}).filter(i=>i.d&&i.v>0);
 if(!$("fc").value.trim()||!itens.length){toast("Preencha o cliente e pelo menos um item com valor.");return}
 const fpv=$("ffp").value,pn=$("fpn").value,pOk=fpv&&fpv!=="Cartão de débito",np_=pOk&&pn!=="ent"?Number(pn)||1:1,en_=pOk&&pn==="ent"?Math.min(95,Math.max(5,Math.round(num($("fen").value))||50)):null;
-const svc_=itens[0].d+(itens.length>1?" e mais "+(itens.length-1)+(itens.length===2?" item":" itens"):"");
+const svc_=$("ft").value.trim()||(itens[0].d+(itens.length>1?" e mais "+(itens.length-1)+(itens.length===2?" item":" itens"):""));
+if(EDQ){await editSave(itens,svc_,np_,en_);return}
+PREW=null;try{PREW=window.open("","_blank")}catch(e){}
 const n=S.docs.reduce((m,x)=>Math.max(m,x.n||0),0)+1;
 const r=await sb.from("orcamentos").insert(Object.assign({numero:n,cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servico:svc_,validade:$("fva").value||null,desconto:num($("fdc").value),forma_pagamento:$("ffp").value||null,parcelas:np_,entrada_pct:en_,observacoes:$("fob").value.trim()||null},$("fcl").value?{cliente_id:$("fcl").value}:{})).select("id").single();if(r.error)throw r.error;
 const r2=await sb.from("itens").insert(itens.map(i=>({orcamento_id:r.data.id,descricao:i.d,quantidade:i.q,valor:i.v})));
@@ -855,7 +905,7 @@ if(r2.error){await sb.from("orcamentos").delete().eq("id",r.data.id);throw r2.er
 OPEN.add(r.data.id);await loadAll();closeS();F="all";render();scrollTo(0,0);autoSend(r.data.id)}
 else if(d){if(a==="apr")await up(d,{status:"apr"});else if(a==="lnk"){await copyText(linkOf(d));toast("Link copiado. Envie ao cliente.")}
 else if(a==="cob"){CB=d.id;$("cbd").value=iso(7);cbUI();openS("sh-cb")}
-else if(a==="pago"||a==="pixpago"){const x=d||S.docs.find(z=>z.id===PIXD);if(!x){toast("Abra o Pix de uma cobrança primeiro.");return}PAY=x.id;closeS();payList();openS("sh-pay")}else if(a==="pdf")pdf(d);else if(a==="dup")openDup(d);else if(a==="gotodoc"){if(d.g)openGrp(d.g);else if(d.s==="parc")openGrp(d.id);else{TAB="cob";F="all";OPEN.add(d.id);render();scrollTo(0,0)}}else if(a==="grp")openGrp(d.id);
+else if(a==="pago"||a==="pixpago"){const x=d||S.docs.find(z=>z.id===PIXD);if(!x){toast("Abra o Pix de uma cobrança primeiro.");return}PAY=x.id;closeS();payList();openS("sh-pay")}else if(a==="pdf")pdf(d);else if(a==="grp")openGrp(d.id);else if(a==="editq")openEdit(d);else if(a==="dup")openDup(d);
 else if(a==="del"){const ks=kids(d);if(!confirm(ks.length?"Excluir este parcelamento e as "+ks.length+" parcelas?":"Excluir este registro?"))return;const r=await sb.from("orcamentos").delete().in("id",[d.id].concat(ks.map(x=>x.id)));if(r.error)throw r.error;await loadAll();closeS();render()}}
 }catch(x){fail(x)}}
 document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.tagName==="INPUT")return;act(t.dataset.act,t)});
@@ -865,6 +915,7 @@ sb.auth.onAuthStateChange((ev)=>{if(ev==="PASSWORD_RECOVERY"){MODE="recover";OK=
 const g=await sb.auth.getSession();
 if(g.data.session&&MODE!=="recover"){const u=g.data.session.user;let c=null;try{c=JSON.parse(localStorage.getItem(BK))}catch(e){}
 if(c&&c.uid===u.id&&window.PublicKeyCredential){PEND=u;LOCK=true;render()}else await enter(u)}}
+document.querySelectorAll(".sheet").forEach(sh=>{const b=document.createElement("button");b.type="button";b.className="back";b.dataset.act="back";b.textContent="‹ Voltar";sh.insertBefore(b,sh.firstChild)});
 if(CVT&&sb&&/^[0-9a-f-]{36}$/i.test(CVT))clientView(CVT);else if(CCT&&sb&&/^[0-9a-f-]{36}$/i.test(CCT))cobView(CCT);else{render();init()}
 </script>
 </body>
