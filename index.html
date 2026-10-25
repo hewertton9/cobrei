@@ -248,7 +248,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <div id="v-cob" class="hid">
 <section class="hero"><span>A receber</span><b id="s2"></b><div class="pgb"><i id="pg"></i></div><div class="hs"><div><span>Em orçamento</span><b id="s1"></b></div><div><span>Já recebido</span><b id="s3"></b></div></div></section>
 <input id="busca" class="sch" type="search" placeholder="Buscar por cliente ou serviço" aria-label="Buscar orçamentos" autocomplete="off">
-<nav class="chips" aria-label="Filtrar"><button data-act="flt" data-f="all">Todos</button><button data-act="flt" data-f="orc">Orçamentos</button><button data-act="flt" data-f="cob">A receber</button><button data-act="flt" data-f="pago">Pagos</button><button data-act="flt" data-f="rec">Recusados</button></nav>
+<nav class="chips" aria-label="Filtrar"><button data-act="flt" data-f="all">Todos</button><button data-act="flt" data-f="orc">Orçamentos</button><button data-act="flt" data-f="cob">A receber</button><button data-act="flt" data-f="late">Atrasados</button><button data-act="flt" data-f="pago">Pagos</button><button data-act="flt" data-f="rec">Recusados</button></nav>
 <div id="list"></div>
 </div>
 <div id="v-mais" class="hid">
@@ -272,11 +272,13 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <div id="v-sv" class="hid">
 <button class="back" data-act="goto" data-t="mais">‹ Mais</button>
 <section class="hero"><span>Serviços cadastrados</span><b id="sv-n"></b><p class="note">Cadastre uma vez, com o valor, e use nos orçamentos com um toque.</p></section>
+<input id="busca-sv" class="sch" type="search" placeholder="Buscar serviço" aria-label="Buscar serviços" autocomplete="off">
 <div id="svl"></div>
 <button class="b p wide" data-act="newsv">+ Novo serviço</button>
 </div>
 <div id="v-cli" class="hid">
 <section class="hero"><span>Clientes cadastrados</span><b id="cli-n"></b><p class="note">O valor em cada cliente é o total já recebido dele.</p></section>
+<input id="busca-cli" class="sch" type="search" placeholder="Buscar cliente" aria-label="Buscar clientes" autocomplete="off">
 <div id="cll"></div>
 <button class="b p wide" data-act="newcli">+ Cadastrar cliente</button>
 </div>
@@ -649,7 +651,7 @@ $("pars").innerHTML=`<p class="note">${esc(p.t)} · ${fmt(tot(p))} em ${ks.lengt
 const tg=k.s==="pago"?`<span class="tag pago">Pago em ${br(k.pagoEm||k.data)}${contaNome(k.conta)?" · "+esc(contaNome(k.conta)):""}</span>`:`<span class="tag ${late?"late":"cob"}">${late?"Atrasada desde ":"Vence em "}${br(k.venc)}</span>`;
 const ac=k.s==="pago"?`<button class="b" ${id_} data-act="pdf">Recibo</button>`:`<a class="b p" href="${esc(wa(k))}" target="_blank" rel="noopener">Cobrar</a><button class="b" ${id_} data-act="pix">Pix / QR</button><button class="b" ${id_} data-act="pago">Marcar pago</button>`;
 return`<div class="par${OPEN.has(k.id)?" open":""}" data-k="${k.id}"><div class="top" data-act="tg" role="button" tabindex="0" aria-expanded="${OPEN.has(k.id)}"><div class="mid"><h3>Parcela ${esc(k.pc)}</h3></div><div class="tot">${fmt(tot(k))}</div>${chv}</div>${tg}<div class="more"><div class="act">${ac}</div></div></div>`}).join("")+`<button class="b d wide" data-id="${p.id}" data-act="del">Excluir parcelamento</button>`;openS("sh-par")}
-function renderSv(){$("sv-n").textContent=S.servicos.length;$("svl").innerHTML=S.servicos.length?S.servicos.map(x=>cardX(x.id,`<div class="mid"><h3>${esc(x.nome)}</h3></div><div class="tot">${fmt(x.preco)}</div>`,"",`<div class="sub"><button data-id="${x.id}" data-act="editsv">Editar</button><button class="d" data-id="${x.id}" data-act="delsv">Excluir</button></div>`)).join(""):`<div class="empty">Nenhum serviço cadastrado.<br>Cadastre os serviços que você mais faz, com o valor de cada um.</div>`}
+function renderSv(){$("sv-n").textContent=S.servicos.length;const qsv=norm(($("busca-sv")||{value:""}).value.trim());const SL=qsv?S.servicos.filter(x=>norm(x.nome).includes(qsv)):S.servicos;$("svl").innerHTML=SL.length?SL.map(x=>cardX(x.id,`<div class="mid"><h3>${esc(x.nome)}</h3></div><div class="tot">${fmt(x.preco)}</div>`,"",`<div class="sub"><button data-id="${x.id}" data-act="editsv">Editar</button><button class="d" data-id="${x.id}" data-act="delsv">Excluir</button></div>`)).join(""):`<div class="empty">${S.servicos.length?"Nenhum serviço encontrado.":"Nenhum serviço cadastrado.<br>Cadastre os serviços que você mais faz, com o valor de cada um."}</div>`}
 function openSv(x){EV=x||null;$("svh").textContent=x?"Editar serviço":"Novo serviço";$("svn").value=x?x.nome:"";$("svp").value=x?String(x.preco).replace(".",","):"";openS("sh-svc")}
 const onbSteps=()=>[{t:"Cadastre um cliente",d:"Para quem você vai fazer orçamentos",ok:S.clientes.length>0,a:"newcli"},{t:"Cadastre um serviço",d:"Com o valor, para orçar mais rápido",ok:S.servicos.length>0,a:"newsv"},{t:"Cadastre onde você recebe",d:"Sua chave Pix ou conta, para cobrar",ok:S.contas.length>0,a:"newct"}];
 const onbDone=()=>onbSteps().every(x=>x.ok);
@@ -726,7 +728,9 @@ if(Date.now()-EXIT<2500){TRAP=false;history.back();return}
 EXIT=Date.now();rep();toast("Toque em voltar de novo para sair do app.")});
 function renderCli(){const by={};S.docs.forEach(d=>{if(d.k){const o=by[d.k]||(by[d.k]={n:0,p:0});if(!d.pc)o.n++;if(d.s==="pago")o.p+=tot(d)}});
 $("cli-n").textContent=S.clientes.length;
-$("cll").innerHTML=S.clientes.length?S.clientes.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return cardX(c.id,`<div class="av">${safeImg(c.foto)?`<img src="${safeImg(c.foto)}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div>`,`${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}`,`<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button>${c.recorrente?`<button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button>`:""}</div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div>`)}).join(""):`<div class="empty">Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque.</div>`}
+const qcli=norm(($("busca-cli")||{value:""}).value.trim());
+const CL=qcli?S.clientes.filter(c=>norm(c.nome+" "+(c.documento||"")+" "+(c.whatsapp||"")+" "+(c.email||"")).includes(qcli)):S.clientes;
+$("cll").innerHTML=CL.length?CL.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return cardX(c.id,`<div class="av">${safeImg(c.foto)?`<img src="${safeImg(c.foto)}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div>`,`${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}`,`<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button>${c.recorrente?`<button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button>`:""}</div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div>`)}).join(""):`<div class="empty">${S.clientes.length?"Nenhum cliente encontrado.":"Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque."}</div>`}
 try{if(localStorage.getItem("cobrei:v"))MODE="login"}catch(e){}
 if(/type=recovery/.test(location.hash))MODE="recover";
 const msgErr=e=>{const m=String(e&&e.message||"").toLowerCase();
@@ -786,7 +790,7 @@ const subt=d=>d.itens.reduce((a,i)=>a+i.q*i.v,0),tot=d=>Math.max(0,subt(d)-(d.de
 const iso=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
 const br=s=>s?s.split("-").reverse().join("/"):"";
 const ST={orc:"Orçamento enviado",apr:"Aprovado — falta cobrar",pago:"Pago",rec:"Recusado pelo cliente",parc:"Parcelado em várias cobranças"};
-const FL={all:()=>true,orc:d=>d.s==="orc"||d.s==="apr",cob:d=>d.s==="cob"||(d.s==="parc"&&kids(d).some(x=>x.s==="cob")),pago:d=>d.s==="pago"||(d.s==="parc"&&kids(d).length>0&&kids(d).every(x=>x.s==="pago")),rec:d=>d.s==="rec"};
+const FL={all:()=>true,orc:d=>d.s==="orc"||d.s==="apr",cob:d=>d.s==="cob"||(d.s==="parc"&&kids(d).some(x=>x.s==="cob")),late:d=>d.s==="cob"&&d.venc&&d.venc<iso(0)||(d.s==="parc"&&kids(d).some(x=>x.s==="cob"&&x.venc&&x.venc<iso(0))),pago:d=>d.s==="pago"||(d.s==="parc"&&kids(d).length>0&&kids(d).every(x=>x.s==="pago")),rec:d=>d.s==="rec"};
 function msg(d){const t=R.format(tot(d)),n=S.cfg.nome||"";
 if(d.s==="cob")return`Olá, ${d.c}! Passando para lembrar da cobrança "${d.t}${d.pc?" (parcela "+d.pc+")":""}", no valor de ${t}, com vencimento em ${br(d.venc)}.${d.venc&&d.venc<iso(0)?" Ela está em atraso. Poderia me confirmar o pagamento?":""}${pixLink(d)?`\nPague com Pix por este link:\n${pixLink(d)}`:""}\nObrigado!`;
 if(d.tk)return`Olá, ${d.c}! Segue o link do seu orçamento. É só abrir e confirmar com 1 clique:\n${linkOf(d)}`;
@@ -822,7 +826,7 @@ const closeS=()=>{STK.length=0;$("ov").classList.remove("open");document.querySe
 function addItem(){const r=document.createElement("div");r.className="it";r.innerHTML=`<input placeholder="Descrição" aria-label="Descrição"><input placeholder="Qtd" value="1" inputmode="decimal" aria-label="Quantidade"><input placeholder="R$" inputmode="decimal" aria-label="Valor unitário">`;$("its").appendChild(r)}
 function calc(){let t=0;document.querySelectorAll("#its .it").forEach(r=>{const i=r.querySelectorAll("input");t+=num(i[1].value)*num(i[2].value)});t=Math.max(0,t-num($("fdc").value));$("ftot").textContent=R.format(t)}
 
-document.addEventListener("input",e=>{if(e.target.id==="busca")render();if(e.target.closest("#its")||e.target.id==="fdc")calc();if(e.target.id==="cbp"||e.target.id==="cbn")cbUI()});
+document.addEventListener("input",e=>{if(e.target.id==="busca"||e.target.id==="busca-cli"||e.target.id==="busca-sv")render();if(e.target.closest("#its")||e.target.id==="fdc")calc();if(e.target.id==="cbp"||e.target.id==="cbn")cbUI()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!FORCE)closeS()});
 async function up(d,v){const r=await sb.from("orcamentos").update(v).eq("id",d.id);if(r.error)throw r.error;await loadAll();render()}
 const fail=x=>{if(PREW){try{PREW.close()}catch(e){}PREW=null}if(String(x&&x.message||"").includes("limite_plano_gratis")){closeS();planoOpen()}else toast("Não foi possível salvar. Verifique sua conexão e tente de novo.")};
