@@ -510,7 +510,7 @@ T.sort((a,b)=>a.p-b.p||a.k-b.k);
 const nLate=T.filter(o=>o.p===0).length,nApr=T.filter(o=>o.p===2).length,nb=T.filter(o=>o.p<=2||o.p===4).length;
 $("bdg").textContent=nb;$("bdg").classList.toggle("hid",!nb);
 $("pt").classList.toggle("hid",!S.docs.length);
-$("pt").textContent="O que fazer agora"+(nLate||nApr?" · "+[nLate?nLate+" atrasada"+(nLate>1?"s":""):"",nApr?nApr+" p/ cobrar":""].filter(Boolean).join(" · "):"");
+$("pt").textContent="O que fazer agora";
 $("p-ab").textContent=fmt(ab);$("p-atr").textContent=fmt(atr);$("p-atr").style.color=atr>0?"#ff9d8f":"";$("p-rec").textContent=fmt(rec);
 $("p-tasks").innerHTML=T.length?((nLate||nApr)?`<p class="note" style="text-align:left;margin:0 0 .6rem">Prioridade: cobranças atrasadas e orçamentos aprovados.</p>`:"")+T.slice(0,8).map(o=>{const d=o.d,id=`data-id="${d.id}"`;return`<article class="task"><i class="dot ${o.cls}"></i><div class="mid"><h3>${esc(d.c)}</h3><p><b>${fmt(tot(d))}</b> · ${d.pc?"parcela "+esc(d.pc)+" · ":""}${o.tx}</p></div>${o.a?`<button class="b p" ${id} data-act="${o.a}">${o.bt}</button>`:`<a class="b p" ${d.s==="orc"?`data-act="wsent" data-id="${d.id}" `:""}href="${esc(wa(d))}" target="_blank" rel="noopener">${o.bt}</a>`}</article>`}).join("")+(T.length>8?`<p class="note">e mais ${T.length-8} pendências em Cobranças</p>`:""):(S.docs.length?`<div class="empty">Tudo em dia por aqui.<br>Nenhuma cobrança atrasada nem aprovado esperando cobrança.</div>`:"")}
 function logoUI(){const i=$("lgp");i.src=LOGO||"";i.classList.toggle("hid",!LOGO);$("lgx").classList.toggle("hid",!LOGO)}
