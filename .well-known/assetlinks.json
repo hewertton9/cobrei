@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.cobrei.orcamentos",
+      "sha256_cert_fingerprints": [
+        "6B:C9:C6:D8:81:2B:8B:B1:66:05:9D:30:2B:C4:C6:72:3C:2F:C3:18:B1:4B:EA:4D:08:B5:60:8C:4B:55:65:EF"
+      ]
+    }
+  }
+]
