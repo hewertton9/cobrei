@@ -908,9 +908,10 @@ const r=await sb.from("orcamentos").insert(Object.assign({numero:n,cliente:$("fc
 const r2=await sb.from("itens").insert(itens.map(i=>({orcamento_id:r.data.id,descricao:i.d,quantidade:i.q,valor:i.v})));
 if(r2.error){await sb.from("orcamentos").delete().eq("id",r.data.id);throw r2.error}
 OPEN.add(r.data.id);await loadAll();closeS();F="all";render();scrollTo(0,0);autoSend(r.data.id)}
+else if(a==="paidpdf"){const x=S.docs.find(z=>z.id===PAID);if(x){closeS();pdf(x)}else toast("Recibo não encontrado. Abra o orçamento e toque em PDF.")}
 else if(d){if(a==="apr")await up(d,{status:"apr"});else if(a==="lnk"){await copyText(linkOf(d));toast("Link copiado. Envie ao cliente.")}
 else if(a==="cob"){CB=d.id;$("cbd").value=iso(7);cbUI();openS("sh-cb")}
-else if(a==="pago"||a==="pixpago"){const x=d||S.docs.find(z=>z.id===PIXD);if(!x){toast("Abra o Pix de uma cobrança primeiro.");return}PAY=x.id;closeS();payList();openS("sh-pay")}else if(a==="paidpdf"){const x=S.docs.find(z=>z.id===PAID);if(x)pdf(x);else toast("Recibo não encontrado.")}else if(a==="pdf")pdf(d);else if(a==="grp")openGrp(d.id);else if(a==="editq")openEdit(d);else if(a==="dup")openDup(d);
+else if(a==="pago"||a==="pixpago"){const x=d||S.docs.find(z=>z.id===PIXD);if(!x){toast("Abra o Pix de uma cobrança primeiro.");return}PAY=x.id;closeS();payList();openS("sh-pay")}else if(a==="pdf")pdf(d);else if(a==="grp")openGrp(d.id);else if(a==="editq")openEdit(d);else if(a==="dup")openDup(d);
 else if(a==="del"){const ks=kids(d);if(!confirm(ks.length?"Excluir este parcelamento e as "+ks.length+" parcelas?":"Excluir este registro?"))return;const r=await sb.from("orcamentos").delete().in("id",[d.id].concat(ks.map(x=>x.id)));if(r.error)throw r.error;await loadAll();closeS();render()}}
 }catch(x){fail(x)}}
 document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.tagName==="INPUT")return;act(t.dataset.act,t)});
