@@ -35,5 +35,31 @@
     "finance",
     "productivity"
   ],
+  "screenshots": [
+    {
+      "src": "inicio.jpeg",
+      "sizes": "720x1280",
+      "type": "image/jpeg",
+      "platform": "narrow"
+    },
+    {
+      "src": "orcamento.jpeg",
+      "sizes": "720x1280",
+      "type": "image/jpeg",
+      "platform": "narrow"
+    },
+    {
+      "src": "clientes.jpeg",
+      "sizes": "720x1280",
+      "type": "image/jpeg",
+      "platform": "narrow"
+    },
+    {
+      "src": "pix.jpeg",
+      "sizes": "720x1280",
+      "type": "image/jpeg",
+      "platform": "narrow"
+    }
+  ],
   "prefer_related_applications": false
 }
