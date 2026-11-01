@@ -318,7 +318,6 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <div id="cfgx">
 <label>Logo (aparece nos PDFs)</label><div class="lg"><img id="lgp" alt="" class="hid"><button class="b" data-act="logo">Escolher imagem</button><button class="b d hid" id="lgx" data-act="logox">Remover</button></div><input type="file" id="lgf" accept="image/*" class="hid">
 <div id="biow"><label>Segurança</label><button class="b wide" id="bio" data-act="bio"></button></div>
-<div id="instw"><label>Aplicativo</label><button class="b wide hid" id="instb" data-act="inst">Instalar COBREI no celular</button><p id="insth" class="note"></p></div>
 <div id="pushw" class="hid"><label>Avisos no celular</label><button class="b wide" id="pushb" data-act="push"></button><button class="b wide hid" id="pusht" data-act="pushtest">Enviar aviso de teste</button><p id="pushh" class="note"></p></div>
 <label>Plano</label><div class="card" id="plbox"></div>
 <label>Seus dados e privacidade</label>
@@ -596,10 +595,7 @@ const usados=()=>{const m=iso(0).slice(0,7);return S.docs.filter(d=>!d.pc&&!d.rc
 function planoBox(){$("plbox").innerHTML=isPro()?`<b>Plano Pro</b><p class="note" style="margin:.3rem 0 0;text-align:left">Orçamentos ilimitados${S.plano.ate?" · válido até "+br(S.plano.ate):""}.</p>`:`<b>Plano Grátis</b><p class="note" style="margin:.3rem 0 .6rem;text-align:left">${usados()} de ${CFG.limite} orçamentos novos usados este mês.</p><button class="b wide" data-act="plano">Conhecer o plano Pro</button>`}
 function planoOpen(){$("planoc").innerHTML=`<div class="plans"><div class="plc"><h3>Grátis</h3><p class="pr">R$ 0</p><ul><li>Até ${CFG.limite} orçamentos novos por mês</li><li>Clientes, serviços, cobranças e Pix</li><li>PDFs e relatórios</li></ul></div><div class="plc pro"><span class="bd">Recomendado</span><h3>Pro</h3><p class="pr">${esc(CFG.preco)}</p><ul><li>Orçamentos ilimitados</li><li>Todas as funções do plano Grátis</li></ul></div></div><p class="note">Parcelas e cobranças mensais geradas automaticamente não contam no limite do plano Grátis.</p>`;
 $("planob").innerHTML=CFG.checkout?`<a class="b p" href="${esc(CFG.checkout)}" target="_blank" rel="noopener">Assinar o Pro</a>`:CFG.contato?`<a class="b p" href="mailto:${esc(CFG.contato)}?subject=Quero%20o%20plano%20Pro%20do%20COBREI">Falar para assinar</a>`:`<button class="b" data-act="close">Assinatura em breve</button>`;openS("sh-plano")}
-function instUI(){const st=matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;$("instw").classList.toggle("hid",st);$("instb").classList.toggle("hid",!IP);
-$("insth").textContent=IP?"":/iphone|ipad|ipod/i.test(navigator.userAgent)?"No iPhone: toque em Compartilhar e depois em “Adicionar à Tela de Início”.":"No navegador, abra o menu e escolha “Instalar app” ou “Adicionar à tela inicial”."}
-window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();IP=e;instUI()});
-window.addEventListener("appinstalled",()=>{IP=null;instUI()});
+function instUI(){const w=$("instw");if(w)w.classList.add("hid");const b=$("instb");if(b)b.classList.add("hid")}
 if("serviceWorker"in navigator&&location.protocol==="https:")window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 const inPer=x=>SUB==="rl"&&PER==="a"?String(x).slice(0,4)===MES.slice(0,4):String(x).slice(0,7)===MES;
 function finData(){const rec=S.docs.filter(d=>d.s==="pago"&&inPer(d.pagoEm||d.data)),des=S.desp.filter(x=>inPer(x.data));return{rec,des,tr:rec.reduce((a,d)=>a+tot(d),0),td:des.reduce((a,x)=>a+x.valor,0)}}
@@ -735,7 +731,7 @@ try{if(localStorage.getItem("cobrei:v"))MODE="login"}catch(e){}
 if(/type=recovery/.test(location.hash))MODE="recover";
 const msgErr=e=>{const m=String(e&&e.message||"").toLowerCase();
 if(m.includes("not authorized")||m.includes("sending")||m.includes("smtp")||(m.includes("email")&&m.includes("rate")))return"Não conseguimos enviar o e-mail de confirmação agora. Tente novamente em alguns minutos.";
-if(m.includes("invalid login"))return"E-mail ou senha incorretos.";
+if(m.includes("invalid login")||m.includes("invalid_credentials")||m.includes("user not found")||m.includes("no user")){if(MODE==="login")return"Não há conta com este e-mail (ou a senha está errada). Se você apagou a conta ou nunca se cadastrou, toque em “Criar conta”.";return"E-mail ou senha incorretos."}
 if(m.includes("not confirmed"))return"Confirme seu e-mail pelo link que enviamos antes de entrar.";
 if(m.includes("already"))return"Este e-mail já tem conta. Toque em “Já tenho conta”.";
 if(m.includes("rate limit")||m.includes("too many"))return"Muitas tentativas. Aguarde alguns minutos e tente de novo.";
@@ -857,7 +853,7 @@ else if(a==="savedp"){const v=num($("dpv").value),n=$("dpd").value.trim();if(!n|
 const r=await sb.from("despesas").insert({descricao:n,valor:v,data:$("dpt").value,categoria:$("dpc").value});if(r.error)throw r.error;await loadAll();closeS();toast("Despesa registrada.");render()}
 else if(a==="deldp"){if(!confirm("Excluir esta despesa?"))return;const r=await sb.from("despesas").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
 else if(a==="rlcsv")rlCsv();else if(a==="rlpdf")rlPdf();else if(a==="plano")planoOpen();else if(a==="exp")expDados();else if(a==="delacc")await delConta();
-else if(a==="inst"){if(IP){IP.prompt();try{await IP.userChoice}catch(e){}IP=null;instUI()}}
+else if(a==="inst"){toast("Você já está no app COBREI.")}
 else if(a==="cvok")await cvAnswer(true);else if(a==="cvno")await cvAnswer(false);else if(a==="cbgo")await cbGo();
 else if(a==="newsv")openSv(null);else if(a==="editsv")openSv(S.servicos.find(x=>x.id===t.dataset.id));
 else if(a==="savesv"){const n=$("svn").value.trim();if(!n){toast("Digite o nome do serviço.");return}const v={nome:n,preco:num($("svp").value)};
