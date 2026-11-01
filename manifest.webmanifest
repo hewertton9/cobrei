@@ -38,25 +38,25 @@
   "screenshots": [
     {
       "src": "inicio.jpeg",
-      "sizes": "610x1291",
+      "sizes": "907x1920",
       "type": "image/jpeg",
       "platform": "narrow"
     },
     {
       "src": "orcamento.jpeg",
-      "sizes": "610x1291",
+      "sizes": "907x1920",
       "type": "image/jpeg",
       "platform": "narrow"
     },
     {
       "src": "clientes.jpeg",
-      "sizes": "610x1291",
+      "sizes": "911x1920",
       "type": "image/jpeg",
       "platform": "narrow"
     },
     {
       "src": "pix.jpeg",
-      "sizes": "610x1291",
+      "sizes": "912x1920",
       "type": "image/jpeg",
       "platform": "narrow"
     }
