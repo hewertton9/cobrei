@@ -695,7 +695,6 @@ const AJ=[["Como criar e enviar um orçamento","1. Toque em “+ Novo orçamento
 ["Parcelamento e cobrança mensal","Defina o parcelamento na forma de pagamento do orçamento: as parcelas ficam juntas, no mesmo cliente. Para clientes que contratam todo mês, marque o cliente como recorrente e use “Cobrança mensal”."],
 ["Pix e QR Code","Cadastre sua chave em Mais › Onde você recebe, ou quando o app pedir. O QR Code aparece em “Pix / QR” e no PDF da cobrança."],
 ["Corrigir um orçamento","Toque no orçamento e depois em “Editar”. Se o cliente já tinha aprovado, ele precisará aprovar de novo, pelo mesmo link."],
-["Instalar no celular","Android: no menu do navegador, escolha “Instalar app”. iPhone: toque em Compartilhar e depois em “Adicionar à Tela de Início”."],
 ["Esqueci minha senha","Na tela de entrada, digite seu e-mail e toque em “Esqueci minha senha”. Enviaremos um link para criar outra."]];
 function renderAj(){$("ajl").innerHTML=AJ.map((x,i)=>cardX("aj"+i,`<div class="mid"><h3>${x[0]}</h3></div>`,"",`<div class="hlp"><p>${x[1]}</p></div>`)).join("");
 const msg_="Olá! Preciso de ajuda com o COBREI.\nMeu e-mail: "+((U&&U.email)||"");
