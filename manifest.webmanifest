@@ -37,25 +37,25 @@
   ],
   "screenshots": [
     {
-      "src": "inicio.jpeg",
+      "src": "inicio.jpg",
       "sizes": "907x1920",
       "type": "image/jpeg",
       "platform": "narrow"
     },
     {
-      "src": "orcamento.jpeg",
+      "src": "orcamento.jpg",
       "sizes": "907x1920",
       "type": "image/jpeg",
       "platform": "narrow"
     },
     {
-      "src": "clientes.jpeg",
+      "src": "clientes.jpg",
       "sizes": "911x1920",
       "type": "image/jpeg",
       "platform": "narrow"
     },
     {
-      "src": "pix.jpeg",
+      "src": "pix.jpg",
       "sizes": "912x1920",
       "type": "image/jpeg",
       "platform": "narrow"
