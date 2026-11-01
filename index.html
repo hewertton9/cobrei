@@ -541,7 +541,7 @@ const rows=[];if(d.fp)rows.push(["Forma de pagamento",payTxt(d.fp,d.np,d.en,t)])
 $("doc").innerHTML=`<div class="px"><div class="top6"></div>
 <div class="hd"><div class="em">${safeImg(p.logo)?`<img src="${safeImg(p.logo)}" alt="">`:""}<div><h1>${esc(n||"")}</h1><p>${em}</p></div></div><div class="dk"><b>${tp}</b><span>${num}</span><span>${dlong(emit)}</span></div></div>
 <div class="lb">Cliente</div><div class="cn"><b>${esc(d.c)}</b>${cinfo?`<br><span class="mu">${cinfo}</span>`:""}</div>
-<h2>${esc(d.t)}</h2>
+<h2>Serviços</h2>
 ${isR?`<p class="rc">Recebi de <b>${esc(d.c)}</b> a importância de <b>${R.format(t)}</b> (${ext(t)}), referente ao serviço descrito abaixo.</p>`:""}
 <table><thead><tr><th>Descrição</th><th class="r">Qtd</th><th class="r">Valor unit.</th><th class="r">Subtotal</th></tr></thead><tbody>${d.itens.map(i=>`<tr><td>${esc(i.d)}</td><td class="r">${String(i.q).replace(".",",")}</td><td class="r">${R.format(i.v)}</td><td class="r">${R.format(i.q*i.v)}</td></tr>`).join("")}</tbody></table>
 <div class="tt"><div><span>Subtotal</span><span>${R.format(subt(d))}</span></div>${d.desc?`<div><span>Desconto</span><span>- ${R.format(d.desc)}</span></div>`:""}<div class="g"><span>Total</span><span>${R.format(t)}</span></div></div>
