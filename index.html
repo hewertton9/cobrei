@@ -418,7 +418,13 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <aside id="sh-party" class="sheet" aria-label="Primeiro pagamento">
 <div id="partyc"></div>
 <div class="party"><div class="big" aria-hidden="true">🎉</div><h2>Seu primeiro pagamento pelo COBREI!</h2><p class="note" id="partyv"></p><p class="note">Parabéns! É assim que começa: orçou, cobrou e recebeu. Agora é só repetir.</p></div>
-<div class="bar"><div class="act"><button class="b p" data-act="new">Criar outro orçamento</button><button class="b" data-act="close">Ver meu painel</button></div></div>
+<div class="bar"><div class="act"><button class="b p" data-act="paidpdf">Imprimir recibo</button><button class="b" data-act="close">Ver meu painel</button></div></div>
+</aside>
+<aside id="sh-paid" class="sheet" aria-label="Pagamento registrado">
+<h2>Pagamento registrado</h2>
+<p class="note" id="paidv" style="text-align:left"></p>
+<p class="note" style="text-align:left">Você pode imprimir ou salvar o recibo em PDF agora.</p>
+<div class="bar"><div class="act"><button class="b p" data-act="paidpdf">Imprimir recibo</button><button class="b" data-act="close">Ver meu painel</button></div></div>
 </aside>
 <aside id="sh-pay" class="sheet" aria-label="Onde recebeu">
 <h2>Onde você recebeu?</h2>
@@ -433,7 +439,7 @@ let S={cfg:{nome:"",pix:""},docs:[]},F="all";
 try{const r=localStorage.getItem(K);if(r)S=JSON.parse(r)}catch(e){}
 S.contas=S.contas||[];S.clientes=[];S.perfil={};S.servicos=[];S.recs=[];S.desp=[];S.plano={plano:"gratis",ate:""};
 const CFG={limite:10,preco:"R$ 19,90 por mês",checkout:"",contato:"",suporte:"",vapid:"BICPy8HTn2xAoIILLQEVhKSSIsVpypooY0Y8nahSA9f6UXv0wJ_uEdJthffXz63tdIA0CrdQaYRRdiALYup9Tow"};
-let TAB="pnl",PAY=null,CB=null,RC=null,ONB=false,FORCE=false,EC=null,CF="",PIXD=null,PREW=null,EDQ=null,SUB="ct",PER="m",IP=null,EV=null,GRP=null;const CVT=new URLSearchParams(location.search).get("o"),CCT=new URLSearchParams(location.search).get("c");
+let TAB="pnl",PAY=null,PAID=null,CB=null,RC=null,ONB=false,FORCE=false,EC=null,CF="",PIXD=null,PREW=null,EDQ=null,SUB="ct",PER="m",IP=null,EV=null,GRP=null;const CVT=new URLSearchParams(location.search).get("o"),CCT=new URLSearchParams(location.search).get("c");
 const TP={pix:"Pix",banco:"Conta bancária",carteira:"Carteira digital",dinheiro:"Dinheiro em mãos"},EM={pix:"⚡",banco:"🏦",carteira:"📱",dinheiro:"💵"};
 const contaNome=id=>(S.contas.find(x=>x.id===id)||{}).nome;
 function payList(){$("payl").innerHTML=S.contas.map(x=>`<button class="b" data-act="payto" data-c="${x.id}">${EM[x.tipo]} ${esc(x.nome)}</button>`).join("")+`<button class="b" data-act="payto" data-c="">Não informar</button>`}
@@ -674,7 +680,7 @@ if(!d){if(w){try{w.close()}catch(e){}}toast("Orçamento criado!");return}
 if(w){try{w.opener=null}catch(e){}try{w.location.href=wa(d);markSent(id);toast("Orçamento criado! Abrindo o WhatsApp…");return}catch(e){}}
 let w2=null;try{w2=window.open(wa(d),"_blank")}catch(e){}
 if(w2){try{w2.opener=null}catch(e){}markSent(id);toast("Orçamento criado! Abrindo o WhatsApp…")}else openSent(d)}
-function party(d){$("partyv").textContent=fmt(tot(d))+" recebidos de "+d.c+".";openS("sh-party");
+function party(d){if(d)PAID=d.id;$("partyv").textContent=fmt(tot(d))+" recebidos de "+d.c+".";openS("sh-party");
 if(!matchMedia("(prefers-reduced-motion: reduce)").matches){const c=$("partyc"),cs=["#ffc53d","#5ad08a","#5b8cff","#ff8f80","#ffffff"];c.innerHTML="";for(let i=0;i<28;i++){const e=document.createElement("i");e.style.cssText=`left:${Math.random()*100}%;background:${cs[i%5]};animation-delay:${(Math.random()*.8).toFixed(2)}s;animation-duration:${(2+Math.random()*1.6).toFixed(2)}s`;c.appendChild(e)}}}
 const norm=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
 function openEdit(d){if(d.s==="apr"&&!confirm("O cliente já aprovou este orçamento. Se você editar, ele precisará aprovar de novo. Continuar?"))return;
@@ -890,7 +896,7 @@ else if(a==="newct"){["ctn","ctk"].forEach(i=>$(i).value="");$("ctt").value="pix
 else if(a==="savect"){const n=$("ctn").value.trim();if(!n){toast("Digite o nome da conta, por exemplo: Nubank.");return}
 const r=await sb.from("contas").insert({nome:n,tipo:$("ctt").value,chave:$("ctk").value.trim()||null});if(r.error)throw r.error;await loadAll();closeS();render();if(ONB)openOnb()}
 else if(a==="delct"){if(!confirm("Excluir esta conta? Os valores já recebidos continuam no histórico."))return;const r=await sb.from("contas").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
-else if(a==="payto"){const x=S.docs.find(z=>z.id===PAY);const g=x&&x.g,first=!S.docs.some(z=>z.s==="pago");if(x)await up(x,{status:"pago",pago_em:iso(0),conta_id:t.dataset.c||null});closeS();if(first&&x)party(x);else if(g)openGrp(g)}
+else if(a==="payto"){const x=S.docs.find(z=>z.id===PAY);const g=x&&x.g,first=!S.docs.some(z=>z.s==="pago");if(x){await up(x,{status:"pago",pago_em:iso(0),conta_id:t.dataset.c||null});PAID=x.id}closeS();if(first&&x)party(x);else if(x){$("paidv").textContent=(x.c||"")+" · "+fmt(tot(x))+" registrados como pagos.";openS("sh-paid")}else if(g)openGrp(g)}
 else if(a==="save"){const itens=[...document.querySelectorAll("#its .it")].map(r=>{const i=r.querySelectorAll("input");return{d:i[0].value.trim(),q:num(i[1].value)||1,v:num(i[2].value)}}).filter(i=>i.d&&i.v>0);
 if(!$("fc").value.trim()||!itens.length){toast("Preencha o cliente e pelo menos um item com valor.");return}
 const fpv=$("ffp").value,pn=$("fpn").value,pOk=fpv&&fpv!=="Cartão de débito",np_=pOk&&pn!=="ent"?Number(pn)||1:1,en_=pOk&&pn==="ent"?Math.min(95,Math.max(5,Math.round(num($("fen").value))||50)):null;
@@ -904,7 +910,7 @@ if(r2.error){await sb.from("orcamentos").delete().eq("id",r.data.id);throw r2.er
 OPEN.add(r.data.id);await loadAll();closeS();F="all";render();scrollTo(0,0);autoSend(r.data.id)}
 else if(d){if(a==="apr")await up(d,{status:"apr"});else if(a==="lnk"){await copyText(linkOf(d));toast("Link copiado. Envie ao cliente.")}
 else if(a==="cob"){CB=d.id;$("cbd").value=iso(7);cbUI();openS("sh-cb")}
-else if(a==="pago"||a==="pixpago"){const x=d||S.docs.find(z=>z.id===PIXD);if(!x){toast("Abra o Pix de uma cobrança primeiro.");return}PAY=x.id;closeS();payList();openS("sh-pay")}else if(a==="pdf")pdf(d);else if(a==="grp")openGrp(d.id);else if(a==="editq")openEdit(d);else if(a==="dup")openDup(d);
+else if(a==="pago"||a==="pixpago"){const x=d||S.docs.find(z=>z.id===PIXD);if(!x){toast("Abra o Pix de uma cobrança primeiro.");return}PAY=x.id;closeS();payList();openS("sh-pay")}else if(a==="paidpdf"){const x=S.docs.find(z=>z.id===PAID);if(x)pdf(x);else toast("Recibo não encontrado.")}else if(a==="pdf")pdf(d);else if(a==="grp")openGrp(d.id);else if(a==="editq")openEdit(d);else if(a==="dup")openDup(d);
 else if(a==="del"){const ks=kids(d);if(!confirm(ks.length?"Excluir este parcelamento e as "+ks.length+" parcelas?":"Excluir este registro?"))return;const r=await sb.from("orcamentos").delete().in("id",[d.id].concat(ks.map(x=>x.id)));if(r.error)throw r.error;await loadAll();closeS();render()}}
 }catch(x){fail(x)}}
 document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.tagName==="INPUT")return;act(t.dataset.act,t)});
