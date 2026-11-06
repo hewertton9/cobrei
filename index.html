@@ -5,21 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#0a1230">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="COBREI">
 <title>COBREI — orçamentos e cobranças</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f3f4f8;--sf:#fff;--ink:#0b1b3a;--mu:#5d667a;--ac:#ffc53d;--ln:#e3e6ee;--ok:#13783a;--bad:#b42318;--hero:#0b1b3a;--inp:#f3f4f8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0b1020;--sf:#141b30;--ink:#eef1f8;--mu:#9aa3b8;--ln:#252f4b;--ok:#4cc27a;--bad:#ff8a7a;--hero:#1c2a5a;--inp:#0b1020}}
 :root[data-theme="dark"]{color-scheme:dark;--bg:#0b1020;--sf:#141b30;--ink:#eef1f8;--mu:#9aa3b8;--ln:#252f4b;--ok:#4cc27a;--bad:#ff8a7a;--hero:#1c2a5a;--inp:#0b1020}
 html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}*,*::before,*::after{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Sora,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.45}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif;line-height:1.45}
 button,input{font:inherit;color:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
 .w{max-width:40rem;margin:0 auto;padding:1rem 1rem 7rem}
@@ -64,7 +61,7 @@ h1 i{display:inline-block;width:.45rem;height:.45rem;border-radius:50%;backgroun
 .bar p{margin:0 0 .6rem;display:flex;justify-content:space-between;font-weight:800;font-size:1.15rem}.bar .act{margin:0}
 #doc{display:none}
 @media (prefers-reduced-motion:reduce){.sheet,.ov{transition:none}}
-@media print{body>*{display:none!important}body>#doc{display:block!important;padding:2rem;color:#000;background:#fff;font-family:Sora,Arial,sans-serif}#doc table{width:100%;border-collapse:collapse;margin:1rem 0}#doc td,#doc th{border-bottom:1px solid #ccc;padding:.4rem;text-align:left}#doc .r{text-align:right}}
+@media print{body>*{display:none!important}body>#doc{display:block!important;padding:2rem;color:#000;background:#fff;font-family:system-ui,Arial,sans-serif}#doc table{width:100%;border-collapse:collapse;margin:1rem 0}#doc td,#doc th{border-bottom:1px solid #ccc;padding:.4rem;text-align:left}#doc .r{text-align:right}}
 
 :root:root:root{color-scheme:dark;--bg:#0a1230;--sf:#121c42;--ink:#f2f5ff;--mu:#a3aed0;--ln:#26336a;--ok:#5ad08a;--bad:#ff8f80;--inp:#0a1230}
 body{background:radial-gradient(60rem 30rem at 90% -5%,rgba(255,197,61,.2),transparent 60%),radial-gradient(50rem 30rem at -10% 105%,rgba(90,130,255,.3),transparent 60%),var(--bg);background-attachment:fixed}
@@ -208,8 +205,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 .sch{width:100%;height:3rem;padding:0 1rem;font-size:16px;border:1px solid var(--ln);border-radius:99px;background:var(--sf);color:var(--ink);margin-bottom:.8rem}
 #ajs{margin-top:1rem;display:grid;gap:.6rem}.hlp p{margin:.4rem 0;color:var(--mu);font-size:.92rem;line-height:1.5}
 .sheet.force>.back{display:none}.sheet>.back{padding:.1rem 0 .7rem}
-#legf{width:100%;height:72vh;border:0;border-radius:.8rem;background:#fff;margin-top:.4rem}
-#aco{letter-spacing:.3rem;font-weight:800}
+#recprev table{width:100%;border-collapse:collapse;font-size:12px;color:#000}#recprev th,#recprev td{border-bottom:1px solid #ccc;padding:4px;text-align:left;color:#000}#recprev .r{text-align:right}#recprev h1,#recprev h2{color:#000;margin:0.3rem 0}#recprev .ft{font-size:10px;color:#666}
 </style>
 </head>
 <body>
@@ -230,13 +226,11 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <input id="an" placeholder="Seu nome" autocomplete="name" aria-label="Seu nome">
 <input id="ae" type="email" placeholder="E-mail" autocomplete="email" inputmode="email" aria-label="E-mail">
 <input id="ap" type="password" placeholder="Senha (mínimo 8 caracteres)" aria-label="Senha">
-<input id="aco" class="hid" inputmode="numeric" autocomplete="one-time-code" maxlength="10" placeholder="Código do e-mail" aria-label="Código do e-mail">
 <p id="aerr" class="err" role="alert"></p><p id="ainfo" class="info" role="status"></p>
-<label class="chk" id="aceitew"><input type="checkbox" id="ace"><span>Li e aceito os <a href="termos.html" data-act="leg" data-u="termos.html">Termos de Uso</a> e a <a href="privacidade.html" data-act="leg" data-u="privacidade.html">Política de Privacidade</a>.</span></label>
+<label class="chk" id="aceitew"><input type="checkbox" id="ace"><span>Li e aceito os <a href="termos.html" target="_blank" rel="noopener">Termos de Uso</a> e a <a href="privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</span></label>
 <button class="b p" id="ab" data-act="auth">Criar conta</button>
 </div>
 <button class="link hid" id="fg" data-act="forgot">Esqueci minha senha</button>
-<button class="link hid" id="ares" data-act="resend">Reenviar código</button>
 <button class="link" id="sw" data-act="swm"></button>
 <small>🔒 Seus dados ficam guardados na nuvem, protegidos por senha. Só você consegue ver os seus orçamentos.</small>
 </div>
@@ -245,14 +239,14 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <nav class="tabs" aria-label="Seções"><button class="on" data-act="tab" data-t="pnl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6H9v6H5a1 1 0 01-1-1z"/></svg><span>Início</span><em id="bdg" class="bdg hid"></em></button><button data-act="tab" data-t="cob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6"/></svg><span>Orçamentos</span></button><button data-act="tab" data-t="cli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.4 0 4 1.7 4 4"/></svg><span>Clientes</span></button><button data-act="tab" data-t="mais"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></svg><span>Mais</span></button></nav>
 <div id="v-pnl">
 <section class="hero"><span>Falta receber</span><b id="p-ab"></b><div class="hs"><div><span>Atrasado</span><b id="p-atr"></b></div><div><span id="p-mn">Total recebido</span><b id="p-rec"></b></div></div></section>
-<h2 class="sec hid" id="pt">Para fazer agora</h2>
+<h2 class="sec hid" id="pt">O que fazer agora</h2>
 <div id="p-onb"></div>
 <div id="p-tasks"></div>
 </div>
 <div id="v-cob" class="hid">
 <section class="hero"><span>A receber</span><b id="s2"></b><div class="pgb"><i id="pg"></i></div><div class="hs"><div><span>Em orçamento</span><b id="s1"></b></div><div><span>Já recebido</span><b id="s3"></b></div></div></section>
 <input id="busca" class="sch" type="search" placeholder="Buscar por cliente ou serviço" aria-label="Buscar orçamentos" autocomplete="off">
-<nav class="chips" aria-label="Filtrar"><button data-act="flt" data-f="all">Todos</button><button data-act="flt" data-f="orc">Orçamentos</button><button data-act="flt" data-f="cob">A receber</button><button data-act="flt" data-f="pago">Pagos</button><button data-act="flt" data-f="rec">Recusados</button></nav>
+<nav class="chips" aria-label="Filtrar"><button data-act="flt" data-f="all">Todos</button><button data-act="flt" data-f="orc">Orçamentos</button><button data-act="flt" data-f="cob">A receber</button><button data-act="flt" data-f="late">Atrasados</button><button data-act="flt" data-f="pago">Pagos</button><button data-act="flt" data-f="rec">Recusados</button></nav>
 <div id="list"></div>
 </div>
 <div id="v-mais" class="hid">
@@ -276,11 +270,13 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <div id="v-sv" class="hid">
 <button class="back" data-act="goto" data-t="mais">‹ Mais</button>
 <section class="hero"><span>Serviços cadastrados</span><b id="sv-n"></b><p class="note">Cadastre uma vez, com o valor, e use nos orçamentos com um toque.</p></section>
+<input id="busca-sv" class="sch" type="search" placeholder="Buscar serviço" aria-label="Buscar serviços" autocomplete="off">
 <div id="svl"></div>
 <button class="b p wide" data-act="newsv">+ Novo serviço</button>
 </div>
 <div id="v-cli" class="hid">
 <section class="hero"><span>Clientes cadastrados</span><b id="cli-n"></b><p class="note">O valor em cada cliente é o total já recebido dele.</p></section>
+<input id="busca-cli" class="sch" type="search" placeholder="Buscar cliente" aria-label="Buscar clientes" autocomplete="off">
 <div id="cll"></div>
 <button class="b p wide" data-act="newcli">+ Cadastrar cliente</button>
 </div>
@@ -325,7 +321,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <label>Seus dados e privacidade</label>
 <button class="b wide" data-act="exp">Baixar meus dados (JSON)</button>
 <button class="b wide d" data-act="delacc">Excluir minha conta</button>
-<p class="note"><a href="termos.html" data-act="leg" data-u="termos.html">Termos de Uso</a> · <a href="privacidade.html" data-act="leg" data-u="privacidade.html">Política de Privacidade</a></p>
+<p class="note"><a href="termos.html" target="_blank" rel="noopener">Termos de Uso</a> · <a href="privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a></p>
 </div>
 <div class="bar"><div class="act"><button class="b p" id="cfgb" data-act="savecfg">Salvar</button><button class="b" data-act="out">Sair da conta</button></div></div>
 </aside>
@@ -369,7 +365,8 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <div id="pixaw" class="hid"><label for="pixa">Receber em</label><select id="pixa"></select></div>
 <div id="pixnw" class="hid"><label for="pixk">Sua chave Pix</label><input id="pixk" placeholder="CPF, e-mail, telefone ou chave aleatória"><button class="b p wide" data-act="savepixk">Salvar chave e gerar QR Code</button></div>
 <div id="pixcw"><label for="pixc">Pix copia e cola</label><textarea id="pixc" rows="4" readonly></textarea></div>
-<div class="bar"><div class="act"><button class="b p" id="pixcp" data-act="pixcopy">Copiar código Pix</button></div></div>
+<p class="note" id="pixhint" style="text-align:left;margin:.8rem 0 0">O cliente paga no banco dele. O COBREI <b>não marca como pago sozinho</b>. Quando o valor cair na sua conta, toque em <b>Já recebi</b>.</p>
+<div class="bar"><div class="act"><button class="b p" id="pixcp" data-act="pixcopy">Copiar código Pix</button><button class="b" data-act="pixpago">Já recebi — marcar como pago</button></div></div>
 </aside>
 <aside id="sh-cb" class="sheet" aria-label="Gerar cobrança">
 <h2>Gerar cobrança</h2><p id="cbs" class="note"></p>
@@ -419,9 +416,20 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <aside id="sh-party" class="sheet" aria-label="Primeiro pagamento">
 <div id="partyc"></div>
 <div class="party"><div class="big" aria-hidden="true">🎉</div><h2>Seu primeiro pagamento pelo COBREI!</h2><p class="note" id="partyv"></p><p class="note">Parabéns! É assim que começa: orçou, cobrou e recebeu. Agora é só repetir.</p></div>
-<div class="bar"><div class="act"><button class="b p" data-act="new">Criar outro orçamento</button><button class="b" data-act="close">Ver meu painel</button></div></div>
+<div class="bar"><div class="act"><button class="b p" data-act="paidpdf">Imprimir recibo</button><button class="b" data-act="close">Ver meu painel</button></div></div>
 </aside>
-<aside id="sh-leg" class="sheet" aria-label="Documento"><iframe id="legf" title="Documento"></iframe></aside>
+<aside id="sh-paid" class="sheet" aria-label="Pagamento registrado">
+<h2>Pagamento registrado</h2>
+<p class="note" id="paidv" style="text-align:left"></p>
+<p class="note" style="text-align:left">Você pode imprimir ou salvar o recibo em PDF agora.</p>
+<div class="bar"><div class="act"><button class="b p" data-act="paidpdf">Imprimir recibo</button><button class="b" data-act="close">Ver meu painel</button></div></div>
+</aside>
+<aside id="sh-recibo" class="sheet" aria-label="Recibo">
+<h2>Recibo</h2>
+<p class="note" style="text-align:left">Confira abaixo. Toque em <b>Imprimir / salvar PDF</b> para abrir a impressão do sistema (ou salvar como PDF).</p>
+<div id="recprev" style="background:#fff;color:#000;border-radius:.8rem;padding:.5rem;max-height:50vh;overflow:auto;margin:.5rem 0"></div>
+<div class="bar"><div class="act"><button class="b p" data-act="doprint">Imprimir / salvar PDF</button><button class="b" data-act="close">Fechar</button></div></div>
+</aside>
 <aside id="sh-pay" class="sheet" aria-label="Onde recebeu">
 <h2>Onde você recebeu?</h2>
 <div id="payl" class="pl"></div>
@@ -434,9 +442,8 @@ const K="fechou:v1",R=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"
 let S={cfg:{nome:"",pix:""},docs:[]},F="all";
 try{const r=localStorage.getItem(K);if(r)S=JSON.parse(r)}catch(e){}
 S.contas=S.contas||[];S.clientes=[];S.perfil={};S.servicos=[];S.recs=[];S.desp=[];S.plano={plano:"gratis",ate:""};
-const IS_APP=matchMedia("(display-mode: standalone)").matches||navigator.standalone===true||document.referrer.startsWith("android-app://");
 const CFG={limite:10,preco:"R$ 19,90 por mês",checkout:"",contato:"",suporte:"",vapid:"BICPy8HTn2xAoIILLQEVhKSSIsVpypooY0Y8nahSA9f6UXv0wJ_uEdJthffXz63tdIA0CrdQaYRRdiALYup9Tow"};
-let TAB="pnl",PAY=null,CB=null,RC=null,ONB=false,FORCE=false,EC=null,CF="",PIXD=null,PREW=null,EDQ=null,SUB="ct",PER="m",IP=null,EV=null,GRP=null;const CVT=new URLSearchParams(location.search).get("o"),CCT=new URLSearchParams(location.search).get("c");
+let TAB="pnl",PAY=null,PAID=null,CB=null,RC=null,ONB=false,FORCE=false,EC=null,CF="",PIXD=null,PREW=null,EDQ=null,SUB="ct",PER="m",IP=null,EV=null,GRP=null;const CVT=new URLSearchParams(location.search).get("o"),CCT=new URLSearchParams(location.search).get("c");
 const TP={pix:"Pix",banco:"Conta bancária",carteira:"Carteira digital",dinheiro:"Dinheiro em mãos"},EM={pix:"⚡",banco:"🏦",carteira:"📱",dinheiro:"💵"};
 const contaNome=id=>(S.contas.find(x=>x.id===id)||{}).nome;
 function payList(){$("payl").innerHTML=S.contas.map(x=>`<button class="b" data-act="payto" data-c="${x.id}">${EM[x.tipo]} ${esc(x.nome)}</button>`).join("")+`<button class="b" data-act="payto" data-c="">Não informar</button>`}
@@ -461,6 +468,27 @@ function openNew(cid){EDQ=null;$("fnt").textContent="Novo orçamento";$("fsb").t
 $("fcl").innerHTML='<option value="">Novo cliente (digitar)</option>'+S.clientes.map(c=>`<option value="${c.id}">${esc(c.nome)}</option>`).join("");
 $("fcl").value=cid||"";const c=S.clientes.find(x=>x.id===cid);if(c){$("fc").value=c.nome;$("fw").value=c.whatsapp}
 calc();openS("sh-new")}
+
+function openDup(src){
+if(!src)return;
+if(!isPro()&&usados()>=CFG.limite){planoOpen();return}
+openNew(src.k||"");
+$("fc").value=src.c||"";
+$("fw").value=src.w||"";
+if(src.k)$("fcl").value=src.k;
+$("ft").value=src.t||"";
+$("fdc").value=src.desc?String(src.desc).replace(".",","):"";
+$("fob").value=src.ob||"";
+if(src.fp){$("ffp").value=src.fp;fpUI()}
+if(src.np>1){const p=$("fpn");if(p)p.value=String(src.np);if(src.en){const e=$("fen");if(e)e.value=String(src.en)}}
+fpUI();
+$("its").innerHTML="";
+const its=(src.itens&&src.itens.length)?src.itens:[{d:src.t||"",q:1,v:0}];
+its.forEach(it=>{addItem();const r=[...document.querySelectorAll("#its .it")].pop();const inp=r.querySelectorAll("input");inp[0].value=it.d||"";inp[1].value=String(it.q||1);inp[2].value=String(it.v||"").replace(".",",")});
+calc();
+toast("Cópia pronta — revise e salve como novo orçamento.");
+}
+
 const asc=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase().replace(/[^A-Z0-9 ]/g,"").trim();
 const tlv=(i,v)=>i+String(v.length).padStart(2,"0")+v;
 function crc(s){let c=0xFFFF;for(let i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(let j=0;j<8;j++)c=c&0x8000?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF}return c.toString(16).toUpperCase().padStart(4,"0")}
@@ -482,14 +510,18 @@ let ab=0,atr=0,rec=0;const T=[];
 S.docs.forEach(d=>{const t=tot(d);
 if(d.s==="pago")rec+=t;
 if(d.s==="cob"){ab+=t;const x=d.venc?dd(d.venc,hoje):null;
-if(x!==null&&x<0){atr+=t;T.push({p:0,k:x,cls:"late",d,tx:`Atrasada há ${-x} ${-x===1?"dia":"dias"}`,bt:"Cobrar"})}
+if(x!==null&&x<0){atr+=t;T.push({p:0,k:x,cls:"late",d,tx:`Atrasada há ${-x} ${-x===1?"dia":"dias"} — cobrar agora`,bt:"Cobrar"})}
 else if(x===0)T.push({p:1,k:0,cls:"today",d,tx:"Vence hoje",bt:"Cobrar"});
 else if(x!==null&&x<=7)T.push({p:3,k:x,cls:"today",d,tx:x===1?"Vence amanhã":`Vence em ${x} dias`,bt:"Lembrar"})}
-else if(d.s==="apr")T.push({p:2,k:0,cls:"apr",d,tx:"Aprovado — falta gerar a cobrança",bt:"Gerar cobrança",a:"cob"});
+else if(d.s==="apr")T.push({p:2,k:0,cls:"apr",d,tx:"Cliente aprovou — gere a cobrança",bt:"Gerar cobrança",a:"cob"});
 else if(d.s==="orc"){const x=dd(hoje,d.data);if(x>=3)T.push({p:5,k:-x,cls:"",d,tx:`Sem resposta há ${x} dias`,bt:"Reenviar"});else if(!SENT.has(d.id))T.push({p:4,k:-x,cls:"new",d,tx:"Novo orçamento — envie ao cliente",bt:"Enviar"})}});
-T.sort((a,b)=>a.p-b.p||a.k-b.k);const nb=T.filter(o=>o.p<=2||o.p===4).length;$("bdg").textContent=nb;$("bdg").classList.toggle("hid",!nb);
-$("pt").classList.toggle("hid",!S.docs.length);$("p-ab").textContent=fmt(ab);$("p-atr").textContent=fmt(atr);$("p-atr").style.color=atr>0?"#ff9d8f":"";$("p-rec").textContent=fmt(rec);
-$("p-tasks").innerHTML=T.length?T.slice(0,8).map(o=>{const d=o.d,id=`data-id="${d.id}"`;return`<article class="task"><i class="dot ${o.cls}"></i><div class="mid"><h3>${esc(d.c)}</h3><p><b>${fmt(tot(d))}</b> · ${d.pc?"parcela "+esc(d.pc)+" · ":""}${o.tx}</p></div>${o.a?`<button class="b p" ${id} data-act="${o.a}">${o.bt}</button>`:`<a class="b p" ${d.s==="orc"?`data-act="wsent" data-id="${d.id}" `:""}href="${esc(wa(d))}" target="_blank" rel="noopener">${o.bt}</a>`}</article>`}).join("")+(T.length>8?`<p class="note">e mais ${T.length-8} pendências em Cobranças</p>`:""):(S.docs.length?`<div class="empty">Tudo em dia por aqui.<br>Nenhuma cobrança atrasada nem orçamento esperando resposta.</div>`:"")}
+T.sort((a,b)=>a.p-b.p||a.k-b.k);
+const nLate=T.filter(o=>o.p===0).length,nApr=T.filter(o=>o.p===2).length,nb=T.filter(o=>o.p<=2||o.p===4).length;
+$("bdg").textContent=nb;$("bdg").classList.toggle("hid",!nb);
+$("pt").classList.toggle("hid",!S.docs.length);
+$("pt").textContent="O que fazer agora";
+$("p-ab").textContent=fmt(ab);$("p-atr").textContent=fmt(atr);$("p-atr").style.color=atr>0?"#ff9d8f":"";$("p-rec").textContent=fmt(rec);
+$("p-tasks").innerHTML=T.length?((nLate||nApr)?`<p class="note" style="text-align:left;margin:0 0 .6rem">Prioridade: cobranças atrasadas e orçamentos aprovados.</p>`:"")+T.slice(0,8).map(o=>{const d=o.d,id=`data-id="${d.id}"`;return`<article class="task"><i class="dot ${o.cls}"></i><div class="mid"><h3>${esc(d.c)}</h3><p><b>${fmt(tot(d))}</b> · ${d.pc?"parcela "+esc(d.pc)+" · ":""}${o.tx}</p></div>${o.a?`<button class="b p" ${id} data-act="${o.a}">${o.bt}</button>`:`<a class="b p" ${d.s==="orc"?`data-act="wsent" data-id="${d.id}" `:""}href="${esc(wa(d))}" target="_blank" rel="noopener">${o.bt}</a>`}</article>`}).join("")+(T.length>8?`<p class="note">e mais ${T.length-8} pendências em Cobranças</p>`:""):(S.docs.length?`<div class="empty">Tudo em dia por aqui.<br>Nenhuma cobrança atrasada nem aprovado esperando cobrança.</div>`:"")}
 function logoUI(){const i=$("lgp");i.src=LOGO||"";i.classList.toggle("hid",!LOGO);$("lgx").classList.toggle("hid",!LOGO)}
 function loadBind(){$("cff").addEventListener("change",e=>{const f=e.target.files[0];e.target.value="";if(f)imgData(f,160,u=>{CF=u;cfUI()})});$("lgf").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const m=Math.min(1,240/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*m);c.height=Math.round(im.height*m);c.getContext("2d").drawImage(im,0,0,c.width,c.height);LOGO=c.toDataURL("image/png");logoUI()};im.onerror=()=>toast("Imagem inválida.");im.src=r.result};r.readAsDataURL(f)})}
 const U1=["","um","dois","três","quatro","cinco","seis","sete","oito","nove","dez","onze","doze","treze","quatorze","quinze","dezesseis","dezessete","dezoito","dezenove"],DZ=["","","vinte","trinta","quarenta","cinquenta","sessenta","setenta","oitenta","noventa"],CT=["","cento","duzentos","trezentos","quatrocentos","quinhentos","seiscentos","setecentos","oitocentos","novecentos"];
@@ -506,27 +538,33 @@ function imgData(f,max,cb){const r=new FileReader();r.onload=()=>{const im=new I
 function cfUI(){const i=$("cfp");i.src=CF||"";i.classList.toggle("hid",!CF);$("cfx").classList.toggle("hid",!CF)}
 function openCli(c){EC=c||null;$("clh").textContent=c?"Editar cliente":"Novo cliente";$("cln").value=c?c.nome:"";$("clt").value=c?c.tipo:"pf";$("cld").value=c?c.documento:"";$("clw").value=c?c.whatsapp:"";$("cle").value=c?c.email:"";$("clr").checked=c?c.recorrente:false;CF=c?c.foto:"";cfUI();openS("sh-cli")}
 const needProfile=()=>!(S.cfg.nome&&S.perfil.documento&&S.perfil.telefone&&S.perfil.cidade);
-function openProfile(force){planoBox();pushState();FORCE=force;$("cn").value=S.cfg.nome||"";$("cdc").value=S.perfil.documento||"";$("ctf").value=S.perfil.telefone||"";$("cci").value=S.perfil.cidade||"";LOGO=S.perfil.logo||"";logoUI();bioLabel();
+function openProfile(force){planoBox();instUI();pushState();FORCE=force;$("cn").value=S.cfg.nome||"";$("cdc").value=S.perfil.documento||"";$("ctf").value=S.perfil.telefone||"";$("cci").value=S.perfil.cidade||"";LOGO=S.perfil.logo||"";logoUI();bioLabel();
 $("sh-cfg").classList.toggle("force",!!force);$("cfgt").textContent=force?"Falta pouco!":"Meus dados";$("cfgx").classList.toggle("hid",force);$("cfgb").textContent=force?"Salvar e começar":"Salvar";const n=$("cfgn");n.classList.toggle("hid",!force);n.textContent="Falta só isto para começar. Esses dados aparecem nos seus orçamentos e recibos.";openS("sh-cfg")}
 function pixShow(){const d=S.docs.find(x=>x.id===PIXD);if(!d)return;const c=pixCode(d,$("pixa").value||undefined);$("pixq").innerHTML=c?qrSvg(c):"";$("pixq").classList.toggle("hid",!$("pixq").innerHTML);$("pixc").value=c;
 const sem=!pixContas().length;$("pixnw").classList.toggle("hid",!sem);$("pixcw").classList.toggle("hid",sem);$("pixcp").classList.toggle("hid",sem);$("pixm").textContent=c?"Valor: "+R.format(tot(d))+" · Mostre o QR Code ou envie o código ao cliente.":(sem?"Para gerar o QR Code, informe a sua chave Pix. É só uma vez.":"Complete seu nome e cidade em Meus dados para gerar o Pix.");openS("sh-pix")}
-function pdf(d){const p=S.perfil,n=S.cfg.nome,t=tot(d),isR=d.s==="pago",isC=d.s==="cob",tp=isR?"Recibo":isC?"Cobrança":"Orçamento";
+function pdf(d,opts){opts=opts||{};
+const p=S.perfil,n=S.cfg.nome,t=tot(d),isR=d.s==="pago"||opts.recibo,isC=!isR&&d.s==="cob",tp=isR?"Recibo":isC?"Cobrança":"Orçamento";
 const cl=S.clientes.find(x=>x.id===d.k)||{},code=isC?pixCode(d):"",brand=document.querySelector("header .logo").outerHTML,dl=dg(p.documento).length===14?"CNPJ":"CPF";
 const em=[p.documento?dl+" "+fdoc(p.documento):"",p.telefone?ftel(p.telefone):"",p.cidade||""].filter(Boolean).map(esc).join("  ·  ");
 const num="Nº "+String(d.n||0).padStart(4,"0")+(d.pc?" · Parcela "+d.pc:""),emit=isR?(d.pagoEm||iso(0)):d.data;
 const cinfo=[cl.documento?(dg(cl.documento).length===14?"CNPJ ":"CPF ")+fdoc(cl.documento):"",cl.whatsapp?ftel(cl.whatsapp):(d.w?ftel(d.w):""),cl.email||""].filter(Boolean).map(esc).join("  ·  ");
 const rows=[];if(d.fp)rows.push(["Forma de pagamento",payTxt(d.fp,d.np,d.en,t)]);if(d.val&&(d.s==="orc"||d.s==="apr"))rows.push(["Validade do orçamento",dlong(d.val)]);if(isC&&d.venc)rows.push(["Vencimento",dlong(d.venc)]);if(isR&&contaNome(d.conta))rows.push(["Recebido em",contaNome(d.conta)]);
-$("doc").innerHTML=`<div class="px"><div class="top6"></div>
+const body=`<div class="px"><div class="top6"></div>
 <div class="hd"><div class="em">${safeImg(p.logo)?`<img src="${safeImg(p.logo)}" alt="">`:""}<div><h1>${esc(n||"")}</h1><p>${em}</p></div></div><div class="dk"><b>${tp}</b><span>${num}</span><span>${dlong(emit)}</span></div></div>
 <div class="lb">Cliente</div><div class="cn"><b>${esc(d.c)}</b>${cinfo?`<br><span class="mu">${cinfo}</span>`:""}</div>
+<h2>Serviços</h2>
 ${isR?`<p class="rc">Recebi de <b>${esc(d.c)}</b> a importância de <b>${R.format(t)}</b> (${ext(t)}), referente ao serviço descrito abaixo.</p>`:""}
-<h2>${esc(d.t)}</h2>
-<table><thead><tr><th>Descrição</th><th class="r">Qtd</th><th class="r">Valor unit.</th><th class="r">Subtotal</th></tr></thead><tbody>${d.itens.map(i=>`<tr><td>${esc(i.d)}</td><td class="r">${String(i.q).replace(".",",")}</td><td class="r">${R.format(i.v)}</td><td class="r">${R.format(i.q*i.v)}</td></tr>`).join("")}</tbody></table>
+<table><thead><tr><th>Descrição</th><th class="r">Qtd</th><th class="r">Valor unit.</th><th class="r">Subtotal</th></tr></thead><tbody>${(d.itens||[]).map(i=>`<tr><td>${esc(i.d)}</td><td class="r">${String(i.q).replace(".",",")}</td><td class="r">${R.format(i.v)}</td><td class="r">${R.format(i.q*i.v)}</td></tr>`).join("")}</tbody></table>
 <div class="tt"><div><span>Subtotal</span><span>${R.format(subt(d))}</span></div>${d.desc?`<div><span>Desconto</span><span>- ${R.format(d.desc)}</span></div>`:""}<div class="g"><span>Total</span><span>${R.format(t)}</span></div></div>
 ${rows.length||d.ob?`<div class="lb">Condições</div><div class="cn">${rows.map(r=>`<div class="rw"><span>${r[0]}</span><b>${esc(r[1])}</b></div>`).join("")}${d.ob?`<div class="rw"><span>Observações</span><b style="text-align:right;max-width:70%">${esc(d.ob)}</b></div>`:""}</div>`:""}
 ${code?`<div class="lb">Pagamento via Pix</div><div class="pxd">${qrSvg(code)}<div><p>Aponte a câmera do aplicativo do seu banco para o QR Code ou use o código Pix copia e cola:</p><code>${code}</code></div></div>`:""}
 ${isR?`<p class="cd">${p.cidade?esc(p.cidade)+", ":""}${dlong(emit)}.</p><div class="sg"><div>${esc(n||"")}${p.documento?`<br>${dl} ${fdoc(p.documento)}`:""}</div></div>`:""}
-<div class="ft"><div>${brand}<span class="tg">Orçou. Cobrou. Recebeu.</span></div><div>Documento sem valor fiscal</div></div></div>`;window.print()}
+<div class="ft"><div>${brand}<span class="tg">Orçou. Cobrou. Recebeu.</span></div><div>Documento sem valor fiscal</div></div></div>`;
+$("doc").innerHTML=body;
+const prev=$("recprev");if(prev)prev.innerHTML=body;
+if(opts.preview!==false){try{openS("sh-recibo")}catch(e){}}
+setTimeout(()=>{try{window.print()}catch(e){}},350);
+}
 const linkOf=d=>location.origin+location.pathname+"?o="+d.tk;
 async function copyText(v){try{await navigator.clipboard.writeText(v)}catch(e){const t=document.createElement("textarea");t.value=v;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove()}}
 const addDays=(s,n)=>{const d=new Date(s+"T12:00");d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
@@ -573,11 +611,12 @@ const usados=()=>{const m=iso(0).slice(0,7);return S.docs.filter(d=>!d.pc&&!d.rc
 function planoBox(){$("plbox").innerHTML=isPro()?`<b>Plano Pro</b><p class="note" style="margin:.3rem 0 0;text-align:left">Orçamentos ilimitados${S.plano.ate?" · válido até "+br(S.plano.ate):""}.</p>`:`<b>Plano Grátis</b><p class="note" style="margin:.3rem 0 .6rem;text-align:left">${usados()} de ${CFG.limite} orçamentos novos usados este mês.</p><button class="b wide" data-act="plano">Conhecer o plano Pro</button>`}
 function planoOpen(){$("planoc").innerHTML=`<div class="plans"><div class="plc"><h3>Grátis</h3><p class="pr">R$ 0</p><ul><li>Até ${CFG.limite} orçamentos novos por mês</li><li>Clientes, serviços, cobranças e Pix</li><li>PDFs e relatórios</li></ul></div><div class="plc pro"><span class="bd">Recomendado</span><h3>Pro</h3><p class="pr">${esc(CFG.preco)}</p><ul><li>Orçamentos ilimitados</li><li>Todas as funções do plano Grátis</li></ul></div></div><p class="note">Parcelas e cobranças mensais geradas automaticamente não contam no limite do plano Grátis.</p>`;
 $("planob").innerHTML=CFG.checkout?`<a class="b p" href="${esc(CFG.checkout)}" target="_blank" rel="noopener">Assinar o Pro</a>`:CFG.contato?`<a class="b p" href="mailto:${esc(CFG.contato)}?subject=Quero%20o%20plano%20Pro%20do%20COBREI">Falar para assinar</a>`:`<button class="b" data-act="close">Assinatura em breve</button>`;openS("sh-plano")}
+function instUI(){const w=$("instw");if(w)w.classList.add("hid");const b=$("instb");if(b)b.classList.add("hid")}
 if("serviceWorker"in navigator&&location.protocol==="https:")window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 const inPer=x=>SUB==="rl"&&PER==="a"?String(x).slice(0,4)===MES.slice(0,4):String(x).slice(0,7)===MES;
 function finData(){const rec=S.docs.filter(d=>d.s==="pago"&&inPer(d.pagoEm||d.data)),des=S.desp.filter(x=>inPer(x.data));return{rec,des,tr:rec.reduce((a,d)=>a+tot(d),0),td:des.reduce((a,x)=>a+x.valor,0)}}
 function renderFin(){["ct","dp","rl"].forEach(q=>$("sv-"+q).classList.toggle("hid",SUB!==q));
-document.querySelectorAll("#v-ct>.seg:first-child button").forEach(x=>x.classList.toggle("on",x.dataset.s===SUB));
+document.querySelectorAll("#v-ct .seg button").forEach(x=>x.classList.toggle("on",x.dataset.s===SUB));
 document.querySelectorAll("#sv-rl .seg2 button").forEach(x=>x.classList.toggle("on",x.dataset.p===PER));
 $("v-nav").classList.toggle("hid",SUB==="ct");const [y,o]=MES.split("-");$("mes-t").textContent=SUB==="rl"&&PER==="a"?y:MF[Number(o)-1]+" de "+y;
 const FD=finData();$("dp-tot").textContent=fmt(FD.td);
@@ -624,7 +663,7 @@ $("pars").innerHTML=`<p class="note">${esc(p.t)} · ${fmt(tot(p))} em ${ks.lengt
 const tg=k.s==="pago"?`<span class="tag pago">Pago em ${br(k.pagoEm||k.data)}${contaNome(k.conta)?" · "+esc(contaNome(k.conta)):""}</span>`:`<span class="tag ${late?"late":"cob"}">${late?"Atrasada desde ":"Vence em "}${br(k.venc)}</span>`;
 const ac=k.s==="pago"?`<button class="b" ${id_} data-act="pdf">Recibo</button>`:`<a class="b p" href="${esc(wa(k))}" target="_blank" rel="noopener">Cobrar</a><button class="b" ${id_} data-act="pix">Pix / QR</button><button class="b" ${id_} data-act="pago">Marcar pago</button>`;
 return`<div class="par${OPEN.has(k.id)?" open":""}" data-k="${k.id}"><div class="top" data-act="tg" role="button" tabindex="0" aria-expanded="${OPEN.has(k.id)}"><div class="mid"><h3>Parcela ${esc(k.pc)}</h3></div><div class="tot">${fmt(tot(k))}</div>${chv}</div>${tg}<div class="more"><div class="act">${ac}</div></div></div>`}).join("")+`<button class="b d wide" data-id="${p.id}" data-act="del">Excluir parcelamento</button>`;openS("sh-par")}
-function renderSv(){$("sv-n").textContent=S.servicos.length;$("svl").innerHTML=S.servicos.length?S.servicos.map(x=>cardX(x.id,`<div class="mid"><h3>${esc(x.nome)}</h3></div><div class="tot">${fmt(x.preco)}</div>`,"",`<div class="sub"><button data-id="${x.id}" data-act="editsv">Editar</button><button class="d" data-id="${x.id}" data-act="delsv">Excluir</button></div>`)).join(""):`<div class="empty">Nenhum serviço cadastrado.<br>Cadastre os serviços que você mais faz, com o valor de cada um.</div>`}
+function renderSv(){$("sv-n").textContent=S.servicos.length;const qsv=norm(($("busca-sv")||{value:""}).value.trim());const SL=qsv?S.servicos.filter(x=>norm(x.nome).includes(qsv)):S.servicos;$("svl").innerHTML=SL.length?SL.map(x=>cardX(x.id,`<div class="mid"><h3>${esc(x.nome)}</h3></div><div class="tot">${fmt(x.preco)}</div>`,"",`<div class="sub"><button data-id="${x.id}" data-act="editsv">Editar</button><button class="d" data-id="${x.id}" data-act="delsv">Excluir</button></div>`)).join(""):`<div class="empty">${S.servicos.length?"Nenhum serviço encontrado.":"Nenhum serviço cadastrado.<br>Cadastre os serviços que você mais faz, com o valor de cada um."}</div>`}
 function openSv(x){EV=x||null;$("svh").textContent=x?"Editar serviço":"Novo serviço";$("svn").value=x?x.nome:"";$("svp").value=x?String(x.preco).replace(".",","):"";openS("sh-svc")}
 const onbSteps=()=>[{t:"Cadastre um cliente",d:"Para quem você vai fazer orçamentos",ok:S.clientes.length>0,a:"newcli"},{t:"Cadastre um serviço",d:"Com o valor, para orçar mais rápido",ok:S.servicos.length>0,a:"newsv"},{t:"Cadastre onde você recebe",d:"Sua chave Pix ou conta, para cobrar",ok:S.contas.length>0,a:"newct"}];
 const onbDone=()=>onbSteps().every(x=>x.ok);
@@ -651,7 +690,7 @@ if(!d){if(w){try{w.close()}catch(e){}}toast("Orçamento criado!");return}
 if(w){try{w.opener=null}catch(e){}try{w.location.href=wa(d);markSent(id);toast("Orçamento criado! Abrindo o WhatsApp…");return}catch(e){}}
 let w2=null;try{w2=window.open(wa(d),"_blank")}catch(e){}
 if(w2){try{w2.opener=null}catch(e){}markSent(id);toast("Orçamento criado! Abrindo o WhatsApp…")}else openSent(d)}
-function party(d){$("partyv").textContent=fmt(tot(d))+" recebidos de "+d.c+".";openS("sh-party");
+function party(d){if(d)PAID=d.id;$("partyv").textContent=fmt(tot(d))+" recebidos de "+d.c+".";openS("sh-party");
 if(!matchMedia("(prefers-reduced-motion: reduce)").matches){const c=$("partyc"),cs=["#ffc53d","#5ad08a","#5b8cff","#ff8f80","#ffffff"];c.innerHTML="";for(let i=0;i<28;i++){const e=document.createElement("i");e.style.cssText=`left:${Math.random()*100}%;background:${cs[i%5]};animation-delay:${(Math.random()*.8).toFixed(2)}s;animation-duration:${(2+Math.random()*1.6).toFixed(2)}s`;c.appendChild(e)}}}
 const norm=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
 function openEdit(d){if(d.s==="apr"&&!confirm("O cliente já aprovou este orçamento. Se você editar, ele precisará aprovar de novo. Continuar?"))return;
@@ -672,7 +711,7 @@ const AJ=[["Como criar e enviar um orçamento","1. Toque em “+ Novo orçamento
 ["Parcelamento e cobrança mensal","Defina o parcelamento na forma de pagamento do orçamento: as parcelas ficam juntas, no mesmo cliente. Para clientes que contratam todo mês, marque o cliente como recorrente e use “Cobrança mensal”."],
 ["Pix e QR Code","Cadastre sua chave em Mais › Onde você recebe, ou quando o app pedir. O QR Code aparece em “Pix / QR” e no PDF da cobrança."],
 ["Corrigir um orçamento","Toque no orçamento e depois em “Editar”. Se o cliente já tinha aprovado, ele precisará aprovar de novo, pelo mesmo link."],
-["Esqueci minha senha","Na tela de entrada, digite seu e-mail e toque em “Esqueci minha senha”. Enviaremos um código para o seu e-mail."]];
+["Esqueci minha senha","Na tela de entrada, digite seu e-mail e toque em “Esqueci minha senha”. Enviaremos um link para criar outra."]];
 function renderAj(){$("ajl").innerHTML=AJ.map((x,i)=>cardX("aj"+i,`<div class="mid"><h3>${x[0]}</h3></div>`,"",`<div class="hlp"><p>${x[1]}</p></div>`)).join("");
 const msg_="Olá! Preciso de ajuda com o COBREI.\nMeu e-mail: "+((U&&U.email)||"");
 $("ajs").innerHTML=`<button class="b" data-act="onbopen">Rever os primeiros passos</button>`+(CFG.suporte?`<a class="b p" href="https://wa.me/${CFG.suporte}?text=${encodeURIComponent(msg_)}" target="_blank" rel="noopener">Falar com o suporte no WhatsApp</a>`:`<p class="note">O atendimento pelo WhatsApp estará disponível em breve.</p>`)}
@@ -700,12 +739,14 @@ if(Date.now()-EXIT<2500){TRAP=false;history.back();return}
 EXIT=Date.now();rep();toast("Toque em voltar de novo para sair do app.")});
 function renderCli(){const by={};S.docs.forEach(d=>{if(d.k){const o=by[d.k]||(by[d.k]={n:0,p:0});if(!d.pc)o.n++;if(d.s==="pago")o.p+=tot(d)}});
 $("cli-n").textContent=S.clientes.length;
-$("cll").innerHTML=S.clientes.length?S.clientes.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return cardX(c.id,`<div class="av">${safeImg(c.foto)?`<img src="${safeImg(c.foto)}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div>`,`${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}`,`<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button>${c.recorrente?`<button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button>`:""}</div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div>`)}).join(""):`<div class="empty">Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque.</div>`}
+const qcli=norm(($("busca-cli")||{value:""}).value.trim());
+const CL=qcli?S.clientes.filter(c=>norm(c.nome+" "+(c.documento||"")+" "+(c.whatsapp||"")+" "+(c.email||"")).includes(qcli)):S.clientes;
+$("cll").innerHTML=CL.length?CL.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return cardX(c.id,`<div class="av">${safeImg(c.foto)?`<img src="${safeImg(c.foto)}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div>`,`${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}`,`<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button>${c.recorrente?`<button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button>`:""}</div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div>`)}).join(""):`<div class="empty">${S.clientes.length?"Nenhum cliente encontrado.":"Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque."}</div>`}
 try{if(localStorage.getItem("cobrei:v"))MODE="login"}catch(e){}
+if(/type=recovery/.test(location.hash))MODE="recover";
 const msgErr=e=>{const m=String(e&&e.message||"").toLowerCase();
 if(m.includes("not authorized")||m.includes("sending")||m.includes("smtp")||(m.includes("email")&&m.includes("rate")))return"Não conseguimos enviar o e-mail de confirmação agora. Tente novamente em alguns minutos.";
-if(m.includes("invalid login"))return"E-mail ou senha incorretos.";
-if(m.includes("otp")||m.includes("token")||m.includes("expired"))return"Código inválido ou expirado. Peça um novo código.";
+if(m.includes("invalid login")||m.includes("invalid_credentials")||m.includes("user not found")||m.includes("no user")){if(MODE==="login")return"Não há conta com este e-mail (ou a senha está errada). Se você apagou a conta ou nunca se cadastrou, toque em “Criar conta”.";return"E-mail ou senha incorretos."}
 if(m.includes("not confirmed"))return"Confirme seu e-mail pelo link que enviamos antes de entrar.";
 if(m.includes("already"))return"Este e-mail já tem conta. Toque em “Já tenho conta”.";
 if(m.includes("rate limit")||m.includes("too many"))return"Muitas tentativas. Aguarde alguns minutos e tente de novo.";
@@ -725,55 +766,34 @@ const as_=(asn&&!asn.error&&asn.data)||{};S.plano={plano:as_.plano||"gratis",ate
 async function enter(user){U=user;const md=user.user_metadata||{};S.cfg={nome:md.nome||"",pix:md.pix||""};
 try{await loadAll()}catch(e){console.error("loadAll",e);$("aerr").textContent="Não foi possível carregar seus dados agora. Verifique a conexão e tente de novo.";return}
 try{await genRecs()}catch(e){}OK=true;trapInit();try{localStorage.setItem("cobrei:v","1")}catch(e){}render();if(needProfile())openProfile(true);else remind()}
-let PENDM="";
-async function otpVerify(email,code){let r=await sb.auth.verifyOtp({email,token:code,type:"email"});if(r.error)r=await sb.auth.verifyOtp({email,token:code,type:"signup"});return r}
-function webDone(msg){["intro","lock","app"].forEach(i=>$(i).classList.add("hid"));document.querySelector(".fab").classList.add("hid");const cv=$("cv");cv.classList.remove("hid");cv.innerHTML=`<div class="card" style="text-align:center;margin-top:3rem"><h2 style="margin:.2rem 0 .6rem">Pronto!</h2><p class="note">${msg}</p></div>`}
 async function doAuth(){
-const e=$("ae").value.trim().toLowerCase(),p=$("ap").value,co=$("aco").value.replace(/\s/g,""),er=$("aerr"),inf=$("ainfo"),btn=$("ab");er.textContent="";inf.textContent="";
-if(!sb){er.textContent="O sistema de login não carregou. Verifique a internet e reabra o app.";return}
-if(MODE==="verify"||MODE==="reset"){if(co.length<6){er.textContent="Digite o código que enviamos para o seu e-mail.";return}if(MODE==="reset"&&p.length<8){er.textContent="A nova senha precisa ter pelo menos 8 caracteres.";return}}
-else{if(MODE!=="recover"&&!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite um e-mail válido.";return}
+const e=$("ae").value.trim().toLowerCase(),p=$("ap").value,er=$("aerr"),inf=$("ainfo");er.textContent="";inf.textContent="";
+if(!sb){er.textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
+if(MODE!=="recover"&&!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite um e-mail válido.";return}
 if(p.length<8){er.textContent="A senha precisa ter pelo menos 8 caracteres.";return}
 if(MODE==="signup"&&!$("an").value.trim()){er.textContent="Digite seu nome.";return}
-if(MODE==="signup"&&!$("ace").checked){er.textContent="Para criar a conta, aceite os Termos de Uso e a Política de Privacidade.";return}}
-btn.disabled=true;
+if(MODE==="signup"&&!$("ace").checked){er.textContent="Para criar a conta, aceite os Termos de Uso e a Política de Privacidade.";return}
+const btn=$("ab");btn.disabled=true;
 try{
-if(MODE==="verify"){const r=await otpVerify(PENDM,co);if(r.error)throw r.error;await enter(r.data.user)}
-else if(MODE==="reset"){const r=await sb.auth.verifyOtp({email:PENDM,token:co,type:"recovery"});if(r.error)throw r.error;const u=await sb.auth.updateUser({password:p});if(u.error)throw u.error;await enter(r.data.user)}
-else if(MODE==="recover"){const r=await sb.auth.updateUser({password:p});if(r.error)throw r.error;MODE="login";const g=await sb.auth.getSession();
-if(IS_APP){if(g.data.session)await enter(g.data.session.user);else render()}else{await sb.auth.signOut();webDone("Senha alterada! Abra o aplicativo COBREI no seu celular e entre com a nova senha.")}}
-else if(MODE==="signup"){const r=await sb.auth.signUp({email:e,password:p,options:{data:{nome:$("an").value.trim(),aceite_termos:new Date().toISOString()}}});if(r.error)throw r.error;
-if(r.data.user&&Array.isArray(r.data.user.identities)&&r.data.user.identities.length===0){er.textContent="Este e-mail já tem conta. Toque em “Já tenho conta” ou use “Esqueci minha senha”.";return}
-if(r.data.session)await enter(r.data.session.user);else{PENDM=e;MODE="verify";render()}}
+if(MODE==="recover"){const r=await sb.auth.updateUser({password:p});if(r.error)throw r.error;MODE="login";history.replaceState(null,"",location.pathname);const g=await sb.auth.getSession();if(g.data.session)await enter(g.data.session.user);else render()}
+else if(MODE==="signup"){const r=await sb.auth.signUp({email:e,password:p,options:{data:{nome:$("an").value.trim(),aceite_termos:new Date().toISOString()},emailRedirectTo:location.origin+location.pathname}});if(r.error)throw r.error;
+if(r.data.user&&Array.isArray(r.data.user.identities)&&r.data.user.identities.length===0){er.textContent="Este e-mail já tem conta. Toque em “Já tenho conta” ou use “Esqueci minha senha”.";btn.disabled=false;return}
+if(r.data.session)await enter(r.data.session.user);else{MODE="login";render();inf.textContent="Enviamos um link de confirmação para o seu e-mail. Confirme e depois entre aqui."}}
 else{const r=await sb.auth.signInWithPassword({email:e,password:p});if(r.error)throw r.error;await enter(r.data.user)}
-}catch(x){
-if(MODE==="login"&&String(x&&x.message||"").toLowerCase().includes("not confirmed")){PENDM=e;try{await sb.auth.resend({type:"signup",email:e})}catch(y){}MODE="verify";render();inf.textContent="Seu e-mail ainda não foi confirmado. Enviamos um novo código."}
-else er.textContent=msgErr(x)}
-finally{btn.disabled=false;$("ap").value="";$("aco").value=""}}
-async function forgot(){const e=$("ae").value.trim().toLowerCase(),er=$("aerr");er.textContent="";$("ainfo").textContent="";
+}catch(x){er.textContent=msgErr(x)}
+btn.disabled=false;$("ap").value=""}
+async function forgot(){const e=$("ae").value.trim().toLowerCase(),er=$("aerr"),inf=$("ainfo");er.textContent="";inf.textContent="";
 if(!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite seu e-mail acima e toque em “Esqueci minha senha” de novo.";return}
-const r=await sb.auth.resetPasswordForEmail(e);if(r.error){er.textContent=msgErr(r.error);return}
-PENDM=e;MODE="reset";render();$("ainfo").textContent="Se esse e-mail tiver conta, enviamos um código para ele."}
-async function resendCode(){const er=$("aerr");er.textContent="";$("ainfo").textContent="";if(!PENDM)return;
-const r=MODE==="reset"?await sb.auth.resetPasswordForEmail(PENDM):await sb.auth.resend({type:"signup",email:PENDM});
-if(r.error)er.textContent=msgErr(r.error);else $("ainfo").textContent="Enviamos um novo código para o seu e-mail."}
-async function handleLink(){const q=new URLSearchParams(location.search),th=q.get("token_hash"),ty=q.get("type");if(!th||!ty)return false;
-history.replaceState({},"",location.pathname);
-const r=await sb.auth.verifyOtp({token_hash:th,type:ty});
-if(r.error){MODE="login";render();$("aerr").textContent="Este link expirou ou já foi usado. Entre com e-mail e senha ou peça um novo código.";return true}
-if(ty==="recovery"){MODE="recover";OK=false;render();return true}
-if(IS_APP){await enter(r.data.user);return true}
-await sb.auth.signOut();webDone("E-mail confirmado! Abra o aplicativo COBREI no seu celular e entre com o seu e-mail e a sua senha.");return true}
+const r=await sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname});
+if(r.error)er.textContent=msgErr(r.error);else inf.textContent="Se esse e-mail tiver conta, enviamos um link para criar uma nova senha."}
 function authUI(){const m=MODE;
 $("intro").classList.toggle("hid",OK||LOCK);$("lock").classList.toggle("hid",!LOCK||OK);$("app").classList.toggle("hid",!OK);document.querySelector(".fab").classList.toggle("hid",!OK||TAB==="ct"||TAB==="sv"||TAB==="mais"||TAB==="aj");
-const vr=m==="verify",rs=m==="reset";
-$("an").classList.toggle("hid",m!=="signup");$("ae").classList.toggle("hid",m==="recover"||vr||rs);$("ap").classList.toggle("hid",vr);$("aco").classList.toggle("hid",!(vr||rs));
-$("fg").classList.toggle("hid",m!=="login");$("ares").classList.toggle("hid",!(vr||rs));$("sw").classList.toggle("hid",m==="recover");$("aceitew").classList.toggle("hid",m!=="signup");
-$("ap").autocomplete=m==="login"?"current-password":"new-password";$("ap").placeholder=rs||m==="recover"?"Nova senha (mínimo 8 caracteres)":"Senha (mínimo 8 caracteres)";
-$("at").textContent=vr?"Confirme seu e-mail":rs||m==="recover"?"Crie uma nova senha":"Orçou. Cobrou. Recebeu.";
-$("as").textContent=vr||rs?"Enviamos um código para "+(PENDM||"o seu e-mail")+". Digite abaixo.":m==="login"?"Use o e-mail e a senha da sua conta.":m==="signup"?"Seus orçamentos ficam guardados na nuvem, só para você.":"Digite a nova senha que você quer usar.";
-$("ab").textContent=vr?"Confirmar e entrar":rs||m==="recover"?"Salvar nova senha":m==="login"?"Entrar":"Criar conta";
-$("sw").textContent=vr||rs?"Voltar":m==="login"?"Ainda não tenho conta":"Já tenho conta";const eb=document.querySelector(".eye");eb.innerHTML=HIDE?IEO:IE;eb.setAttribute("aria-pressed",String(HIDE));eb.setAttribute("aria-label",HIDE?"Mostrar valores":"Ocultar valores")}
+$("an").classList.toggle("hid",m!=="signup");$("ae").classList.toggle("hid",m==="recover");$("fg").classList.toggle("hid",m!=="login");$("sw").classList.toggle("hid",m==="recover");$("aceitew").classList.toggle("hid",m!=="signup");
+$("ap").autocomplete=m==="signup"||m==="recover"?"new-password":"current-password";
+$("at").textContent=m==="recover"?"Crie uma nova senha":"Orçou. Cobrou. Recebeu.";
+$("as").textContent=m==="login"?"Use o e-mail e a senha da sua conta.":m==="signup"?"Seus orçamentos ficam guardados na nuvem, só para você.":"Digite a nova senha que você quer usar.";
+$("ab").textContent=m==="login"?"Entrar":m==="signup"?"Criar conta":"Salvar nova senha";
+$("sw").textContent=m==="login"?"Ainda não tenho conta":"Já tenho conta";const eb=document.querySelector(".eye");eb.innerHTML=HIDE?IEO:IE;eb.setAttribute("aria-pressed",String(HIDE));eb.setAttribute("aria-label",HIDE?"Mostrar valores":"Ocultar valores")}
 const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
 const $=i=>document.getElementById(i),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const num=v=>{const n=parseFloat(String(v).replace(/\./g,"").replace(",","."));return isNaN(n)?0:n};
@@ -781,7 +801,7 @@ const subt=d=>d.itens.reduce((a,i)=>a+i.q*i.v,0),tot=d=>Math.max(0,subt(d)-(d.de
 const iso=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
 const br=s=>s?s.split("-").reverse().join("/"):"";
 const ST={orc:"Orçamento enviado",apr:"Aprovado — falta cobrar",pago:"Pago",rec:"Recusado pelo cliente",parc:"Parcelado em várias cobranças"};
-const FL={all:()=>true,orc:d=>d.s==="orc"||d.s==="apr",cob:d=>d.s==="cob"||(d.s==="parc"&&kids(d).some(x=>x.s==="cob")),pago:d=>d.s==="pago"||(d.s==="parc"&&kids(d).length>0&&kids(d).every(x=>x.s==="pago")),rec:d=>d.s==="rec"};
+const FL={all:()=>true,orc:d=>d.s==="orc"||d.s==="apr",cob:d=>d.s==="cob"||(d.s==="parc"&&kids(d).some(x=>x.s==="cob")),late:d=>d.s==="cob"&&d.venc&&d.venc<iso(0)||(d.s==="parc"&&kids(d).some(x=>x.s==="cob"&&x.venc&&x.venc<iso(0))),pago:d=>d.s==="pago"||(d.s==="parc"&&kids(d).length>0&&kids(d).every(x=>x.s==="pago")),rec:d=>d.s==="rec"};
 function msg(d){const t=R.format(tot(d)),n=S.cfg.nome||"";
 if(d.s==="cob")return`Olá, ${d.c}! Passando para lembrar da cobrança "${d.t}${d.pc?" (parcela "+d.pc+")":""}", no valor de ${t}, com vencimento em ${br(d.venc)}.${d.venc&&d.venc<iso(0)?" Ela está em atraso. Poderia me confirmar o pagamento?":""}${pixLink(d)?`\nPague com Pix por este link:\n${pixLink(d)}`:""}\nObrigado!`;
 if(d.tk)return`Olá, ${d.c}! Segue o link do seu orçamento. É só abrir e confirmar com 1 clique:\n${linkOf(d)}`;
@@ -808,7 +828,7 @@ let ac="",sub="";
 if(d.s==="orc")ac=`<a class="b p" ${id} data-act="wsent" href="${esc(wa(d))}" target="_blank" rel="noopener">Enviar no WhatsApp</a><button class="b" ${id} data-act="lnk">Copiar link</button><button class="b" ${id} data-act="apr">Cliente aprovou</button>`;
 if(d.s==="apr")ac=`<button class="b p" ${id} data-act="cob">Gerar cobrança</button>`;
 if(d.s==="cob"){ac=`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">Cobrar no WhatsApp</a><button class="b" ${id} data-act="pix">Pix / QR Code</button><button class="b" ${id} data-act="pago">Marcar como pago</button>`;sub=`<label>Vencimento <input type="date" value="${esc(d.venc)}" ${id} data-act="venc"></label>`}
-return cardX(d.id,`<div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div>`,tag,`<div class="act">${ac}</div><div class="sub">${sub}${["orc","apr","rec"].includes(d.s)?`<button ${id} data-act="editq">Editar</button>`:""}<button ${id} data-act="pdf">PDF</button><button class="d" ${id} data-act="del">Excluir</button></div>`)}).join(""):`<div class="empty">${Q?"Nenhum resultado para “"+esc($("busca").value.trim())+"”.":S.docs.length?"Nada por aqui neste filtro.":"Nenhum orçamento ainda.<br>Toque em “Novo orçamento” e envie o primeiro pelo WhatsApp em menos de um minuto."}</div>`}
+return cardX(d.id,`<div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div>`,tag,`<div class="act">${ac}</div><div class="sub">${sub}${["orc","apr","rec"].includes(d.s)?`<button ${id} data-act="editq">Editar</button>`:""}<button ${id} data-act="pdf">PDF</button><button ${id} data-act="dup">Duplicar</button><button class="d" ${id} data-act="del">Excluir</button></div>`)}).join(""):`<div class="empty">${Q?"Nenhum resultado para “"+esc($("busca").value.trim())+"”.":S.docs.length?"Nada por aqui neste filtro.":"Nenhum orçamento ainda.<br>Toque em “Novo orçamento” e envie o primeiro pelo WhatsApp em menos de um minuto."}</div>`}
 const STK=[],UP={sv:"mais",ct:"mais",aj:"mais",mais:"pnl",cob:"pnl",cli:"pnl"};let TRAP=false,EXIT=0;
 const openS=id=>{if(!STK.includes(id))STK.push(id);const el=$(id);el.style.zIndex=String(21+STK.indexOf(id));$("ov").classList.add("open");el.classList.add("open")};
 function shut(id){const el=$(id);el.classList.remove("open");el.style.zIndex="";const i=STK.indexOf(id);if(i>=0)STK.splice(i,1);if(!STK.length)$("ov").classList.remove("open")}
@@ -817,9 +837,11 @@ const closeS=()=>{STK.length=0;$("ov").classList.remove("open");document.querySe
 function addItem(){const r=document.createElement("div");r.className="it";r.innerHTML=`<input placeholder="Descrição" aria-label="Descrição"><input placeholder="Qtd" value="1" inputmode="decimal" aria-label="Quantidade"><input placeholder="R$" inputmode="decimal" aria-label="Valor unitário">`;$("its").appendChild(r)}
 function calc(){let t=0;document.querySelectorAll("#its .it").forEach(r=>{const i=r.querySelectorAll("input");t+=num(i[1].value)*num(i[2].value)});t=Math.max(0,t-num($("fdc").value));$("ftot").textContent=R.format(t)}
 
-document.addEventListener("input",e=>{if(e.target.id==="busca")render();if(e.target.closest("#its")||e.target.id==="fdc")calc();if(e.target.id==="cbp"||e.target.id==="cbn")cbUI()});
+document.addEventListener("input",e=>{if(e.target.id==="busca"||e.target.id==="busca-cli"||e.target.id==="busca-sv")render();if(e.target.closest("#its")||e.target.id==="fdc")calc();if(e.target.id==="cbp"||e.target.id==="cbn")cbUI()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!FORCE)closeS()});
-async function up(d,v){const r=await sb.from("orcamentos").update(v).eq("id",d.id);if(r.error)throw r.error;await loadAll();render()}
+const DOC_MAP={status:"s",vencimento:"venc",pago_em:"pagoEm",conta_id:"conta",cliente:"c",whatsapp:"w",servico:"t",desconto:"desc",forma_pagamento:"fp",parcelas:"np",entrada_pct:"en",observacoes:"ob",validade:"val",cliente_id:"k",numero:"n",token:"tk",grupo_id:"g",parcela:"pc",recorrencia_id:"rc",competencia:"comp",atualizado_em:"up"};
+function patchDoc(d,v){const loc=S.docs.find(x=>x.id===(d&&d.id));if(!loc)return;Object.keys(v||{}).forEach(k=>{const lk=DOC_MAP[k]||k;let val=v[k];if(k==="desconto"||k==="parcelas"||k==="entrada_pct")val=Number(val)||0;if(k==="atualizado_em"&&val)val=String(val).slice(0,10);loc[lk]=val;if(d&&d!==loc)d[lk]=val})}
+async function up(d,v){const r=await sb.from("orcamentos").update(v).eq("id",d.id);if(r.error)throw r.error;patchDoc(d,v);render()}
 const fail=x=>{if(PREW){try{PREW.close()}catch(e){}PREW=null}if(String(x&&x.message||"").includes("limite_plano_gratis")){closeS();planoOpen()}else toast("Não foi possível salvar. Verifique sua conexão e tente de novo.")};
 document.addEventListener("change",async e=>{const t=e.target;if(t.id==="fcl"){const c=S.clientes.find(x=>x.id===t.value);if(c){$("fc").value=c.nome;$("fw").value=c.whatsapp}return}
 if(t.id==="fsv"){const x=S.servicos.find(z=>z.id===t.value);if(x){const rows=[...document.querySelectorAll("#its .it")];let r=rows[rows.length-1];if(!r||r.querySelector("input").value.trim()){addItem();r=[...document.querySelectorAll("#its .it")].pop()}const i=r.querySelectorAll("input");i[0].value=x.nome;i[1].value="1";i[2].value=String(x.preco).replace(".",",");if(!$("ft").value.trim())$("ft").value=x.nome;calc()}t.value="";return}
@@ -828,7 +850,7 @@ if(t.id==="ffp"||t.id==="fpn"){fpUI();return}
 if(t.id==="pixa"){pixShow();return}if(t.dataset.act==="venc"&&t.value){const d=S.docs.find(x=>x.id===t.dataset.id);if(d)try{await up(d,{vencimento:t.value})}catch(x){fail(x)}}});
 async function act(a,t){const d=S.docs.find(x=>x.id===t.dataset.id);
 try{
-if(a==="auth")await doAuth();else if(a==="resend")await resendCode();else if(a==="leg"){$("legf").src=t.dataset.u;openS("sh-leg")}else if(a==="forgot")await forgot();
+if(a==="auth")await doAuth();else if(a==="forgot")await forgot();
 else if(a==="eye"){HIDE=!HIDE;try{localStorage.setItem("cobrei:hide",HIDE?"1":"0")}catch(e){}render()}
 else if(a==="unlock")await unlock();
 else if(a==="tg"){const c=t.closest("[data-k]");if(!c)return;const o=c.classList.toggle("open");o?OPEN.add(c.dataset.k):OPEN.delete(c.dataset.k);t.setAttribute("aria-expanded",String(o))}
@@ -848,6 +870,7 @@ else if(a==="savedp"){const v=num($("dpv").value),n=$("dpd").value.trim();if(!n|
 const r=await sb.from("despesas").insert({descricao:n,valor:v,data:$("dpt").value,categoria:$("dpc").value});if(r.error)throw r.error;await loadAll();closeS();toast("Despesa registrada.");render()}
 else if(a==="deldp"){if(!confirm("Excluir esta despesa?"))return;const r=await sb.from("despesas").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
 else if(a==="rlcsv")rlCsv();else if(a==="rlpdf")rlPdf();else if(a==="plano")planoOpen();else if(a==="exp")expDados();else if(a==="delacc")await delConta();
+else if(a==="inst"){toast("Você já está no app COBREI.")}
 else if(a==="cvok")await cvAnswer(true);else if(a==="cvno")await cvAnswer(false);else if(a==="cbgo")await cbGo();
 else if(a==="newsv")openSv(null);else if(a==="editsv")openSv(S.servicos.find(x=>x.id===t.dataset.id));
 else if(a==="savesv"){const n=$("svn").value.trim();if(!n){toast("Digite o nome do serviço.");return}const v={nome:n,preco:num($("svp").value)};
@@ -885,28 +908,29 @@ else if(a==="newct"){["ctn","ctk"].forEach(i=>$(i).value="");$("ctt").value="pix
 else if(a==="savect"){const n=$("ctn").value.trim();if(!n){toast("Digite o nome da conta, por exemplo: Nubank.");return}
 const r=await sb.from("contas").insert({nome:n,tipo:$("ctt").value,chave:$("ctk").value.trim()||null});if(r.error)throw r.error;await loadAll();closeS();render();if(ONB)openOnb()}
 else if(a==="delct"){if(!confirm("Excluir esta conta? Os valores já recebidos continuam no histórico."))return;const r=await sb.from("contas").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
-else if(a==="payto"){const x=S.docs.find(z=>z.id===PAY);const g=x&&x.g,first=!S.docs.some(z=>z.s==="pago");if(x)await up(x,{status:"pago",pago_em:iso(0),conta_id:t.dataset.c||null});closeS();if(first&&x)party(x);else if(g)openGrp(g)}
+else if(a==="payto"){const x=S.docs.find(z=>z.id===PAY);const g=x&&x.g,first=!S.docs.some(z=>z.s==="pago");if(x){await up(x,{status:"pago",pago_em:iso(0),conta_id:t.dataset.c||null});PAID=x.id}closeS();if(first&&x)party(x);else if(x){$("paidv").textContent=(x.c||"")+" · "+fmt(tot(x))+" registrados como pagos.";openS("sh-paid")}else if(g)openGrp(g)}
 else if(a==="save"){const itens=[...document.querySelectorAll("#its .it")].map(r=>{const i=r.querySelectorAll("input");return{d:i[0].value.trim(),q:num(i[1].value)||1,v:num(i[2].value)}}).filter(i=>i.d&&i.v>0);
 if(!$("fc").value.trim()||!itens.length){toast("Preencha o cliente e pelo menos um item com valor.");return}
 const fpv=$("ffp").value,pn=$("fpn").value,pOk=fpv&&fpv!=="Cartão de débito",np_=pOk&&pn!=="ent"?Number(pn)||1:1,en_=pOk&&pn==="ent"?Math.min(95,Math.max(5,Math.round(num($("fen").value))||50)):null;
 const svc_=$("ft").value.trim()||(itens[0].d+(itens.length>1?" e mais "+(itens.length-1)+(itens.length===2?" item":" itens"):""));
 if(EDQ){await editSave(itens,svc_,np_,en_);return}
-PREW=null;if(!IS_APP){try{PREW=window.open("","_blank")}catch(e){}}
+PREW=null;try{PREW=window.open("","_blank")}catch(e){}
 const n=S.docs.reduce((m,x)=>Math.max(m,x.n||0),0)+1;
 const r=await sb.from("orcamentos").insert(Object.assign({numero:n,cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servico:svc_,validade:$("fva").value||null,desconto:num($("fdc").value),forma_pagamento:$("ffp").value||null,parcelas:np_,entrada_pct:en_,observacoes:$("fob").value.trim()||null},$("fcl").value?{cliente_id:$("fcl").value}:{})).select("id").single();if(r.error)throw r.error;
 const r2=await sb.from("itens").insert(itens.map(i=>({orcamento_id:r.data.id,descricao:i.d,quantidade:i.q,valor:i.v})));
 if(r2.error){await sb.from("orcamentos").delete().eq("id",r.data.id);throw r2.error}
 OPEN.add(r.data.id);await loadAll();closeS();F="all";render();scrollTo(0,0);autoSend(r.data.id)}
+else if(a==="doprint"){try{window.print()}catch(e){}toast("Se não abriu, use o menu do aparelho → Imprimir / Salvar PDF.")}
+else if(a==="paidpdf"){let x=S.docs.find(z=>z.id===PAID);if(!x&&PAY)x=S.docs.find(z=>z.id===PAY);if(!x){toast("Recibo não encontrado. Abra o orçamento pago e toque em Recibo/PDF.");return}closeS();pdf(Object.assign({},x,{s:"pago"}),{recibo:true,preview:true})}
 else if(d){if(a==="apr")await up(d,{status:"apr"});else if(a==="lnk"){await copyText(linkOf(d));toast("Link copiado. Envie ao cliente.")}
 else if(a==="cob"){CB=d.id;$("cbd").value=iso(7);cbUI();openS("sh-cb")}
-else if(a==="pago"){PAY=d.id;payList();openS("sh-pay")}else if(a==="pdf")pdf(d);else if(a==="grp")openGrp(d.id);else if(a==="editq")openEdit(d);
+else if(a==="pago"||a==="pixpago"){const x=d||S.docs.find(z=>z.id===PIXD);if(!x){toast("Abra o Pix de uma cobrança primeiro.");return}PAY=x.id;closeS();payList();openS("sh-pay")}else if(a==="pdf")pdf(d);else if(a==="grp")openGrp(d.id);else if(a==="editq")openEdit(d);else if(a==="dup")openDup(d);
 else if(a==="del"){const ks=kids(d);if(!confirm(ks.length?"Excluir este parcelamento e as "+ks.length+" parcelas?":"Excluir este registro?"))return;const r=await sb.from("orcamentos").delete().in("id",[d.id].concat(ks.map(x=>x.id)));if(r.error)throw r.error;await loadAll();closeS();render()}}
 }catch(x){fail(x)}}
-document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.tagName==="INPUT")return;if(t.dataset.act==="leg")e.preventDefault();act(t.dataset.act,t)});
+document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.tagName==="INPUT")return;act(t.dataset.act,t)});
 async function init(){loadBind();
 if(!sb){$("aerr").textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
 sb.auth.onAuthStateChange((ev)=>{if(ev==="PASSWORD_RECOVERY"){MODE="recover";OK=false;render()}});
-if(await handleLink())return;
 const g=await sb.auth.getSession();
 if(g.data.session&&MODE!=="recover"){const u=g.data.session.user;let c=null;try{c=JSON.parse(localStorage.getItem(BK))}catch(e){}
 if(c&&c.uid===u.id&&window.PublicKeyCredential){PEND=u;LOCK=true;render()}else await enter(u)}}

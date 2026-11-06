@@ -1,48 +1,70 @@
-// COBREI: service worker. Rede primeiro (o app sempre abre atualizado) e cópia guardada como reserva.
-const V = "cobrei-v1";
-const BASE = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png"];
+/* COBREI service worker — cache do app + push */
+const CACHE = "cobrei-v3";
+const PRECACHE = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png", "./sw.js"];
 
 self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(V).then((c) => c.addAll(BASE)).then(() => self.skipWaiting()));
+  e.waitUntil(
+    caches.open(CACHE).then((c) => c.addAll(PRECACHE).catch(() => {})).then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener("activate", (e) => {
   e.waitUntil(
-    caches.keys()
-      .then((ks) => Promise.all(ks.filter((k) => k !== V).map((k) => caches.delete(k))))
-      .then(() => self.clients.claim())
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
+    ).then(() => self.clients.claim())
   );
 });
 
 self.addEventListener("fetch", (e) => {
-  const r = e.request;
-  if (r.method !== "GET") return;
-  const u = new URL(r.url);
-  if (u.origin !== location.origin) return; // nunca guarda dados do Supabase nem de outros sites
-  if (u.search) return; // links com código (aprovação, pagamento) não ficam guardados no aparelho
+  const req = e.request;
+  if (req.method !== "GET") return;
+  const url = new URL(req.url);
+  // API Supabase e outros: sempre rede
+  if (url.origin !== self.location.origin) return;
+  // App shell: cache-first com atualização em segundo plano
   e.respondWith(
-    fetch(r)
-      .then((res) => {
-        const copia = res.clone();
-        caches.open(V).then((c) => c.put(r, copia));
-        return res;
-      })
-      .catch(() => caches.match(r).then((m) => m || caches.match("index.html")))
+    caches.open(CACHE).then(async (cache) => {
+      const cached = await cache.match(req);
+      const network = fetch(req)
+        .then((res) => {
+          if (res && res.ok) cache.put(req, res.clone());
+          return res;
+        })
+        .catch(() => cached);
+      return cached || network;
+    })
   );
 });
 
-// Reservado para os avisos no celular (a etapa do servidor de avisos ainda não foi ativada)
 self.addEventListener("push", (e) => {
-  let d = {};
-  try { d = e.data.json(); } catch (x) {}
-  e.waitUntil(self.registration.showNotification(d.title || "COBREI", {
-    body: d.body || "", icon: "icon-192.png", badge: "icon-192.png", data: { url: d.url || "./" }
-  }));
+  let data = { title: "COBREI", body: "Você tem pendências de cobrança.", url: "./" };
+  try {
+    if (e.data) data = Object.assign(data, e.data.json());
+  } catch (err) {
+    try {
+      data.body = e.data.text();
+    } catch (e2) {}
+  }
+  e.waitUntil(
+    self.registration.showNotification(data.title || "COBREI", {
+      body: data.body || "",
+      icon: "icon-192.png",
+      badge: "icon-192.png",
+      data: { url: data.url || "./" },
+    })
+  );
 });
+
 self.addEventListener("notificationclick", (e) => {
   e.notification.close();
-  e.waitUntil(clients.matchAll({ type: "window", includeUncontrolled: true }).then((l) => {
-    for (const c of l) { if ("focus" in c) return c.focus(); }
-    return clients.openWindow((e.notification.data && e.notification.data.url) || "./");
-  }));
+  const url = (e.notification.data && e.notification.data.url) || "./";
+  e.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((list) => {
+      for (const c of list) {
+        if (c.url && "focus" in c) return c.focus();
+      }
+      if (self.clients.openWindow) return self.clients.openWindow(url);
+    })
+  );
 });
