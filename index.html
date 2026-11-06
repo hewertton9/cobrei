@@ -59,6 +59,7 @@ h1 i{display:inline-block;width:.45rem;height:.45rem;border-radius:50%;backgroun
 .sheet h2{margin:0 0 .5rem;font-size:1.25rem}
 .sheet label{display:block;font-size:.8rem;color:var(--mu);margin:.9rem 0 .3rem}
 .sheet input{width:100%;height:3rem;padding:0 .8rem;font-size:16px;border:1px solid var(--ln);border-radius:.8rem;background:var(--inp)}
+.row2{display:grid;grid-template-columns:1fr 5.2rem;gap:.4rem;align-items:center}.row2 select{width:100%;height:3rem;padding:0 .4rem;font-size:16px;border:1px solid var(--ln);border-radius:.8rem;background:var(--inp);color:var(--ink)}
 .it{display:grid;grid-template-columns:1fr 3.2rem 5.6rem 2rem;gap:.4rem;align-items:center;margin-bottom:.4rem}.it input{padding:0 .5rem}.it .rm{border:0;background:none;color:var(--mu);font-size:1.25rem;line-height:1;min-height:2.5rem;padding:0;cursor:pointer}.it .rm:hover{color:var(--bad)}
 .link{background:none;border:0;color:var(--ink);font-weight:600;padding:.7rem 0;text-decoration:underline}
 .bar{position:sticky;bottom:0;background:var(--sf);padding:.8rem 0 calc(.9rem + env(safe-area-inset-bottom,0px));margin-top:.5rem;border-top:1px solid var(--ln)}
@@ -316,7 +317,8 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <label for="cn">Seu nome ou do seu negócio *</label><input id="cn" autocomplete="name">
 <label for="cdc">CPF ou CNPJ *</label><input id="cdc" inputmode="numeric">
 <label for="ctf">Telefone / WhatsApp *</label><input id="ctf" inputmode="tel">
-<label for="cci">Cidade *</label><input id="cci" autocomplete="address-level2">
+<label for="cci">Cidade e estado *</label>
+<div class="row2"><input id="cci" placeholder="Cidade" autocomplete="address-level2"><select id="cuf" aria-label="Estado"><option value="">UF</option><option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option><option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option><option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option><option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option><option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option><option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option></select></div>
 <div id="cfgx">
 <label>Logo (aparece nos PDFs)</label><div class="lg"><img id="lgp" alt="" class="hid"><button class="b" data-act="logo">Escolher imagem</button><button class="b d hid" id="lgx" data-act="logox">Remover</button></div><input type="file" id="lgf" accept="image/*" class="hid">
 <div id="biow"><label>Segurança</label><button class="b wide" id="bio" data-act="bio"></button></div>
@@ -536,7 +538,7 @@ function imgData(f,max,cb){const r=new FileReader();r.onload=()=>{const im=new I
 function cfUI(){const i=$("cfp");i.src=CF||"";i.classList.toggle("hid",!CF);$("cfx").classList.toggle("hid",!CF)}
 function openCli(c){EC=c||null;$("clh").textContent=c?"Editar cliente":"Novo cliente";$("cln").value=c?c.nome:"";$("clt").value=c?c.tipo:"pf";$("cld").value=c?c.documento:"";$("clw").value=c?c.whatsapp:"";$("cle").value=c?c.email:"";$("clr").checked=c?c.recorrente:false;CF=c?c.foto:"";cfUI();openS("sh-cli")}
 const needProfile=()=>!(S.cfg.nome&&S.perfil.documento&&S.perfil.telefone&&S.perfil.cidade);
-function openProfile(force){planoBox();instUI();pushState();FORCE=force;$("cn").value=S.cfg.nome||"";$("cdc").value=S.perfil.documento||"";$("ctf").value=S.perfil.telefone||"";$("cci").value=S.perfil.cidade||"";LOGO=S.perfil.logo||"";logoUI();bioLabel();
+function openProfile(force){planoBox();instUI();pushState();FORCE=force;$("cn").value=S.cfg.nome||"";$("cdc").value=S.perfil.documento||"";$("ctf").value=S.perfil.telefone||"";loadCidadeUF(S.perfil.cidade||"");LOGO=S.perfil.logo||"";logoUI();bioLabel();
 $("sh-cfg").classList.toggle("force",!!force);$("cfgt").textContent=force?"Falta pouco!":"Meus dados";$("cfgx").classList.toggle("hid",force);$("cfgb").textContent=force?"Salvar e começar":"Salvar";const n=$("cfgn");n.classList.toggle("hid",!force);n.textContent="Falta só isto para começar. Esses dados aparecem nos seus orçamentos e recibos.";openS("sh-cfg")}
 function pixShow(){const d=S.docs.find(x=>x.id===PIXD);if(!d)return;const c=pixCode(d,$("pixa").value||undefined);$("pixq").innerHTML=c?qrSvg(c):"";$("pixq").classList.toggle("hid",!$("pixq").innerHTML);$("pixc").value=c;
 const sem=!pixContas().length;$("pixnw").classList.toggle("hid",!sem);$("pixcw").classList.toggle("hid",sem);$("pixcp").classList.toggle("hid",sem);$("pixm").textContent=c?"Valor: "+R.format(tot(d))+" · Mostre o QR Code ou envie o código ao cliente.":(sem?"Para gerar o QR Code, informe a sua chave Pix. É só uma vez.":"Complete seu nome e cidade em Meus dados para gerar o Pix.");openS("sh-pix")}
@@ -793,6 +795,9 @@ $("sw").textContent=m==="login"?"Ainda não tenho conta":"Já tenho conta";const
 const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
 const $=i=>document.getElementById(i),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const num=v=>{const n=parseFloat(String(v).replace(/\./g,"").replace(",","."));return isNaN(n)?0:n};
+const fmtMoney=v=>{const n=num(v);if(!String(v??"").trim())return"";return n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})};
+const loadCidadeUF=s=>{s=String(s||"").trim();const m=s.match(/^(.+?)\s*[-–\/]\s*([A-Za-z]{2})$/);if(m){$("cci").value=m[1].trim();if($("cuf"))$("cuf").value=m[2].toUpperCase()}else{$("cci").value=s;if($("cuf"))$("cuf").value=""}};
+const joinCidadeUF=()=>{const c=$("cci").value.trim(),u=($("cuf")&&$("cuf").value)||"";return u?c+" - "+u:c};
 const subt=d=>d.itens.reduce((a,i)=>a+i.q*i.v,0),tot=d=>Math.max(0,subt(d)-(d.desc||0));
 const iso=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
 const br=s=>s?s.split("-").reverse().join("/"):"";
@@ -833,6 +838,8 @@ const closeS=()=>{STK.length=0;$("ov").classList.remove("open");document.querySe
 function addItem(){const r=document.createElement("div");r.className="it";r.innerHTML=`<input placeholder="Descrição" aria-label="Descrição"><input placeholder="Qtd" value="1" inputmode="decimal" aria-label="Quantidade"><input placeholder="R$" inputmode="decimal" aria-label="Valor unitário"><button type="button" class="rm" data-act="delitem" aria-label="Remover item">×</button>`;$("its").appendChild(r)}
 function calc(){let t=0;document.querySelectorAll("#its .it").forEach(r=>{const i=r.querySelectorAll("input");t+=num(i[1].value)*num(i[2].value)});t=Math.max(0,t-num($("fdc").value));$("ftot").textContent=R.format(t)}
 
+
+document.addEventListener("blur",e=>{const t=e.target;if(!t||t.tagName!=="INPUT")return;const money=t.id==="fdc"||t.id==="rcv"||t.id==="svp"||t.id==="dpv"||(t.closest("#its")&&[...t.parentElement.querySelectorAll("input")].indexOf(t)===2);if(money&&t.value.trim()){t.value=fmtMoney(t.value);if(t.closest("#its")||t.id==="fdc")calc()}},true);
 document.addEventListener("input",e=>{if(e.target.id==="busca"||e.target.id==="busca-cli"||e.target.id==="busca-sv")render();if(e.target.closest("#its")||e.target.id==="fdc")calc();if(e.target.id==="cbp"||e.target.id==="cbn")cbUI()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!FORCE)closeS()});
 const DOC_MAP={status:"s",vencimento:"venc",pago_em:"pagoEm",conta_id:"conta",cliente:"c",whatsapp:"w",servico:"t",desconto:"desc",forma_pagamento:"fp",parcelas:"np",entrada_pct:"en",observacoes:"ob",validade:"val",cliente_id:"k",numero:"n",token:"tk",grupo_id:"g",parcela:"pc",recorrencia_id:"rc",competencia:"comp",atualizado_em:"up"};
@@ -890,8 +897,9 @@ else if(a==="delcli"){if(!confirm("Excluir este cliente? Os orçamentos dele con
 else if(a==="swm"){MODE=MODE==="login"?"signup":"login";$("aerr").textContent="";$("ainfo").textContent="";render()}
 else if(a==="out"){FORCE=false;closeS();await sb.auth.signOut();OK=false;S.docs=[];S.contas=[];MODE="login";render()}
 else if(a==="cfg")openProfile(false);
-else if(a==="savecfg"){const c={nome:$("cn").value.trim()},f={documento:$("cdc").value.trim()||null,telefone:$("ctf").value.trim()||null,cidade:$("cci").value.trim()||null,logo:LOGO||null};
-if(!c.nome||!f.documento||!f.telefone||!f.cidade){toast("Preencha nome, CPF/CNPJ, telefone e cidade.");return}
+else if(a==="savecfg"){const c={nome:$("cn").value.trim()},cid=joinCidadeUF(),f={documento:$("cdc").value.trim()||null,telefone:$("ctf").value.trim()||null,cidade:cid||null,logo:LOGO||null};
+if(!c.nome||!f.documento||!f.telefone||!$("cci").value.trim()){toast("Preencha nome, CPF/CNPJ, telefone e cidade.");return}
+if($("cuf")&&!$("cuf").value){toast("Selecione o estado (UF).");return}
 const pf=Object.assign({user_id:U.id},f);
 const r=await sb.auth.updateUser({data:c});if(r.error)throw r.error;const r2=await sb.from("perfil").upsert(pf,{onConflict:"user_id"});if(r2.error)throw r2.error;
 S.cfg=Object.assign(S.cfg,c);S.perfil={documento:pf.documento||"",telefone:pf.telefone||"",cidade:pf.cidade||"",pixt:"cpf",logo:pf.logo||""};const was=FORCE;FORCE=false;closeS();toast("Dados salvos.");render();if(was&&!onbDone())openOnb();else if(was&&!S.docs.length)openNew("")}
