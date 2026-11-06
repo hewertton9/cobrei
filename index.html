@@ -4,8 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="manifest" href="manifest.webmanifest">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="theme-color" content="#0a1230">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -16,7 +20,7 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0b1020;--sf:#141b30;--ink:#eef1f8;--mu:#9aa3b8;--ln:#252f4b;--ok:#4cc27a;--bad:#ff8a7a;--hero:#1c2a5a;--inp:#0b1020}}
 :root[data-theme="dark"]{color-scheme:dark;--bg:#0b1020;--sf:#141b30;--ink:#eef1f8;--mu:#9aa3b8;--ln:#252f4b;--ok:#4cc27a;--bad:#ff8a7a;--hero:#1c2a5a;--inp:#0b1020}
 html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}*,*::before,*::after{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif;line-height:1.45}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Sora,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.45}
 button,input{font:inherit;color:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
 .w{max-width:40rem;margin:0 auto;padding:1rem 1rem 7rem}
@@ -61,7 +65,7 @@ h1 i{display:inline-block;width:.45rem;height:.45rem;border-radius:50%;backgroun
 .bar p{margin:0 0 .6rem;display:flex;justify-content:space-between;font-weight:800;font-size:1.15rem}.bar .act{margin:0}
 #doc{display:none}
 @media (prefers-reduced-motion:reduce){.sheet,.ov{transition:none}}
-@media print{body>*{display:none!important}body>#doc{display:block!important;padding:2rem;color:#000;background:#fff;font-family:system-ui,Arial,sans-serif}#doc table{width:100%;border-collapse:collapse;margin:1rem 0}#doc td,#doc th{border-bottom:1px solid #ccc;padding:.4rem;text-align:left}#doc .r{text-align:right}}
+@media print{body>*{display:none!important}body>#doc{display:block!important;padding:2rem;color:#000;background:#fff;font-family:Sora,Arial,sans-serif}#doc table{width:100%;border-collapse:collapse;margin:1rem 0}#doc td,#doc th{border-bottom:1px solid #ccc;padding:.4rem;text-align:left}#doc .r{text-align:right}}
 
 :root:root:root{color-scheme:dark;--bg:#0a1230;--sf:#121c42;--ink:#f2f5ff;--mu:#a3aed0;--ln:#26336a;--ok:#5ad08a;--bad:#ff8f80;--inp:#0a1230}
 body{background:radial-gradient(60rem 30rem at 90% -5%,rgba(255,197,61,.2),transparent 60%),radial-gradient(50rem 30rem at -10% 105%,rgba(90,130,255,.3),transparent 60%),var(--bg);background-attachment:fixed}
@@ -205,7 +209,7 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 .sch{width:100%;height:3rem;padding:0 1rem;font-size:16px;border:1px solid var(--ln);border-radius:99px;background:var(--sf);color:var(--ink);margin-bottom:.8rem}
 #ajs{margin-top:1rem;display:grid;gap:.6rem}.hlp p{margin:.4rem 0;color:var(--mu);font-size:.92rem;line-height:1.5}
 .sheet.force>.back{display:none}.sheet>.back{padding:.1rem 0 .7rem}
-#recprev table{width:100%;border-collapse:collapse;font-size:12px;color:#000}#recprev th,#recprev td{border-bottom:1px solid #ccc;padding:4px;text-align:left;color:#000}#recprev .r{text-align:right}#recprev h1,#recprev h2{color:#000;margin:0.3rem 0}#recprev .ft{font-size:10px;color:#666}
+
 </style>
 </head>
 <body>
@@ -223,9 +227,9 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <h2 id="at">Crie sua conta</h2>
 <p id="as"></p>
 <div class="af">
-<input id="an" placeholder="Seu nome" autocomplete="name" aria-label="Seu nome">
-<input id="ae" type="email" placeholder="E-mail" autocomplete="email" inputmode="email" aria-label="E-mail">
-<input id="ap" type="password" placeholder="Senha (mínimo 8 caracteres)" aria-label="Senha">
+<input id="an" autocomplete="name" placeholder="Seu nome" autocomplete="name" aria-label="Seu nome">
+<input id="ae" autocomplete="email" inputmode="email" type="email" placeholder="E-mail" autocomplete="email" inputmode="email" aria-label="E-mail">
+<input id="ap" autocomplete="current-password" type="password" placeholder="Senha (mínimo 10 caracteres)" aria-label="Senha">
 <p id="aerr" class="err" role="alert"></p><p id="ainfo" class="info" role="status"></p>
 <label class="chk" id="aceitew"><input type="checkbox" id="ace"><span>Li e aceito os <a href="termos.html" target="_blank" rel="noopener">Termos de Uso</a> e a <a href="privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</span></label>
 <button class="b p" id="ab" data-act="auth">Criar conta</button>
@@ -424,12 +428,6 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <p class="note" style="text-align:left">Você pode imprimir ou salvar o recibo em PDF agora.</p>
 <div class="bar"><div class="act"><button class="b p" data-act="paidpdf">Imprimir recibo</button><button class="b" data-act="close">Ver meu painel</button></div></div>
 </aside>
-<aside id="sh-recibo" class="sheet" aria-label="Recibo">
-<h2>Recibo</h2>
-<p class="note" style="text-align:left">Confira abaixo. Toque em <b>Imprimir / salvar PDF</b> para abrir a impressão do sistema (ou salvar como PDF).</p>
-<div id="recprev" style="background:#fff;color:#000;border-radius:.8rem;padding:.5rem;max-height:50vh;overflow:auto;margin:.5rem 0"></div>
-<div class="bar"><div class="act"><button class="b p" data-act="doprint">Imprimir / salvar PDF</button><button class="b" data-act="close">Fechar</button></div></div>
-</aside>
 <aside id="sh-pay" class="sheet" aria-label="Onde recebeu">
 <h2>Onde você recebeu?</h2>
 <div id="payl" class="pl"></div>
@@ -552,19 +550,15 @@ const rows=[];if(d.fp)rows.push(["Forma de pagamento",payTxt(d.fp,d.np,d.en,t)])
 const body=`<div class="px"><div class="top6"></div>
 <div class="hd"><div class="em">${safeImg(p.logo)?`<img src="${safeImg(p.logo)}" alt="">`:""}<div><h1>${esc(n||"")}</h1><p>${em}</p></div></div><div class="dk"><b>${tp}</b><span>${num}</span><span>${dlong(emit)}</span></div></div>
 <div class="lb">Cliente</div><div class="cn"><b>${esc(d.c)}</b>${cinfo?`<br><span class="mu">${cinfo}</span>`:""}</div>
-<h2>Serviços</h2>
 ${isR?`<p class="rc">Recebi de <b>${esc(d.c)}</b> a importância de <b>${R.format(t)}</b> (${ext(t)}), referente ao serviço descrito abaixo.</p>`:""}
+<h2>Serviços</h2>
 <table><thead><tr><th>Descrição</th><th class="r">Qtd</th><th class="r">Valor unit.</th><th class="r">Subtotal</th></tr></thead><tbody>${(d.itens||[]).map(i=>`<tr><td>${esc(i.d)}</td><td class="r">${String(i.q).replace(".",",")}</td><td class="r">${R.format(i.v)}</td><td class="r">${R.format(i.q*i.v)}</td></tr>`).join("")}</tbody></table>
 <div class="tt"><div><span>Subtotal</span><span>${R.format(subt(d))}</span></div>${d.desc?`<div><span>Desconto</span><span>- ${R.format(d.desc)}</span></div>`:""}<div class="g"><span>Total</span><span>${R.format(t)}</span></div></div>
 ${rows.length||d.ob?`<div class="lb">Condições</div><div class="cn">${rows.map(r=>`<div class="rw"><span>${r[0]}</span><b>${esc(r[1])}</b></div>`).join("")}${d.ob?`<div class="rw"><span>Observações</span><b style="text-align:right;max-width:70%">${esc(d.ob)}</b></div>`:""}</div>`:""}
 ${code?`<div class="lb">Pagamento via Pix</div><div class="pxd">${qrSvg(code)}<div><p>Aponte a câmera do aplicativo do seu banco para o QR Code ou use o código Pix copia e cola:</p><code>${code}</code></div></div>`:""}
 ${isR?`<p class="cd">${p.cidade?esc(p.cidade)+", ":""}${dlong(emit)}.</p><div class="sg"><div>${esc(n||"")}${p.documento?`<br>${dl} ${fdoc(p.documento)}`:""}</div></div>`:""}
 <div class="ft"><div>${brand}<span class="tg">Orçou. Cobrou. Recebeu.</span></div><div>Documento sem valor fiscal</div></div></div>`;
-$("doc").innerHTML=body;
-const prev=$("recprev");if(prev)prev.innerHTML=body;
-if(opts.preview!==false){try{openS("sh-recibo")}catch(e){}}
-setTimeout(()=>{try{window.print()}catch(e){}},350);
-}
+$("doc").innerHTML=body;window.print()}
 const linkOf=d=>location.origin+location.pathname+"?o="+d.tk;
 async function copyText(v){try{await navigator.clipboard.writeText(v)}catch(e){const t=document.createElement("textarea");t.value=v;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove()}}
 const addDays=(s,n)=>{const d=new Date(s+"T12:00");d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
@@ -681,7 +675,7 @@ const o=r.data,pr=o.profissional||{},code=pixBuild(o.pix_chave,pr.nome,pr.cidade
 cv.innerHTML=`<div style="text-align:center;margin:1rem 0">${safeImg(pr.logo)?`<img src="${safeImg(pr.logo)}" alt="" style="max-height:64px;max-width:160px;background:#fff;border-radius:.5rem;padding:.3rem"><br>`:""}<h1 class="cvh">${esc(pr.nome||"Cobrança")}</h1><p class="note">${esc([pr.documento?fdoc(pr.documento):"",pr.telefone?ftel(pr.telefone):"",pr.cidade].filter(Boolean).join(" · "))}</p></div>
 <section class="card" style="text-align:center"><p class="note">Cobrança nº ${o.numero}${o.parcela?" · parcela "+esc(o.parcela):""} para <b>${esc(o.cliente)}</b></p><h2 style="margin:.2rem 0">${esc(o.servico)}</h2><p style="font-size:2rem;font-weight:800;margin:.4rem 0">${R.format(o.total)}</p>${o.vencimento&&o.status==="cob"?`<p class="note">Vence em ${br(o.vencimento)}</p>`:""}</section>
 ${o.status==="pago"?`<div class="card" style="text-align:center"><b>Pagamento confirmado. Obrigado!</b></div>`:code?`<section class="card" style="text-align:center"><b>Pague com Pix</b>${qrSvg(code)?`<div class="qr">${qrSvg(code)}</div>`:""}<p class="note">No app do seu banco, escolha Pix e leia o QR Code, ou copie o código.</p><button class="b p wide" data-act="cpix">Copiar código Pix</button></section>`:`<div class="card"><p class="note">Fale com ${esc(pr.nome||"o profissional")} para combinar a forma de pagamento.</p></div>`}`}
-const safeImg=u=>/^data:image\/(png|jpeg|webp|gif);base64,[A-Za-z0-9+\/=]+$/.test(String(u||""))?u:"";
+const safeImg=u=>{const s=String(u||"");return s.length<900000&&/^data:image\/(png|jpeg|webp|gif);base64,[A-Za-z0-9+\/=]+$/.test(s)?s:"";};
 const SENT=new Set();try{JSON.parse(localStorage.getItem("cobrei:env")||"[]").forEach(i=>SENT.add(i))}catch(e){}
 function markSent(id){if(!id||SENT.has(id))return;SENT.add(id);try{localStorage.setItem("cobrei:env",JSON.stringify([...SENT].slice(-300)))}catch(e){}setTimeout(render,500)}
 function openSent(d){const a=$("sentwa");a.href=wa(d);a.dataset.id=d.id;openS("sh-sent")}
@@ -766,11 +760,13 @@ const as_=(asn&&!asn.error&&asn.data)||{};S.plano={plano:as_.plano||"gratis",ate
 async function enter(user){U=user;const md=user.user_metadata||{};S.cfg={nome:md.nome||"",pix:md.pix||""};
 try{await loadAll()}catch(e){console.error("loadAll",e);$("aerr").textContent="Não foi possível carregar seus dados agora. Verifique a conexão e tente de novo.";return}
 try{await genRecs()}catch(e){}OK=true;trapInit();try{localStorage.setItem("cobrei:v","1")}catch(e){}render();if(needProfile())openProfile(true);else remind()}
+let AUTH_TRIES=0,AUTH_LOCK=0;
 async function doAuth(){
+if(Date.now()<AUTH_LOCK){const s=Math.ceil((AUTH_LOCK-Date.now())/1000);$("aerr").textContent="Muitas tentativas. Aguarde "+s+"s e tente de novo.";return}
 const e=$("ae").value.trim().toLowerCase(),p=$("ap").value,er=$("aerr"),inf=$("ainfo");er.textContent="";inf.textContent="";
 if(!sb){er.textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
 if(MODE!=="recover"&&!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite um e-mail válido.";return}
-if(p.length<8){er.textContent="A senha precisa ter pelo menos 8 caracteres.";return}
+if(p.length<10){er.textContent="A senha precisa ter pelo menos 10 caracteres.";return}
 if(MODE==="signup"&&!$("an").value.trim()){er.textContent="Digite seu nome.";return}
 if(MODE==="signup"&&!$("ace").checked){er.textContent="Para criar a conta, aceite os Termos de Uso e a Política de Privacidade.";return}
 const btn=$("ab");btn.disabled=true;
@@ -780,7 +776,7 @@ else if(MODE==="signup"){const r=await sb.auth.signUp({email:e,password:p,option
 if(r.data.user&&Array.isArray(r.data.user.identities)&&r.data.user.identities.length===0){er.textContent="Este e-mail já tem conta. Toque em “Já tenho conta” ou use “Esqueci minha senha”.";btn.disabled=false;return}
 if(r.data.session)await enter(r.data.session.user);else{MODE="login";render();inf.textContent="Enviamos um link de confirmação para o seu e-mail. Confirme e depois entre aqui."}}
 else{const r=await sb.auth.signInWithPassword({email:e,password:p});if(r.error)throw r.error;await enter(r.data.user)}
-}catch(x){er.textContent=msgErr(x)}
+}catch(x){AUTH_TRIES++;if(AUTH_TRIES>=5){AUTH_LOCK=Date.now()+30000;AUTH_TRIES=0}er.textContent=msgErr(x)}
 btn.disabled=false;$("ap").value=""}
 async function forgot(){const e=$("ae").value.trim().toLowerCase(),er=$("aerr"),inf=$("ainfo");er.textContent="";inf.textContent="";
 if(!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite seu e-mail acima e toque em “Esqueci minha senha” de novo.";return}
@@ -802,10 +798,10 @@ const iso=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toISOString()
 const br=s=>s?s.split("-").reverse().join("/"):"";
 const ST={orc:"Orçamento enviado",apr:"Aprovado — falta cobrar",pago:"Pago",rec:"Recusado pelo cliente",parc:"Parcelado em várias cobranças"};
 const FL={all:()=>true,orc:d=>d.s==="orc"||d.s==="apr",cob:d=>d.s==="cob"||(d.s==="parc"&&kids(d).some(x=>x.s==="cob")),late:d=>d.s==="cob"&&d.venc&&d.venc<iso(0)||(d.s==="parc"&&kids(d).some(x=>x.s==="cob"&&x.venc&&x.venc<iso(0))),pago:d=>d.s==="pago"||(d.s==="parc"&&kids(d).length>0&&kids(d).every(x=>x.s==="pago")),rec:d=>d.s==="rec"};
-function msg(d){const t=R.format(tot(d)),n=S.cfg.nome||"";
-if(d.s==="cob")return`Olá, ${d.c}! Passando para lembrar da cobrança "${d.t}${d.pc?" (parcela "+d.pc+")":""}", no valor de ${t}, com vencimento em ${br(d.venc)}.${d.venc&&d.venc<iso(0)?" Ela está em atraso. Poderia me confirmar o pagamento?":""}${pixLink(d)?`\nPague com Pix por este link:\n${pixLink(d)}`:""}\nObrigado!`;
-if(d.tk)return`Olá, ${d.c}! Segue o link do seu orçamento. É só abrir e confirmar com 1 clique:\n${linkOf(d)}`;
-return`Olá, ${d.c}! Segue o orçamento nº ${d.n}${n?` de ${n}`:""}:\n\n${d.t}\n${d.itens.map(i=>`• ${i.d} (${i.q} x ${R.format(i.v)})`).join("\n")}${d.desc?`\nDesconto: -${R.format(d.desc)}`:""}\n\nTotal: ${t}${d.fp?`\nPagamento: ${payTxt(d.fp,d.np,d.en,tot(d))}`:""}${d.val?`\nValidade: ${br(d.val)}`:""}${d.ob?`\nObs.: ${d.ob}`:""}\n\n${d.tk?`Para aprovar com um toque, acesse:\n${linkOf(d)}`:"Se estiver de acordo, é só me responder aqui."}`}
+function msg(d){const safe=s=>String(s??"").replace(/[\u0000-\u001F\u007F]/g,"").slice(0,120);const t=R.format(tot(d)),n=safe(S.cfg.nome||"");
+if(d.s==="cob")return`Olá, ${safe(d.c)}! Passando para lembrar da cobrança "${safe(d.t)}${d.pc?" (parcela "+d.pc+")":""}", no valor de ${t}, com vencimento em ${br(d.venc)}.${d.venc&&d.venc<iso(0)?" Ela está em atraso. Poderia me confirmar o pagamento?":""}${pixLink(d)?`\nPague com Pix por este link:\n${pixLink(d)}`:""}\nObrigado!`;
+if(d.tk)return`Olá, ${safe(d.c)}! Segue o link do seu orçamento. É só abrir e confirmar com 1 clique:\n${linkOf(d)}`;
+return`Olá, ${safe(d.c)}! Segue o orçamento nº ${d.n}${n?` de ${n}`:""}:\n\n${safe(d.t)}\n${d.itens.map(i=>`• ${i.d} (${i.q} x ${R.format(i.v)})`).join("\n")}${d.desc?`\nDesconto: -${R.format(d.desc)}`:""}\n\nTotal: ${t}${d.fp?`\nPagamento: ${payTxt(d.fp,d.np,d.en,tot(d))}`:""}${d.val?`\nValidade: ${br(d.val)}`:""}${d.ob?`\nObs.: ${d.ob}`:""}\n\n${d.tk?`Para aprovar com um toque, acesse:\n${linkOf(d)}`:"Se estiver de acordo, é só me responder aqui."}`}
 function wa(d){let p=(d.w||"").replace(/\D/g,"");if(p&&p.length<=11)p="55"+p;return`https://wa.me/${p}?text=${encodeURIComponent(msg(d))}`}
 function render(){
 authUI();
@@ -920,8 +916,7 @@ const r=await sb.from("orcamentos").insert(Object.assign({numero:n,cliente:$("fc
 const r2=await sb.from("itens").insert(itens.map(i=>({orcamento_id:r.data.id,descricao:i.d,quantidade:i.q,valor:i.v})));
 if(r2.error){await sb.from("orcamentos").delete().eq("id",r.data.id);throw r2.error}
 OPEN.add(r.data.id);await loadAll();closeS();F="all";render();scrollTo(0,0);autoSend(r.data.id)}
-else if(a==="doprint"){try{window.print()}catch(e){}toast("Se não abriu, use o menu do aparelho → Imprimir / Salvar PDF.")}
-else if(a==="paidpdf"){let x=S.docs.find(z=>z.id===PAID);if(!x&&PAY)x=S.docs.find(z=>z.id===PAY);if(!x){toast("Recibo não encontrado. Abra o orçamento pago e toque em Recibo/PDF.");return}closeS();pdf(Object.assign({},x,{s:"pago"}),{recibo:true,preview:true})}
+else if(a==="paidpdf"){let x=S.docs.find(z=>z.id===PAID);if(!x&&PAY)x=S.docs.find(z=>z.id===PAY);if(!x){toast("Recibo não encontrado. Abra o orçamento pago e toque em Recibo/PDF.");return}closeS();pdf(Object.assign({},x,{s:"pago"}),{recibo:true})}
 else if(d){if(a==="apr")await up(d,{status:"apr"});else if(a==="lnk"){await copyText(linkOf(d));toast("Link copiado. Envie ao cliente.")}
 else if(a==="cob"){CB=d.id;$("cbd").value=iso(7);cbUI();openS("sh-cb")}
 else if(a==="pago"||a==="pixpago"){const x=d||S.docs.find(z=>z.id===PIXD);if(!x){toast("Abra o Pix de uma cobrança primeiro.");return}PAY=x.id;closeS();payList();openS("sh-pay")}else if(a==="pdf")pdf(d);else if(a==="grp")openGrp(d.id);else if(a==="editq")openEdit(d);else if(a==="dup")openDup(d);
