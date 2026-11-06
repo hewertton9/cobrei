@@ -59,7 +59,7 @@ h1 i{display:inline-block;width:.45rem;height:.45rem;border-radius:50%;backgroun
 .sheet h2{margin:0 0 .5rem;font-size:1.25rem}
 .sheet label{display:block;font-size:.8rem;color:var(--mu);margin:.9rem 0 .3rem}
 .sheet input{width:100%;height:3rem;padding:0 .8rem;font-size:16px;border:1px solid var(--ln);border-radius:.8rem;background:var(--inp)}
-.it{display:grid;grid-template-columns:1fr 3.2rem 5.6rem;gap:.4rem;margin-bottom:.4rem}.it input{padding:0 .5rem}
+.it{display:grid;grid-template-columns:1fr 3.2rem 5.6rem 2rem;gap:.4rem;align-items:center;margin-bottom:.4rem}.it input{padding:0 .5rem}.it .rm{border:0;background:none;color:var(--mu);font-size:1.25rem;line-height:1;min-height:2.5rem;padding:0;cursor:pointer}.it .rm:hover{color:var(--bad)}
 .link{background:none;border:0;color:var(--ink);font-weight:600;padding:.7rem 0;text-decoration:underline}
 .bar{position:sticky;bottom:0;background:var(--sf);padding:.8rem 0 calc(.9rem + env(safe-area-inset-bottom,0px));margin-top:.5rem;border-top:1px solid var(--ln)}
 .bar p{margin:0 0 .6rem;display:flex;justify-content:space-between;font-weight:800;font-size:1.15rem}.bar .act{margin:0}
@@ -382,10 +382,10 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 </aside>
 <aside id="sh-rc" class="sheet" aria-label="Cobrança mensal">
 <h2>Cobrança mensal</h2><p id="rcc" class="note"></p>
-<label for="rcs">Serviço</label><input id="rcs" placeholder="Ex.: Mensalidade de manutenção">
+<label for="rcs">Serviço</label><input id="rcs" placeholder="Ex.: Manutenção de unha, mensalidade…">
 <label for="rcv">Valor mensal (R$)</label><input id="rcv" inputmode="decimal">
 <label for="rcd">Primeiro vencimento</label><input id="rcd" type="date">
-<p class="note">As cobranças são criadas ao abrir o app, até 5 dias antes de cada vencimento.</p>
+<p class="note">Ideal para manutenção (unha, limpeza, consultoria…). Todo mês o COBREI cria uma cobrança automaticamente, até 5 dias antes do vencimento. Você só envia no WhatsApp.</p>
 <div class="bar"><div class="act"><button class="b p" data-act="saverc">Ativar cobrança mensal</button></div></div>
 </aside>
 <aside id="sh-svc" class="sheet" aria-label="Serviço">
@@ -735,7 +735,7 @@ function renderCli(){const by={};S.docs.forEach(d=>{if(d.k){const o=by[d.k]||(by
 $("cli-n").textContent=S.clientes.length;
 const qcli=norm(($("busca-cli")||{value:""}).value.trim());
 const CL=qcli?S.clientes.filter(c=>norm(c.nome+" "+(c.documento||"")+" "+(c.whatsapp||"")+" "+(c.email||"")).includes(qcli)):S.clientes;
-$("cll").innerHTML=CL.length?CL.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return cardX(c.id,`<div class="av">${safeImg(c.foto)?`<img src="${safeImg(c.foto)}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div>`,`${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}`,`<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button>${c.recorrente?`<button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button>`:""}</div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div>`)}).join(""):`<div class="empty">${S.clientes.length?"Nenhum cliente encontrado.":"Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque."}</div>`}
+$("cll").innerHTML=CL.length?CL.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return cardX(c.id,`<div class="av">${safeImg(c.foto)?`<img src="${safeImg(c.foto)}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div>`,`${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}`,`<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button><button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button></div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div>`)}).join(""):`<div class="empty">${S.clientes.length?"Nenhum cliente encontrado.":"Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque."}</div>`}
 try{if(localStorage.getItem("cobrei:v"))MODE="login"}catch(e){}
 if(/type=recovery/.test(location.hash))MODE="recover";
 const msgErr=e=>{const m=String(e&&e.message||"").toLowerCase();
@@ -830,7 +830,7 @@ const openS=id=>{if(!STK.includes(id))STK.push(id);const el=$(id);el.style.zInde
 function shut(id){const el=$(id);el.classList.remove("open");el.style.zIndex="";const i=STK.indexOf(id);if(i>=0)STK.splice(i,1);if(!STK.length)$("ov").classList.remove("open")}
 const closeTop=()=>{if(STK.length)shut(STK[STK.length-1])};
 const closeS=()=>{STK.length=0;$("ov").classList.remove("open");document.querySelectorAll(".sheet").forEach(s=>{s.classList.remove("open");s.style.zIndex=""})};
-function addItem(){const r=document.createElement("div");r.className="it";r.innerHTML=`<input placeholder="Descrição" aria-label="Descrição"><input placeholder="Qtd" value="1" inputmode="decimal" aria-label="Quantidade"><input placeholder="R$" inputmode="decimal" aria-label="Valor unitário">`;$("its").appendChild(r)}
+function addItem(){const r=document.createElement("div");r.className="it";r.innerHTML=`<input placeholder="Descrição" aria-label="Descrição"><input placeholder="Qtd" value="1" inputmode="decimal" aria-label="Quantidade"><input placeholder="R$" inputmode="decimal" aria-label="Valor unitário"><button type="button" class="rm" data-act="delitem" aria-label="Remover item">×</button>`;$("its").appendChild(r)}
 function calc(){let t=0;document.querySelectorAll("#its .it").forEach(r=>{const i=r.querySelectorAll("input");t+=num(i[1].value)*num(i[2].value)});t=Math.max(0,t-num($("fdc").value));$("ftot").textContent=R.format(t)}
 
 document.addEventListener("input",e=>{if(e.target.id==="busca"||e.target.id==="busca-cli"||e.target.id==="busca-sv")render();if(e.target.closest("#its")||e.target.id==="fdc")calc();if(e.target.id==="cbp"||e.target.id==="cbn")cbUI()});
@@ -896,7 +896,7 @@ const pf=Object.assign({user_id:U.id},f);
 const r=await sb.auth.updateUser({data:c});if(r.error)throw r.error;const r2=await sb.from("perfil").upsert(pf,{onConflict:"user_id"});if(r2.error)throw r2.error;
 S.cfg=Object.assign(S.cfg,c);S.perfil={documento:pf.documento||"",telefone:pf.telefone||"",cidade:pf.cidade||"",pixt:"cpf",logo:pf.logo||""};const was=FORCE;FORCE=false;closeS();toast("Dados salvos.");render();if(was&&!onbDone())openOnb();else if(was&&!S.docs.length)openNew("")}
 else if(a==="new"){ONB=false;closeS();if(!isPro()&&usados()>=CFG.limite)planoOpen();else openNew("")}
-else if(a==="close"){if(!FORCE){ONB=false;closeS()}}else if(a==="additem")addItem();else if(a==="flt"){F=t.dataset.f;render()}
+else if(a==="close"){if(!FORCE){ONB=false;closeS()}}else if(a==="additem")addItem();else if(a==="delitem"){const row=t.closest(".it");if(!row)return;const rows=document.querySelectorAll("#its .it");if(rows.length<=1){row.querySelectorAll("input").forEach((inp,i)=>{inp.value=i===1?"1":""});calc();return}row.remove();calc()}else if(a==="flt"){F=t.dataset.f;render()}
 else if(a==="tab"){TAB=t.dataset.t;render();scrollTo(0,0)}
 else if(a==="goto"){TAB=t.dataset.t;if(t.dataset.s)SUB=t.dataset.s;render();scrollTo(0,0)}
 else if(a==="savepixk"){const k=$("pixk").value.trim();if(!k){toast("Digite a sua chave Pix.");return}const r=await sb.from("contas").insert({nome:"Pix",tipo:"pix",chave:k});if(r.error)throw r.error;await loadAll();$("pixk").value="";pixShow()}
