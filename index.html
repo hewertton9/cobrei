@@ -768,7 +768,7 @@ if(Date.now()<AUTH_LOCK){const s=Math.ceil((AUTH_LOCK-Date.now())/1000);$("aerr"
 const e=$("ae").value.trim().toLowerCase(),p=$("ap").value,er=$("aerr"),inf=$("ainfo");er.textContent="";inf.textContent="";
 if(!sb){er.textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
 if(MODE!=="recover"&&!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite um e-mail válido.";return}
-if(MODE!=="recover"&&MODE!=="signup"&&!p){er.textContent="Digite sua senha, ou toque em “Esqueci minha senha” se não lembrar.";return}if(p.length<10){er.textContent="A senha precisa ter pelo menos 10 caracteres.";return}
+if(MODE!=="recover"&&MODE!=="signup"&&!p){er.textContent="Digite sua senha, ou toque em “Esqueci minha senha” se não lembrar.";return}if(p.length<8){er.textContent="A senha precisa ter pelo menos 8 caracteres.";return}
 if(MODE==="signup"&&!$("an").value.trim()){er.textContent="Digite seu nome.";return}
 if(MODE==="signup"&&!$("ace").checked){er.textContent="Para criar a conta, aceite os Termos de Uso e a Política de Privacidade.";return}
 const btn=$("ab");btn.disabled=true;
