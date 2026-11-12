@@ -449,7 +449,7 @@ const contaNome=id=>(S.contas.find(x=>x.id===id)||{}).nome;
 function payList(){$("payl").innerHTML=S.contas.map(x=>`<button class="b" data-act="payto" data-c="${x.id}">${EM[x.tipo]} ${esc(x.nome)}</button>`).join("")+`<button class="b" data-act="payto" data-c="">Não informar</button>`}
 const SUPA_URL="https://eofyqeledandcttfhmuu.supabase.co",SUPA_KEY="sb_publishable_I0HUMSb82iau2xRXlVQp4A_T2r8EbC0";
 let OK=false,MODE="signup",U=null,sb=null;
-try{sb=supabase.createClient(SUPA_URL,SUPA_KEY)}catch(e){}
+try{sb=supabase.createClient(SUPA_URL,SUPA_KEY,{auth:{detectSessionInUrl:true,persistSession:true,autoRefreshToken:true}})}catch(e){}
 const BK="cobrei:bio",enc=new TextEncoder(),b64=u=>btoa(String.fromCharCode(...u)),unb=t=>Uint8Array.from(atob(t),c=>c.charCodeAt(0));
 let LOCK=false,PEND=null,HIDE=false;try{HIDE=localStorage.getItem("cobrei:hide")==="1"}catch(e){}
 const fmt=v=>HIDE?"R$ •••••":R.format(v);
@@ -768,12 +768,12 @@ if(Date.now()<AUTH_LOCK){const s=Math.ceil((AUTH_LOCK-Date.now())/1000);$("aerr"
 const e=$("ae").value.trim().toLowerCase(),p=$("ap").value,er=$("aerr"),inf=$("ainfo");er.textContent="";inf.textContent="";
 if(!sb){er.textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
 if(MODE!=="recover"&&!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite um e-mail válido.";return}
-if(p.length<10){er.textContent="A senha precisa ter pelo menos 10 caracteres.";return}
+if(MODE!=="recover"&&MODE!=="signup"&&!p){er.textContent="Digite sua senha, ou toque em “Esqueci minha senha” se não lembrar.";return}if(p.length<10){er.textContent="A senha precisa ter pelo menos 10 caracteres.";return}
 if(MODE==="signup"&&!$("an").value.trim()){er.textContent="Digite seu nome.";return}
 if(MODE==="signup"&&!$("ace").checked){er.textContent="Para criar a conta, aceite os Termos de Uso e a Política de Privacidade.";return}
 const btn=$("ab");btn.disabled=true;
 try{
-if(MODE==="recover"){const r=await sb.auth.updateUser({password:p});if(r.error)throw r.error;MODE="login";history.replaceState(null,"",location.pathname);const g=await sb.auth.getSession();if(g.data.session)await enter(g.data.session.user);else render()}
+if(MODE==="recover"){const r=await sb.auth.updateUser({password:p});if(r.error)throw r.error;MODE="login";history.replaceState(null,"",location.pathname+location.search);$("ainfo").textContent="Senha atualizada! Entrando…";const g=await sb.auth.getSession();if(g.data.session)await enter(g.data.session.user);else{$("aerr").textContent="";$("ainfo").textContent="Senha atualizada. Entre com o e-mail e a nova senha.";render()}}
 else if(MODE==="signup"){const r=await sb.auth.signUp({email:e,password:p,options:{data:{nome:$("an").value.trim(),aceite_termos:new Date().toISOString()},emailRedirectTo:location.origin+location.pathname}});if(r.error)throw r.error;
 if(r.data.user&&Array.isArray(r.data.user.identities)&&r.data.user.identities.length===0){er.textContent="Este e-mail já tem conta. Toque em “Já tenho conta” ou use “Esqueci minha senha”.";btn.disabled=false;return}
 if(r.data.session)await enter(r.data.session.user);else{MODE="login";render();inf.textContent="Enviamos um link de confirmação para o seu e-mail. Confirme e depois entre aqui."}}
@@ -781,9 +781,21 @@ else{const r=await sb.auth.signInWithPassword({email:e,password:p});if(r.error)t
 }catch(x){AUTH_TRIES++;if(AUTH_TRIES>=5){AUTH_LOCK=Date.now()+30000;AUTH_TRIES=0}er.textContent=msgErr(x)}
 btn.disabled=false;$("ap").value=""}
 async function forgot(){const e=$("ae").value.trim().toLowerCase(),er=$("aerr"),inf=$("ainfo");er.textContent="";inf.textContent="";
-if(!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite seu e-mail acima e toque em “Esqueci minha senha” de novo.";return}
+if(!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite seu e-mail acima e toque em “Esqueci minha senha”.";return}
+try{
 const r=await sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname});
-if(r.error)er.textContent=msgErr(r.error);else inf.textContent="Se esse e-mail tiver conta, enviamos um link para criar uma nova senha."}
+if(r.error){
+const m=String(r.error.message||"").toLowerCase();
+if(m.includes("rate")||m.includes("too many"))er.textContent="Muitas tentativas. Aguarde alguns minutos e tente de novo.";
+else if(m.includes("smtp")||m.includes("sending")||m.includes("not authorized")||m.includes("error sending"))er.textContent="Não foi possível enviar o e-mail agora. Tente de novo em alguns minutos ou fale com o suporte.";
+else if(m.includes("redirect")||m.includes("url"))er.textContent="Link de recuperação não autorizado. Avise o suporte do COBREI.";
+else er.textContent="Não foi possível enviar o e-mail de recuperação. Confira o e-mail e tente de novo.";
+}else{
+inf.textContent="Enviamos um link para "+e+" (se essa conta existir). Abra o e-mail e toque no link para criar uma nova senha. Confira também a caixa de spam.";
+$("ap").value="";
+}
+}catch(x){er.textContent="Falha de conexão ao pedir nova senha. Verifique a internet e tente de novo."}
+}
 function authUI(){const m=MODE;
 $("intro").classList.toggle("hid",OK||LOCK);$("lock").classList.toggle("hid",!LOCK||OK);$("app").classList.toggle("hid",!OK);document.querySelector(".fab").classList.toggle("hid",!OK||TAB==="ct"||TAB==="sv"||TAB==="mais"||TAB==="aj");
 $("an").classList.toggle("hid",m!=="signup");$("ae").classList.toggle("hid",m==="recover");$("fg").classList.toggle("hid",m!=="login");$("sw").classList.toggle("hid",m==="recover");$("aceitew").classList.toggle("hid",m!=="signup");
@@ -931,11 +943,16 @@ else if(a==="pago"||a==="pixpago"){const x=d||S.docs.find(z=>z.id===PIXD);if(!x)
 else if(a==="del"){const ks=kids(d);if(!confirm(ks.length?"Excluir este parcelamento e as "+ks.length+" parcelas?":"Excluir este registro?"))return;const r=await sb.from("orcamentos").delete().in("id",[d.id].concat(ks.map(x=>x.id)));if(r.error)throw r.error;await loadAll();closeS();render()}}
 }catch(x){fail(x)}}
 document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.tagName==="INPUT")return;act(t.dataset.act,t)});
+function isRecoveryLink(){try{const h=new URLSearchParams((location.hash||"").replace(/^#/,""));const q=new URLSearchParams(location.search||"");return h.get("type")==="recovery"||q.get("type")==="recovery"}catch(e){return false}}
 async function init(){loadBind();
 if(!sb){$("aerr").textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
-sb.auth.onAuthStateChange((ev)=>{if(ev==="PASSWORD_RECOVERY"){MODE="recover";OK=false;render()}});
+if(isRecoveryLink()){MODE="recover";OK=false;LOCK=false}
+sb.auth.onAuthStateChange((ev)=>{
+if(ev==="PASSWORD_RECOVERY"||(ev==="SIGNED_IN"&&MODE==="recover")||(ev==="TOKEN_REFRESHED"&&MODE==="recover")){MODE="recover";OK=false;LOCK=false;render()}
+});
 const g=await sb.auth.getSession();
-if(g.data.session&&MODE!=="recover"){const u=g.data.session.user;let c=null;try{c=JSON.parse(localStorage.getItem(BK))}catch(e){}
+if(MODE==="recover"){OK=false;LOCK=false;render();return}
+if(g.data.session){const u=g.data.session.user;let c=null;try{c=JSON.parse(localStorage.getItem(BK))}catch(e){}
 if(c&&c.uid===u.id&&window.PublicKeyCredential){PEND=u;LOCK=true;render()}else await enter(u)}}
 document.querySelectorAll(".sheet").forEach(sh=>{const b=document.createElement("button");b.type="button";b.className="back";b.dataset.act="back";b.textContent="‹ Voltar";sh.insertBefore(b,sh.firstChild)});
 if(CVT&&sb&&/^[0-9a-f-]{36}$/i.test(CVT))clientView(CVT);else if(CCT&&sb&&/^[0-9a-f-]{36}$/i.test(CCT))cobView(CCT);else{render();init()}
