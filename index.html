@@ -24,4 +24,948 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:Sora,system-ui,-
 button,input{font:inherit;color:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
 .w{max-width:40rem;margin:0 auto;padding:1rem 1rem 7rem}
-header
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+h1{margin:0;font-size:1.6rem;font-weight:800;letter-spacing:-.04em;line-height:1}
+h1 i{display:inline-block;width:.45rem;height:.45rem;border-radius:50%;background:var(--ac);margin-left:.15rem}
+#hi{display:block;font-size:.8rem;font-weight:400;color:var(--mu);letter-spacing:0;margin-top:.3rem}
+.ic{width:2.75rem;height:2.75rem;border-radius:50%;border:1px solid var(--ln);background:var(--sf);display:grid;place-items:center}
+.hero{background:var(--hero);color:#fff;border-radius:1.5rem;padding:1.4rem 1.3rem 1.2rem;margin-bottom:1rem}
+.hero span{display:block;font-size:.78rem;opacity:.75}
+.hero>b{display:block;font-size:2.2rem;font-weight:800;letter-spacing:-.03em;line-height:1.15;margin:.2rem 0 1rem}
+.hs{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;border-top:1px solid rgba(255,255,255,.18);padding-top:.9rem}
+.hs b{font-size:1.05rem;font-weight:600}
+.chips{display:flex;gap:.5rem;overflow-x:auto;margin:0 -1rem 1rem;padding:0 1rem;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;border:1px solid var(--ln);background:var(--sf);border-radius:99px;padding:.55rem 1rem;font-size:.85rem;font-weight:600;min-height:2.5rem}
+.chips button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:1.1rem;padding:1rem;margin-bottom:.75rem}
+.top{display:flex;gap:.8rem;align-items:center}
+.av{flex:none;width:2.8rem;height:2.8rem;border-radius:50%;background:color-mix(in srgb,var(--ac) 35%,var(--sf));display:grid;place-items:center;font-weight:800}
+.mid{flex:1;min-width:0}.mid h3{margin:0;font-size:1rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mid p{margin:0;color:var(--mu);font-size:.8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tot{font-weight:800;font-size:1.05rem;white-space:nowrap}
+.tag{display:inline-block;font-size:.75rem;font-weight:600;padding:.2rem .65rem;border-radius:99px;margin:.7rem 0 0;background:color-mix(in srgb,var(--mu) 16%,transparent)}
+.tag.cob{background:color-mix(in srgb,var(--ac) 40%,transparent)}.tag.pago{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}.tag.late{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.act{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem}
+.b{display:inline-flex;align-items:center;justify-content:center;min-height:3rem;padding:.6rem 1rem;border-radius:.8rem;border:1px solid var(--ln);background:var(--sf);font-size:.9rem;font-weight:600;text-decoration:none;flex:1}
+.b.p{flex:1 1 100%;background:var(--ac);border-color:var(--ac);color:#0b1b3a}
+.sub{display:flex;gap:1.25rem;margin-top:.4rem}
+.sub button,.sub label{background:none;border:0;padding:.6rem 0;font-size:.8rem;color:var(--mu);min-height:2.5rem}.sub .d{color:var(--bad)}
+.sub input{border:0;background:none;font-size:.8rem;color:var(--ink)}
+.empty{text-align:center;color:var(--mu);padding:3rem 1rem;font-size:.95rem}
+.fab{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(1rem + env(safe-area-inset-bottom,0px));background:var(--ac);color:#0b1b3a;border:0;border-radius:99px;padding:1rem 1.6rem;font-weight:800;font-size:1rem;box-shadow:0 6px 20px rgba(0,0,0,.28);white-space:nowrap}
+.ov{position:fixed;inset:0;background:rgba(5,10,25,.55);opacity:0;pointer-events:none;transition:opacity .25s}.ov.open{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:50%;bottom:0;width:100%;max-width:40rem;max-height:92%;overflow:auto;background:var(--sf);border-radius:1.5rem 1.5rem 0 0;padding:1.25rem 1.1rem 0;transform:translate(-50%,100%);visibility:hidden;transition:transform .28s,visibility .28s}
+.sheet.open{transform:translate(-50%,0);visibility:visible}
+.sheet h2{margin:0 0 .5rem;font-size:1.25rem}
+.sheet label{display:block;font-size:.8rem;color:var(--mu);margin:.9rem 0 .3rem}
+.sheet input{width:100%;height:3rem;padding:0 .8rem;font-size:16px;border:1px solid var(--ln);border-radius:.8rem;background:var(--inp)}
+.row2{display:grid;grid-template-columns:1fr 5.2rem;gap:.4rem;align-items:center}.row2 select{width:100%;height:3rem;padding:0 .4rem;font-size:16px;border:1px solid var(--ln);border-radius:.8rem;background:var(--inp);color:var(--ink)}
+.it{display:grid;grid-template-columns:1fr 3.2rem 5.6rem 2rem;gap:.4rem;align-items:center;margin-bottom:.4rem}.it input{padding:0 .5rem}.it .rm{border:0;background:none;color:var(--mu);font-size:1.25rem;line-height:1;min-height:2.5rem;padding:0;cursor:pointer}.it .rm:hover{color:var(--bad)}
+.link{background:none;border:0;color:var(--ink);font-weight:600;padding:.7rem 0;text-decoration:underline}
+.bar{position:sticky;bottom:0;background:var(--sf);padding:.8rem 0 calc(.9rem + env(safe-area-inset-bottom,0px));margin-top:.5rem;border-top:1px solid var(--ln)}
+.bar p{margin:0 0 .6rem;display:flex;justify-content:space-between;font-weight:800;font-size:1.15rem}.bar .act{margin:0}
+#doc{display:none}
+@media (prefers-reduced-motion:reduce){.sheet,.ov{transition:none}}
+@media print{body>*{display:none!important}body>#doc{display:block!important;padding:2rem;color:#000;background:#fff;font-family:Sora,Arial,sans-serif}#doc table{width:100%;border-collapse:collapse;margin:1rem 0}#doc td,#doc th{border-bottom:1px solid #ccc;padding:.4rem;text-align:left}#doc .r{text-align:right}}
+
+:root:root:root{color-scheme:dark;--bg:#0a1230;--sf:#121c42;--ink:#f2f5ff;--mu:#a3aed0;--ln:#26336a;--ok:#5ad08a;--bad:#ff8f80;--inp:#0a1230}
+body{background:radial-gradient(60rem 30rem at 90% -5%,rgba(255,197,61,.2),transparent 60%),radial-gradient(50rem 30rem at -10% 105%,rgba(90,130,255,.3),transparent 60%),var(--bg);background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;background:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1.5px) 0 0/24px 24px;pointer-events:none}
+.w{position:relative}.hid{display:none!important}
+.logo{display:inline-flex;align-items:center;font-weight:800;letter-spacing:-.03em;line-height:1}.logo svg{width:.82em;height:.82em;margin:0 .03em}
+header{flex-direction:column;gap:.45rem;text-align:center;position:relative;padding-top:.5rem}header .logo{font-size:2rem}header .ic{position:absolute;right:0;top:.5rem}#hi{margin:0}
+.hero{background:var(--ac);color:#0a1230;text-align:center;box-shadow:0 12px 40px rgba(255,197,61,.22)}.hs{border-top-color:rgba(10,18,48,.2)}
+.chips{justify-content:safe center}.fab{box-shadow:0 8px 28px rgba(255,197,61,.35)}
+.intro{min-height:calc(100dvh - 3rem);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1.1rem;padding:1rem 0}
+.logo.big{font-size:3.6rem}.intro h2{margin:0;font-size:1.75rem;line-height:1.15;letter-spacing:-.02em}.intro>p{margin:0;color:var(--mu);max-width:21rem}
+.feat{display:grid;gap:.6rem;width:100%;max-width:22rem}.feat div{background:color-mix(in srgb,var(--sf) 85%,transparent);border:1px solid var(--ln);border-radius:1rem;padding:.8rem 1rem;font-size:.88rem;color:var(--mu)}.feat b{display:block;font-size:1rem;color:var(--ink)}
+.intro input{width:100%;max-width:22rem;height:3.25rem;text-align:center;font-size:16px;border:1px solid var(--ln);border-radius:.9rem;background:var(--sf)}
+.intro .b{max-width:22rem;flex:none;width:100%;min-height:3.4rem;font-size:1rem}
+@keyframes pop{from{transform:scale(.2) rotate(-140deg);opacity:0}to{transform:none;opacity:1}}
+.logo.big svg{animation:pop .8s cubic-bezier(.2,1.4,.4,1) both}
+@media (prefers-reduced-motion:reduce){.logo.big svg{animation:none}}
+
+.hero{background:#16235a;color:var(--ink);border:1px solid rgba(255,255,255,.12);box-shadow:none}
+.hero span{opacity:.7}.hero>b{color:#fff;margin:.2rem 0 .8rem}.hs{border-top-color:rgba(255,255,255,.14)}
+.pgb{height:.4rem;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;margin:0 0 1rem}.pgb i{display:block;height:100%;width:0;background:var(--ac);border-radius:99px;transition:width .5s}
+.af{display:grid;gap:.6rem;width:100%;max-width:22rem}.err{color:var(--bad);font-size:.85rem;margin:0;min-height:1.2rem}
+.intro small{color:var(--mu);max-width:20rem;font-size:.75rem;line-height:1.5}
+@media (prefers-reduced-motion:reduce){.pgb i{transition:none}}
+
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:.3rem;background:var(--sf);border:1px solid var(--ln);border-radius:99px;padding:.25rem;margin-bottom:1rem}
+.tabs button{border:0;background:none;border-radius:99px;min-height:2.6rem;font-weight:600;font-size:.9rem;color:var(--mu)}.tabs button.on{background:var(--ac);color:#0a1230}
+.wide{width:100%;margin-top:.5rem}.note{text-align:center;color:var(--mu);font-size:.8rem}.hero .note{margin:.2rem 0 0;color:#fff;opacity:.7}
+.sheet select{width:100%;height:3rem;padding:0 .8rem;font-size:16px;border:1px solid var(--ln);border-radius:.8rem;background:var(--inp);color:var(--ink)}
+.pl{display:grid;gap:.5rem;padding-bottom:1.5rem}
+.info{color:var(--ok);font-size:.85rem;margin:0}
+
+.w{padding-bottom:10rem}
+.tabs{position:fixed;left:0;right:0;bottom:0;margin:0;border-radius:0;border:0;border-top:1px solid var(--ln);background:color-mix(in srgb,var(--sf) 94%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);padding:.4rem .5rem calc(.4rem + env(safe-area-inset-bottom,0px));grid-template-columns:repeat(3,1fr);gap:0;z-index:5}
+.tabs button{display:flex;flex-direction:column;align-items:center;gap:.15rem;min-height:3.2rem;font-size:.72rem;border-radius:.8rem;color:var(--mu);background:none}
+.tabs button.on{background:none;color:var(--ac)}.tabs svg{width:1.5rem;height:1.5rem}
+.fab{bottom:calc(5rem + env(safe-area-inset-bottom,0px));z-index:4}.ov{z-index:20}.sheet{z-index:21}
+header .ic.eye{left:0;right:auto}header .ic svg{width:1.3rem;height:1.3rem}
+.sheet .chk{display:flex;gap:.7rem;align-items:center;color:var(--ink);font-size:.9rem;margin-top:1rem}.sheet .chk input{width:1.4rem;height:1.4rem;padding:0}
+.toast{position:fixed;left:50%;bottom:calc(6.5rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.8rem 1.2rem;border-radius:99px;font-size:.85rem;font-weight:600;max-width:90%;text-align:center;z-index:50;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+
+.tabs{grid-template-columns:repeat(4,1fr)}
+.mes{display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem}.mes b{font-size:1.05rem}.mes .ic{font-size:1.4rem;line-height:1}
+.ch{display:flex;align-items:stretch;gap:.5rem;height:8.5rem;margin-top:1rem}
+.ch div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:.35rem}
+.ch i{display:block;width:100%;border-radius:.4rem .4rem 0 0;background:var(--ln);min-height:3px}.ch .on i{background:var(--ac)}.ch span{font-size:.7rem;color:var(--mu)}
+#p-atr{color:var(--mu)}#p-atr.late{border-color:var(--bad);color:var(--bad)}
+.sheet textarea{width:100%;padding:.7rem .8rem;font-size:16px;border:1px solid var(--ln);border-radius:.8rem;background:var(--inp);color:var(--ink);font-family:inherit;resize:vertical}
+.sheet .note{margin:.2rem 0}.qr{background:#fff;padding:.5rem;border-radius:1rem;width:min(70vw,16rem);margin:1rem auto}.qr svg{display:block;width:100%;height:auto}
+.lg{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}.lg img{max-height:3rem;max-width:6rem;background:#fff;border-radius:.4rem;padding:.2rem}.lg .b{flex:none}
+#doc .dh{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;border-bottom:3px solid #0a1230;padding-bottom:1rem;margin-bottom:1.2rem}
+#doc .dl{display:flex;gap:1rem;align-items:center}#doc .dl img{max-height:64px;max-width:120px}#doc h1{margin:0;font-size:1.5rem}#doc .dl p{margin:.2rem 0 0;font-size:.8rem;color:#444}
+#doc .dr{text-align:right}#doc .dr b{display:block;font-size:1.2rem;text-transform:uppercase;letter-spacing:.04em}#doc .dr span{font-size:.85rem;color:#444}
+#doc .dc{display:flex;flex-direction:column;margin:0}#doc .dc span{font-size:.75rem;color:#555}#doc .tt{text-align:right;margin:.3rem 0}#doc .tt b{font-size:1.4rem}
+#doc .dn{font-size:.85rem;color:#333;margin:.3rem 0}#doc .pxd{display:flex;gap:1rem;align-items:center;margin-top:1rem}#doc .pxd svg{width:140px;height:140px;flex:none}#doc .pxd code{word-break:break-all;font-size:.7rem}
+#doc .ft{margin-top:2rem;font-size:.7rem;color:#666;text-align:center;border-top:1px solid #ccc;padding-top:.6rem}
+
+.sec{font-size:1rem;margin:1.4rem 0 .7rem}
+.task{display:flex;gap:.8rem;align-items:center;background:var(--sf);border:1px solid var(--ln);border-radius:1rem;padding:.8rem .9rem;margin-bottom:.6rem}
+.task .mid p{white-space:normal}.task .b.p{flex:none;min-height:2.6rem;padding:.4rem .9rem;font-size:.82rem}
+.dot{flex:none;width:.7rem;height:.7rem;border-radius:50%;background:var(--mu)}.dot.late{background:var(--bad)}.dot.today{background:var(--ac)}.dot.apr{background:#5b8cff}
+@media print{:root:root:root{color-scheme:light!important}html,body{background:#fff!important;color:#000!important}body::before{display:none!important}}
+
+.tabs button{position:relative}.bdg{position:absolute;top:.1rem;left:calc(50% + .45rem);min-width:1.15rem;height:1.15rem;border-radius:99px;background:var(--bad);color:#0a1230;font-size:.65rem;font-style:normal;font-weight:800;display:grid;place-items:center;padding:0 .25rem}
+.ir{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.55rem 0;border-bottom:1px solid var(--ln)}.ir.tt{border:0;font-size:1.15rem}
+.ir .link{padding:.3rem .2rem;font-size:.8rem;font-weight:600;color:var(--bad)}
+.cvh{margin:.4rem 0 0;font-size:1.5rem}.cvw{padding:.5rem 0}.cvw .link{display:block;margin:.5rem auto}
+.tag .x{background:none;border:0;color:inherit;font-size:1.1rem;line-height:1;padding:0 0 0 .35rem}
+.toast{bottom:auto;top:calc(1rem + env(safe-area-inset-top,0px))}
+
+.sec{text-align:center}
+header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
+.av{overflow:hidden}.av img{width:100%;height:100%;object-fit:cover;display:block}
+#doc .px{font-family:Arial,Helvetica,sans-serif;color:#1a1f36;font-size:10.5pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+#doc .px .top6{border-top:6px solid #0a1230;margin-bottom:18px}
+#doc .px .hd{display:flex;justify-content:space-between;gap:24px;align-items:flex-start}
+#doc .px .em{display:flex;gap:14px;align-items:center}#doc .px .em img{max-height:60px;max-width:130px;object-fit:contain}
+#doc .px h1{margin:0;font-size:17pt;line-height:1.2}#doc .px .em p{margin:3px 0 0;font-size:9pt;color:#555}
+#doc .px .dk{border:1px solid #c9cfe0;border-radius:8px;padding:10px 14px;min-width:190px;text-align:right}
+#doc .px .dk b{display:block;font-size:13pt;letter-spacing:.08em;text-transform:uppercase;color:#0a1230}#doc .px .dk span{display:block;font-size:9pt;color:#555}
+#doc .px h2{font-size:14pt;margin:20px 0 6px}
+#doc .px .lb{font-size:8pt;letter-spacing:.1em;text-transform:uppercase;color:#6a7190;margin:16px 0 4px}
+#doc .px .cn{border:1px solid #dde1ee;border-radius:8px;padding:10px 14px}#doc .px .mu{font-size:9pt;color:#555}
+#doc .px .rc{font-size:11pt;line-height:1.6;margin:8px 0 12px}
+#doc .px table{width:100%;border-collapse:collapse;margin-top:10px}
+#doc .px th{font-size:8pt;letter-spacing:.07em;text-transform:uppercase;color:#6a7190;text-align:left;padding:6px 8px;border-bottom:2px solid #0a1230}
+#doc .px td{padding:8px;border-bottom:1px solid #e3e6ef;font-size:10.5pt;vertical-align:top}#doc .px tr{page-break-inside:avoid}
+#doc .px .r{text-align:right}
+#doc .px .tt{margin-left:auto;width:52%;margin-top:12px}#doc .px .tt div{display:flex;justify-content:space-between;padding:4px 8px}
+#doc .px .tt .g{border-top:2px solid #0a1230;margin-top:6px;padding-top:8px;font-size:14pt;font-weight:700;color:#0a1230}
+#doc .px .rw{display:flex;justify-content:space-between;gap:16px;padding:3px 0;font-size:10pt}#doc .px .rw span{color:#555}
+#doc .px .pxd{display:flex;gap:16px;align-items:center;border:1px solid #dde1ee;border-radius:8px;padding:12px}
+#doc .px .pxd svg{width:130px;height:130px;flex:none}#doc .px .pxd p{margin:0 0 6px;font-size:9.5pt}#doc .px code{word-break:break-all;font-size:7.5pt;color:#333}
+#doc .px .cd{margin:28px 0 0;font-size:10.5pt}
+#doc .px .sg{margin-top:44px;text-align:center}#doc .px .sg div{border-top:1px solid #1a1f36;width:62%;margin:0 auto;padding-top:5px;font-size:9.5pt}
+#doc .px .ft{margin-top:34px;border-top:1px solid #c9cfe0;padding-top:10px;display:flex;justify-content:space-between;align-items:center;font-size:8pt;color:#6a7190}
+#doc .px .ft .logo{font-size:17pt;color:#0a1230}#doc .px .ft .tg{display:block;font-size:7.5pt;letter-spacing:.06em;margin-top:3px}
+
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:.3rem;background:var(--sf);border:1px solid var(--ln);border-radius:99px;padding:.25rem;margin-bottom:1rem}
+.seg button{border:0;background:none;border-radius:99px;min-height:2.5rem;font-weight:600;font-size:.85rem;color:var(--mu)}.seg button.on{background:var(--ac);color:#0a1230}
+.b.d{color:var(--bad)}.dr{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;font-size:.9rem}.dr span:first-child{color:var(--mu)}
+.intro .chk{display:flex;gap:.6rem;align-items:flex-start;text-align:left;font-size:.8rem;color:var(--mu);max-width:22rem;line-height:1.4}.intro .chk input{width:1.25rem;height:1.25rem;flex:none;margin-top:.1rem;padding:0}.intro .chk a{color:var(--ac)}
+.sheet .note a{color:var(--ac)}
+
+.tabs{grid-template-columns:repeat(5,1fr)}.tabs button{font-size:.68rem}
+.par{border:1px solid var(--ln);border-radius:1rem;padding:.8rem .9rem;margin-bottom:.6rem}#pars{padding-bottom:1.5rem}
+
+.more{display:none}.open>.more{display:block}
+.top[role=button]{cursor:pointer}.top[role=button]:focus-visible{outline:3px solid var(--ac);outline-offset:3px;border-radius:.6rem}
+.chv{flex:none;width:.55rem;height:.55rem;border-right:2px solid var(--mu);border-bottom:2px solid var(--mu);transform:rotate(45deg);margin:0 .2rem 0 .1rem;transition:transform .2s}
+.open>.top .chv{transform:rotate(-135deg)}
+.more>.act:first-child{margin-top:.2rem}
+.plans{display:grid;gap:1rem;margin:.8rem 0 .6rem}
+.plc{position:relative;border:1px solid var(--ln);border-radius:1rem;padding:1rem 1.1rem;text-align:left}
+.plc h3{margin:0;font-size:1.1rem}.plc .pr{margin:.2rem 0 .6rem;color:var(--mu);font-weight:600;white-space:normal}
+.plc ul{margin:0;padding-left:1.1rem}.plc li{margin:.3rem 0;font-size:.92rem}
+.plc.pro{border:2px solid var(--ac)}.plc .bd{position:absolute;top:-.75rem;right:1rem;background:var(--ac);color:#0a1230;font-size:.7rem;font-weight:800;padding:.15rem .65rem;border-radius:99px}
+@media (prefers-reduced-motion:reduce){.chv{transition:none}}
+
+.tabs{grid-template-columns:repeat(4,1fr)}.tabs button{font-size:.72rem}
+.menu{display:grid;gap:.6rem}
+.mi{display:flex;align-items:center;justify-content:space-between;gap:1rem;text-align:left;background:var(--sf);border:1px solid var(--ln);border-radius:1rem;padding:1rem;min-height:3.6rem;width:100%}
+.mi b{display:block;font-size:1rem}.mi small{display:block;color:var(--mu);font-size:.8rem;margin-top:.1rem}.mi .chv{transform:rotate(-45deg)}
+.back{background:none;border:0;color:var(--mu);font-weight:600;padding:.2rem 0 .9rem;font-size:.95rem}
+.gd{text-align:left}.gd h3{margin:0 0 .6rem;font-size:1.1rem}.gd ol{margin:0 0 1rem;padding-left:1.2rem}.gd li{margin:.4rem 0;color:var(--mu)}
+
+.step{display:flex;align-items:center;gap:.9rem;width:100%;text-align:left;background:var(--sf);border:1px solid var(--ln);border-radius:1rem;padding:.85rem 1rem;margin-bottom:.6rem;min-height:3.6rem}
+.step .ck{flex:none;width:2rem;height:2rem;border-radius:50%;border:2px solid var(--ln);display:grid;place-items:center;font-weight:800;font-size:.85rem}
+.step b{display:block;font-size:.98rem}.step small{display:block;color:var(--mu);font-size:.8rem;margin-top:.1rem}
+.step.ok{opacity:.7}.step.ok .ck{background:var(--ok);border-color:var(--ok);color:#0a1230}
+.gd .step{background:var(--bg)}
+.ev{display:flex;gap:.8rem;align-items:flex-start;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--ln);padding:.8rem 0;color:inherit}
+.ev:last-child{border-bottom:0}.ev .dot{margin-top:.45rem}.ev b{display:block;font-size:.9rem;font-weight:600;line-height:1.35}.ev small{color:var(--mu);font-size:.78rem}
+.dot.ok{background:var(--ok)}.dot.rec{background:var(--bad)}.dot.new{background:#5b8cff}.dot.cob{background:var(--ac)}
+#onbb{justify-content:center}
+
+#partyc{position:absolute;inset:0;overflow:hidden;pointer-events:none;border-radius:1.5rem 1.5rem 0 0}
+#partyc i{position:absolute;top:-14px;width:8px;height:14px;border-radius:2px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(560px) rotate(540deg);opacity:0}}
+.party{text-align:center;position:relative;padding-top:.6rem}.party .big{font-size:3.2rem;line-height:1;margin-bottom:.4rem}.party h2{margin:.2rem 0 .6rem}
+.sch{width:100%;height:3rem;padding:0 1rem;font-size:16px;border:1px solid var(--ln);border-radius:99px;background:var(--sf);color:var(--ink);margin-bottom:.8rem}
+#ajs{margin-top:1rem;display:grid;gap:.6rem}.hlp p{margin:.4rem 0;color:var(--mu);font-size:.92rem;line-height:1.5}
+.sheet.force>.back{display:none}.sheet>.back{padding:.1rem 0 .7rem}
+
+</style>
+</head>
+<body>
+<div class="w">
+<div id="cv" class="cvw hid"></div>
+<div id="lock" class="intro hid">
+<span class="logo big" role="img" aria-label="Cobrei">C<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#ffc53d"/><path d="M11 21l6 6 12-14" fill="none" stroke="#0a1230" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>BREI</span>
+<h2>Orçou. Cobrou. Recebeu.</h2>
+<p>Use a biometria do seu celular para entrar.</p>
+<button class="b p" data-act="unlock">Desbloquear</button>
+<button class="link" data-act="usepw">Entrar com e-mail e senha</button>
+</div>
+<div id="intro" class="intro">
+<span class="logo big" role="img" aria-label="Cobrei">C<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#ffc53d"/><path d="M11 21l6 6 12-14" fill="none" stroke="#0a1230" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>BREI</span>
+<h2 id="at">Crie sua conta</h2>
+<p id="as"></p>
+<div class="af">
+<input id="an" autocomplete="name" placeholder="Seu nome" aria-label="Seu nome">
+<input id="ae" autocomplete="email" inputmode="email" type="email" placeholder="E-mail" aria-label="E-mail">
+<input id="ap" autocomplete="current-password" type="password" placeholder="Senha (mínimo 10 caracteres)" aria-label="Senha">
+<p id="aerr" class="err" role="alert"></p><p id="ainfo" class="info" role="status"></p>
+<label class="chk" id="aceitew"><input type="checkbox" id="ace"><span>Li e aceito os <a href="termos.html" target="_blank" rel="noopener">Termos de Uso</a> e a <a href="privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</span></label>
+<button class="b p" id="ab" data-act="auth">Criar conta</button>
+</div>
+<button class="link hid" id="fg" data-act="forgot">Esqueci minha senha</button>
+<button class="link" id="sw" data-act="swm"></button>
+<small>🔒 Seus dados ficam guardados na nuvem, protegidos por senha. Só você consegue ver os seus orçamentos.</small>
+</div>
+<div id="app" class="hid">
+<header><span class="logo" role="img" aria-label="Cobrei">C<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#ffc53d"/><path d="M11 21l6 6 12-14" fill="none" stroke="#0a1230" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>BREI</span><p id="hi"></p><button class="ic eye" data-act="eye"></button><button class="ic" data-act="cfg" aria-label="Meus dados"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg></button></header>
+<nav class="tabs" aria-label="Seções"><button class="on" data-act="tab" data-t="pnl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6H9v6H5a1 1 0 01-1-1z"/></svg><span>Início</span><em id="bdg" class="bdg hid"></em></button><button data-act="tab" data-t="cob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6"/></svg><span>Orçamentos</span></button><button data-act="tab" data-t="cli"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="17.5" cy="9" r="2.5"/><path d="M17 14.5c2.4 0 4 1.7 4 4"/></svg><span>Clientes</span></button><button data-act="tab" data-t="mais"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></svg><span>Mais</span></button></nav>
+<div id="v-pnl">
+<section class="hero"><span>Falta receber</span><b id="p-ab"></b><div class="hs"><div><span>Atrasado</span><b id="p-atr"></b></div><div><span id="p-mn">Total recebido</span><b id="p-rec"></b></div></div></section>
+<h2 class="sec hid" id="pt">O que fazer agora</h2>
+<div id="p-onb"></div>
+<div id="p-tasks"></div>
+</div>
+<div id="v-cob" class="hid">
+<section class="hero"><span>A receber</span><b id="s2"></b><div class="pgb"><i id="pg"></i></div><div class="hs"><div><span>Em orçamento</span><b id="s1"></b></div><div><span>Já recebido</span><b id="s3"></b></div></div></section>
+<input id="busca" class="sch" type="search" placeholder="Buscar por cliente ou serviço" aria-label="Buscar orçamentos" autocomplete="off">
+<nav class="chips" aria-label="Filtrar"><button data-act="flt" data-f="all">Todos</button><button data-act="flt" data-f="orc">Orçamentos</button><button data-act="flt" data-f="cob">A receber</button><button data-act="flt" data-f="late">Atrasados</button><button data-act="flt" data-f="pago">Pagos</button><button data-act="flt" data-f="rec">Recusados</button></nav>
+<div id="list"></div>
+</div>
+<div id="v-mais" class="hid">
+<h2 class="sec">Mais opções</h2>
+<div class="menu">
+<button class="mi" data-act="goto" data-t="sv"><span><b>Serviços e preços</b><small>Seu catálogo, para orçar mais rápido</small></span><i class="chv"></i></button>
+<button class="mi" data-act="goto" data-t="ct" data-s="ct"><span><b>Onde você recebe</b><small>Contas e chave Pix</small></span><i class="chv"></i></button>
+<button class="mi" data-act="goto" data-t="ct" data-s="dp"><span><b>Despesas</b><small>Registre o que você gasta</small></span><i class="chv"></i></button>
+<button class="mi" data-act="goto" data-t="ct" data-s="rl"><span><b>Relatório</b><small>Resumo do mês ou do ano para o contador</small></span><i class="chv"></i></button>
+<button class="mi" data-act="cfg"><span><b>Meus dados</b><small>Nome, logo, biometria e privacidade</small></span><i class="chv"></i></button>
+<button class="mi" data-act="plano"><span><b>Meu plano</b><small>Veja o que está incluso</small></span><i class="chv"></i></button>
+<button class="mi" data-act="goto" data-t="aj"><span><b>Ajuda e suporte</b><small>Passo a passo e atendimento</small></span><i class="chv"></i></button>
+</div>
+</div>
+<div id="v-aj" class="hid">
+<button class="back" data-act="goto" data-t="mais">‹ Mais</button>
+<h2 class="sec">Ajuda</h2>
+<div id="ajl"></div>
+<div id="ajs"></div>
+</div>
+<div id="v-sv" class="hid">
+<button class="back" data-act="goto" data-t="mais">‹ Mais</button>
+<section class="hero"><span>Serviços cadastrados</span><b id="sv-n"></b><p class="note">Cadastre uma vez, com o valor, e use nos orçamentos com um toque.</p></section>
+<input id="busca-sv" class="sch" type="search" placeholder="Buscar serviço" aria-label="Buscar serviços" autocomplete="off">
+<div id="svl"></div>
+<button class="b p wide" data-act="newsv">+ Novo serviço</button>
+</div>
+<div id="v-cli" class="hid">
+<section class="hero"><span>Clientes cadastrados</span><b id="cli-n"></b><p class="note">O valor em cada cliente é o total já recebido dele.</p></section>
+<input id="busca-cli" class="sch" type="search" placeholder="Buscar cliente" aria-label="Buscar clientes" autocomplete="off">
+<div id="cll"></div>
+<button class="b p wide" data-act="newcli">+ Cadastrar cliente</button>
+</div>
+<div id="v-ct" class="hid">
+<button class="back" data-act="goto" data-t="mais">‹ Mais</button>
+<nav class="seg" aria-label="Financeiro"><button class="on" data-act="sub" data-s="ct">Contas</button><button data-act="sub" data-s="dp">Despesas</button><button data-act="sub" data-s="rl">Relatório</button></nav>
+<div id="v-nav" class="hid"><div class="mes"><button class="ic" data-act="mes" data-d="-1" aria-label="Período anterior">‹</button><b id="mes-t"></b><button class="ic" data-act="mes" data-d="1" aria-label="Próximo período">›</button></div></div>
+<div id="sv-ct">
+<section class="hero"><span>Total recebido</span><b id="ct-tot"></b><div class="pgb"><i style="width:100%"></i></div><p class="note">Cadastre onde o dinheiro cai e veja quanto entrou em cada lugar.</p></section>
+<div id="ctl"></div>
+<button class="b p wide" data-act="newct">+ Cadastrar onde você recebe</button>
+</div>
+<div id="sv-dp" class="hid">
+<section class="hero"><span>Despesas no mês</span><b id="dp-tot"></b></section>
+<div id="dpl"></div>
+<button class="b p wide" data-act="newdp">+ Nova despesa</button>
+</div>
+<div id="sv-rl" class="hid">
+<nav class="seg seg2" aria-label="Período"><button class="on" data-act="rper" data-p="m">Mês</button><button data-act="rper" data-p="a">Ano</button></nav>
+<section class="hero"><span>Resultado do período</span><b id="rl-res"></b><div class="hs"><div><span>Recebido</span><b id="rl-rec"></b></div><div><span>Despesas</span><b id="rl-des"></b></div></div></section>
+<div class="card"><b>Despesas por categoria</b><div id="rl-cat"></div></div>
+<div class="card"><b>Recebido por conta</b><div id="rl-ct"></div></div>
+<button class="b p wide" data-act="rlpdf">Relatório em PDF</button>
+<button class="b wide" data-act="rlcsv">Baixar planilha (CSV) para o contador</button>
+</div>
+</div>
+</div>
+</div>
+<button class="fab" data-act="new">+ Novo orçamento</button>
+<div id="ov" class="ov" data-act="close"></div>
+<aside id="sh-cfg" class="sheet" aria-label="Meus dados">
+<h2 id="cfgt">Meus dados</h2><p id="cfgn" class="note hid"></p>
+<label for="cn">Seu nome ou do seu negócio *</label><input id="cn" autocomplete="name">
+<label for="cdc">CPF ou CNPJ *</label><input id="cdc" inputmode="numeric">
+<label for="ctf">Telefone / WhatsApp *</label><input id="ctf" inputmode="tel">
+<label for="cci">Cidade e estado *</label>
+<div class="row2"><input id="cci" placeholder="Cidade" autocomplete="address-level2"><select id="cuf" aria-label="Estado"><option value="">UF</option><option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option><option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option><option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option><option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option><option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option><option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option></select></div>
+<div id="cfgx">
+<label>Logo (aparece nos PDFs)</label><div class="lg"><img id="lgp" alt="" class="hid"><button class="b" data-act="logo">Escolher imagem</button><button class="b d hid" id="lgx" data-act="logox">Remover</button></div><input type="file" id="lgf" accept="image/*" class="hid">
+<div id="biow"><label>Segurança</label><button class="b wide" id="bio" data-act="bio"></button></div>
+<div id="pushw" class="hid"><label>Avisos no celular</label><button class="b wide" id="pushb" data-act="push"></button><button class="b wide hid" id="pusht" data-act="pushtest">Enviar aviso de teste</button><p id="pushh" class="note"></p></div>
+<label>Plano</label><div class="card" id="plbox"></div>
+<label>Seus dados e privacidade</label>
+<button class="b wide" data-act="exp">Baixar meus dados (JSON)</button>
+<button class="b wide d" data-act="delacc">Excluir minha conta</button>
+<p class="note"><a href="termos.html" target="_blank" rel="noopener">Termos de Uso</a> · <a href="privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a></p>
+</div>
+<div class="bar"><div class="act"><button class="b p" id="cfgb" data-act="savecfg">Salvar</button><button class="b" data-act="out">Sair da conta</button></div></div>
+</aside>
+<aside id="sh-new" class="sheet" aria-label="Novo orçamento">
+<h2 id="fnt">Novo orçamento</h2>
+<label for="fcl" id="fcll">Cliente cadastrado</label><select id="fcl"></select>
+<label for="fc">Nome do cliente</label><input id="fc" autocomplete="off">
+<label for="fw">WhatsApp do cliente (opcional)</label><input id="fw" inputmode="tel" placeholder="43 99999-9999">
+<label for="ft">Serviço (opcional se usar o catálogo)</label><input id="ft" placeholder="Ex.: Pintura da sala">
+<label for="fsv" id="fsvl">Catálogo de serviços</label><select id="fsv"></select>
+<label>Itens</label><div id="its"></div>
+<button class="link" data-act="additem">+ Adicionar outro item</button>
+<label for="fdc">Desconto em R$ (opcional)</label><input id="fdc" inputmode="decimal" placeholder="0,00">
+<label for="fva">Validade do orçamento</label><input id="fva" type="date">
+<label for="ffp">Forma de pagamento</label><select id="ffp"><option value="">A combinar</option><option>Pix</option><option>Dinheiro</option><option>Cartão de crédito</option><option>Cartão de débito</option><option>Transferência bancária</option><option>Boleto</option></select>
+<div id="fpw" class="hid"><label for="fpn" id="fpl">Parcelas</label><select id="fpn"></select></div>
+<div id="fenw" class="hid"><label for="fen">Entrada (% do total)</label><input id="fen" inputmode="numeric" placeholder="50"></div>
+<label for="fob">Observações (opcional)</label><textarea id="fob" rows="3" placeholder="Prazo de entrega, garantia, condições..."></textarea>
+<div class="bar"><p><span>Total</span><span id="ftot">R$ 0,00</span></p><div class="act"><button class="b p" id="fsb" data-act="save">Salvar orçamento</button></div></div>
+</aside>
+<aside id="sh-ct" class="sheet" aria-label="Cadastrar conta">
+<h2>Onde você recebe?</h2>
+<label for="ctn">Nome</label><input id="ctn" placeholder="Ex.: Nubank, Caixa, Mercado Pago">
+<label for="ctt">Tipo</label><select id="ctt"><option value="pix">Pix</option><option value="banco">Conta bancária</option><option value="carteira">Carteira digital</option><option value="dinheiro">Dinheiro em mãos</option></select>
+<label for="ctk">Chave Pix ou detalhe (para Pix, informe a chave)</label><input id="ctk" placeholder="CPF, e-mail, telefone, agência/conta...">
+<div class="bar"><div class="act"><button class="b p" data-act="savect">Salvar</button></div></div>
+</aside>
+<aside id="sh-cli" class="sheet" aria-label="Cadastrar cliente">
+<h2 id="clh">Novo cliente</h2>
+<label for="cln">Nome ou razão social</label><input id="cln" autocomplete="off">
+<label for="clt">Tipo</label><select id="clt"><option value="pf">Pessoa física</option><option value="pj">Empresa</option></select>
+<label for="cld">CPF ou CNPJ (opcional)</label><input id="cld" inputmode="numeric">
+<label for="clw">WhatsApp (opcional)</label><input id="clw" inputmode="tel" placeholder="43 99999-9999">
+<label for="cle">E-mail (opcional)</label><input id="cle" type="email" inputmode="email">
+<label>Foto ou logo do cliente</label><div class="lg"><img id="cfp" alt="" class="hid"><button class="b" data-act="cfoto">Escolher imagem</button><button class="b d hid" id="cfx" data-act="cfotox">Remover</button></div><input type="file" id="cff" accept="image/*" class="hid">
+<label class="chk"><input type="checkbox" id="clr"> Cliente recorrente (contrata serviços com frequência)</label>
+<div class="bar"><div class="act"><button class="b p" data-act="savecli">Salvar cliente</button></div></div>
+</aside>
+<aside id="sh-pix" class="sheet" aria-label="Pix">
+<h2>Pagar com Pix</h2><p id="pixm" class="note"></p><div id="pixq" class="qr"></div>
+<div id="pixaw" class="hid"><label for="pixa">Receber em</label><select id="pixa"></select></div>
+<div id="pixnw" class="hid"><label for="pixk">Sua chave Pix</label><input id="pixk" placeholder="CPF, e-mail, telefone ou chave aleatória"><button class="b p wide" data-act="savepixk">Salvar chave e gerar QR Code</button></div>
+<div id="pixcw"><label for="pixc">Pix copia e cola</label><textarea id="pixc" rows="4" readonly></textarea></div>
+<p class="note" id="pixhint" style="text-align:left;margin:.8rem 0 0">O cliente paga no banco dele. O COBREI <b>não marca como pago sozinho</b>. Quando o valor cair na sua conta, toque em <b>Já recebi</b>.</p>
+<div class="bar"><div class="act"><button class="b p" id="pixcp" data-act="pixcopy">Copiar código Pix</button><button class="b" data-act="pixpago">Já recebi — marcar como pago</button></div></div>
+</aside>
+<aside id="sh-cb" class="sheet" aria-label="Gerar cobrança">
+<h2>Gerar cobrança</h2><p id="cbs" class="note"></p>
+<label for="cbd">Primeiro vencimento</label><input id="cbd" type="date">
+<div class="bar"><div class="act"><button class="b p" data-act="cbgo">Gerar cobrança</button></div></div>
+</aside>
+<aside id="sh-par" class="sheet" aria-label="Parcelas">
+<h2 id="parh">Parcelas</h2><div id="pars"></div>
+</aside>
+<aside id="sh-rc" class="sheet" aria-label="Cobrança mensal">
+<h2>Cobrança mensal</h2><p id="rcc" class="note"></p>
+<label for="rcs">Serviço</label><input id="rcs" placeholder="Ex.: Manutenção de unha, mensalidade…">
+<label for="rcv">Valor mensal (R$)</label><input id="rcv" inputmode="decimal">
+<label for="rcd">Primeiro vencimento</label><input id="rcd" type="date">
+<p class="note">Ideal para manutenção (unha, limpeza, consultoria…). Todo mês o COBREI cria uma cobrança automaticamente, até 5 dias antes do vencimento. Você só envia no WhatsApp.</p>
+<div class="bar"><div class="act"><button class="b p" data-act="saverc">Ativar cobrança mensal</button></div></div>
+</aside>
+<aside id="sh-svc" class="sheet" aria-label="Serviço">
+<h2 id="svh">Novo serviço</h2>
+<label for="svn">Nome do serviço</label><input id="svn" placeholder="Ex.: Pintura de parede" autocomplete="off">
+<label for="svp">Valor (R$)</label><input id="svp" inputmode="decimal" placeholder="0,00">
+<div class="bar"><div class="act"><button class="b p" data-act="savesv">Salvar serviço</button></div></div>
+</aside>
+<aside id="sh-dp" class="sheet" aria-label="Nova despesa">
+<h2>Nova despesa</h2>
+<label for="dpd">Descrição</label><input id="dpd" placeholder="Ex.: Tinta e pincéis" autocomplete="off">
+<label for="dpv">Valor (R$)</label><input id="dpv" inputmode="decimal">
+<label for="dpt">Data</label><input id="dpt" type="date">
+<label for="dpc">Categoria</label><select id="dpc"><option>Material</option><option>Transporte</option><option>Alimentação</option><option>Ferramentas e equipamentos</option><option>Marketing</option><option>Impostos e taxas</option><option>Aluguel e contas</option><option>Outros</option></select>
+<div class="bar"><div class="act"><button class="b p" data-act="savedp">Salvar despesa</button></div></div>
+</aside>
+<aside id="sh-plano" class="sheet" aria-label="Planos">
+<h2>Planos do COBREI</h2><div id="planoc"></div>
+<div class="bar"><div class="act" id="planob"></div></div>
+</aside>
+<aside id="sh-onb" class="sheet" aria-label="Primeiros passos">
+<h2 id="onbt">Vamos começar!</h2><p class="note" id="onbp"></p>
+<p class="note">São só 3 passos rápidos, leva uns 2 minutos.</p>
+<div id="onbl" style="margin-top:.9rem"></div>
+<div class="bar"><div class="act" id="onbb"></div></div>
+</aside>
+<aside id="sh-sent" class="sheet" aria-label="Orçamento criado">
+<h2>Orçamento criado!</h2>
+<p class="note">Agora é só enviar o link para o seu cliente aprovar com 1 toque.</p>
+<div class="bar"><div class="act"><a class="b p" id="sentwa" data-act="wsent" href="#" target="_blank" rel="noopener">Enviar pelo WhatsApp</a><button class="b" data-act="close">Enviar depois</button></div></div>
+</aside>
+<aside id="sh-party" class="sheet" aria-label="Primeiro pagamento">
+<div id="partyc"></div>
+<div class="party"><div class="big" aria-hidden="true">🎉</div><h2>Seu primeiro pagamento pelo COBREI!</h2><p class="note" id="partyv"></p><p class="note">Parabéns! É assim que começa: orçou, cobrou e recebeu. Agora é só repetir.</p></div>
+<div class="bar"><div class="act"><button class="b p" data-act="paidpdf">Imprimir recibo</button><button class="b" data-act="close">Ver meu painel</button></div></div>
+</aside>
+<aside id="sh-paid" class="sheet" aria-label="Pagamento registrado">
+<h2>Pagamento registrado</h2>
+<p class="note" id="paidv" style="text-align:left"></p>
+<p class="note" style="text-align:left">Você pode imprimir ou salvar o recibo em PDF agora.</p>
+<div class="bar"><div class="act"><button class="b p" data-act="paidpdf">Imprimir recibo</button><button class="b" data-act="close">Ver meu painel</button></div></div>
+</aside>
+<aside id="sh-pay" class="sheet" aria-label="Onde recebeu">
+<h2>Onde você recebeu?</h2>
+<div id="payl" class="pl"></div>
+</aside>
+<div id="doc"></div>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.81.1/dist/umd/supabase.js"></script>
+<script>
+const K="fechou:v1",R=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
+let S={cfg:{nome:"",pix:""},docs:[]},F="all";
+try{const r=localStorage.getItem(K);if(r)S=JSON.parse(r)}catch(e){}
+S.contas=S.contas||[];S.clientes=[];S.perfil={};S.servicos=[];S.recs=[];S.desp=[];S.plano={plano:"gratis",ate:""};
+const CFG={limite:10,preco:"R$ 19,90 por mês",checkout:"",contato:"",suporte:"",vapid:"BICPy8HTn2xAoIILLQEVhKSSIsVpypooY0Y8nahSA9f6UXv0wJ_uEdJthffXz63tdIA0CrdQaYRRdiALYup9Tow"};
+let TAB="pnl",PAY=null,PAID=null,CB=null,RC=null,ONB=false,FORCE=false,EC=null,CF="",PIXD=null,PREW=null,EDQ=null,SUB="ct",PER="m",IP=null,EV=null,GRP=null;const CVT=new URLSearchParams(location.search).get("o"),CCT=new URLSearchParams(location.search).get("c");
+const TP={pix:"Pix",banco:"Conta bancária",carteira:"Carteira digital",dinheiro:"Dinheiro em mãos"},EM={pix:"⚡",banco:"🏦",carteira:"📱",dinheiro:"💵"};
+const contaNome=id=>(S.contas.find(x=>x.id===id)||{}).nome;
+function payList(){$("payl").innerHTML=S.contas.map(x=>`<button class="b" data-act="payto" data-c="${x.id}">${EM[x.tipo]} ${esc(x.nome)}</button>`).join("")+`<button class="b" data-act="payto" data-c="">Não informar</button>`}
+const SUPA_URL="https://eofyqeledandcttfhmuu.supabase.co",SUPA_KEY="sb_publishable_I0HUMSb82iau2xRXlVQp4A_T2r8EbC0";
+let OK=false,MODE="signup",U=null,sb=null;
+try{sb=supabase.createClient(SUPA_URL,SUPA_KEY)}catch(e){}
+
+// [CORREÇÃO APLICADA AQUI]: Detectar hash de recuperação de senha do Supabase
+if (window.location.hash.includes("type=recovery")) {
+  MODE = "recover";
+} else {
+  try{if(localStorage.getItem("cobrei:v"))MODE="login"}catch(e){}
+}
+
+const BK="cobrei:bio",enc=new TextEncoder(),b64=u=>btoa(String.fromCharCode(...u)),unb=t=>Uint8Array.from(atob(t),c=>c.charCodeAt(0));
+let LOCK=false,PEND=null,HIDE=false;try{HIDE=localStorage.getItem("cobrei:hide")==="1"}catch(e){}
+const fmt=v=>HIDE?"R$ •••••":R.format(v);
+const IE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>',IEO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M3 3l18 18"/></svg>';
+if(!window.PublicKeyCredential)document.getElementById("biow").classList.add("hid");
+function toast(m){const t=document.createElement("div");t.className="toast";t.setAttribute("role","status");t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),3200)}
+const bioOnDev=()=>{try{const c=JSON.parse(localStorage.getItem(BK));return !!(c&&U&&c.uid===U.id)}catch(e){return false}};
+function bioLabel(){$("bio").textContent=bioOnDev()?"Desativar entrada com biometria":"Ativar entrada com biometria"}
+async function bioToggle(){
+if(bioOnDev()){localStorage.removeItem(BK);toast("Biometria desativada.");bioLabel();return}
+try{const cr=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),rp:{name:"COBREI"},user:{id:crypto.getRandomValues(new Uint8Array(16)),name:U.email,displayName:S.cfg.nome||U.email},pubKeyCredParams:[{type:"public-key",alg:-7},{type:"public-key",alg:-257}],authenticatorSelection:{authenticatorAttachment:"platform",userVerification:"required",residentKey:"discouraged"},timeout:60000}});
+localStorage.setItem(BK,JSON.stringify({id:b64(new Uint8Array(cr.rawId)),uid:U.id}));toast("Biometria ativada neste aparelho.")}
+catch(e){toast("Não foi possível ativar a biometria neste aparelho.")}bioLabel()}
+async function unlock(){try{const c=JSON.parse(localStorage.getItem(BK));await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(32)),allowCredentials:[{type:"public-key",id:unb(c.id)}],userVerification:"required",timeout:60000}});LOCK=false;await enter(PEND)}catch(e){toast("Não foi possível validar a biometria. Tente de novo.")}}
+function openNew(cid){EDQ=null;$("fnt").textContent="Novo orçamento";$("fsb").textContent="Salvar orçamento";$("fsv").innerHTML='<option value="">'+(S.servicos.length?"Escolher serviço do catálogo…":"Catálogo vazio (cadastre em Mais › Serviços)")+'</option>'+S.servicos.map(x=>`<option value="${x.id}">${esc(x.nome)} — ${R.format(x.preco)}</option>`).join("");["fc","fw","ft","fdc","fob"].forEach(i=>$(i).value="");$("fva").value=iso(7);$("ffp").value="";$("fen").value="";fpUI();$("its").innerHTML="";addItem();
+$("fcl").innerHTML='<option value="">Novo cliente (digitar)</option>'+S.clientes.map(c=>`<option value="${c.id}">${esc(c.nome)}</option>`).join("");
+$("fcl").value=cid||"";const c=S.clientes.find(x=>x.id===cid);if(c){$("fc").value=c.nome;$("fw").value=c.whatsapp}
+calc();openS("sh-new")}
+
+function openDup(src){
+if(!src)return;
+if(!isPro()&&usados()>=CFG.limite){planoOpen();return}
+openNew(src.k||"");
+$("fc").value=src.c||"";
+$("fw").value=src.w||"";
+if(src.k)$("fcl").value=src.k;
+$("ft").value=src.t||"";
+$("fdc").value=src.desc?String(src.desc).replace(".",","):"";
+$("fob").value=src.ob||"";
+if(src.fp){$("ffp").value=src.fp;fpUI()}
+if(src.np>1){const p=$("fpn");if(p)p.value=String(src.np);if(src.en){const e=$("fen");if(e)e.value=String(src.en)}}
+fpUI();
+$("its").innerHTML="";
+const its=(src.itens&&src.itens.length)?src.itens:[{d:src.t||"",q:1,v:0}];
+its.forEach(it=>{addItem();const r=[...document.querySelectorAll("#its .it")].pop();const inp=r.querySelectorAll("input");inp[0].value=it.d||"";inp[1].value=String(it.q||1);inp[2].value=String(it.v||"").replace(".",",")});
+calc();
+toast("Cópia pronta — revise e salve como novo orçamento.");
+}
+
+const asc=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpperCase().replace(/[^A-Z0-9 ]/g,"").trim();
+const tlv=(i,v)=>i+String(v.length).padStart(2,"0")+v;
+function crc(s){let c=0xFFFF;for(let i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(let j=0;j<8;j++)c=c&0x8000?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF}return c.toString(16).toUpperCase().padStart(4,"0")}
+const okCPF=c=>{if(c.length!==11||/^(\d)\1+$/.test(c))return false;for(let t=9;t<11;t++){let s=0;for(let i=0;i<t;i++)s+=Number(c[i])*(t+1-i);if((s*10)%11%10!==Number(c[t]))return false}return true};
+const pixNorm=k=>{k=String(k||"").trim();if(!k)return"";if(k.includes("@"))return k.toLowerCase();
+if(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(k))return k.toLowerCase();
+const d=k.replace(/\D/g,"");if(k.startsWith("+"))return"+"+d;if(d.length===14)return d;if(d.length===11)return okCPF(d)?d:"+55"+d;if(d.length===10)return"+55"+d;if(d.length>=12&&d.startsWith("55"))return"+"+d;return k}
+const pixContas=()=>S.contas.filter(x=>x.tipo==="pix"&&x.chave);
+function pixBuild(chave,nome,cidade,v){const k=pixNorm(chave),n=asc(nome).slice(0,25),c=asc(cidade).slice(0,15);if(!k||!n||!c)return"";
+const p=tlv("00","01")+tlv("01","11")+tlv("26",tlv("00","br.gov.bcb.pix")+tlv("01",k))+tlv("52","0000")+tlv("53","986")+(v>0?tlv("54",Number(v).toFixed(2)):"")+tlv("58","BR")+tlv("59",n)+tlv("60",c)+tlv("62",tlv("05","***"));
+return p+"6304"+crc(p+"6304")}
+function pixCode(d,cid){const ct=cid?S.contas.find(x=>x.id===cid):pixContas()[0];return pixBuild(ct&&ct.chave,S.cfg.nome,S.perfil.cidade,tot(d))}
+function qrSvg(t){try{const q=qrcode(0,"M");q.addData(t);q.make();const n=q.getModuleCount();let d="";for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(q.isDark(r,c))d+=`M${c+2} ${r+2}h1v1h-1z`;return`<svg viewBox="0 0 ${n+4} ${n+4}" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="#fff"/><path d="${d}" fill="#000"/></svg>`}catch(e){return""}}
+const MF=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+let MES=new Date().toISOString().slice(0,7),LOGO="";
+const mshift=(m,d)=>{const [y,o]=m.split("-").map(Number),t=new Date(y,o-1+d,1);return t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")};
+function renderPnl(){const hoje=iso(0),dd=(a,b)=>Math.round((new Date(a+"T12:00")-new Date(b+"T12:00"))/864e5);
+let ab=0,atr=0,rec=0;const T=[];
+S.docs.forEach(d=>{const t=tot(d);
+if(d.s==="pago")rec+=t;
+if(d.s==="cob"){ab+=t;const x=d.venc?dd(d.venc,hoje):null;
+if(x!==null&&x<0){atr+=t;T.push({p:0,k:x,cls:"late",d,tx:`Atrasada há ${-x} ${-x===1?"dia":"dias"} — cobrar agora`,bt:"Cobrar"})}
+else if(x===0)T.push({p:1,k:0,cls:"today",d,tx:"Vence hoje",bt:"Cobrar"});
+else if(x!==null&&x<=7)T.push({p:3,k:x,cls:"today",d,tx:x===1?"Vence amanhã":`Vence em ${x} dias`,bt:"Lembrar"})}
+else if(d.s==="apr")T.push({p:2,k:0,cls:"apr",d,tx:"Cliente aprovou — gere a cobrança",bt:"Gerar cobrança",a:"cob"});
+else if(d.s==="orc"){const x=dd(hoje,d.data);if(x>=3)T.push({p:5,k:-x,cls:"",d,tx:`Sem resposta há ${x} dias`,bt:"Reenviar"});else if(!SENT.has(d.id))T.push({p:4,k:-x,cls:"new",d,tx:"Novo orçamento — envie ao cliente",bt:"Enviar"})}});
+T.sort((a,b)=>a.p-b.p||a.k-b.k);
+const nLate=T.filter(o=>o.p===0).length,nApr=T.filter(o=>o.p===2).length,nb=T.filter(o=>o.p<=2||o.p===4).length;
+$("bdg").textContent=nb;$("bdg").classList.toggle("hid",!nb);
+$("pt").classList.toggle("hid",!S.docs.length);
+$("pt").textContent="O que fazer agora";
+$("p-ab").textContent=fmt(ab);$("p-atr").textContent=fmt(atr);$("p-atr").style.color=atr>0?"#ff9d8f":"";$("p-rec").textContent=fmt(rec);
+$("p-tasks").innerHTML=T.length?((nLate||nApr)?`<p class="note" style="text-align:left;margin:0 0 .6rem">Prioridade: cobranças atrasadas e orçamentos aprovados.</p>`:"")+T.slice(0,8).map(o=>{const d=o.d,id=`data-id="${d.id}"`;return`<article class="task"><i class="dot ${o.cls}"></i><div class="mid"><h3>${esc(d.c)}</h3><p><b>${fmt(tot(d))}</b> · ${d.pc?"parcela "+esc(d.pc)+" · ":""}${o.tx}</p></div>${o.a?`<button class="b p" ${id} data-act="${o.a}">${o.bt}</button>`:`<a class="b p" ${d.s==="orc"?`data-act="wsent" data-id="${d.id}" `:""}href="${esc(wa(d))}" target="_blank" rel="noopener">${o.bt}</a>`}</article>`}).join("")+(T.length>8?`<p class="note">e mais ${T.length-8} pendências em Cobranças</p>`:""):(S.docs.length?`<div class="empty">Tudo em dia por aqui.<br>Nenhuma cobrança atrasada nem aprovado esperando cobrança.</div>`:"")}
+function logoUI(){const i=$("lgp");i.src=LOGO||"";i.classList.toggle("hid",!LOGO);$("lgx").classList.toggle("hid",!LOGO)}
+function loadBind(){$("cff").addEventListener("change",e=>{const f=e.target.files[0];e.target.value="";if(f)imgData(f,160,u=>{CF=u;cfUI()})});$("lgf").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const m=Math.min(1,240/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*m);c.height=Math.round(im.height*m);c.getContext("2d").drawImage(im,0,0,c.width,c.height);LOGO=c.toDataURL("image/png");logoUI()};im.onerror=()=>toast("Imagem inválida.");im.src=r.result};r.readAsDataURL(f)})}
+const U1=["","um","dois","três","quatro","cinco","seis","sete","oito","nove","dez","onze","doze","treze","quatorze","quinze","dezesseis","dezessete","dezoito","dezenove"],DZ=["","","vinte","trinta","quarenta","cinquenta","sessenta","setenta","oitenta","noventa"],CT=["","cento","duzentos","trezentos","quatrocentos","quinhentos","seiscentos","setecentos","oitocentos","novecentos"];
+function ext3(n){if(n===100)return"cem";const c=Math.floor(n/100),r=n%100,p=[];if(c)p.push(CT[c]);if(r)p.push(r<20?U1[r]:DZ[Math.floor(r/10)]+(r%10?" e "+U1[r%10]:""));return p.join(" e ")}
+function ext(v){const tt=Math.round(v*100),r=Math.floor(tt/100),c=tt%100,P=[],mi=Math.floor(r/1e6),mil=Math.floor(r%1e6/1e3),un=r%1e3;let last=0;
+if(mi){P.push(ext3(mi)+(mi===1?" milhão":" milhões"));last=mi}if(mil){P.push(mil===1?"mil":ext3(mil)+" mil");last=mil}if(un){P.push(ext3(un));last=un}
+let t=P.length>1?P.slice(0,-1).join(" ")+((last<100||last%100===0)?" e ":" ")+P[P.length-1]:(P[0]||"");
+let o="";if(r>0)o=(r===1?"um real":t+(r%1e6===0?" de reais":" reais"));if(c>0)o+=(o?" e ":"")+ext3(c)+(c===1?" centavo":" centavos");if(!o)o="zero real";return o}
+const dg=x=>String(x||"").replace(/\D/g,"");
+const fdoc=x=>{const d=dg(x);return d.length===11?d.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/,"$1.$2.$3-$4"):d.length===14?d.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,"$1.$2.$3/$4-$5"):String(x||"")};
+const ftel=x=>{const d=dg(x).replace(/^55(?=\d{10,11}$)/,"");return d.length===11?d.replace(/(\d{2})(\d{5})(\d{4})/,"($1) $2-$3"):d.length===10?d.replace(/(\d{2})(\d{4})(\d{4})/,"($1) $2-$3"):String(x||"")};
+const dlong=s=>{const [y,m,d]=String(s).split("-");return Number(d)+" de "+MF[Number(m)-1].toLowerCase()+" de "+y};
+function imgData(f,max,cb){const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement("canvas");c.width=c.height=max;const x=c.getContext("2d"),m=Math.min(im.width,im.height);x.fillStyle="#fff";x.fillRect(0,0,max,max);x.drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,max,max);cb(c.toDataURL("image/jpeg",.85))};im.onerror=()=>toast("Imagem inválida.");im.src=r.result};r.readAsDataURL(f)}
+function cfUI(){const i=$("cfp");i.src=CF||"";i.classList.toggle("hid",!CF);$("cfx").classList.toggle("hid",!CF)}
+function openCli(c){EC=c||null;$("clh").textContent=c?"Editar cliente":"Novo cliente";$("cln").value=c?c.nome:"";$("clt").value=c?c.tipo:"pf";$("cld").value=c?c.documento:"";$("clw").value=c?c.whatsapp:"";$("cle").value=c?c.email:"";$("clr").checked=c?c.recorrente:false;CF=c?c.foto:"";cfUI();openS("sh-cli")}
+const needProfile=()=>!(S.cfg.nome&&S.perfil.documento&&S.perfil.telefone&&S.perfil.cidade);
+function openProfile(force){planoBox();instUI();pushState();FORCE=force;$("cn").value=S.cfg.nome||"";$("cdc").value=S.perfil.documento||"";$("ctf").value=S.perfil.telefone||"";loadCidadeUF(S.perfil.cidade||"");LOGO=S.perfil.logo||"";logoUI();bioLabel();
+$("sh-cfg").classList.toggle("force",!!force);$("cfgt").textContent=force?"Falta pouco!":"Meus dados";$("cfgx").classList.toggle("hid",force);$("cfgb").textContent=force?"Salvar e começar":"Salvar";const n=$("cfgn");n.classList.toggle("hid",!force);n.textContent="Falta só isto para começar. Esses dados aparecem nos seus orçamentos e recibos.";openS("sh-cfg")}
+function pixShow(){const d=S.docs.find(x=>x.id===PIXD);if(!d)return;const c=pixCode(d,$("pixa").value||undefined);$("pixq").innerHTML=c?qrSvg(c):"";$("pixq").classList.toggle("hid",!$("pixq").innerHTML);$("pixc").value=c;
+const sem=!pixContas().length;$("pixnw").classList.toggle("hid",!sem);$("pixcw").classList.toggle("hid",sem);$("pixcp").classList.toggle("hid",sem);$("pixm").textContent=c?"Valor: "+R.format(tot(d))+" · Mostre o QR Code ou envie o código ao cliente.":(sem?"Para gerar o QR Code, informe a sua chave Pix. É só uma vez.":"Complete seu nome e cidade em Meus dados para gerar o Pix.");openS("sh-pix")}
+function pdf(d,opts){opts=opts||{};
+const p=S.perfil,n=S.cfg.nome,t=tot(d),isR=d.s==="pago"||opts.recibo,isC=!isR&&d.s==="cob",tp=isR?"Recibo":isC?"Cobrança":"Orçamento";
+const cl=S.clientes.find(x=>x.id===d.k)||{},code=isC?pixCode(d):"",brand=document.querySelector("header .logo").outerHTML,dl=dg(p.documento).length===14?"CNPJ":"CPF";
+const em=[p.documento?dl+" "+fdoc(p.documento):"",p.telefone?ftel(p.telefone):"",p.cidade||""].filter(Boolean).map(esc).join("  ·  ");
+const num="Nº "+String(d.n||0).padStart(4,"0")+(d.pc?" · Parcela "+d.pc:""),emit=isR?(d.pagoEm||iso(0)):d.data;
+const cinfo=[cl.documento?(dg(cl.documento).length===14?"CNPJ ":"CPF ")+fdoc(cl.documento):"",cl.whatsapp?ftel(cl.whatsapp):(d.w?ftel(d.w):""),cl.email||""].filter(Boolean).map(esc).join("  ·  ");
+const rows=[];if(d.fp)rows.push(["Forma de pagamento",payTxt(d.fp,d.np,d.en,t)]);if(d.val&&(d.s==="orc"||d.s==="apr"))rows.push(["Validade do orçamento",dlong(d.val)]);if(isC&&d.venc)rows.push(["Vencimento",dlong(d.venc)]);if(isR&&contaNome(d.conta))rows.push(["Recebido em",contaNome(d.conta)]);
+const body=`<div class="px"><div class="top6"></div>
+<div class="hd"><div class="em">${safeImg(p.logo)?`<img src="${safeImg(p.logo)}" alt="">`:""}<div><h1>${esc(n||"")}</h1><p>${em}</p></div></div><div class="dk"><b>${tp}</b><span>${num}</span><span>${dlong(emit)}</span></div></div>
+<div class="lb">Cliente</div><div class="cn"><b>${esc(d.c)}</b>${cinfo?`<br><span class="mu">${cinfo}</span>`:""}</div>
+${isR?`<p class="rc">Recebi de <b>${esc(d.c)}</b> a importância de <b>${R.format(t)}</b> (${ext(t)}), referente ao serviço descrito abaixo.</p>`:""}
+<h2>Serviços</h2>
+<table><thead><tr><th>Descrição</th><th class="r">Qtd</th><th class="r">Valor unit.</th><th class="r">Subtotal</th></tr></thead><tbody>${(d.itens||[]).map(i=>`<tr><td>${esc(i.d)}</td><td class="r">${String(i.q).replace(".",",")}</td><td class="r">${R.format(i.v)}</td><td class="r">${R.format(i.q*i.v)}</td></tr>`).join("")}</tbody></table>
+<div class="tt"><div><span>Subtotal</span><span>${R.format(subt(d))}</span></div>${d.desc?`<div><span>Desconto</span><span>- ${R.format(d.desc)}</span></div>`:""}<div class="g"><span>Total</span><span>${R.format(t)}</span></div></div>
+${rows.length||d.ob?`<div class="lb">Condições</div><div class="cn">${rows.map(r=>`<div class="rw"><span>${r[0]}</span><b>${esc(r[1])}</b></div>`).join("")}${d.ob?`<div class="rw"><span>Observações</span><b style="text-align:right;max-width:70%">${esc(d.ob)}</b></div>`:""}</div>`:""}
+${code?`<div class="lb">Pagamento via Pix</div><div class="pxd">${qrSvg(code)}<div><p>Aponte a câmera do aplicativo do seu banco para o QR Code ou use o código Pix copia e cola:</p><code>${code}</code></div></div>`:""}
+${isR?`<p class="cd">${p.cidade?esc(p.cidade)+", ":""}${dlong(emit)}.</p><div class="sg"><div>${esc(n||"")}${p.documento?`<br>${dl} ${fdoc(p.documento)}`:""}</div></div>`:""}
+<div class="ft"><div>${brand}<span class="tg">Orçou. Cobrou. Recebeu.</span></div><div>Documento sem valor fiscal</div></div></div>`;
+$("doc").innerHTML=body;window.print()}
+const linkOf=d=>location.origin+location.pathname+"?o="+d.tk;
+async function copyText(v){try{await navigator.clipboard.writeText(v)}catch(e){const t=document.createElement("textarea");t.value=v;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove()}}
+const addDays=(s,n)=>{const d=new Date(s+"T12:00");d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
+const addMonths=(s,n)=>{const d=new Date(s+"T12:00"),day=d.getDate();d.setDate(1);d.setMonth(d.getMonth()+n);const last=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();d.setDate(Math.min(day,last));return d.toISOString().slice(0,10)};
+function parcelas(t,m,pc,n,d0){if(m==="entrada"){const p=Math.min(95,Math.max(5,pc||50)),e=Math.round(t*p)/100;return[[e,d0],[Math.round((t-e)*100)/100,addDays(d0,30)]]}
+const q=Math.min(12,Math.max(2,n||2)),v=Math.floor(t/q*100)/100,P=[];for(let i=0;i<q;i++)P.push([i<q-1?v:Math.round((t-v*(q-1))*100)/100,addMonths(d0,i)]);return P}
+function planOf(d){return d.en?"entrada":d.np>1?"parcelas":"avista"}
+function cbUI(){const d=S.docs.find(x=>x.id===CB);if(!d)return;const t=tot(d),m=planOf(d),P=parcelas(t,m,d.en,d.np,$("cbd").value||iso(7));
+const fp=d.fp?d.fp+". ":"";$("cbs").textContent=fp+(m==="avista"?"Uma cobrança de "+R.format(t)+".":m==="entrada"?`Entrada de ${R.format(P[0][0])} e saldo de ${R.format(P[1][0])} em ${br(P[1][1])}.`:`${P.length} parcelas mensais de ${R.format(P[0][0])}.`)}
+async function cbGo(){const d=S.docs.find(x=>x.id===CB);if(!d)return;const m=planOf(d),d0=$("cbd").value||iso(7),t=tot(d);
+if(m==="avista"){await up(d,{status:"cob",vencimento:d0});closeS();return}
+const P=parcelas(t,m,d.en,d.np,d0),N=P.length;
+const rows=P.map((p,i)=>Object.assign({numero:d.n,cliente:d.c,whatsapp:d.w||null,servico:d.t,status:"cob",vencimento:p[1],parcela:(i+1)+"/"+N,grupo_id:d.id,forma_pagamento:d.fp||null},d.k?{cliente_id:d.k}:{}));
+const r=await sb.from("orcamentos").insert(rows).select("id,parcela");if(r.error)throw r.error;
+const it=r.data.map(x=>{const i=Number(x.parcela.split("/")[0])-1;return{orcamento_id:x.id,descricao:d.t+" — "+(m==="entrada"?(i===0?"entrada":"saldo"):"parcela "+(i+1)+"/"+N),quantidade:1,valor:P[i][0]}});
+const r2=await sb.from("itens").insert(it);if(r2.error){await sb.from("orcamentos").delete().in("id",r.data.map(x=>x.id));throw r2.error}
+await up(d,{status:"parc"});closeS();toast(N+" parcelas geradas.")}
+async function genRecs(){const hoje=iso(0);let n=S.docs.reduce((m,x)=>Math.max(m,x.n||0),0)+1,nov=0;
+for(const rc of S.recs){if(!rc.ativa)continue;let m=rc.inicio.slice(0,7);
+for(let i=0;i<36;i++,m=mshift(m,1)){const due=m+"-"+String(rc.dia).padStart(2,"0");if(due<rc.inicio)continue;if(hoje<addDays(due,-5))break;
+if(S.docs.some(x=>x.rc===rc.id&&x.comp===m))continue;
+const [y,mo]=m.split("-"),r=await sb.from("orcamentos").insert(Object.assign({numero:n,cliente:rc.cliente,whatsapp:rc.whatsapp||null,servico:rc.servico+" ("+MF[Number(mo)-1].toLowerCase()+"/"+y+")",status:"cob",vencimento:due,recorrencia_id:rc.id,competencia:m},rc.cid?{cliente_id:rc.cid}:{})).select("id").single();
+if(r.error){if(r.error.code==="23505")continue;throw r.error}
+const r2=await sb.from("itens").insert({orcamento_id:r.data.id,descricao:rc.servico,quantidade:1,valor:rc.valor});if(r2.error)throw r2.error;n++;nov++}}
+if(nov){await loadAll();toast(nov+(nov===1?" cobrança mensal gerada.":" cobranças mensais geradas."))}}
+function remind(){const h=iso(0);let l=0,t=0;S.docs.forEach(d=>{if(d.s==="cob"&&d.venc){if(d.venc<h)l++;else if(d.venc===h)t++}});
+if(l||t)toast((l?l+(l===1?" cobrança atrasada":" cobranças atrasadas"):"")+(l&&t?" e ":"")+(t?t+" vencendo hoje":"")+".")}
+async function clientView(tk){["intro","lock","app"].forEach(i=>$(i).classList.add("hid"));document.querySelector(".fab").classList.add("hid");const cv=$("cv");cv.classList.remove("hid");
+const r=await sb.rpc("ver_orcamento",{p_token:tk});
+if(r.error||!r.data){cv.innerHTML=`<div class="empty">Este link não é válido ou foi removido.</div>`;return}
+const o=r.data,pr=o.profissional||{},sub=o.itens.reduce((a,i)=>a+i.quantidade*i.valor,0),t=Math.max(0,sub-(o.desconto||0)),venc=o.validade&&o.validade<iso(0);
+const msgs={apr:"Este orçamento já foi aprovado.",rec:"Este orçamento foi recusado.",cob:"Este orçamento já foi aprovado e está em andamento.",pago:"Este orçamento já foi aprovado e pago.",parc:"Este orçamento já foi aprovado e está em andamento."};
+cv.innerHTML=`<div style="text-align:center;margin:1rem 0">${safeImg(pr.logo)?`<img src="${safeImg(pr.logo)}" alt="" style="max-height:64px;max-width:160px;background:#fff;border-radius:.5rem;padding:.3rem"><br>`:""}<h1 class="cvh">${esc(pr.nome||"Orçamento")}</h1><p class="note">${esc([pr.documento?fdoc(pr.documento):"",pr.telefone?ftel(pr.telefone):"",pr.cidade].filter(Boolean).join(" · "))}</p></div>
+<section class="card"><p class="note" style="text-align:left">Orçamento nº ${o.numero} para <b>${esc(o.cliente)}</b></p><h2 style="margin:.2rem 0 .8rem">${esc(o.servico)}</h2>
+${o.itens.map(i=>`<div class="ir"><span>${esc(i.descricao)}${Number(i.quantidade)!==1?" ×"+i.quantidade:""}</span><b>${R.format(i.quantidade*i.valor)}</b></div>`).join("")}
+${o.desconto>0?`<div class="ir"><span>Desconto</span><b>-${R.format(o.desconto)}</b></div>`:""}<div class="ir tt"><span>Total</span><b>${R.format(t)}</b></div>
+${o.forma_pagamento?`<p class="note" style="text-align:left">Pagamento: ${esc(payTxt(o.forma_pagamento,o.parcelas,o.entrada_pct,t))}</p>`:""}${o.validade?`<p class="note" style="text-align:left">Válido até ${br(o.validade)}</p>`:""}${o.observacoes?`<p class="note" style="text-align:left">${esc(o.observacoes)}</p>`:""}</section>
+<div id="cva">${o.status==="orc"&&!venc?`<button class="b p wide" data-act="cvok">Aprovar orçamento</button><button class="link" data-act="cvno">Recusar</button>`:`<p class="note">${o.status==="orc"?"Este orçamento passou da validade. Peça uma nova versão ao profissional.":(msgs[o.status]||"")}</p>`}</div>`}
+async function cvAnswer(ok){const r=await sb.rpc("responder_orcamento",{p_token:CVT,p_aceite:ok});if(r.error)throw r.error;
+const m={apr:"Orçamento aprovado! Obrigado. Sua resposta foi registrada.",rec:"Resposta registrada. Obrigado pelo retorno.",vencido:"Este orçamento passou da validade. Peça uma nova versão.",nao_encontrado:"Este link não é válido."};
+$("cva").innerHTML=`<p class="note">${m[r.data]||"Este orçamento já foi respondido."}</p>`}
+const isPro=()=>S.plano.plano==="pro"&&(!S.plano.ate||S.plano.ate>=iso(0));
+const usados=()=>{const m=iso(0).slice(0,7);return S.docs.filter(d=>!d.pc&&!d.rc&&d.data.slice(0,7)===m).length};
+function planoBox(){$("plbox").innerHTML=isPro()?`<b>Plano Pro</b><p class="note" style="margin:.3rem 0 0;text-align:left">Orçamentos ilimitados${S.plano.ate?" · válido até "+br(S.plano.ate):""}.</p>`:`<b>Plano Grátis</b><p class="note" style="margin:.3rem 0 .6rem;text-align:left">${usados()} de ${CFG.limite} orçamentos novos usados este mês.</p><button class="b wide" data-act="plano">Conhecer o plano Pro</button>`}
+function planoOpen(){$("planoc").innerHTML=`<div class="plans"><div class="plc"><h3>Grátis</h3><p class="pr">R$ 0</p><ul><li>Até ${CFG.limite} orçamentos novos por mês</li><li>Clientes, serviços, cobranças e Pix</li><li>PDFs e relatórios</li></ul></div><div class="plc pro"><span class="bd">Recomendado</span><h3>Pro</h3><p class="pr">${esc(CFG.preco)}</p><ul><li>Orçamentos ilimitados</li><li>Todas as funções do plano Grátis</li></ul></div></div><p class="note">Parcelas e cobranças mensais geradas automaticamente não contam no limite do plano Grátis.</p>`;
+$("planob").innerHTML=CFG.checkout?`<a class="b p" href="${esc(CFG.checkout)}" target="_blank" rel="noopener">Assinar o Pro</a>`:CFG.contato?`<a class="b p" href="mailto:${esc(CFG.contato)}?subject=Quero%20o%20plano%20Pro%20do%20COBREI">Falar para assinar</a>`:`<button class="b" data-act="close">Assinatura em breve</button>`;openS("sh-plano")}
+function instUI(){const w=$("instw");if(w)w.classList.add("hid");const b=$("instb");if(b)b.classList.add("hid")}
+if("serviceWorker"in navigator&&location.protocol==="https:")window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+const inPer=x=>SUB==="rl"&&PER==="a"?String(x).slice(0,4)===MES.slice(0,4):String(x).slice(0,7)===MES;
+function finData(){const rec=S.docs.filter(d=>d.s==="pago"&&inPer(d.pagoEm||d.data)),des=S.desp.filter(x=>inPer(x.data));return{rec,des,tr:rec.reduce((a,d)=>a+tot(d),0),td:des.reduce((a,x)=>a+x.valor,0)}}
+function renderFin(){["ct","dp","rl"].forEach(q=>$("sv-"+q).classList.toggle("hid",SUB!==q));
+document.querySelectorAll("#v-ct .seg button").forEach(x=>x.classList.toggle("on",x.dataset.s===SUB));
+document.querySelectorAll("#sv-rl .seg2 button").forEach(x=>x.classList.toggle("on",x.dataset.p===PER));
+$("v-nav").classList.toggle("hid",SUB==="ct");const [y,o]=MES.split("-");$("mes-t").textContent=SUB==="rl"&&PER==="a"?y:MF[Number(o)-1]+" de "+y;
+const FD=finData();$("dp-tot").textContent=fmt(FD.td);
+$("dpl").innerHTML=FD.des.length?FD.des.map(x=>cardX(x.id,`<div class="mid"><h3>${esc(x.desc)}</h3><p>${esc(x.cat)} · ${br(x.data)}</p></div><div class="tot">${fmt(x.valor)}</div>`,"",`<div class="sub"><button class="d" data-id="${x.id}" data-act="deldp">Excluir</button></div>`)).join(""):`<div class="empty">Nenhuma despesa neste período.<br>Registre o que você gasta para ver o lucro de verdade.</div>`;
+$("rl-res").textContent=fmt(FD.tr-FD.td);$("rl-rec").textContent=fmt(FD.tr);$("rl-des").textContent=fmt(FD.td);
+const cat={},pc={};FD.des.forEach(x=>cat[x.cat]=(cat[x.cat]||0)+x.valor);FD.rec.forEach(d=>{const n=contaNome(d.conta)||"Sem conta informada";pc[n]=(pc[n]||0)+tot(d)});
+const lst=(m,v)=>Object.keys(m).length?Object.entries(m).sort((a,b)=>b[1]-a[1]).map(([q,w])=>`<div class="dr"><span>${esc(q)}</span><b>${fmt(w)}</b></div>`).join(""):`<p class="note">${v}</p>`;
+$("rl-cat").innerHTML=lst(cat,"Sem despesas no período.");$("rl-ct").innerHTML=lst(pc,"Sem recebimentos no período.")}
+function baixar(nome,txt,tipo){const b=new Blob([txt],{type:tipo}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=nome;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},800)}
+function rlCsv(){const FD=finData(),n=v=>v.toFixed(2).replace(".",","),sx=t=>/^[=+\-@]/.test(String(t))?"'"+t:String(t??""),q=c=>'"'+String(c??"").replace(/"/g,'""')+'"';
+const L=[["Data","Tipo","Descrição","Cliente ou categoria","Conta","Valor (R$)"]];
+FD.rec.slice().sort((a,b)=>(a.pagoEm||a.data).localeCompare(b.pagoEm||b.data)).forEach(d=>L.push([br(d.pagoEm||d.data),"Receita",sx(d.t+(d.pc?" (parcela "+d.pc+")":"")),sx(d.c),sx(contaNome(d.conta)||""),n(tot(d))]));
+FD.des.slice().sort((a,b)=>a.data.localeCompare(b.data)).forEach(x=>L.push([br(x.data),"Despesa",sx(x.desc),sx(x.cat),"",n(-x.valor)]));
+L.push([],["","","","","Total receitas",n(FD.tr)],["","","","","Total despesas",n(-FD.td)],["","","","","Resultado",n(FD.tr-FD.td)]);
+baixar("cobrei-relatorio-"+(PER==="a"?MES.slice(0,4):MES)+".csv","\ufeff"+L.map(r=>r.map(q).join(";")).join("\r\n"),"text/csv;charset=utf-8")}
+function rlPdf(){const FD=finData(),p=S.perfil,n=S.cfg.nome,brand=document.querySelector("header .logo").outerHTML,dl=dg(p.documento).length===14?"CNPJ":"CPF";
+const per=PER==="a"?MES.slice(0,4):MF[Number(MES.slice(5))-1]+" de "+MES.slice(0,4);
+const em=[p.documento?dl+" "+fdoc(p.documento):"",p.telefone?ftel(p.telefone):"",p.cidade||""].filter(Boolean).map(esc).join("  ·  ");
+const R1=FD.rec.slice().sort((a,b)=>(a.pagoEm||a.data).localeCompare(b.pagoEm||b.data)),D1=FD.des.slice().sort((a,b)=>a.data.localeCompare(b.data));
+$("doc").innerHTML=`<div class="px"><div class="top6"></div>
+<div class="hd"><div class="em">${safeImg(p.logo)?`<img src="${safeImg(p.logo)}" alt="">`:""}<div><h1>${esc(n||"")}</h1><p>${em}</p></div></div><div class="dk"><b>Relatório</b><span>${per}</span><span>Emitido em ${dlong(iso(0))}</span></div></div>
+<h2>Resumo do período</h2><div class="cn"><div class="rw"><span>Total recebido</span><b>${R.format(FD.tr)}</b></div><div class="rw"><span>Total de despesas</span><b>${R.format(FD.td)}</b></div><div class="rw"><span><b>Resultado</b></span><b>${R.format(FD.tr-FD.td)}</b></div></div>
+<div class="lb">Recebimentos</div>${R1.length?`<table><thead><tr><th>Data</th><th>Cliente</th><th>Serviço</th><th>Conta</th><th class="r">Valor</th></tr></thead><tbody>${R1.map(d=>`<tr><td>${br(d.pagoEm||d.data)}</td><td>${esc(d.c)}</td><td>${esc(d.t)}${d.pc?" ("+esc(d.pc)+")":""}</td><td>${esc(contaNome(d.conta)||"—")}</td><td class="r">${R.format(tot(d))}</td></tr>`).join("")}</tbody></table>`:`<p class="mu">Nenhum recebimento no período.</p>`}
+<div class="lb">Despesas</div>${D1.length?`<table><thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th class="r">Valor</th></tr></thead><tbody>${D1.map(x=>`<tr><td>${br(x.data)}</td><td>${esc(x.desc)}</td><td>${esc(x.cat)}</td><td class="r">${R.format(x.valor)}</td></tr>`).join("")}</tbody></table>`:`<p class="mu">Nenhuma despesa no período.</p>`}
+<div class="ft"><div>${brand}<span class="tg">Orçou. Cobrou. Recebeu.</span></div><div>Relatório gerencial, sem valor fiscal</div></div></div>`;window.print()}
+function expDados(){baixar("cobrei-meus-dados.json",JSON.stringify({exportado_em:new Date().toISOString(),conta:{email:U&&U.email,nome:S.cfg.nome},perfil:Object.assign({},S.perfil,{logo:S.perfil.logo?"(imagem)":""}),clientes:S.clientes.map(c=>Object.assign({},c,{foto:c.foto?"(imagem)":""})),orcamentos:S.docs,contas:S.contas,despesas:S.desp,servicos:S.servicos,cobrancas_mensais:S.recs},null,2),"application/json")}
+async function delConta(){if(!confirm("Excluir sua conta apaga TODOS os seus dados (orçamentos, clientes, contas e despesas) e não pode ser desfeito. Deseja continuar?"))return;
+const t=prompt("Para confirmar, digite EXCLUIR:");if((t||"").trim().toUpperCase()!=="EXCLUIR")return;
+const r=await sb.rpc("excluir_minha_conta");if(r.error)throw r.error;try{localStorage.removeItem(BK)}catch(e){}try{await sb.auth.signOut()}catch(e){}
+FORCE=false;closeS();OK=false;S.docs=[];S.contas=[];S.clientes=[];S.desp=[];MODE="signup";render();toast("Conta excluída.")}
+const OPEN=new Set(),chv='<i class="chv" aria-hidden="true"></i>';
+const cardX=(k,top,vis,more)=>`<article class="card${OPEN.has(k)?" open":""}" data-k="${k}"><div class="top" data-act="tg" role="button" tabindex="0" aria-expanded="${OPEN.has(k)}">${top}${chv}</div>${vis||""}<div class="more">${more}</div></article>`;
+document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches&&e.target.matches(".top[role=button]")){e.preventDefault();e.target.click()}});
+const kids=d=>S.docs.filter(x=>x.g===d.id).sort((a,b)=>Number(a.pc.split("/")[0])-Number(b.pc.split("/")[0]));
+function payTxt(fp,np,en,t){if(!fp)return"";let x=fp;if(en)x+=` · entrada de ${en}% e saldo em 30 dias`;else if(np>1)x+=` em ${np}x de ${R.format(t/np)}`;else if(fp==="Cartão de crédito")x+=" à vista";return x}
+function fpUI(){const f=$("ffp").value,show=f&&f!=="Cartão de débito";$("fpw").classList.toggle("hid",!show);if(!show){$("fenw").classList.add("hid");return}
+const cc=f==="Cartão de crédito",cur=$("fpn").value,o=cc?[["1","À vista (1x)"]]:[["1","À vista"],["ent","Entrada + saldo"]];for(let i=2;i<=12;i++)o.push([String(i),i+"x"+(cc?" no cartão":" (parcelas mensais)")]);
+$("fpl").textContent=cc?"Parcelas no cartão":"Condição de pagamento";$("fpn").innerHTML=o.map(x=>`<option value="${x[0]}">${x[1]}</option>`).join("");if(o.some(x=>x[0]===cur))$("fpn").value=cur;$("fenw").classList.toggle("hid",$("fpn").value!=="ent")}
+function grpCard(d){const ks=kids(d),pg=ks.filter(x=>x.s==="pago").length,ab=ks.filter(x=>x.s==="cob"),atr=ab.filter(x=>x.venc&&x.venc<iso(0)).length,prox=ab.map(x=>x.venc).filter(Boolean).sort()[0];
+const tg=pg===ks.length?`<span class="tag pago">Todas as parcelas pagas</span>`:atr?`<span class="tag late">${atr} ${atr===1?"parcela atrasada":"parcelas atrasadas"}</span>`:`<span class="tag cob">Próxima parcela: ${prox?br(prox).slice(0,5):"—"}</span>`;
+return`<article class="card"><div class="top" data-act="grp" data-id="${d.id}" role="button" tabindex="0"><div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div>${chv}</div><span class="tag">Parcelado em ${ks.length}x · ${pg} ${pg===1?"paga":"pagas"}</span> ${tg}<div class="pgb" style="margin:.8rem 0 0"><i style="width:${Math.round(pg/ks.length*100)}%"></i></div></article>`}
+function openGrp(id){const p=S.docs.find(x=>x.id===id);if(!p)return;GRP=id;const ks=kids(p),h=iso(0);$("parh").textContent=p.c;
+$("pars").innerHTML=`<p class="note">${esc(p.t)} · ${fmt(tot(p))} em ${ks.length}x${p.fp?" · "+esc(p.fp):""}</p>`+ks.map(k=>{const id_=`data-id="${k.id}"`,late=k.s==="cob"&&k.venc&&k.venc<h;
+const tg=k.s==="pago"?`<span class="tag pago">Pago em ${br(k.pagoEm||k.data)}${contaNome(k.conta)?" · "+esc(contaNome(k.conta)):""}</span>`:`<span class="tag ${late?"late":"cob"}">${late?"Atrasada desde ":"Vence em "}${br(k.venc)}</span>`;
+const ac=k.s==="pago"?`<button class="b" ${id_} data-act="pdf">Recibo</button>`:`<a class="b p" href="${esc(wa(k))}" target="_blank" rel="noopener">Cobrar</a><button class="b" ${id_} data-act="pix">Pix / QR</button><button class="b" ${id_} data-act="pago">Marcar pago</button>`;
+return`<div class="par${OPEN.has(k.id)?" open":""}" data-k="${k.id}"><div class="top" data-act="tg" role="button" tabindex="0" aria-expanded="${OPEN.has(k.id)}"><div class="mid"><h3>Parcela ${esc(k.pc)}</h3></div><div class="tot">${fmt(tot(k))}</div>${chv}</div>${tg}<div class="more"><div class="act">${ac}</div></div></div>`}).join("")+`<button class="b d wide" data-id="${p.id}" data-act="del">Excluir parcelamento</button>`;openS("sh-par")}
+function renderSv(){$("sv-n").textContent=S.servicos.length;const qsv=norm(($("busca-sv")||{value:""}).value.trim());const SL=qsv?S.servicos.filter(x=>norm(x.nome).includes(qsv)):S.servicos;$("svl").innerHTML=SL.length?SL.map(x=>cardX(x.id,`<div class="mid"><h3>${esc(x.nome)}</h3></div><div class="tot">${fmt(x.preco)}</div>`,"",`<div class="sub"><button data-id="${x.id}" data-act="editsv">Editar</button><button class="d" data-id="${x.id}" data-act="delsv">Excluir</button></div>`)).join(""):`<div class="empty">${S.servicos.length?"Nenhum serviço encontrado.":"Nenhum serviço cadastrado.<br>Cadastre os serviços que você mais faz, com o valor de cada um."}</div>`}
+function openSv(x){EV=x||null;$("svh").textContent=x?"Editar serviço":"Novo serviço";$("svn").value=x?x.nome:"";$("svp").value=x?String(x.preco).replace(".",","):"";openS("sh-svc")}
+const onbSteps=()=>[{t:"Cadastre um cliente",d:"Para quem você vai fazer orçamentos",ok:S.clientes.length>0,a:"newcli"},{t:"Cadastre um serviço",d:"Com o valor, para orçar mais rápido",ok:S.servicos.length>0,a:"newsv"},{t:"Cadastre onde você recebe",d:"Sua chave Pix ou conta, para cobrar",ok:S.contas.length>0,a:"newct"}];
+const onbDone=()=>onbSteps().every(x=>x.ok);
+const onbHTML=()=>onbSteps().map((x,i)=>`<button class="step${x.ok?" ok":""}" data-act="onbgo" data-a="${x.a}"><span class="ck">${x.ok?"✓":i+1}</span><span><b>${x.t}</b><small>${x.d}</small></span></button>`).join("");
+function openOnb(){const n=onbSteps().filter(x=>x.ok).length;$("onbl").innerHTML=onbHTML();$("onbt").textContent=onbDone()?"Tudo pronto!":"Vamos começar!";$("onbp").textContent=n+" de 3 concluídos";
+$("onbb").innerHTML=onbDone()?`<button class="b p" data-act="new">Criar meu primeiro orçamento</button>`:`<button class="link" data-act="onbskip">Agora não, fazer depois</button>`;ONB=true;openS("sh-onb")}
+function rel(s){const n=Math.round((new Date(iso(0)+"T12:00")-new Date(s+"T12:00"))/864e5);return n<=0?"hoje":n===1?"ontem":n<31?"há "+n+" dias":br(s)}
+function renderPnlX(){const n=onbSteps().filter(x=>x.ok).length;
+$("p-onb").innerHTML=!onbDone()?`<div class="card gd"><h3>Primeiros passos · ${n} de 3</h3><p class="note" style="text-align:left;margin:0 0 .8rem">Faça estes passos para começar a orçar sem complicação.</p>${onbHTML()}</div>`:(S.docs.length?"":`<div class="card gd"><h3>Tudo pronto!</h3><p class="note" style="text-align:left">Crie seu primeiro orçamento e envie o link pelo WhatsApp: seu cliente aprova com 1 toque.</p><button class="b p wide" data-act="new">Criar meu primeiro orçamento</button></div>`);}
+const pixLink=d=>d.tk&&pixContas().length&&!["Cartão de crédito","Cartão de débito","Boleto","Dinheiro"].includes(d.fp)?location.origin+location.pathname+"?c="+d.tk:"";
+async function cobView(tk){["intro","lock","app"].forEach(i=>$(i).classList.add("hid"));document.querySelector(".fab").classList.add("hid");const cv=$("cv");cv.classList.remove("hid");
+const r=await sb.rpc("ver_cobranca",{p_token:tk});
+if(r.error||!r.data){cv.innerHTML=`<div class="empty">Este link não é válido ou foi removido.</div>`;return}
+const o=r.data,pr=o.profissional||{},code=pixBuild(o.pix_chave,pr.nome,pr.cidade,Number(o.total));window.PIXV=code;
+cv.innerHTML=`<div style="text-align:center;margin:1rem 0">${safeImg(pr.logo)?`<img src="${safeImg(pr.logo)}" alt="" style="max-height:64px;max-width:160px;background:#fff;border-radius:.5rem;padding:.3rem"><br>`:""}<h1 class="cvh">${esc(pr.nome||"Cobrança")}</h1><p class="note">${esc([pr.documento?fdoc(pr.documento):"",pr.telefone?ftel(pr.telefone):"",pr.cidade].filter(Boolean).join(" · "))}</p></div>
+<section class="card" style="text-align:center"><p class="note">Cobrança nº ${o.numero}${o.parcela?" · parcela "+esc(o.parcela):""} para <b>${esc(o.cliente)}</b></p><h2 style="margin:.2rem 0">${esc(o.servico)}</h2><p style="font-size:2rem;font-weight:800;margin:.4rem 0">${R.format(o.total)}</p>${o.vencimento&&o.status==="cob"?`<p class="note">Vence em ${br(o.vencimento)}</p>`:""}</section>
+${o.status==="pago"?`<div class="card" style="text-align:center"><b>Pagamento confirmado. Obrigado!</b></div>`:code?`<section class="card" style="text-align:center"><b>Pague com Pix</b>${qrSvg(code)?`<div class="qr">${qrSvg(code)}</div>`:""}<p class="note">No app do seu banco, escolha Pix e leia o QR Code, ou copie o código.</p><button class="b p wide" data-act="cpix">Copiar código Pix</button></section>`:`<div class="card"><p class="note">Fale com ${esc(pr.nome||"o profissional")} para combinar a forma de pagamento.</p></div>`}`}
+const safeImg=u=>{const s=String(u||"");return s.length<900000&&/^data:image\/(png|jpeg|webp|gif);base64,[A-Za-z0-9+\/=]+$/.test(s)?s:"";};
+const SENT=new Set();try{JSON.parse(localStorage.getItem("cobrei:env")||"[]").forEach(i=>SENT.add(i))}catch(e){}
+function markSent(id){if(!id||SENT.has(id))return;SENT.add(id);try{localStorage.setItem("cobrei:env",JSON.stringify([...SENT].slice(-300)))}catch(e){}setTimeout(render,500)}
+function openSent(d){const a=$("sentwa");a.href=wa(d);a.dataset.id=d.id;openS("sh-sent")}
+function autoSend(id){const d=S.docs.find(x=>x.id===id),w=PREW;PREW=null;
+if(!d){if(w){try{w.close()}catch(e){}}toast("Orçamento criado!");return}
+if(w){try{w.opener=null}catch(e){}try{w.location.href=wa(d);markSent(id);toast("Orçamento criado! Abrindo o WhatsApp…");return}catch(e){}}
+let w2=null;try{w2=window.open(wa(d),"_blank")}catch(e){}
+if(w2){try{w2.opener=null}catch(e){}markSent(id);toast("Orçamento criado! Abrindo o WhatsApp…")}else openSent(d)}
+function party(d){if(d)PAID=d.id;$("partyv").textContent=fmt(tot(d))+" recebidos de "+d.c+".";openS("sh-party");
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches){const c=$("partyc"),cs=["#ffc53d","#5ad08a","#5b8cff","#ff8f80","#ffffff"];c.innerHTML="";for(let i=0;i<28;i++){const e=document.createElement("i");e.style.cssText=`left:${Math.random()*100}%;background:${cs[i%5]};animation-delay:${(Math.random()*.8).toFixed(2)}s;animation-duration:${(2+Math.random()*1.6).toFixed(2)}s`;c.appendChild(e)}}}
+const norm=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();
+function openEdit(d){if(d.s==="apr"&&!confirm("O cliente já aprovou este orçamento. Se você editar, ele precisará aprovar de novo. Continuar?"))return;
+openNew("");EDQ=d.id;$("fnt").textContent="Editar orçamento";$("fsb").textContent="Salvar alterações";
+$("fcl").value=d.k||"";$("fc").value=d.c;$("fw").value=d.w||"";$("ft").value=d.t||"";$("fdc").value=d.desc?String(d.desc).replace(".",","):"";$("fva").value=d.val||"";$("fob").value=d.ob||"";
+$("its").innerHTML="";d.itens.forEach(i=>{addItem();const r=[...document.querySelectorAll("#its .it")].pop().querySelectorAll("input");r[0].value=i.d;r[1].value=String(i.q).replace(".",",");r[2].value=String(i.v).replace(".",",")});
+$("ffp").value=d.fp||"";fpUI();$("fpn").value=d.en?"ent":String(d.np||1);fpUI();$("fen").value=d.en||"";calc()}
+async function editSave(itens,svc,np,en){const d=S.docs.find(x=>x.id===EDQ);if(!d)return;
+const v={cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servico:svc,validade:$("fva").value||null,desconto:num($("fdc").value),forma_pagamento:$("ffp").value||null,parcelas:np,entrada_pct:en,observacoes:$("fob").value.trim()||null,cliente_id:$("fcl").value||null};
+if(d.s!=="orc")v.status="orc";
+const r=await sb.from("orcamentos").update(v).eq("id",d.id);if(r.error)throw r.error;
+const r2=await sb.from("itens").insert(itens.map(i=>({orcamento_id:d.id,descricao:i.d,quantidade:i.q,valor:i.v}))).select("id");if(r2.error)throw r2.error;
+const r3=await sb.from("itens").delete().eq("orcamento_id",d.id).not("id","in","("+r2.data.map(x=>x.id).join(",")+")");if(r3.error)throw r3.error;
+if(d.s!=="orc"){SENT.delete(d.id);try{localStorage.setItem("cobrei:env",JSON.stringify([...SENT]))}catch(e){}}
+EDQ=null;OPEN.add(d.id);await loadAll();closeS();render();toast("Orçamento atualizado.")}
+const AJ=[["Como criar e enviar um orçamento","1. Toque em “+ Novo orçamento”.<br>2. Informe o cliente e o que será feito, com o valor.<br>3. Salve: o WhatsApp abre com o link pronto.<br>4. Seu cliente abre o link e aprova com 1 toque."],
+["Como cobrar e receber","Quando o cliente aprova, o orçamento aparece em “Para fazer agora”, no Início. Toque em “Gerar cobrança”, escolha o primeiro vencimento e cobre pelo WhatsApp. O cliente paga pelo link do Pix. Depois, toque em “Marcar pago” e escolha a conta que recebeu."],
+["Parcelamento e cobrança mensal","Defina o parcelamento na forma de pagamento do orçamento: as parcelas ficam juntas, no mesmo cliente. Para clientes que contratam todo mês, marque o cliente como recorrente e use “Cobrança mensal”."],
+["Pix e QR Code","Cadastre sua chave em Mais › Onde você recebe, ou quando o app pedir. O QR Code aparece em “Pix / QR” e no PDF da cobrança."],
+["Corrigir um orçamento","Toque no orçamento e depois em “Editar”. Se o cliente já tinha aprovado, ele precisará aprovar de novo, pelo mesmo link."],
+["Esqueci minha senha","Na tela de entrada, digite seu e-mail e toque em “Esqueci minha senha”. Enviaremos um link para criar outra."]];
+function renderAj(){$("ajl").innerHTML=AJ.map((x,i)=>cardX("aj"+i,`<div class="mid"><h3>${x[0]}</h3></div>`,"",`<div class="hlp"><p>${x[1]}</p></div>`)).join("");
+const msg_="Olá! Preciso de ajuda com o COBREI.\nMeu e-mail: "+((U&&U.email)||"");
+$("ajs").innerHTML=`<button class="b" data-act="onbopen">Rever os primeiros passos</button>`+(CFG.suporte?`<a class="b p" href="https://wa.me/${CFG.suporte}?text=${encodeURIComponent(msg_)}" target="_blank" rel="noopener">Falar com o suporte no WhatsApp</a>`:`<p class="note">O atendimento pelo WhatsApp estará disponível em breve.</p>`)}
+const b64u=t=>{const p="=".repeat((4-t.length%4)%4),r=atob((t+p).replace(/-/g,"+").replace(/_/g,"/"));return Uint8Array.from(r,c=>c.charCodeAt(0))};
+const pushOk=()=>CFG.vapid&&"serviceWorker"in navigator&&"PushManager"in window&&"Notification"in window;
+async function pushState(){if(!pushOk()){$("pushw").classList.add("hid");return}$("pushw").classList.remove("hid");let on=false;
+try{const reg=await navigator.serviceWorker.ready;on=!!(await reg.pushManager.getSubscription())&&Notification.permission==="granted"}catch(e){}
+$("pushb").textContent=on?"Desativar avisos no celular":"Ativar avisos no celular";$("pusht").classList.toggle("hid",!on);
+$("pushh").textContent=on?"Você recebe um resumo de manhã (cobranças atrasadas ou vencendo) e um aviso na hora em que um cliente aprova ou recusa um orçamento.":(/iphone|ipad|ipod/i.test(navigator.userAgent)&&navigator.standalone!==true?"No iPhone, instale o app na tela inicial antes de ativar os avisos.":"")}
+async function pushToggle(){const reg=await navigator.serviceWorker.ready,cur=await reg.pushManager.getSubscription();
+if(cur&&Notification.permission==="granted"){await sb.from("push_subs").delete().eq("endpoint",cur.endpoint);await cur.unsubscribe();toast("Avisos desativados.");pushState();return}
+if(await Notification.requestPermission()!=="granted"){toast("Para receber avisos, permita as notificações do app nas configurações do celular.");return}
+const sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(CFG.vapid)}),j=sub.toJSON();
+const r=await sb.from("push_subs").upsert({endpoint:j.endpoint,p256dh:j.keys.p256dh,auth:j.keys.auth,user_id:U.id},{onConflict:"endpoint"});if(r.error)throw r.error;toast("Avisos ativados!");pushState()}
+async function pushTest(){const r=await sb.functions.invoke("lembretes",{body:{teste:true}});if(r.error)throw r.error;toast("Aviso de teste enviado. Aguarde alguns segundos.")}
+function trapInit(){if(TRAP)return;TRAP=true;const st=history.state||{};if(st.app)return;
+try{if(st.root)history.pushState({app:1},"");else{history.replaceState({root:1},"");history.pushState({app:1},"")}}catch(e){TRAP=false}}
+window.addEventListener("popstate",()=>{if(!TRAP)return;const st=history.state||{};if(!st.root)return;
+if(!OK){TRAP=false;history.back();return}
+const rep=()=>{try{history.pushState({app:1},"")}catch(e){}};
+if(FORCE){rep();return}
+if(STK.length){rep();if(STK[STK.length-1]==="sh-onb")ONB=false;closeTop();return}
+if(TAB!=="pnl"){rep();TAB=UP[TAB]||"pnl";render();scrollTo(0,0);return}
+if(Date.now()-EXIT<2500){TRAP=false;history.back();return}
+EXIT=Date.now();rep();toast("Toque em voltar de novo para sair do app.")});
+function renderCli(){const by={};S.docs.forEach(d=>{if(d.k){const o=by[d.k]||(by[d.k]={n:0,p:0});if(!d.pc)o.n++;if(d.s==="pago")o.p+=tot(d)}});
+$("cli-n").textContent=S.clientes.length;
+const qcli=norm(($("busca-cli")||{value:""}).value.trim());
+const CL=qcli?S.clientes.filter(c=>norm(c.nome+" "+(c.documento||"")+" "+(c.whatsapp||"")+" "+(c.email||"")).includes(qcli)):S.clientes;
+$("cll").innerHTML=CL.length?CL.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return cardX(c.id,`<div class="av">${safeImg(c.foto)?`<img src="${safeImg(c.foto)}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div>`,`${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}`,`<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button><button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button></div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div>`)}).join(""):`<div class="empty">${S.clientes.length?"Nenhum cliente encontrado.":"Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque."}</div>`}
+try{if(localStorage.getItem("cobrei:v"))MODE="login"}catch(e){}
+if(/type=recovery/.test(location.hash))MODE="recover";
+const msgErr=e=>{const m=String(e&&e.message||"").toLowerCase();
+if(m.includes("not authorized")||m.includes("sending")||m.includes("smtp")||(m.includes("email")&&m.includes("rate")))return"Não conseguimos enviar o e-mail de confirmação agora. Tente novamente em alguns minutos.";
+if(m.includes("invalid login")||m.includes("invalid_credentials")||m.includes("user not found")||m.includes("no user")){if(MODE==="login")return"Não há conta com este e-mail (ou a senha está errada). Se você apagou a conta ou nunca se cadastrou, toque em “Criar conta”.";return"E-mail ou senha incorretos."}
+if(m.includes("not confirmed"))return"Confirme seu e-mail pelo link que enviamos antes de entrar.";
+if(m.includes("already"))return"Este e-mail já tem conta. Toque em “Já tenho conta”.";
+if(m.includes("rate limit")||m.includes("too many"))return"Muitas tentativas. Aguarde alguns minutos e tente de novo.";
+if(m.includes("password"))return"A senha não atende aos requisitos. Use 8 ou mais caracteres.";
+return"Não foi possível concluir. Verifique a conexão e tente de novo."};
+async function loadAll(){
+const [o,c,k,pr,sv,rr,dsp,asn]=await Promise.all([sb.from("orcamentos").select("*, itens(*)").order("criado_em",{ascending:false}),sb.from("contas").select("*").order("criado_em"),sb.from("clientes").select("*").order("nome"),sb.from("perfil").select("*").maybeSingle(),sb.from("servicos").select("*").order("nome"),sb.from("recorrencias").select("*").order("criado_em"),sb.from("despesas").select("*").order("data",{ascending:false}),sb.from("assinaturas").select("*").maybeSingle()]);
+if(o.error||c.error)throw(o.error||c.error);
+S.docs=o.data.map(r=>({id:r.id,n:r.numero,c:r.cliente,w:r.whatsapp||"",t:r.servico,itens:(r.itens||[]).map(i=>({d:i.descricao,q:Number(i.quantidade),v:Number(i.valor)})),s:r.status,data:(r.criado_em||"").slice(0,10),venc:r.vencimento||"",conta:r.conta_id||"",k:r.cliente_id||"",tk:r.token||"",np:Number(r.parcelas||1),en:Number(r.entrada_pct||0),g:r.grupo_id||"",up:(r.atualizado_em||r.criado_em||"").slice(0,10),rc:r.recorrencia_id||"",comp:r.competencia||"",pc:r.parcela||"",val:r.validade||"",desc:Number(r.desconto||0),fp:r.forma_pagamento||"",ob:r.observacoes||"",pagoEm:r.pago_em||""}));
+S.contas=c.data.map(x=>({id:x.id,nome:x.nome,tipo:x.tipo,chave:x.chave||""}));
+S.clientes=k.error?[]:k.data.map(x=>({id:x.id,nome:x.nome,tipo:x.tipo,documento:x.documento||"",whatsapp:x.whatsapp||"",recorrente:!!x.recorrente,email:x.email||"",foto:x.foto||""}));
+const pd=(pr&&!pr.error&&pr.data)||{};S.perfil={documento:pd.documento||"",telefone:pd.telefone||"",cidade:pd.cidade||"",pixt:pd.pixt||"cpf",logo:pd.logo||""};
+S.servicos=sv.error?[]:sv.data.map(x=>({id:x.id,nome:x.nome,preco:Number(x.preco)}));
+S.recs=rr.error?[]:rr.data.map(x=>({id:x.id,cid:x.cliente_id||"",cliente:x.cliente,whatsapp:x.whatsapp||"",servico:x.servico,valor:Number(x.valor),dia:x.dia,inicio:x.inicio,ativa:x.ativa}));
+S.desp=dsp.error?[]:dsp.data.map(x=>({id:x.id,desc:x.descricao,valor:Number(x.valor),data:x.data,cat:x.categoria||"Outros"}));
+const as_=(asn&&!asn.error&&asn.data)||{};S.plano={plano:as_.plano||"gratis",ate:as_.valido_ate||""}}
+async function enter(user){U=user;const md=user.user_metadata||{};S.cfg={nome:md.nome||"",pix:md.pix||""};
+try{await loadAll()}catch(e){console.error("loadAll",e);$("aerr").textContent="Não foi possível carregar seus dados agora. Verifique a conexão e tente de novo.";return}
+try{await genRecs()}catch(e){}OK=true;trapInit();try{localStorage.setItem("cobrei:v","1")}catch(e){}render();if(needProfile())openProfile(true);else remind()}
+let AUTH_TRIES=0,AUTH_LOCK=0;
+async function doAuth(){
+if(Date.now()<AUTH_LOCK){const s=Math.ceil((AUTH_LOCK-Date.now())/1000);$("aerr").textContent="Muitas tentativas. Aguarde "+s+"s e tente de novo.";return}
+const e=$("ae").value.trim().toLowerCase(),p=$("ap").value,er=$("aerr"),inf=$("ainfo");er.textContent="";inf.textContent="";
+if(!sb){er.textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
+if(MODE!=="recover"&&!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite um e-mail válido.";return}
+if(p.length<10){er.textContent="A senha precisa ter pelo menos 10 caracteres.";return}
+if(MODE==="signup"&&!$("an").value.trim()){er.textContent="Digite seu nome.";return}
+if(MODE==="signup"&&!$("ace").checked){er.textContent="Para criar a conta, aceite os Termos de Uso e a Política de Privacidade.";return}
+const btn=$("ab");btn.disabled=true;
+try{
+if(MODE==="recover"){const r=await sb.auth.updateUser({password:p});if(r.error)throw r.error;MODE="login";history.replaceState(null,"",location.pathname);const g=await sb.auth.getSession();if(g.data.session)await enter(g.data.session.user);else render()}
+else if(MODE==="signup"){const r=await sb.auth.signUp({email:e,password:p,options:{data:{nome:$("an").value.trim(),aceite_termos:new Date().toISOString()},emailRedirectTo:location.origin+location.pathname}});if(r.error)throw r.error;
+if(r.data.user&&Array.isArray(r.data.user.identities)&&r.data.user.identities.length===0){er.textContent="Este e-mail já tem conta. Toque em “Já tenho conta” ou use “Esqueci minha senha”.";btn.disabled=false;return}
+if(r.data.session)await enter(r.data.session.user);else{MODE="login";render();inf.textContent="Enviamos um link de confirmação para o seu e-mail. Confirme e depois entre aqui."}}
+else{const r=await sb.auth.signInWithPassword({email:e,password:p});if(r.error)throw r.error;await enter(r.data.user)}
+}catch(x){AUTH_TRIES++;if(AUTH_TRIES>=5){AUTH_LOCK=Date.now()+30000;AUTH_TRIES=0}er.textContent=msgErr(x)}
+btn.disabled=false;$("ap").value=""}
+async function forgot(){const e=$("ae").value.trim().toLowerCase(),er=$("aerr"),inf=$("ainfo");er.textContent="";inf.textContent="";
+if(!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite seu e-mail acima e toque em “Esqueci minha senha” de novo.";return}
+const r=await sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname});
+if(r.error)er.textContent=msgErr(r.error);else inf.textContent="Se esse e-mail tiver conta, enviamos um link para criar uma nova senha."}
+function authUI(){const m=MODE;
+$("intro").classList.toggle("hid",OK||LOCK);$("lock").classList.toggle("hid",!LOCK||OK);$("app").classList.toggle("hid",!OK);document.querySelector(".fab").classList.toggle("hid",!OK||TAB==="ct"||TAB==="sv"||TAB==="mais"||TAB==="aj");
+$("an").classList.toggle("hid",m!=="signup");$("ae").classList.toggle("hid",m==="recover");$("fg").classList.toggle("hid",m!=="login");$("sw").classList.toggle("hid",m==="recover");$("aceitew").classList.toggle("hid",m!=="signup");
+$("ap").autocomplete=m==="signup"||m==="recover"?"new-password":"current-password";
+$("at").textContent=m==="recover"?"Crie uma nova senha":"Orçou. Cobrou. Recebeu.";
+$("as").textContent=m==="login"?"Use o e-mail e a senha da sua conta.":m==="signup"?"Seus orçamentos ficam guardados na nuvem, só para você.":"Digite a nova senha que você quer usar.";
+$("ab").textContent=m==="login"?"Entrar":m==="signup"?"Criar conta":"Salvar nova senha";
+$("sw").textContent=m==="login"?"Ainda não tenho conta":"Já tenho conta";const eb=document.querySelector(".eye");eb.innerHTML=HIDE?IEO:IE;eb.setAttribute("aria-pressed",String(HIDE));eb.setAttribute("aria-label",HIDE?"Mostrar valores":"Ocultar valores")}
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const $=i=>document.getElementById(i),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const num=v=>{const n=parseFloat(String(v).replace(/\./g,"").replace(",","."));return isNaN(n)?0:n};
+const fmtMoney=v=>{const n=num(v);if(!String(v??"").trim())return"";return n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})};
+const loadCidadeUF=s=>{s=String(s||"").trim();const m=s.match(/^(.+?)\s*[-–\/]\s*([A-Za-z]{2})$/);if(m){$("cci").value=m[1].trim();if($("cuf"))$("cuf").value=m[2].toUpperCase()}else{$("cci").value=s;if($("cuf"))$("cuf").value=""}};
+const joinCidadeUF=()=>{const c=$("cci").value.trim(),u=($("cuf")&&$("cuf").value)||"";return u?c+" - "+u:c};
+const subt=d=>d.itens.reduce((a,i)=>a+i.q*i.v,0),tot=d=>Math.max(0,subt(d)-(d.desc||0));
+const iso=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
+const br=s=>s?s.split("-").reverse().join("/"):"";
+const ST={orc:"Orçamento enviado",apr:"Aprovado — falta cobrar",pago:"Pago",rec:"Recusado pelo cliente",parc:"Parcelado em várias cobranças"};
+const FL={all:()=>true,orc:d=>d.s==="orc"||d.s==="apr",cob:d=>d.s==="cob"||(d.s==="parc"&&kids(d).some(x=>x.s==="cob")),late:d=>d.s==="cob"&&d.venc&&d.venc<iso(0)||(d.s==="parc"&&kids(d).some(x=>x.s==="cob"&&x.venc&&x.venc<iso(0))),pago:d=>d.s==="pago"||(d.s==="parc"&&kids(d).length>0&&kids(d).every(x=>x.s==="pago")),rec:d=>d.s==="rec"};
+function msg(d){const safe=s=>String(s??"").replace(/[\u0000-\u001F\u007F]/g,"").slice(0,120);const t=R.format(tot(d)),n=safe(S.cfg.nome||"");
+if(d.s==="cob")return`Olá, ${safe(d.c)}! Passando para lembrar da cobrança "${safe(d.t)}${d.pc?" (parcela "+d.pc+")":""}", no valor de ${t}, com vencimento em ${br(d.venc)}.${d.venc&&d.venc<iso(0)?" Ela está em atraso. Poderia me confirmar o pagamento?":""}${pixLink(d)?`\nPague com Pix por este link:\n${pixLink(d)}`:""}\nObrigado!`;
+if(d.tk)return`Olá, ${safe(d.c)}! Segue o link do seu orçamento. É só abrir e confirmar com 1 clique:\n${linkOf(d)}`;
+return`Olá, ${safe(d.c)}! Segue o orçamento nº ${d.n}${n?` de ${n}`:""}:\n\n${safe(d.t)}\n${d.itens.map(i=>`• ${i.d} (${i.q} x ${R.format(i.v)})`).join("\n")}${d.desc?`\nDesconto: -${R.format(d.desc)}`:""}\n\nTotal: ${t}${d.fp?`\nPagamento: ${payTxt(d.fp,d.np,d.en,tot(d))}`:""}${d.val?`\nValidade: ${br(d.val)}`:""}${d.ob?`\nObs.: ${d.ob}`:""}\n\n${d.tk?`Para aprovar com um toque, acesse:\n${linkOf(d)}`:"Se estiver de acordo, é só me responder aqui."}`}
+function wa(d){let p=(d.w||"").replace(/\D/g,"");if(p&&p.length<=11)p="55"+p;return`https://wa.me/${p}?text=${encodeURIComponent(msg(d))}`}
+function render(){
+authUI();
+let a=0,b=0,c=0;S.docs.forEach(d=>{const t=tot(d);if(d.s==="pago")c+=t;else if(d.s==="cob")b+=t;else if(d.s==="orc"||d.s==="apr")a+=t});
+$("s1").textContent=fmt(a);$("s2").textContent=fmt(b);$("s3").textContent=fmt(c);$("pg").style.width=(a+b+c?Math.round(c/(a+b+c)*100):0)+"%";
+$("ct-tot").textContent=fmt(c);
+const rec={};S.docs.forEach(d=>{if(d.s==="pago"&&d.conta)rec[d.conta]=(rec[d.conta]||0)+tot(d)});
+const other=c-S.contas.reduce((z,x)=>z+(rec[x.id]||0),0);
+$("ctl").innerHTML=S.contas.length?S.contas.map(x=>cardX(x.id,`<div class="av">${EM[x.tipo]}</div><div class="mid"><h3>${esc(x.nome)}</h3><p>${TP[x.tipo]}${x.chave?" · "+esc(x.chave):""}</p></div><div class="tot">${fmt(rec[x.id]||0)}</div>`,"",`<div class="sub"><button class="d" data-id="${x.id}" data-act="delct">Excluir</button></div>`)).join("")+(other>0.004?`<p class="note">${fmt(other)} recebidos sem conta informada ou em contas excluídas.</p>`:""):`<div class="empty">Nenhuma conta cadastrada.<br>Cadastre onde você recebe — Pix, banco, carteira digital ou dinheiro — para saber quanto entrou em cada uma.</div>`;
+$("v-pnl").classList.toggle("hid",TAB!=="pnl");renderPnl();renderPnlX();renderFin();$("v-sv").classList.toggle("hid",TAB!=="sv");renderSv();$("v-mais").classList.toggle("hid",TAB!=="mais");$("v-aj").classList.toggle("hid",TAB!=="aj");if(TAB==="aj")renderAj();$("v-cli").classList.toggle("hid",TAB!=="cli");renderCli();$("v-cob").classList.toggle("hid",TAB!=="cob");$("v-ct").classList.toggle("hid",TAB!=="ct");
+const NT=TAB==="sv"||TAB==="ct"||TAB==="aj"?"mais":TAB;document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x.dataset.t===NT));
+$("hi").textContent=S.cfg.nome?`Olá, ${S.cfg.nome}`:"Orçou. Cobrou. Recebeu.";
+document.querySelectorAll(".chips button").forEach(x=>x.classList.toggle("on",x.dataset.f===F));
+const Q=norm($("busca").value.trim()),L=S.docs.filter(d=>!d.g).filter(FL[F]).filter(d=>!Q||norm(d.c+" "+d.t).includes(Q));
+$("list").innerHTML=L.length?L.map(d=>{
+if(d.s==="parc"&&kids(d).length)return grpCard(d);
+const late=d.s==="cob"&&d.venc<iso(0),id=`data-id="${d.id}"`;
+const tag=d.s==="cob"?`<span class="tag ${late?"late":"cob"}">${late?"Atrasado desde ":"Vence em "}${br(d.venc)}${d.pc?" · parcela "+d.pc:""}</span>`:`<span class="tag ${d.s==="pago"?"pago":""}">${ST[d.s]}${d.s==="pago"&&contaNome(d.conta)?" · "+esc(contaNome(d.conta)):""}${d.s==="orc"&&d.val?" · válido até "+br(d.val).slice(0,5):""}</span>`;
+let ac="",sub="";
+if(d.s==="orc")ac=`<a class="b p" ${id} data-act="wsent" href="${esc(wa(d))}" target="_blank" rel="noopener">Enviar no WhatsApp</a><button class="b" ${id} data-act="lnk">Copiar link</button><button class="b" ${id} data-act="apr">Cliente aprovou</button>`;
+if(d.s==="apr")ac=`<button class="b p" ${id} data-act="cob">Gerar cobrança</button>`;
+if(d.s==="cob"){ac=`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">Cobrar no WhatsApp</a><button class="b" ${id} data-act="pix">Pix / QR Code</button><button class="b" ${id} data-act="pago">Marcar como pago</button>`;sub=`<label>Vencimento <input type="date" value="${esc(d.venc)}" ${id} data-act="venc"></label>`}
+return cardX(d.id,`<div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div>`,tag,`<div class="act">${ac}</div><div class="sub">${sub}${["orc","apr","rec"].includes(d.s)?`<button ${id} data-act="editq">Editar</button>`:""}<button ${id} data-act="pdf">PDF</button><button ${id} data-act="dup">Duplicar</button><button class="d" ${id} data-act="del">Excluir</button></div>`)}).join(""):`<div class="empty">${Q?"Nenhum resultado para “"+esc($("busca").value.trim())+"”.":S.docs.length?"Nada por aqui neste filtro.":"Nenhum orçamento ainda.<br>Toque em “Novo orçamento” e envie o primeiro pelo WhatsApp em menos de um minuto."}</div>`}
+const STK=[],UP={sv:"mais",ct:"mais",aj:"mais",mais:"pnl",cob:"pnl",cli:"pnl"};let TRAP=false,EXIT=0;
+const openS=id=>{if(!STK.includes(id))STK.push(id);const el=$(id);el.style.zIndex=String(21+STK.indexOf(id));$("ov").classList.add("open");el.classList.add("open")};
+function shut(id){const el=$(id);el.classList.remove("open");el.style.zIndex="";const i=STK.indexOf(id);if(i>=0)STK.splice(i,1);if(!STK.length)$("ov").classList.remove("open")}
+const closeTop=()=>{if(STK.length)shut(STK[STK.length-1])};
+const closeS=()=>{STK.length=0;$("ov").classList.remove("open");document.querySelectorAll(".sheet").forEach(s=>{s.classList.remove("open");s.style.zIndex=""})};
+function addItem(){const r=document.createElement("div");r.className="it";r.innerHTML=`<input placeholder="Descrição" aria-label="Descrição"><input placeholder="Qtd" value="1" inputmode="decimal" aria-label="Quantidade"><input placeholder="R$" inputmode="decimal" aria-label="Valor unitário"><button type="button" class="rm" data-act="delitem" aria-label="Remover item">×</button>`;$("its").appendChild(r)}
+function calc(){let t=0;document.querySelectorAll("#its .it").forEach(r=>{const i=r.querySelectorAll("input");t+=num(i[1].value)*num(i[2].value)});t=Math.max(0,t-num($("fdc").value));$("ftot").textContent=R.format(t)}
+
+
+document.addEventListener("blur",e=>{const t=e.target;if(!t||t.tagName!=="INPUT")return;const money=t.id==="fdc"||t.id==="rcv"||t.id==="svp"||t.id==="dpv"||(t.closest("#its")&&[...t.parentElement.querySelectorAll("input")].indexOf(t)===2);if(money&&t.value.trim()){t.value=fmtMoney(t.value);if(t.closest("#its")||t.id==="fdc")calc()}},true);
+document.addEventListener("input",e=>{if(e.target.id==="busca"||e.target.id==="busca-cli"||e.target.id==="busca-sv")render();if(e.target.closest("#its")||e.target.id==="fdc")calc();if(e.target.id==="cbp"||e.target.id==="cbn")cbUI()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!FORCE)closeS()});
+const DOC_MAP={status:"s",vencimento:"venc",pago_em:"pagoEm",conta_id:"conta",cliente:"c",whatsapp:"w",servico:"t",desconto:"desc",forma_pagamento:"fp",parcelas:"np",entrada_pct:"en",observacoes:"ob",validade:"val",cliente_id:"k",numero:"n",token:"tk",grupo_id:"g",parcela:"pc",recorrencia_id:"rc",competencia:"comp",atualizado_em:"up"};
+function patchDoc(d,v){const loc=S.docs.find(x=>x.id===(d&&d.id));if(!loc)return;Object.keys(v||{}).forEach(k=>{const lk=DOC_MAP[k]||k;let val=v[k];if(k==="desconto"||k==="parcelas"||k==="entrada_pct")val=Number(val)||0;if(k==="atualizado_em"&&val)val=String(val).slice(0,10);loc[lk]=val;if(d&&d!==loc)d[lk]=val})}
+async function up(d,v){const r=await sb.from("orcamentos").update(v).eq("id",d.id);if(r.error)throw r.error;patchDoc(d,v);render()}
+const fail=x=>{if(PREW){try{PREW.close()}catch(e){}PREW=null}if(String(x&&x.message||"").includes("limite_plano_gratis")){closeS();planoOpen()}else toast("Não foi possível salvar. Verifique sua conexão e tente de novo.")};
+document.addEventListener("change",async e=>{const t=e.target;if(t.id==="fcl"){const c=S.clientes.find(x=>x.id===t.value);if(c){$("fc").value=c.nome;$("fw").value=c.whatsapp}return}
+if(t.id==="fsv"){const x=S.servicos.find(z=>z.id===t.value);if(x){const rows=[...document.querySelectorAll("#its .it")];let r=rows[rows.length-1];if(!r||r.querySelector("input").value.trim()){addItem();r=[...document.querySelectorAll("#its .it")].pop()}const i=r.querySelectorAll("input");i[0].value=x.nome;i[1].value="1";i[2].value=String(x.preco).replace(".",",");if(!$("ft").value.trim())$("ft").value=x.nome;calc()}t.value="";return}
+if(t.id==="cbd"){cbUI();return}
+if(t.id==="ffp"||t.id==="fpn"){fpUI();return}
+if(t.id==="pixa"){pixShow();return}if(t.dataset.act==="venc"&&t.value){const d=S.docs.find(x=>x.id===t.dataset.id);if(d)try{await up(d,{vencimento:t.value})}catch(x){fail(x)}}});
+async function act(a,t){const d=S.docs.find(x=>x.id===t.dataset.id);
+try{
+if(a==="auth")await doAuth();else if(a==="forgot")await forgot();
+else if(a==="eye"){HIDE=!HIDE;try{localStorage.setItem("cobrei:hide",HIDE?"1":"0")}catch(e){}render()}
+else if(a==="unlock")await unlock();
+else if(a==="tg"){const c=t.closest("[data-k]");if(!c)return;const o=c.classList.toggle("open");o?OPEN.add(c.dataset.k):OPEN.delete(c.dataset.k);t.setAttribute("aria-expanded",String(o))}
+else if(a==="onbgo"){ONB=true;const q=t.dataset.a;if(q==="newcli")openCli(null);else if(q==="newsv")openSv(null);else{["ctn","ctk"].forEach(i=>$(i).value="");$("ctt").value="pix";openS("sh-ct")}}
+else if(a==="onbskip"){ONB=false;closeS();toast("Sem problema! Os passos continuam no seu Início.")}
+else if(a==="wsent"){markSent(t.dataset.id);if(t.id==="sentwa")setTimeout(closeS,400)}
+else if(a==="cpix"){await copyText(window.PIXV||"");toast("Código Pix copiado. Cole no app do seu banco.")}
+else if(a==="push"){try{await pushToggle()}catch(e){console.error(e);toast("Não foi possível ativar os avisos agora.")}}
+else if(a==="pushtest"){try{await pushTest()}catch(e){console.error(e);toast("Não foi possível enviar o teste. Confira se a função de avisos foi criada.")}}
+else if(a==="onbopen")openOnb();
+else if(a==="back"){if(!FORCE){if(STK[STK.length-1]==="sh-onb")ONB=false;closeTop()}}
+else if(a==="sub"){SUB=t.dataset.s;render()}
+else if(a==="rper"){PER=t.dataset.p;render()}
+else if(a==="mes"){MES=mshift(MES,Number(t.dataset.d)*(SUB==="rl"&&PER==="a"?12:1));render()}
+else if(a==="newdp"){["dpd","dpv"].forEach(i=>$(i).value="");$("dpt").value=iso(0);$("dpc").selectedIndex=0;openS("sh-dp")}
+else if(a==="savedp"){const v=num($("dpv").value),n=$("dpd").value.trim();if(!n||v<=0||!$("dpt").value){toast("Preencha descrição, valor e data.");return}
+const r=await sb.from("despesas").insert({descricao:n,valor:v,data:$("dpt").value,categoria:$("dpc").value});if(r.error)throw r.error;await loadAll();closeS();toast("Despesa registrada.");render()}
+else if(a==="deldp"){if(!confirm("Excluir esta despesa?"))return;const r=await sb.from("despesas").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
+else if(a==="rlcsv")rlCsv();else if(a==="rlpdf")rlPdf();else if(a==="plano")planoOpen();else if(a==="exp")expDados();else if(a==="delacc")await delConta();
+else if(a==="inst"){toast("Você já está no app COBREI.")}
+else if(a==="cvok")await cvAnswer(true);else if(a==="cvno")await cvAnswer(false);else if(a==="cbgo")await cbGo();
+else if(a==="newsv")openSv(null);else if(a==="editsv")openSv(S.servicos.find(x=>x.id===t.dataset.id));
+else if(a==="savesv"){const n=$("svn").value.trim();if(!n){toast("Digite o nome do serviço.");return}const v={nome:n,preco:num($("svp").value)};
+const r=EV?await sb.from("servicos").update(v).eq("id",EV.id):await sb.from("servicos").insert(v);if(r.error)throw r.error;await loadAll();closeS();toast(EV?"Serviço atualizado.":"Serviço adicionado.");render();if(ONB)openOnb()}
+else if(a==="delsv"){if(!confirm("Excluir este serviço do catálogo?"))return;const r=await sb.from("servicos").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
+else if(a==="newrc"){RC=S.clientes.find(x=>x.id===t.dataset.id);if(!RC)return;$("rcc").textContent="Cliente: "+RC.nome;$("rcs").value="";$("rcv").value="";$("rcd").value=iso(7);openS("sh-rc")}
+else if(a==="saverc"){const v=num($("rcv").value),sv_=$("rcs").value.trim(),dt=$("rcd").value;if(!RC||!sv_||v<=0||!dt){toast("Preencha serviço, valor e primeiro vencimento.");return}
+const r=await sb.from("recorrencias").insert({cliente_id:RC.id,cliente:RC.nome,whatsapp:RC.whatsapp||null,servico:sv_,valor:v,dia:Math.min(28,Number(dt.slice(8,10))),inicio:dt});if(r.error)throw r.error;await loadAll();await genRecs();closeS();toast("Cobrança mensal ativada.");render()}
+else if(a==="delrc"){if(!confirm("Encerrar esta cobrança mensal? As cobranças já geradas continuam."))return;const r=await sb.from("recorrencias").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
+else if(a==="logo")$("lgf").click();else if(a==="cfoto")$("cff").click();else if(a==="cfotox"){CF="";cfUI()}else if(a==="logox"){LOGO="";logoUI()}
+else if(a==="pix"&&d){PIXD=d.id;const pc=pixContas();$("pixa").innerHTML=pc.map(x=>`<option value="${x.id}">${esc(x.nome)}</option>`).join("");$("pixaw").classList.toggle("hid",pc.length<2);pixShow()}
+else if(a==="pixcopy"){const v=$("pixc").value;if(!v){toast("Preencha seus dados Pix primeiro.");return}try{await navigator.clipboard.writeText(v);toast("Código Pix copiado.")}catch(e){$("pixc").select();toast("Selecione e copie o código.")}}
+else if(a==="usepw"){await sb.auth.signOut();LOCK=false;MODE="login";render()}
+else if(a==="bio")await bioToggle();
+else if(a==="newfor"){if(!isPro()&&usados()>=CFG.limite)planoOpen();else openNew(t.dataset.id)}
+else if(a==="newcli")openCli(null);else if(a==="editcli")openCli(S.clientes.find(x=>x.id===t.dataset.id));
+else if(a==="savecli"){const n=$("cln").value.trim();if(!n){toast("Digite o nome do cliente.");return}
+const v={nome:n,tipo:$("clt").value,documento:$("cld").value.trim()||null,whatsapp:$("clw").value.trim()||null,email:$("cle").value.trim()||null,recorrente:$("clr").checked,foto:CF||null};
+const r=EC?await sb.from("clientes").update(v).eq("id",EC.id):await sb.from("clientes").insert(v);if(r.error)throw r.error;await loadAll();closeS();toast(EC?"Cliente atualizado.":"Cliente cadastrado.");render();if(ONB)openOnb()}
+else if(a==="delcli"){if(!confirm("Excluir este cliente? Os orçamentos dele continuam no histórico."))return;const r=await sb.from("clientes").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
+else if(a==="swm"){MODE=MODE==="login"?"signup":"login";$("aerr").textContent="";$("ainfo").textContent="";render()}
+else if(a==="out"){FORCE=false;closeS();await sb.auth.signOut();OK=false;S.docs=[];S.contas=[];MODE="login";render()}
+else if(a==="cfg")openProfile(false);
+else if(a==="savecfg"){const c={nome:$("cn").value.trim()},cid=joinCidadeUF(),f={documento:$("cdc").value.trim()||null,telefone:$("ctf").value.trim()||null,cidade:cid||null,logo:LOGO||null};
+if(!c.nome||!f.documento||!f.telefone||!$("cci").value.trim()){toast("Preencha nome, CPF/CNPJ, telefone e cidade.");return}
+if($("cuf")&&!$("cuf").value){toast("Selecione o estado (UF).");return}
+const pf=Object.assign({user_id:U.id},f);
+const r=await sb.auth.updateUser({data:c});if(r.error)throw r.error;const r2=await sb.from("perfil").upsert(pf,{onConflict:"user_id"});if(r2.error)throw r2.error;
+S.cfg=Object.assign(S.cfg,c);S.perfil={documento:pf.documento||"",telefone:pf.telefone||"",cidade:pf.cidade||"",pixt:"cpf",logo:pf.logo||""};const was=FORCE;FORCE=false;closeS();toast("Dados salvos.");render();if(was&&!onbDone())openOnb();else if(was&&!S.docs.length)openNew("")}
+else if(a==="new"){ONB=false;closeS();if(!isPro()&&usados()>=CFG.limite)planoOpen();else openNew("")}
+else if(a==="close"){if(!FORCE){ONB=false;closeS()}}else if(a==="additem")addItem();else if(a==="delitem"){const row=t.closest(".it");if(!row)return;const rows=document.querySelectorAll("#its .it");if(rows.length<=1){row.querySelectorAll("input").forEach((inp,i)=>{inp.value=i===1?"1":""});calc();return}row.remove();calc()}else if(a==="flt"){F=t.dataset.f;render()}
+else if(a==="tab"){TAB=t.dataset.t;render();scrollTo(0,0)}
+else if(a==="goto"){TAB=t.dataset.t;if(t.dataset.s)SUB=t.dataset.s;render();scrollTo(0,0)}
+else if(a==="savepixk"){const k=$("pixk").value.trim();if(!k){toast("Digite a sua chave Pix.");return}const r=await sb.from("contas").insert({nome:"Pix",tipo:"pix",chave:k});if(r.error)throw r.error;await loadAll();$("pixk").value="";pixShow()}
+else if(a==="newct"){["ctn","ctk"].forEach(i=>$(i).value="");$("ctt").value="pix";openS("sh-ct")}
+else if(a==="savect"){const n=$("ctn").value.trim();if(!n){toast("Digite o nome da conta, por exemplo: Nubank.");return}
+const r=await sb.from("contas").insert({nome:n,tipo:$("ctt").value,chave:$("ctk").value.trim()||null});if(r.error)throw r.error;await loadAll();closeS();render();if(ONB)openOnb()}
+else if(a==="delct"){if(!confirm("Excluir esta conta? Os valores já recebidos continuam no histórico."))return;const r=await sb.from("contas").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
+else if(a==="payto"){const x=S.docs.find(z=>z.id===PAY);const g=x&&x.g,first=!S.docs.some(z=>z.s==="pago");if(x){await up(x,{status:"pago",pago_em:iso(0),conta_id:t.dataset.c||null});PAID=x.id}closeS();if(first&&x)party(x);else if(x){$("paidv").textContent=(x.c||"")+" · "+fmt(tot(x))+" registrados como pagos.";openS("sh-paid")}else if(g)openGrp(g)}
+else if(a==="save"){const itens=[...document.querySelectorAll("#its .it")].map(r=>{const i=r.querySelectorAll("input");return{d:i[0].value.trim(),q:num(i[1].value)||1,v:num(i[2].value)}}).filter(i=>i.d&&i.v>0);
+if(!$("fc").value.trim()||!itens.length){toast("Preencha o cliente e pelo menos um item com valor.");return}
+const fpv=$("ffp").value,pn=$("fpn").value,pOk=fpv&&fpv!=="Cartão de débito",np_=pOk&&pn!=="ent"?Number(pn)||1:1,en_=pOk&&pn==="ent"?Math.min(95,Math.max(5,Math.round(num($("fen").value))||50)):null;
+const svc_=$("ft").value.trim()||(itens[0].d+(itens.length>1?" e mais "+(itens.length-1)+(itens.length===2?" item":" itens"):""));
+if(EDQ){await editSave(itens,svc_,np_,en_);return}
+PREW=null;try{PREW=window.open("","_blank")}catch(e){}
+const n=S.docs.reduce((m,x)=>Math.max(m,x.n||0),0)+1;
+const r=await sb.from("orcamentos").insert(Object.assign({numero:n,cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servico:svc_,validade:$("fva").value||null,desconto:num($("fdc").value),forma_pagamento:$("ffp").value||null,parcelas:np_,entrada_pct:en_,observacoes:$("fob").value.trim()||null},$("fcl").value?{cliente_id:$("fcl").value}:{})).select("id").single();if(r.error)throw r.error;
+const r2=await sb.from("itens").insert(itens.map(i=>({orcamento_id:r.data.id,descricao:i.d,quantidade:i.q,valor:i.v})));
+if(r2.error){await sb.from("orcamentos").delete().eq("id",r.data.id);throw r2.error}
+OPEN.add(r.data.id);await loadAll();closeS();F="all";render();scrollTo(0,0);autoSend(r.data.id)}
+else if(a==="paidpdf"){let x=S.docs.find(z=>z.id===PAID);if(!x&&PAY)x=S.docs.find(z=>z.id===PAY);if(!x){toast("Recibo não encontrado. Abra o orçamento pago e toque em Recibo/PDF.");return}closeS();pdf(Object.assign({},x,{s:"pago"}),{recibo:true})}
+else if(d){if(a==="apr")await up(d,{status:"apr"});else if(a==="lnk"){await copyText(linkOf(d));toast("Link copiado. Envie ao cliente.")}
+else if(a==="cob"){CB=d.id;$("cbd").value=iso(7);cbUI();openS("sh-cb")}
+else if(a==="pago"||a==="pixpago"){const x=d||S.docs.find(z=>z.id===PIXD);if(!x){toast("Abra o Pix de uma cobrança primeiro.");return}PAY=x.id;closeS();payList();openS("sh-pay")}else if(a==="pdf")pdf(d);else if(a==="grp")openGrp(d.id);else if(a==="editq")openEdit(d);else if(a==="dup")openDup(d);
+else if(a==="del"){const ks=kids(d);if(!confirm(ks.length?"Excluir este parcelamento e as "+ks.length+" parcelas?":"Excluir este registro?"))return;const r=await sb.from("orcamentos").delete().in("id",[d.id].concat(ks.map(x=>x.id)));if(r.error)throw r.error;await loadAll();closeS();render()}}
+}catch(x){fail(x)}}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.tagName==="INPUT")return;act(t.dataset.act,t)});
+async function init(){loadBind();
+if(!sb){$("aerr").textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
+
+// [CORREÇÃO APLICADA AQUI]: Listener atualizado para tratar a recuperação de senha
+sb.auth.onAuthStateChange(async (event, session) => {
+  if (event === "PASSWORD_RECOVERY") {
+    MODE = "recover";
+    OK = false;
+    render();
+    return;
+  }
+  if (session && session.user && MODE !== "recover") {
+    let c = null;
+    try{ c = JSON.parse(localStorage.getItem(BK)); }catch(e){}
+    if(c && c.uid === session.user.id && window.PublicKeyCredential){
+      PEND = session.user; LOCK = true; render();
+    } else {
+      await enter(session.user);
+    }
+  }
+});
+
+const g=await sb.auth.getSession();
+if(g.data.session&&MODE!=="recover"){const u=g.data.session.user;let c=null;try{c=JSON.parse(localStorage.getItem(BK))}catch(e){}
+if(c&&c.uid===u.id&&window.PublicKeyCredential){PEND=u;LOCK=true;render()}else await enter(u)}else{render()}}
+document.querySelectorAll(".sheet").forEach(sh=>{const b=document.createElement("button");b.type="button";b.className="back";b.dataset.act="back";b.textContent="‹ Voltar";sh.insertBefore(b,sh.firstChild)});
+if(CVT&&sb&&/^[0-9a-f-]{36}$/i.test(CVT))clientView(CVT);else if(CCT&&sb&&/^[0-9a-f-]{36}$/i.test(CCT))cobView(CCT);else{render();init()}
+</script>
+</body>
+</html>
