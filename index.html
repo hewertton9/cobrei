@@ -449,24 +449,17 @@ function payList(){$("payl").innerHTML=S.contas.map(x=>`<button class="b" data-a
 const SUPA_URL="https://eofyqeledandcttfhmuu.supabase.co",SUPA_KEY="sb_publishable_I0HUMSb82iau2xRXlVQp4A_T2r8EbC0";
 let OK=false,MODE="signup",U=null,sb=null,RECOVERY_PENDING=false;
 try{sb=supabase.createClient(SUPA_URL,SUPA_KEY)}catch(e){}
-// Identifica o retorno de recuperação em hash/query e também quando o Android
-// reabre a TWA sem preservar o fragmento, usando um marcador temporário local.
-const RECOVERY_MARKER="cobrei:recovery_pending";
-function hasRecoveryMarker(){
-try{
-const ts=Number(localStorage.getItem(RECOVERY_MARKER)||0);
-if(!ts)return false;
-if(Date.now()-ts>60*60*1000){localStorage.removeItem(RECOVERY_MARKER);return false;}
-return true;
-}catch(e){return false}}
+// Só entra no modo de nova senha quando há indicação real de recuperação
+// na URL ou quando o próprio Supabase confirma PASSWORD_RECOVERY.
+// Não persistimos um marcador local: isso poderia prender o app na tela
+// de senha depois que o link expirasse ou fosse consumido.
 function hasRecoveryReturn(){
 try{
 const hash=new URLSearchParams((location.hash||"").replace(/^#/,""));
 const query=new URLSearchParams(location.search||"");
 return hash.get("type")==="recovery"||query.get("type")==="recovery"||
-query.get("auth")==="recovery"||query.get("flow")==="recovery"||
-(hash.get("error_code")==="otp_expired"||query.get("error_code")==="otp_expired")||hasRecoveryMarker();
-}catch(e){return /(?:^|[&#?])type=recovery(?:&|$)/i.test(location.href)||hasRecoveryMarker()}}
+query.get("auth")==="recovery"||query.get("flow")==="recovery";
+}catch(e){return /(?:^|[&#?])type=recovery(?:&|$)/i.test(location.href)}}
 if(hasRecoveryReturn()){MODE="recover";RECOVERY_PENDING=true;}
 const BK="cobrei:bio",enc=new TextEncoder(),b64=u=>btoa(String.fromCharCode(...u)),unb=t=>Uint8Array.from(atob(t),c=>c.charCodeAt(0));
 let LOCK=false,PEND=null,HIDE=false;try{HIDE=localStorage.getItem("cobrei:hide")==="1"}catch(e){}
@@ -801,7 +794,7 @@ const btn=$("ab");btn.disabled=true;
 try{
 if(MODE==="recover"){
 const r=await sb.auth.updateUser({password:p});if(r.error)throw r.error;
-RECOVERY_PENDING=false;try{localStorage.removeItem(RECOVERY_MARKER)}catch(e){}MODE="login";
+RECOVERY_PENDING=false;MODE="login";
 try{history.replaceState(null,"",location.pathname)}catch(e){}
 const g=await sb.auth.getSession();if(g.data.session)await enter(g.data.session.user);else render()
 }
@@ -815,7 +808,6 @@ async function forgot(){const e=$("ae").value.trim().toLowerCase(),er=$("aerr"),
 if(!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite seu e-mail acima e toque em “Esqueci minha senha” de novo.";return}
 const r=await sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname});
 if(r.error)er.textContent=msgErr(r.error);else{
-try{localStorage.setItem(RECOVERY_MARKER,String(Date.now()))}catch(e){}
 inf.textContent="Se esse e-mail tiver conta, enviamos um link para criar uma nova senha.";
 }}
 function authUI(){const m=MODE;
@@ -981,11 +973,13 @@ const g=await sb.auth.getSession();
 // enquanto processava o link. Não entre no painel nesse caso.
 if(RECOVERY_PENDING||MODE==="recover"){
 MODE="recover";OK=false;render();
+return;
+}
 const hp=new URLSearchParams((location.hash||"").replace(/^#/,""));
 const qp=new URLSearchParams(location.search||"");
 if(hp.get("error_code")==="otp_expired"||qp.get("error_code")==="otp_expired"){
+MODE="login";RECOVERY_PENDING=false;render();
 $("aerr").textContent="Este link de recuperação expirou ou já foi utilizado. Solicite um novo e-mail para criar outra senha.";
-}
 return;
 }
 if(g.data&&g.data.session){const u=g.data.session.user;let c=null;try{c=JSON.parse(localStorage.getItem(BK))}catch(e){}
