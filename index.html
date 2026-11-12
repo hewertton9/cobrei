@@ -6,7 +6,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="theme-color" content="#0a1230">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
@@ -68,7 +68,6 @@ h1 i{display:inline-block;width:.45rem;height:.45rem;border-radius:50%;backgroun
 @media (prefers-reduced-motion:reduce){.sheet,.ov{transition:none}}
 @media print{body>*{display:none!important}body>#doc{display:block!important;padding:2rem;color:#000;background:#fff;font-family:Sora,Arial,sans-serif}#doc table{width:100%;border-collapse:collapse;margin:1rem 0}#doc td,#doc th{border-bottom:1px solid #ccc;padding:.4rem;text-align:left}#doc .r{text-align:right}}
 
-:root:root:root{color-scheme:dark;--bg:#0a1230;--sf:#121c42;--ink:#f2f5ff;--mu:#a3aed0;--ln:#26336a;--ok:#5ad08a;--bad:#ff8f80;--inp:#0a1230}
 body{background:radial-gradient(60rem 30rem at 90% -5%,rgba(255,197,61,.2),transparent 60%),radial-gradient(50rem 30rem at -10% 105%,rgba(90,130,255,.3),transparent 60%),var(--bg);background-attachment:fixed}
 body::before{content:"";position:fixed;inset:0;background:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1.5px) 0 0/24px 24px;pointer-events:none}
 .w{position:relative}.hid{display:none!important}
@@ -448,8 +447,27 @@ const TP={pix:"Pix",banco:"Conta bancária",carteira:"Carteira digital",dinheiro
 const contaNome=id=>(S.contas.find(x=>x.id===id)||{}).nome;
 function payList(){$("payl").innerHTML=S.contas.map(x=>`<button class="b" data-act="payto" data-c="${x.id}">${EM[x.tipo]} ${esc(x.nome)}</button>`).join("")+`<button class="b" data-act="payto" data-c="">Não informar</button>`}
 const SUPA_URL="https://eofyqeledandcttfhmuu.supabase.co",SUPA_KEY="sb_publishable_I0HUMSb82iau2xRXlVQp4A_T2r8EbC0";
-let OK=false,MODE="signup",U=null,sb=null;
+let OK=false,MODE="signup",U=null,sb=null,RECOVERY_PENDING=false;
 try{sb=supabase.createClient(SUPA_URL,SUPA_KEY)}catch(e){}
+// Identifica o retorno de recuperação em hash/query e também quando o Android
+// reabre a TWA sem preservar o fragmento, usando um marcador temporário local.
+const RECOVERY_MARKER="cobrei:recovery_pending";
+function hasRecoveryMarker(){
+try{
+const ts=Number(localStorage.getItem(RECOVERY_MARKER)||0);
+if(!ts)return false;
+if(Date.now()-ts>60*60*1000){localStorage.removeItem(RECOVERY_MARKER);return false;}
+return true;
+}catch(e){return false}}
+function hasRecoveryReturn(){
+try{
+const hash=new URLSearchParams((location.hash||"").replace(/^#/,""));
+const query=new URLSearchParams(location.search||"");
+return hash.get("type")==="recovery"||query.get("type")==="recovery"||
+query.get("auth")==="recovery"||query.get("flow")==="recovery"||
+(hash.get("error_code")==="otp_expired"||query.get("error_code")==="otp_expired")||hasRecoveryMarker();
+}catch(e){return /(?:^|[&#?])type=recovery(?:&|$)/i.test(location.href)||hasRecoveryMarker()}}
+if(hasRecoveryReturn()){MODE="recover";RECOVERY_PENDING=true;}
 const BK="cobrei:bio",enc=new TextEncoder(),b64=u=>btoa(String.fromCharCode(...u)),unb=t=>Uint8Array.from(atob(t),c=>c.charCodeAt(0));
 let LOCK=false,PEND=null,HIDE=false;try{HIDE=localStorage.getItem("cobrei:hide")==="1"}catch(e){}
 const fmt=v=>HIDE?"R$ •••••":R.format(v);
@@ -503,8 +521,10 @@ return p+"6304"+crc(p+"6304")}
 function pixCode(d,cid){const ct=cid?S.contas.find(x=>x.id===cid):pixContas()[0];return pixBuild(ct&&ct.chave,S.cfg.nome,S.perfil.cidade,tot(d))}
 function qrSvg(t){try{const q=qrcode(0,"M");q.addData(t);q.make();const n=q.getModuleCount();let d="";for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(q.isDark(r,c))d+=`M${c+2} ${r+2}h1v1h-1z`;return`<svg viewBox="0 0 ${n+4} ${n+4}" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="#fff"/><path d="${d}" fill="#000"/></svg>`}catch(e){return""}}
 const MF=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
-let MES=new Date().toISOString().slice(0,7),LOGO="";
+const localISO=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+let MES=localISO(new Date()).slice(0,7),LOGO="";
 const mshift=(m,d)=>{const [y,o]=m.split("-").map(Number),t=new Date(y,o-1+d,1);return t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")};
+const dateInMonth=(m,day)=>{const [y,mo]=m.split("-").map(Number),last=new Date(y,mo,0).getDate();return m+"-"+String(Math.min(Number(day)||1,last)).padStart(2,"0")};
 function renderPnl(){const hoje=iso(0),dd=(a,b)=>Math.round((new Date(a+"T12:00")-new Date(b+"T12:00"))/864e5);
 let ab=0,atr=0,rec=0;const T=[];
 S.docs.forEach(d=>{const t=tot(d);
@@ -563,8 +583,8 @@ ${isR?`<p class="cd">${p.cidade?esc(p.cidade)+", ":""}${dlong(emit)}.</p><div cl
 $("doc").innerHTML=body;window.print()}
 const linkOf=d=>location.origin+location.pathname+"?o="+d.tk;
 async function copyText(v){try{await navigator.clipboard.writeText(v)}catch(e){const t=document.createElement("textarea");t.value=v;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove()}}
-const addDays=(s,n)=>{const d=new Date(s+"T12:00");d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
-const addMonths=(s,n)=>{const d=new Date(s+"T12:00"),day=d.getDate();d.setDate(1);d.setMonth(d.getMonth()+n);const last=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();d.setDate(Math.min(day,last));return d.toISOString().slice(0,10)};
+const addDays=(s,n)=>{const d=new Date(s+"T12:00:00");d.setDate(d.getDate()+n);return localISO(d)};
+const addMonths=(s,n)=>{const d=new Date(s+"T12:00:00"),day=d.getDate();d.setDate(1);d.setMonth(d.getMonth()+n);const last=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();d.setDate(Math.min(day,last));return localISO(d)};
 function parcelas(t,m,pc,n,d0){if(m==="entrada"){const p=Math.min(95,Math.max(5,pc||50)),e=Math.round(t*p)/100;return[[e,d0],[Math.round((t-e)*100)/100,addDays(d0,30)]]}
 const q=Math.min(12,Math.max(2,n||2)),v=Math.floor(t/q*100)/100,P=[];for(let i=0;i<q;i++)P.push([i<q-1?v:Math.round((t-v*(q-1))*100)/100,addMonths(d0,i)]);return P}
 function planOf(d){return d.en?"entrada":d.np>1?"parcelas":"avista"}
@@ -576,15 +596,15 @@ const P=parcelas(t,m,d.en,d.np,d0),N=P.length;
 const rows=P.map((p,i)=>Object.assign({numero:d.n,cliente:d.c,whatsapp:d.w||null,servico:d.t,status:"cob",vencimento:p[1],parcela:(i+1)+"/"+N,grupo_id:d.id,forma_pagamento:d.fp||null},d.k?{cliente_id:d.k}:{}));
 const r=await sb.from("orcamentos").insert(rows).select("id,parcela");if(r.error)throw r.error;
 const it=r.data.map(x=>{const i=Number(x.parcela.split("/")[0])-1;return{orcamento_id:x.id,descricao:d.t+" — "+(m==="entrada"?(i===0?"entrada":"saldo"):"parcela "+(i+1)+"/"+N),quantidade:1,valor:P[i][0]}});
-const r2=await sb.from("itens").insert(it);if(r2.error){await sb.from("orcamentos").delete().in("id",r.data.map(x=>x.id));throw r2.error}
+const r2=await sb.from("itens").insert(it);if(r2.error){const cleanup=await sb.from("orcamentos").delete().in("id",r.data.map(x=>x.id));if(cleanup.error)throw new Error("Falha ao criar itens das parcelas e também ao limpar os registros incompletos: "+cleanup.error.message);throw r2.error}
 await up(d,{status:"parc"});closeS();toast(N+" parcelas geradas.")}
 async function genRecs(){const hoje=iso(0);let n=S.docs.reduce((m,x)=>Math.max(m,x.n||0),0)+1,nov=0;
 for(const rc of S.recs){if(!rc.ativa)continue;let m=rc.inicio.slice(0,7);
-for(let i=0;i<36;i++,m=mshift(m,1)){const due=m+"-"+String(rc.dia).padStart(2,"0");if(due<rc.inicio)continue;if(hoje<addDays(due,-5))break;
+for(let i=0;i<36;i++,m=mshift(m,1)){const due=dateInMonth(m,rc.dia);if(due<rc.inicio)continue;if(hoje<addDays(due,-5))break;
 if(S.docs.some(x=>x.rc===rc.id&&x.comp===m))continue;
 const [y,mo]=m.split("-"),r=await sb.from("orcamentos").insert(Object.assign({numero:n,cliente:rc.cliente,whatsapp:rc.whatsapp||null,servico:rc.servico+" ("+MF[Number(mo)-1].toLowerCase()+"/"+y+")",status:"cob",vencimento:due,recorrencia_id:rc.id,competencia:m},rc.cid?{cliente_id:rc.cid}:{})).select("id").single();
 if(r.error){if(r.error.code==="23505")continue;throw r.error}
-const r2=await sb.from("itens").insert({orcamento_id:r.data.id,descricao:rc.servico,quantidade:1,valor:rc.valor});if(r2.error)throw r2.error;n++;nov++}}
+const r2=await sb.from("itens").insert({orcamento_id:r.data.id,descricao:rc.servico,quantidade:1,valor:rc.valor});if(r2.error){const cleanup=await sb.from("orcamentos").delete().eq("id",r.data.id);if(cleanup.error)throw new Error("Falha ao criar item da cobrança mensal e também ao remover o orçamento incompleto: "+cleanup.error.message);throw r2.error}n++;nov++}}
 if(nov){await loadAll();toast(nov+(nov===1?" cobrança mensal gerada.":" cobranças mensais geradas."))}}
 function remind(){const h=iso(0);let l=0,t=0;S.docs.forEach(d=>{if(d.s==="cob"&&d.venc){if(d.venc<h)l++;else if(d.venc===h)t++}});
 if(l||t)toast((l?l+(l===1?" cobrança atrasada":" cobranças atrasadas"):"")+(l&&t?" e ":"")+(t?t+" vencendo hoje":"")+".")}
@@ -699,7 +719,7 @@ const v={cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servic
 if(d.s!=="orc")v.status="orc";
 const r=await sb.from("orcamentos").update(v).eq("id",d.id);if(r.error)throw r.error;
 const r2=await sb.from("itens").insert(itens.map(i=>({orcamento_id:d.id,descricao:i.d,quantidade:i.q,valor:i.v}))).select("id");if(r2.error)throw r2.error;
-const r3=await sb.from("itens").delete().eq("orcamento_id",d.id).not("id","in","("+r2.data.map(x=>x.id).join(",")+")");if(r3.error)throw r3.error;
+const r3=await sb.from("itens").delete().eq("orcamento_id",d.id).not("id","in","("+r2.data.map(x=>x.id).join(",")+")");if(r3.error){const cleanup=await sb.from("itens").delete().in("id",r2.data.map(x=>x.id));if(cleanup.error)throw new Error("Falha ao substituir os itens e também ao limpar os novos itens: "+cleanup.error.message);throw r3.error}
 if(d.s!=="orc"){SENT.delete(d.id);try{localStorage.setItem("cobrei:env",JSON.stringify([...SENT]))}catch(e){}}
 EDQ=null;OPEN.add(d.id);await loadAll();closeS();render();toast("Orçamento atualizado.")}
 const AJ=[["Como criar e enviar um orçamento","1. Toque em “+ Novo orçamento”.<br>2. Informe o cliente e o que será feito, com o valor.<br>3. Salve: o WhatsApp abre com o link pronto.<br>4. Seu cliente abre o link e aprova com 1 toque."],
@@ -738,8 +758,8 @@ $("cli-n").textContent=S.clientes.length;
 const qcli=norm(($("busca-cli")||{value:""}).value.trim());
 const CL=qcli?S.clientes.filter(c=>norm(c.nome+" "+(c.documento||"")+" "+(c.whatsapp||"")+" "+(c.email||"")).includes(qcli)):S.clientes;
 $("cll").innerHTML=CL.length?CL.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return cardX(c.id,`<div class="av">${safeImg(c.foto)?`<img src="${safeImg(c.foto)}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div>`,`${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}`,`<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button><button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button></div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div>`)}).join(""):`<div class="empty">${S.clientes.length?"Nenhum cliente encontrado.":"Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque."}</div>`}
-try{if(localStorage.getItem("cobrei:v"))MODE="login"}catch(e){}
-if(/type=recovery/.test(location.hash))MODE="recover";
+try{if(localStorage.getItem("cobrei:v")&&MODE!=="recover")MODE="login"}catch(e){}
+if(hasRecoveryReturn()){MODE="recover";RECOVERY_PENDING=true;}
 const msgErr=e=>{const m=String(e&&e.message||"").toLowerCase();
 if(m.includes("not authorized")||m.includes("sending")||m.includes("smtp")||(m.includes("email")&&m.includes("rate")))return"Não conseguimos enviar o e-mail de confirmação agora. Tente novamente em alguns minutos.";
 if(m.includes("invalid login")||m.includes("invalid_credentials")||m.includes("user not found")||m.includes("no user")){if(MODE==="login")return"Não há conta com este e-mail (ou a senha está errada). Se você apagou a conta ou nunca se cadastrou, toque em “Criar conta”.";return"E-mail ou senha incorretos."}
@@ -750,18 +770,24 @@ if(m.includes("password"))return"A senha não atende aos requisitos. Use 8 ou ma
 return"Não foi possível concluir. Verifique a conexão e tente de novo."};
 async function loadAll(){
 const [o,c,k,pr,sv,rr,dsp,asn]=await Promise.all([sb.from("orcamentos").select("*, itens(*)").order("criado_em",{ascending:false}),sb.from("contas").select("*").order("criado_em"),sb.from("clientes").select("*").order("nome"),sb.from("perfil").select("*").maybeSingle(),sb.from("servicos").select("*").order("nome"),sb.from("recorrencias").select("*").order("criado_em"),sb.from("despesas").select("*").order("data",{ascending:false}),sb.from("assinaturas").select("*").maybeSingle()]);
-if(o.error||c.error)throw(o.error||c.error);
+const failed=[o,c,k,pr,sv,rr,dsp,asn].find(x=>x&&x.error);if(failed)throw failed.error;
 S.docs=o.data.map(r=>({id:r.id,n:r.numero,c:r.cliente,w:r.whatsapp||"",t:r.servico,itens:(r.itens||[]).map(i=>({d:i.descricao,q:Number(i.quantidade),v:Number(i.valor)})),s:r.status,data:(r.criado_em||"").slice(0,10),venc:r.vencimento||"",conta:r.conta_id||"",k:r.cliente_id||"",tk:r.token||"",np:Number(r.parcelas||1),en:Number(r.entrada_pct||0),g:r.grupo_id||"",up:(r.atualizado_em||r.criado_em||"").slice(0,10),rc:r.recorrencia_id||"",comp:r.competencia||"",pc:r.parcela||"",val:r.validade||"",desc:Number(r.desconto||0),fp:r.forma_pagamento||"",ob:r.observacoes||"",pagoEm:r.pago_em||""}));
 S.contas=c.data.map(x=>({id:x.id,nome:x.nome,tipo:x.tipo,chave:x.chave||""}));
-S.clientes=k.error?[]:k.data.map(x=>({id:x.id,nome:x.nome,tipo:x.tipo,documento:x.documento||"",whatsapp:x.whatsapp||"",recorrente:!!x.recorrente,email:x.email||"",foto:x.foto||""}));
+S.clientes=k.data.map(x=>({id:x.id,nome:x.nome,tipo:x.tipo,documento:x.documento||"",whatsapp:x.whatsapp||"",recorrente:!!x.recorrente,email:x.email||"",foto:x.foto||""}));
 const pd=(pr&&!pr.error&&pr.data)||{};S.perfil={documento:pd.documento||"",telefone:pd.telefone||"",cidade:pd.cidade||"",pixt:pd.pixt||"cpf",logo:pd.logo||""};
-S.servicos=sv.error?[]:sv.data.map(x=>({id:x.id,nome:x.nome,preco:Number(x.preco)}));
-S.recs=rr.error?[]:rr.data.map(x=>({id:x.id,cid:x.cliente_id||"",cliente:x.cliente,whatsapp:x.whatsapp||"",servico:x.servico,valor:Number(x.valor),dia:x.dia,inicio:x.inicio,ativa:x.ativa}));
-S.desp=dsp.error?[]:dsp.data.map(x=>({id:x.id,desc:x.descricao,valor:Number(x.valor),data:x.data,cat:x.categoria||"Outros"}));
+S.servicos=sv.data.map(x=>({id:x.id,nome:x.nome,preco:Number(x.preco)}));
+S.recs=rr.data.map(x=>({id:x.id,cid:x.cliente_id||"",cliente:x.cliente,whatsapp:x.whatsapp||"",servico:x.servico,valor:Number(x.valor),dia:x.dia,inicio:x.inicio,ativa:x.ativa}));
+S.desp=dsp.data.map(x=>({id:x.id,desc:x.descricao,valor:Number(x.valor),data:x.data,cat:x.categoria||"Outros"}));
 const as_=(asn&&!asn.error&&asn.data)||{};S.plano={plano:as_.plano||"gratis",ate:as_.valido_ate||""}}
-async function enter(user){U=user;const md=user.user_metadata||{};S.cfg={nome:md.nome||"",pix:md.pix||""};
+async function enter(user){
+// Nunca deixe o carregamento normal da conta substituir a tela de recuperação.
+if(RECOVERY_PENDING||MODE==="recover"){MODE="recover";OK=false;render();return}
+U=user;const md=user.user_metadata||{};S.cfg={nome:md.nome||"",pix:md.pix||""};
 try{await loadAll()}catch(e){console.error("loadAll",e);$("aerr").textContent="Não foi possível carregar seus dados agora. Verifique a conexão e tente de novo.";return}
-try{await genRecs()}catch(e){}OK=true;trapInit();try{localStorage.setItem("cobrei:v","1")}catch(e){}render();if(needProfile())openProfile(true);else remind()}
+if(RECOVERY_PENDING||MODE==="recover"){MODE="recover";OK=false;render();return}
+try{await genRecs()}catch(e){console.error("genRecs",e);toast("Seus dados foram carregados, mas uma ou mais cobranças mensais não puderam ser geradas. Tente novamente mais tarde.")}
+if(RECOVERY_PENDING||MODE==="recover"){MODE="recover";OK=false;render();return}
+OK=true;trapInit();try{localStorage.setItem("cobrei:v","1")}catch(e){}render();if(needProfile())openProfile(true);else remind()}
 let AUTH_TRIES=0,AUTH_LOCK=0;
 async function doAuth(){
 if(Date.now()<AUTH_LOCK){const s=Math.ceil((AUTH_LOCK-Date.now())/1000);$("aerr").textContent="Muitas tentativas. Aguarde "+s+"s e tente de novo.";return}
@@ -773,7 +799,12 @@ if(MODE==="signup"&&!$("an").value.trim()){er.textContent="Digite seu nome.";ret
 if(MODE==="signup"&&!$("ace").checked){er.textContent="Para criar a conta, aceite os Termos de Uso e a Política de Privacidade.";return}
 const btn=$("ab");btn.disabled=true;
 try{
-if(MODE==="recover"){const r=await sb.auth.updateUser({password:p});if(r.error)throw r.error;MODE="login";history.replaceState(null,"",location.pathname);const g=await sb.auth.getSession();if(g.data.session)await enter(g.data.session.user);else render()}
+if(MODE==="recover"){
+const r=await sb.auth.updateUser({password:p});if(r.error)throw r.error;
+RECOVERY_PENDING=false;try{localStorage.removeItem(RECOVERY_MARKER)}catch(e){}MODE="login";
+try{history.replaceState(null,"",location.pathname)}catch(e){}
+const g=await sb.auth.getSession();if(g.data.session)await enter(g.data.session.user);else render()
+}
 else if(MODE==="signup"){const r=await sb.auth.signUp({email:e,password:p,options:{data:{nome:$("an").value.trim(),aceite_termos:new Date().toISOString()},emailRedirectTo:location.origin+location.pathname}});if(r.error)throw r.error;
 if(r.data.user&&Array.isArray(r.data.user.identities)&&r.data.user.identities.length===0){er.textContent="Este e-mail já tem conta. Toque em “Já tenho conta” ou use “Esqueci minha senha”.";btn.disabled=false;return}
 if(r.data.session)await enter(r.data.session.user);else{MODE="login";render();inf.textContent="Enviamos um link de confirmação para o seu e-mail. Confirme e depois entre aqui."}}
@@ -783,7 +814,10 @@ btn.disabled=false;$("ap").value=""}
 async function forgot(){const e=$("ae").value.trim().toLowerCase(),er=$("aerr"),inf=$("ainfo");er.textContent="";inf.textContent="";
 if(!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite seu e-mail acima e toque em “Esqueci minha senha” de novo.";return}
 const r=await sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname});
-if(r.error)er.textContent=msgErr(r.error);else inf.textContent="Se esse e-mail tiver conta, enviamos um link para criar uma nova senha."}
+if(r.error)er.textContent=msgErr(r.error);else{
+try{localStorage.setItem(RECOVERY_MARKER,String(Date.now()))}catch(e){}
+inf.textContent="Se esse e-mail tiver conta, enviamos um link para criar uma nova senha.";
+}}
 function authUI(){const m=MODE;
 $("intro").classList.toggle("hid",OK||LOCK);$("lock").classList.toggle("hid",!LOCK||OK);$("app").classList.toggle("hid",!OK);document.querySelector(".fab").classList.toggle("hid",!OK||TAB==="ct"||TAB==="sv"||TAB==="mais"||TAB==="aj");
 $("an").classList.toggle("hid",m!=="signup");$("ae").classList.toggle("hid",m==="recover");$("fg").classList.toggle("hid",m!=="login");$("sw").classList.toggle("hid",m==="recover");$("aceitew").classList.toggle("hid",m!=="signup");
@@ -794,12 +828,15 @@ $("ab").textContent=m==="login"?"Entrar":m==="signup"?"Criar conta":"Salvar nova
 $("sw").textContent=m==="login"?"Ainda não tenho conta":"Já tenho conta";const eb=document.querySelector(".eye");eb.innerHTML=HIDE?IEO:IE;eb.setAttribute("aria-pressed",String(HIDE));eb.setAttribute("aria-label",HIDE?"Mostrar valores":"Ocultar valores")}
 const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
 const $=i=>document.getElementById(i),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const num=v=>{const n=parseFloat(String(v).replace(/\./g,"").replace(",","."));return isNaN(n)?0:n};
+const num=v=>{let s=String(v??"").trim().replace(/\s/g,"").replace(/^R\$/i,"");if(!s)return 0;
+if(s.includes(","))s=s.replace(/\./g,"").replace(",",".");
+else if(/^[-+]?\d{1,3}(?:\.\d{3})+$/.test(s))s=s.replace(/\./g,"");
+const n=Number(s);return Number.isFinite(n)?n:0};
 const fmtMoney=v=>{const n=num(v);if(!String(v??"").trim())return"";return n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2})};
 const loadCidadeUF=s=>{s=String(s||"").trim();const m=s.match(/^(.+?)\s*[-–\/]\s*([A-Za-z]{2})$/);if(m){$("cci").value=m[1].trim();if($("cuf"))$("cuf").value=m[2].toUpperCase()}else{$("cci").value=s;if($("cuf"))$("cuf").value=""}};
 const joinCidadeUF=()=>{const c=$("cci").value.trim(),u=($("cuf")&&$("cuf").value)||"";return u?c+" - "+u:c};
 const subt=d=>d.itens.reduce((a,i)=>a+i.q*i.v,0),tot=d=>Math.max(0,subt(d)-(d.desc||0));
-const iso=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
+const iso=n=>{const d=new Date();d.setDate(d.getDate()+n);return localISO(d)};
 const br=s=>s?s.split("-").reverse().join("/"):"";
 const ST={orc:"Orçamento enviado",apr:"Aprovado — falta cobrar",pago:"Pago",rec:"Recusado pelo cliente",parc:"Parcelado em várias cobranças"};
 const FL={all:()=>true,orc:d=>d.s==="orc"||d.s==="apr",cob:d=>d.s==="cob"||(d.s==="parc"&&kids(d).some(x=>x.s==="cob")),late:d=>d.s==="cob"&&d.venc&&d.venc<iso(0)||(d.s==="parc"&&kids(d).some(x=>x.s==="cob"&&x.venc&&x.venc<iso(0))),pago:d=>d.s==="pago"||(d.s==="parc"&&kids(d).length>0&&kids(d).every(x=>x.s==="pago")),rec:d=>d.s==="rec"};
@@ -881,7 +918,7 @@ const r=EV?await sb.from("servicos").update(v).eq("id",EV.id):await sb.from("ser
 else if(a==="delsv"){if(!confirm("Excluir este serviço do catálogo?"))return;const r=await sb.from("servicos").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
 else if(a==="newrc"){RC=S.clientes.find(x=>x.id===t.dataset.id);if(!RC)return;$("rcc").textContent="Cliente: "+RC.nome;$("rcs").value="";$("rcv").value="";$("rcd").value=iso(7);openS("sh-rc")}
 else if(a==="saverc"){const v=num($("rcv").value),sv_=$("rcs").value.trim(),dt=$("rcd").value;if(!RC||!sv_||v<=0||!dt){toast("Preencha serviço, valor e primeiro vencimento.");return}
-const r=await sb.from("recorrencias").insert({cliente_id:RC.id,cliente:RC.nome,whatsapp:RC.whatsapp||null,servico:sv_,valor:v,dia:Math.min(28,Number(dt.slice(8,10))),inicio:dt});if(r.error)throw r.error;await loadAll();await genRecs();closeS();toast("Cobrança mensal ativada.");render()}
+const r=await sb.from("recorrencias").insert({cliente_id:RC.id,cliente:RC.nome,whatsapp:RC.whatsapp||null,servico:sv_,valor:v,dia:Number(dt.slice(8,10)),inicio:dt});if(r.error)throw r.error;await loadAll();await genRecs();closeS();toast("Cobrança mensal ativada.");render()}
 else if(a==="delrc"){if(!confirm("Encerrar esta cobrança mensal? As cobranças já geradas continuam."))return;const r=await sb.from("recorrencias").delete().eq("id",t.dataset.id);if(r.error)throw r.error;await loadAll();render()}
 else if(a==="logo")$("lgf").click();else if(a==="cfoto")$("cff").click();else if(a==="cfotox"){CF="";cfUI()}else if(a==="logox"){LOGO="";logoUI()}
 else if(a==="pix"&&d){PIXD=d.id;const pc=pixContas();$("pixa").innerHTML=pc.map(x=>`<option value="${x.id}">${esc(x.nome)}</option>`).join("");$("pixaw").classList.toggle("hid",pc.length<2);pixShow()}
@@ -922,7 +959,7 @@ PREW=null;try{PREW=window.open("","_blank")}catch(e){}
 const n=S.docs.reduce((m,x)=>Math.max(m,x.n||0),0)+1;
 const r=await sb.from("orcamentos").insert(Object.assign({numero:n,cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servico:svc_,validade:$("fva").value||null,desconto:num($("fdc").value),forma_pagamento:$("ffp").value||null,parcelas:np_,entrada_pct:en_,observacoes:$("fob").value.trim()||null},$("fcl").value?{cliente_id:$("fcl").value}:{})).select("id").single();if(r.error)throw r.error;
 const r2=await sb.from("itens").insert(itens.map(i=>({orcamento_id:r.data.id,descricao:i.d,quantidade:i.q,valor:i.v})));
-if(r2.error){await sb.from("orcamentos").delete().eq("id",r.data.id);throw r2.error}
+if(r2.error){const cleanup=await sb.from("orcamentos").delete().eq("id",r.data.id);if(cleanup.error)throw new Error("Falha ao salvar os itens e também ao limpar o orçamento incompleto: "+cleanup.error.message);throw r2.error}
 OPEN.add(r.data.id);await loadAll();closeS();F="all";render();scrollTo(0,0);autoSend(r.data.id)}
 else if(a==="paidpdf"){let x=S.docs.find(z=>z.id===PAID);if(!x&&PAY)x=S.docs.find(z=>z.id===PAY);if(!x){toast("Recibo não encontrado. Abra o orçamento pago e toque em Recibo/PDF.");return}closeS();pdf(Object.assign({},x,{s:"pago"}),{recibo:true})}
 else if(d){if(a==="apr")await up(d,{status:"apr"});else if(a==="lnk"){await copyText(linkOf(d));toast("Link copiado. Envie ao cliente.")}
@@ -933,10 +970,27 @@ else if(a==="del"){const ks=kids(d);if(!confirm(ks.length?"Excluir este parcelam
 document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.tagName==="INPUT")return;act(t.dataset.act,t)});
 async function init(){loadBind();
 if(!sb){$("aerr").textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
-sb.auth.onAuthStateChange((ev)=>{if(ev==="PASSWORD_RECOVERY"){MODE="recover";OK=false;render()}});
+sb.auth.onAuthStateChange((ev)=>{
+if(ev==="PASSWORD_RECOVERY"){
+RECOVERY_PENDING=true;MODE="recover";OK=false;LOCK=false;render();
+}
+});
+// getSession() também inicializa o cliente e processa o retorno PKCE da URL.
 const g=await sb.auth.getSession();
-if(g.data.session&&MODE!=="recover"){const u=g.data.session.user;let c=null;try{c=JSON.parse(localStorage.getItem(BK))}catch(e){}
-if(c&&c.uid===u.id&&window.PublicKeyCredential){PEND=u;LOCK=true;render()}else await enter(u)}}
+// Reconfere depois do await: o Supabase pode ter disparado PASSWORD_RECOVERY
+// enquanto processava o link. Não entre no painel nesse caso.
+if(RECOVERY_PENDING||MODE==="recover"){
+MODE="recover";OK=false;render();
+const hp=new URLSearchParams((location.hash||"").replace(/^#/,""));
+const qp=new URLSearchParams(location.search||"");
+if(hp.get("error_code")==="otp_expired"||qp.get("error_code")==="otp_expired"){
+$("aerr").textContent="Este link de recuperação expirou ou já foi utilizado. Solicite um novo e-mail para criar outra senha.";
+}
+return;
+}
+if(g.data&&g.data.session){const u=g.data.session.user;let c=null;try{c=JSON.parse(localStorage.getItem(BK))}catch(e){}
+if(c&&c.uid===u.id&&window.PublicKeyCredential){PEND=u;LOCK=true;render()}else await enter(u)}
+}
 document.querySelectorAll(".sheet").forEach(sh=>{const b=document.createElement("button");b.type="button";b.className="back";b.dataset.act="back";b.textContent="‹ Voltar";sh.insertBefore(b,sh.firstChild)});
 if(CVT&&sb&&/^[0-9a-f-]{36}$/i.test(CVT))clientView(CVT);else if(CCT&&sb&&/^[0-9a-f-]{36}$/i.test(CCT))cobView(CCT);else{render();init()}
 </script>
