@@ -228,8 +228,8 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 <h2 id="at">Crie sua conta</h2>
 <p id="as"></p>
 <div class="af">
-<input id="an" autocomplete="name" placeholder="Seu nome" aria-label="Seu nome">
-<input id="ae" autocomplete="email" inputmode="email" type="email" placeholder="E-mail" aria-label="E-mail">
+<input id="an" autocomplete="name" placeholder="Seu nome" autocomplete="name" aria-label="Seu nome">
+<input id="ae" autocomplete="email" inputmode="email" type="email" placeholder="E-mail" autocomplete="email" inputmode="email" aria-label="E-mail">
 <input id="ap" autocomplete="current-password" type="password" placeholder="Senha (mínimo 10 caracteres)" aria-label="Senha">
 <p id="aerr" class="err" role="alert"></p><p id="ainfo" class="info" role="status"></p>
 <label class="chk" id="aceitew"><input type="checkbox" id="ace"><span>Li e aceito os <a href="termos.html" target="_blank" rel="noopener">Termos de Uso</a> e a <a href="privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</span></label>
@@ -450,14 +450,6 @@ function payList(){$("payl").innerHTML=S.contas.map(x=>`<button class="b" data-a
 const SUPA_URL="https://eofyqeledandcttfhmuu.supabase.co",SUPA_KEY="sb_publishable_I0HUMSb82iau2xRXlVQp4A_T2r8EbC0";
 let OK=false,MODE="signup",U=null,sb=null;
 try{sb=supabase.createClient(SUPA_URL,SUPA_KEY)}catch(e){}
-
-// [CORREÇÃO APLICADA AQUI]: Detectar hash de recuperação de senha do Supabase
-if (window.location.hash.includes("type=recovery")) {
-  MODE = "recover";
-} else {
-  try{if(localStorage.getItem("cobrei:v"))MODE="login"}catch(e){}
-}
-
 const BK="cobrei:bio",enc=new TextEncoder(),b64=u=>btoa(String.fromCharCode(...u)),unb=t=>Uint8Array.from(atob(t),c=>c.charCodeAt(0));
 let LOCK=false,PEND=null,HIDE=false;try{HIDE=localStorage.getItem("cobrei:hide")==="1"}catch(e){}
 const fmt=v=>HIDE?"R$ •••••":R.format(v);
@@ -501,7 +493,7 @@ const asc=t=>String(t||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toUpp
 const tlv=(i,v)=>i+String(v.length).padStart(2,"0")+v;
 function crc(s){let c=0xFFFF;for(let i=0;i<s.length;i++){c^=s.charCodeAt(i)<<8;for(let j=0;j<8;j++)c=c&0x8000?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF}return c.toString(16).toUpperCase().padStart(4,"0")}
 const okCPF=c=>{if(c.length!==11||/^(\d)\1+$/.test(c))return false;for(let t=9;t<11;t++){let s=0;for(let i=0;i<t;i++)s+=Number(c[i])*(t+1-i);if((s*10)%11%10!==Number(c[t]))return false}return true};
-const pixNorm=k=>{k=String(k||"").trim();if(!k)return"";if(k.includes("@"))return k.toLowerCase();
+function pixNorm(k){k=String(k||"").trim();if(!k)return"";if(k.includes("@"))return k.toLowerCase();
 if(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(k))return k.toLowerCase();
 const d=k.replace(/\D/g,"");if(k.startsWith("+"))return"+"+d;if(d.length===14)return d;if(d.length===11)return okCPF(d)?d:"+55"+d;if(d.length===10)return"+55"+d;if(d.length>=12&&d.startsWith("55"))return"+"+d;return k}
 const pixContas=()=>S.contas.filter(x=>x.tipo==="pix"&&x.chave);
@@ -941,29 +933,10 @@ else if(a==="del"){const ks=kids(d);if(!confirm(ks.length?"Excluir este parcelam
 document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.tagName==="INPUT")return;act(t.dataset.act,t)});
 async function init(){loadBind();
 if(!sb){$("aerr").textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
-
-// [CORREÇÃO APLICADA AQUI]: Listener atualizado para tratar a recuperação de senha
-sb.auth.onAuthStateChange(async (event, session) => {
-  if (event === "PASSWORD_RECOVERY") {
-    MODE = "recover";
-    OK = false;
-    render();
-    return;
-  }
-  if (session && session.user && MODE !== "recover") {
-    let c = null;
-    try{ c = JSON.parse(localStorage.getItem(BK)); }catch(e){}
-    if(c && c.uid === session.user.id && window.PublicKeyCredential){
-      PEND = session.user; LOCK = true; render();
-    } else {
-      await enter(session.user);
-    }
-  }
-});
-
+sb.auth.onAuthStateChange((ev)=>{if(ev==="PASSWORD_RECOVERY"){MODE="recover";OK=false;render()}});
 const g=await sb.auth.getSession();
 if(g.data.session&&MODE!=="recover"){const u=g.data.session.user;let c=null;try{c=JSON.parse(localStorage.getItem(BK))}catch(e){}
-if(c&&c.uid===u.id&&window.PublicKeyCredential){PEND=u;LOCK=true;render()}else await enter(u)}else{render()}}
+if(c&&c.uid===u.id&&window.PublicKeyCredential){PEND=u;LOCK=true;render()}else await enter(u)}}
 document.querySelectorAll(".sheet").forEach(sh=>{const b=document.createElement("button");b.type="button";b.className="back";b.dataset.act="back";b.textContent="‹ Voltar";sh.insertBefore(b,sh.firstChild)});
 if(CVT&&sb&&/^[0-9a-f-]{36}$/i.test(CVT))clientView(CVT);else if(CCT&&sb&&/^[0-9a-f-]{36}$/i.test(CCT))cobView(CCT);else{render();init()}
 </script>
