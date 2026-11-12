@@ -806,7 +806,7 @@ else{const r=await sb.auth.signInWithPassword({email:e,password:p});if(r.error)t
 btn.disabled=false;$("ap").value=""}
 async function forgot(){const e=$("ae").value.trim().toLowerCase(),er=$("aerr"),inf=$("ainfo");er.textContent="";inf.textContent="";
 if(!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite seu e-mail acima e toque em “Esqueci minha senha” de novo.";return}
-const r=await sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname});
+const recoveryRedirect=new URL(location.pathname,location.origin);recoveryRedirect.searchParams.set("type","recovery");const r=await sb.auth.resetPasswordForEmail(e,{redirectTo:recoveryRedirect.toString()});
 if(r.error)er.textContent=msgErr(r.error);else{
 inf.textContent="Se esse e-mail tiver conta, enviamos um link para criar uma nova senha.";
 }}
