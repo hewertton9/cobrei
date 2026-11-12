@@ -960,47 +960,33 @@ else if(a==="pago"||a==="pixpago"){const x=d||S.docs.find(z=>z.id===PIXD);if(!x)
 else if(a==="del"){const ks=kids(d);if(!confirm(ks.length?"Excluir este parcelamento e as "+ks.length+" parcelas?":"Excluir este registro?"))return;const r=await sb.from("orcamentos").delete().in("id",[d.id].concat(ks.map(x=>x.id)));if(r.error)throw r.error;await loadAll();closeS();render()}}
 }catch(x){fail(x)}}
 document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.tagName==="INPUT")return;act(t.dataset.act,t)});
-async function init(){
-loadBind();
-if(!sb){MODE="login";render();$("aerr").textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
+async function init(){loadBind();
+if(!sb){$("aerr").textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
 sb.auth.onAuthStateChange((ev)=>{
 if(ev==="PASSWORD_RECOVERY"){
 RECOVERY_PENDING=true;MODE="recover";OK=false;LOCK=false;render();
 }
 });
-let g;
-try{
-// Aguarda o Supabase processar o link recebido antes de decidir qual tela mostrar.
-g=await sb.auth.getSession();
-}catch(e){
-console.error("auth.getSession",e);
-MODE="login";RECOVERY_PENDING=false;OK=false;render();
-$("aerr").textContent="Não foi possível verificar o link agora. Verifique a conexão e solicite um novo link se necessário.";
-return;
-}
-const hp=new URLSearchParams((location.hash||"").replace(/^#/,""));
-const qp=new URLSearchParams(location.search||"");
-// Link expirado tem prioridade sobre o marcador type=recovery.
-if(hp.get("error_code")==="otp_expired"||qp.get("error_code")==="otp_expired"){
-MODE="login";RECOVERY_PENDING=false;OK=false;render();
-$("aerr").textContent="Este link de recuperação expirou ou já foi utilizado. Solicite um novo e-mail para criar outra senha.";
-return;
-}
-// O Supabase pode emitir PASSWORD_RECOVERY durante getSession().
+// getSession() também inicializa o cliente e processa o retorno PKCE da URL.
+const g=await sb.auth.getSession();
+// Reconfere depois do await: o Supabase pode ter disparado PASSWORD_RECOVERY
+// enquanto processava o link. Não entre no painel nesse caso.
 if(RECOVERY_PENDING||MODE==="recover"){
 MODE="recover";OK=false;render();
 return;
 }
-if(g&&g.data&&g.data.session){
-const u=g.data.session.user;let c=null;try{c=JSON.parse(localStorage.getItem(BK))}catch(e){}
-if(c&&c.uid===u.id&&window.PublicKeyCredential){PEND=u;LOCK=true;render()}else await enter(u);
-}else{
-// Só mostra a tela de autenticação depois de concluir a verificação da sessão.
-MODE="login";OK=false;render();
+const hp=new URLSearchParams((location.hash||"").replace(/^#/,""));
+const qp=new URLSearchParams(location.search||"");
+if(hp.get("error_code")==="otp_expired"||qp.get("error_code")==="otp_expired"){
+MODE="login";RECOVERY_PENDING=false;render();
+$("aerr").textContent="Este link de recuperação expirou ou já foi utilizado. Solicite um novo e-mail para criar outra senha.";
+return;
 }
+if(g.data&&g.data.session){const u=g.data.session.user;let c=null;try{c=JSON.parse(localStorage.getItem(BK))}catch(e){}
+if(c&&c.uid===u.id&&window.PublicKeyCredential){PEND=u;LOCK=true;render()}else await enter(u)}
 }
 document.querySelectorAll(".sheet").forEach(sh=>{const b=document.createElement("button");b.type="button";b.className="back";b.dataset.act="back";b.textContent="‹ Voltar";sh.insertBefore(b,sh.firstChild)});
-if(CVT&&sb&&/^[0-9a-f-]{36}$/i.test(CVT))clientView(CVT);else if(CCT&&sb&&/^[0-9a-f-]{36}$/i.test(CCT))cobView(CCT);else{init()}
+if(CVT&&sb&&/^[0-9a-f-]{36}$/i.test(CVT))clientView(CVT);else if(CCT&&sb&&/^[0-9a-f-]{36}$/i.test(CCT))cobView(CCT);else{render();init()}
 </script>
 </body>
 </html>
