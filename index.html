@@ -753,7 +753,10 @@ const CL=qcli?S.clientes.filter(c=>norm(c.nome+" "+(c.documento||"")+" "+(c.what
 $("cll").innerHTML=CL.length?CL.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.filter(x=>x.cid===c.id&&x.ativa).map(x=>`<span class="tag cob">Mensal ${fmt(x.valor)} · dia ${x.dia}<button class="x" data-act="delrc" data-id="${x.id}" aria-label="Encerrar cobrança mensal">×</button></span> `).join("");return cardX(c.id,`<div class="av">${safeImg(c.foto)?`<img src="${safeImg(c.foto)}" alt="">`:esc(c.nome.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(c.nome)}</h3><p>${c.tipo==="pj"?"Empresa":"Pessoa física"}${c.documento?" · "+esc(c.documento):""}</p></div><div class="tot">${fmt(o.p)}</div>`,`${c.recorrente?'<span class="tag cob">Cliente recorrente</span> ':""}<span class="tag">${o.n} ${o.n===1?"serviço":"serviços"}</span> ${rr}`,`<div class="act"><button class="b p" data-act="newfor" data-id="${c.id}">Novo orçamento</button><button class="b" data-act="newrc" data-id="${c.id}">Cobrança mensal</button></div><div class="sub"><button data-id="${c.id}" data-act="editcli">Editar</button><button class="d" data-id="${c.id}" data-act="delcli">Excluir</button></div>`)}).join(""):`<div class="empty">${S.clientes.length?"Nenhum cliente encontrado.":"Nenhum cliente cadastrado.<br>Cadastre empresas e clientes recorrentes para criar orçamentos com um toque."}</div>`}
 try{if(localStorage.getItem("cobrei:v")&&MODE!=="recover")MODE="login"}catch(e){}
 if(hasRecoveryReturn()){MODE="recover";RECOVERY_PENDING=true;}
-const msgErr=e=>{const m=String(e&&e.message||"").toLowerCase();
+const msgErr=e=>{const raw=String(e&&e.message||"").trim(),m=raw.toLowerCase();
+if(m==="recovery_session_missing"||m.includes("auth session missing"))return"O link abriu a tela, mas o Supabase não confirmou a sessão de recuperação. Solicite um novo e-mail e abra o link novamente.";
+if(m.includes("weak_password")||m.includes("password should")||m.includes("password is"))return"A senha não atende aos requisitos definidos. Escolha uma senha mais forte, com pelo menos 10 caracteres.";
+if(m.includes("fetch")||m.includes("network")||m.includes("failed to"))return"Falha de conexão com o serviço de autenticação. Confira a internet e tente novamente.";
 if(m.includes("not authorized")||m.includes("sending")||m.includes("smtp")||(m.includes("email")&&m.includes("rate")))return"Não conseguimos enviar o e-mail de confirmação agora. Tente novamente em alguns minutos.";
 if(m.includes("invalid login")||m.includes("invalid_credentials")||m.includes("user not found")||m.includes("no user")){if(MODE==="login")return"Não há conta com este e-mail (ou a senha está errada). Se você apagou a conta ou nunca se cadastrou, toque em “Criar conta”.";return"E-mail ou senha incorretos."}
 if(m.includes("not confirmed"))return"Confirme seu e-mail pelo link que enviamos antes de entrar.";
@@ -793,16 +796,25 @@ if(MODE==="signup"&&!$("ace").checked){er.textContent="Para criar a conta, aceit
 const btn=$("ab");btn.disabled=true;
 try{
 if(MODE==="recover"){
-const r=await sb.auth.updateUser({password:p});if(r.error)throw r.error;
+// Antes de trocar a senha, confirme que o Supabase concluiu a validação
+// do link e criou uma sessão de recuperação neste aparelho.
+const sr=await sb.auth.getSession();
+if(sr.error)throw sr.error;
+if(!sr.data||!sr.data.session){
+throw new Error("RECOVERY_SESSION_MISSING");
+}
+const r=await sb.auth.updateUser({password:p});
+if(r.error)throw r.error;
 RECOVERY_PENDING=false;MODE="login";
-try{history.replaceState(null,"",location.pathname)}catch(e){}
-const g=await sb.auth.getSession();if(g.data.session)await enter(g.data.session.user);else render()
+try{history.replaceState(null,"",location.pathname+location.search.replace(/([?&])type=recovery(&|$)/,"$1").replace(/[?&]$/,""))}catch(e){}
+const g=await sb.auth.getSession();
+if(g.data&&g.data.session)await enter(g.data.session.user);else render()
 }
 else if(MODE==="signup"){const r=await sb.auth.signUp({email:e,password:p,options:{data:{nome:$("an").value.trim(),aceite_termos:new Date().toISOString()},emailRedirectTo:location.origin+location.pathname}});if(r.error)throw r.error;
 if(r.data.user&&Array.isArray(r.data.user.identities)&&r.data.user.identities.length===0){er.textContent="Este e-mail já tem conta. Toque em “Já tenho conta” ou use “Esqueci minha senha”.";btn.disabled=false;return}
 if(r.data.session)await enter(r.data.session.user);else{MODE="login";render();inf.textContent="Enviamos um link de confirmação para o seu e-mail. Confirme e depois entre aqui."}}
 else{const r=await sb.auth.signInWithPassword({email:e,password:p});if(r.error)throw r.error;await enter(r.data.user)}
-}catch(x){AUTH_TRIES++;if(AUTH_TRIES>=5){AUTH_LOCK=Date.now()+30000;AUTH_TRIES=0}er.textContent=msgErr(x)}
+}catch(x){console.error("Falha na recuperação de senha:",x);AUTH_TRIES++;if(AUTH_TRIES>=5){AUTH_LOCK=Date.now()+30000;AUTH_TRIES=0}er.textContent=msgErr(x)}
 btn.disabled=false;$("ap").value=""}
 async function forgot(){const e=$("ae").value.trim().toLowerCase(),er=$("aerr"),inf=$("ainfo");er.textContent="";inf.textContent="";
 if(!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite seu e-mail acima e toque em “Esqueci minha senha” de novo.";return}
