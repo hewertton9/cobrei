@@ -791,9 +791,28 @@ if(m.includes("password"))return"A senha não atende aos requisitos. Use 10 ou m
 return"Não foi possível concluir. Verifique a conexão e tente de novo."+((e&&(e.code||e.status))?" (código: "+(e.code||e.status)+")":"")};
 // Busca todas as linhas em blocos de 1.000 (limite padrão do Supabase por consulta).
 async function pageAll(mk){const out=[];for(let from=0;;from+=1000){const r=await mk().range(from,from+999);if(r.error)return r;const d=r.data||[];for(const x of d)out.push(x);if(d.length<1000)break}return{data:out,error:null}}
-// Próximo número de orçamento: confere o maior número no servidor (vale para vários aparelhos) e no que já está na tela.
-async function nextNum(){let m=S.docs.reduce((a,x)=>Math.max(a,x.n||0),0);try{const r=await sb.from("orcamentos").select("numero").order("numero",{ascending:false}).limit(1);if(!r.error&&r.data&&r.data[0])m=Math.max(m,Number(r.data[0].numero)||0)}catch(e){}return m+1}
+// Próximo número: reserva números distintos nesta sessão e consulta o maior no servidor.
+// A reserva local evita colisões entre operações simultâneas no mesmo aparelho.
+let localNumFloor=0;
+async function nextNum(){
+let m=Math.max(localNumFloor,S.docs.reduce((a,x)=>Math.max(a,x.n||0),0));
+try{const r=await sb.from("orcamentos").select("numero").order("numero",{ascending:false}).limit(1);if(!r.error&&r.data&&r.data[0])m=Math.max(m,Number(r.data[0].numero)||0)}catch(e){}
+localNumFloor=m+1;
+return localNumFloor;
+}
+let loadAllPromise=null,loadAllAgain=false;
 async function loadAll(){
+if(loadAllPromise){loadAllAgain=true;return loadAllPromise}
+loadAllPromise=(async()=>{
+do{
+loadAllAgain=false;
+await loadAllNow();
+}while(loadAllAgain);
+})();
+try{return await loadAllPromise}
+finally{loadAllPromise=null}
+}
+async function loadAllNow(){
 const [o,c,k,pr,sv,rr,dsp,asn]=await Promise.all([pageAll(()=>sb.from("orcamentos").select("id,numero,cliente,whatsapp,servico,status,criado_em,vencimento,conta_id,cliente_id,token,parcelas,entrada_pct,grupo_id,atualizado_em,recorrencia_id,competencia,parcela,validade,desconto,forma_pagamento,observacoes,pago_em,itens(descricao,quantidade,valor)").order("criado_em",{ascending:false}).order("id")),pageAll(()=>sb.from("contas").select("id,nome,tipo,chave").order("criado_em").order("id")),pageAll(()=>sb.from("clientes").select("id,nome,tipo,documento,whatsapp,recorrente,email,foto").order("nome").order("id")),sb.from("perfil").select("documento,telefone,cidade,pixt,logo").maybeSingle(),pageAll(()=>sb.from("servicos").select("id,nome,preco").order("nome").order("id")),pageAll(()=>sb.from("recorrencias").select("id,cliente_id,cliente,whatsapp,servico,valor,dia,inicio,ativa").order("criado_em").order("id")),pageAll(()=>sb.from("despesas").select("id,descricao,valor,data,categoria").order("data",{ascending:false}).order("id")),sb.from("assinaturas").select("plano,valido_ate").maybeSingle()]);
 const failed=[o,c,k,pr,sv,rr,dsp,asn].find(x=>x&&x.error);if(failed)throw failed.error;
 S.docs=o.data.map(r=>({id:r.id,n:r.numero,c:r.cliente,w:r.whatsapp||"",t:r.servico,itens:(r.itens||[]).map(i=>({d:i.descricao,q:Number(i.quantidade),v:Number(i.valor)})),s:r.status,data:(r.criado_em||"").slice(0,10),venc:r.vencimento||"",conta:r.conta_id||"",k:r.cliente_id||"",tk:r.token||"",np:Number(r.parcelas||1),en:Number(r.entrada_pct||0),g:r.grupo_id||"",up:(r.atualizado_em||r.criado_em||"").slice(0,10),rc:r.recorrencia_id||"",comp:r.competencia||"",pc:r.parcela||"",val:r.validade||"",desc:Number(r.desconto||0),fp:r.forma_pagamento||"",ob:r.observacoes||"",pagoEm:r.pago_em||""}));
@@ -1022,10 +1041,12 @@ else if(a==="pago"||a==="pixpago"){const x=d||S.docs.find(z=>z.id===PIXD);if(!x)
 else if(a==="del"){const ks=kids(d);if(!confirm(ks.length?"Excluir este parcelamento e as "+ks.length+" parcelas?":"Excluir este registro?"))return;const r=await sb.from("orcamentos").delete().in("id",[d.id].concat(ks.map(x=>x.id)));if(r.error)throw r.error;await loadAll();closeS();render()}}
 }catch(x){fail(x)}}
 // Evita que um toque repetido inicie a mesma operação antes de a primeira terminar.
+// A proteção local não substitui índices UNIQUE/RPCs transacionais no banco para vários aparelhos.
 const actionLocks=new Set();
 const lockedActions=new Set([
 "forgot","savedp","deldp","delacc","cbgo","savesv","delsv","saverc","delrc",
-"savecli","delcli","savecfg","savepixk","savect","delct","payto","save","apr","del"
+"savecli","delcli","savecfg","savepixk","savect","delct","payto","save","apr","del",
+"cvok","cvno"
 ]);
 document.addEventListener("click",async e=>{
  const t=e.target.closest("[data-act]");
