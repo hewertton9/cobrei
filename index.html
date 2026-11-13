@@ -611,7 +611,7 @@ const r=await sb.from("orcamentos").insert(rows).select("id,parcela");if(r.error
 const it=r.data.map(x=>{const i=Number(x.parcela.split("/")[0])-1;return{orcamento_id:x.id,descricao:d.t+" — "+(m==="entrada"?(i===0?"entrada":"saldo"):"parcela "+(i+1)+"/"+N),quantidade:1,valor:P[i][0]}});
 const r2=await sb.from("itens").insert(it);if(r2.error){const cleanup=await sb.from("orcamentos").delete().in("id",r.data.map(x=>x.id));if(cleanup.error)throw new Error("Falha ao criar itens das parcelas e também ao limpar os registros incompletos: "+cleanup.error.message);throw r2.error}
 await up(d,{status:"parc"});closeS();toast(N+" parcelas geradas.")}
-async function genRecs(){if(!S.recs.some(rc=>rc.ativa))return;const hoje=iso(0);let n=await nextNum(),nov=0;
+async function genRecsNow(){if(!S.recs.some(rc=>rc.ativa))return;const hoje=iso(0);let n=await nextNum(),nov=0;
 for(const rc of S.recs){if(!rc.ativa)continue;let m=rc.inicio.slice(0,7);
 for(let i=0;i<36;i++,m=mshift(m,1)){const due=dateInMonth(m,rc.dia);if(due<rc.inicio)continue;if(hoje<addDays(due,-5))break;
 if(S.docs.some(x=>x.rc===rc.id&&x.comp===m))continue;
@@ -619,6 +619,9 @@ const [y,mo]=m.split("-"),r=await sb.from("orcamentos").insert(Object.assign({nu
 if(r.error){if(r.error.code==="23505")continue;throw r.error}
 const r2=await sb.from("itens").insert({orcamento_id:r.data.id,descricao:rc.servico,quantidade:1,valor:rc.valor});if(r2.error){const cleanup=await sb.from("orcamentos").delete().eq("id",r.data.id);if(cleanup.error)throw new Error("Falha ao criar item da cobrança mensal e também ao remover o orçamento incompleto: "+cleanup.error.message);throw r2.error}n++;nov++}}
 if(nov){await loadAll();toast(nov+(nov===1?" cobrança mensal gerada.":" cobranças mensais geradas."))}}
+// Serializa verificações de recorrência para impedir que duas rotinas locais concorram.
+let recGenQueue=Promise.resolve();
+function genRecs(){const run=recGenQueue.then(()=>genRecsNow());recGenQueue=run.catch(()=>{});return run}
 function remind(){const h=iso(0);let l=0,t=0;S.docs.forEach(d=>{if(d.s==="cob"&&d.venc){if(d.venc<h)l++;else if(d.venc===h)t++}});
 if(l||t)toast((l?l+(l===1?" cobrança atrasada":" cobranças atrasadas"):"")+(l&&t?" e ":"")+(t?t+" vencendo hoje":"")+".")}
 async function clientView(tk){["intro","lock","app"].forEach(i=>$(i).classList.add("hid"));document.querySelector(".fab").classList.add("hid");const cv=$("cv");cv.classList.remove("hid");
@@ -807,9 +810,10 @@ if(RECOVERY_PENDING||MODE==="recover"){MODE="recover";OK=false;render();return}
 U=user;const md=user.user_metadata||{};S.cfg={nome:md.nome||"",pix:md.pix||""};
 try{await loadAll()}catch(e){console.error("loadAll",e);$("aerr").textContent="Não foi possível carregar seus dados agora. Verifique a conexão e tente de novo.";return}
 if(RECOVERY_PENDING||MODE==="recover"){MODE="recover";OK=false;render();return}
-try{await genRecs()}catch(e){console.error("genRecs",e);toast("Seus dados foram carregados, mas uma ou mais cobranças mensais não puderam ser geradas. Tente novamente mais tarde.")}
 if(RECOVERY_PENDING||MODE==="recover"){MODE="recover";OK=false;render();return}
-OK=true;trapInit();try{localStorage.setItem("cobrei:v","1")}catch(e){}render();if(needProfile())openProfile(true);else remind()}
+OK=true;trapInit();try{localStorage.setItem("cobrei:v","1")}catch(e){}render();if(needProfile())openProfile(true);else remind();
+// Mostra o painel primeiro; a rotina mensal começa em segundo plano, sem atrasar a entrada.
+const recUserId=U&&U.id;setTimeout(()=>{if(!OK||!U||U.id!==recUserId||RECOVERY_PENDING)return;genRecs().catch(e=>{console.error("genRecs",e);toast("Seus dados foram carregados, mas uma ou mais cobranças mensais não puderam ser geradas. Tente novamente mais tarde.")})},0)}
 let AUTH_TRIES=0,AUTH_LOCK=0;
 async function doAuth(){
 if(Date.now()<AUTH_LOCK){const s=Math.ceil((AUTH_LOCK-Date.now())/1000);$("aerr").textContent="Muitas tentativas. Aguarde "+s+"s e tente de novo.";return}
@@ -925,7 +929,9 @@ function calc(){let t=0;document.querySelectorAll("#its .it").forEach(r=>{const 
 
 
 document.addEventListener("blur",e=>{const t=e.target;if(!t||t.tagName!=="INPUT")return;const money=t.id==="fdc"||t.id==="rcv"||t.id==="svp"||t.id==="dpv"||(t.closest("#its")&&[...t.parentElement.querySelectorAll("input")].indexOf(t)===2);if(money&&t.value.trim()){t.value=fmtMoney(t.value);if(t.closest("#its")||t.id==="fdc")calc()}},true);
-document.addEventListener("input",e=>{if(e.target.id==="busca"||e.target.id==="busca-cli"||e.target.id==="busca-sv")render();if(e.target.closest("#its")||e.target.id==="fdc")calc();if(e.target.id==="cbp"||e.target.id==="cbn")cbUI()});
+let searchFrame=0;
+function scheduleSearchRender(){if(searchFrame)return;if(typeof requestAnimationFrame!=="function"){render();return}searchFrame=requestAnimationFrame(()=>{searchFrame=0;render()})}
+document.addEventListener("input",e=>{if(e.target.id==="busca"||e.target.id==="busca-cli"||e.target.id==="busca-sv")scheduleSearchRender();if(e.target.closest("#its")||e.target.id==="fdc")calc();if(e.target.id==="cbp"||e.target.id==="cbn")cbUI()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!FORCE)closeS()});
 const DOC_MAP={status:"s",vencimento:"venc",pago_em:"pagoEm",conta_id:"conta",cliente:"c",whatsapp:"w",servico:"t",desconto:"desc",forma_pagamento:"fp",parcelas:"np",entrada_pct:"en",observacoes:"ob",validade:"val",cliente_id:"k",numero:"n",token:"tk",grupo_id:"g",parcela:"pc",recorrencia_id:"rc",competencia:"comp",atualizado_em:"up"};
 function patchDoc(d,v){const loc=S.docs.find(x=>x.id===(d&&d.id));if(!loc)return;Object.keys(v||{}).forEach(k=>{const lk=DOC_MAP[k]||k;let val=v[k];if(k==="desconto"||k==="parcelas"||k==="entrada_pct")val=Number(val)||0;if(k==="atualizado_em"&&val)val=String(val).slice(0,10);loc[lk]=val;if(d&&d!==loc)d[lk]=val})}
