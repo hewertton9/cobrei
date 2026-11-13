@@ -528,6 +528,16 @@ const localISO=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"
 let MES=localISO(new Date()).slice(0,7),LOGO="";
 const mshift=(m,d)=>{const [y,o]=m.split("-").map(Number),t=new Date(y,o-1+d,1);return t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")};
 const dateInMonth=(m,day)=>{const [y,mo]=m.split("-").map(Number),last=new Date(y,mo,0).getDate();return m+"-"+String(Math.min(Number(day)||1,last)).padStart(2,"0")};
+function updateBadge(){
+const hoje=iso(0),dd=(a,b)=>Math.round((new Date(a+"T12:00")-new Date(b+"T12:00"))/864e5);
+let n=0;
+S.docs.forEach(d=>{
+if(d.s==="cob"&&d.venc&&d.venc<=hoje)n++;
+else if(d.s==="apr")n++;
+else if(d.s==="orc"&&dd(hoje,d.data)<3&&!SENT.has(d.id))n++;
+});
+$("bdg").textContent=n;$("bdg").classList.toggle("hid",!n);
+}
 function renderPnl(){const hoje=iso(0),dd=(a,b)=>Math.round((new Date(a+"T12:00")-new Date(b+"T12:00"))/864e5);
 let ab=0,atr=0,rec=0;const T=[];
 S.docs.forEach(d=>{const t=tot(d);
@@ -540,7 +550,7 @@ else if(d.s==="apr")T.push({p:2,k:0,cls:"apr",d,tx:"Cliente aprovou — gere a c
 else if(d.s==="orc"){const x=dd(hoje,d.data);if(x>=3)T.push({p:5,k:-x,cls:"",d,tx:`Sem resposta há ${x} dias`,bt:"Reenviar"});else if(!SENT.has(d.id))T.push({p:4,k:-x,cls:"new",d,tx:"Novo orçamento — envie ao cliente",bt:"Enviar"})}});
 T.sort((a,b)=>a.p-b.p||a.k-b.k);
 const nLate=T.filter(o=>o.p===0).length,nApr=T.filter(o=>o.p===2).length,nb=T.filter(o=>o.p<=2||o.p===4).length;
-$("bdg").textContent=nb;$("bdg").classList.toggle("hid",!nb);
+
 $("pt").classList.toggle("hid",!S.docs.length);
 $("pt").textContent="O que fazer agora";
 $("p-ab").textContent=fmt(ab);$("p-atr").textContent=fmt(atr);$("p-atr").style.color=atr>0?"#ff9d8f":"";$("p-rec").textContent=fmt(rec);
@@ -601,7 +611,7 @@ const r=await sb.from("orcamentos").insert(rows).select("id,parcela");if(r.error
 const it=r.data.map(x=>{const i=Number(x.parcela.split("/")[0])-1;return{orcamento_id:x.id,descricao:d.t+" — "+(m==="entrada"?(i===0?"entrada":"saldo"):"parcela "+(i+1)+"/"+N),quantidade:1,valor:P[i][0]}});
 const r2=await sb.from("itens").insert(it);if(r2.error){const cleanup=await sb.from("orcamentos").delete().in("id",r.data.map(x=>x.id));if(cleanup.error)throw new Error("Falha ao criar itens das parcelas e também ao limpar os registros incompletos: "+cleanup.error.message);throw r2.error}
 await up(d,{status:"parc"});closeS();toast(N+" parcelas geradas.")}
-async function genRecs(){const hoje=iso(0);let n=await nextNum(),nov=0;
+async function genRecs(){if(!S.recs.some(rc=>rc.ativa))return;const hoje=iso(0);let n=await nextNum(),nov=0;
 for(const rc of S.recs){if(!rc.ativa)continue;let m=rc.inicio.slice(0,7);
 for(let i=0;i<36;i++,m=mshift(m,1)){const due=dateInMonth(m,rc.dia);if(due<rc.inicio)continue;if(hoje<addDays(due,-5))break;
 if(S.docs.some(x=>x.rc===rc.id&&x.comp===m))continue;
@@ -781,7 +791,7 @@ async function pageAll(mk){const out=[];for(let from=0;;from+=1000){const r=awai
 // Próximo número de orçamento: confere o maior número no servidor (vale para vários aparelhos) e no que já está na tela.
 async function nextNum(){let m=S.docs.reduce((a,x)=>Math.max(a,x.n||0),0);try{const r=await sb.from("orcamentos").select("numero").order("numero",{ascending:false}).limit(1);if(!r.error&&r.data&&r.data[0])m=Math.max(m,Number(r.data[0].numero)||0)}catch(e){}return m+1}
 async function loadAll(){
-const [o,c,k,pr,sv,rr,dsp,asn]=await Promise.all([pageAll(()=>sb.from("orcamentos").select("*, itens(*)").order("criado_em",{ascending:false}).order("id")),pageAll(()=>sb.from("contas").select("*").order("criado_em").order("id")),pageAll(()=>sb.from("clientes").select("*").order("nome").order("id")),sb.from("perfil").select("*").maybeSingle(),pageAll(()=>sb.from("servicos").select("*").order("nome").order("id")),pageAll(()=>sb.from("recorrencias").select("*").order("criado_em").order("id")),pageAll(()=>sb.from("despesas").select("*").order("data",{ascending:false}).order("id")),sb.from("assinaturas").select("*").maybeSingle()]);
+const [o,c,k,pr,sv,rr,dsp,asn]=await Promise.all([pageAll(()=>sb.from("orcamentos").select("id,numero,cliente,whatsapp,servico,status,criado_em,vencimento,conta_id,cliente_id,token,parcelas,entrada_pct,grupo_id,atualizado_em,recorrencia_id,competencia,parcela,validade,desconto,forma_pagamento,observacoes,pago_em,itens(descricao,quantidade,valor)").order("criado_em",{ascending:false}).order("id")),pageAll(()=>sb.from("contas").select("id,nome,tipo,chave").order("criado_em").order("id")),pageAll(()=>sb.from("clientes").select("id,nome,tipo,documento,whatsapp,recorrente,email,foto").order("nome").order("id")),sb.from("perfil").select("documento,telefone,cidade,pixt,logo").maybeSingle(),pageAll(()=>sb.from("servicos").select("id,nome,preco").order("nome").order("id")),pageAll(()=>sb.from("recorrencias").select("id,cliente_id,cliente,whatsapp,servico,valor,dia,inicio,ativa").order("criado_em").order("id")),pageAll(()=>sb.from("despesas").select("id,descricao,valor,data,categoria").order("data",{ascending:false}).order("id")),sb.from("assinaturas").select("plano,valido_ate").maybeSingle()]);
 const failed=[o,c,k,pr,sv,rr,dsp,asn].find(x=>x&&x.error);if(failed)throw failed.error;
 S.docs=o.data.map(r=>({id:r.id,n:r.numero,c:r.cliente,w:r.whatsapp||"",t:r.servico,itens:(r.itens||[]).map(i=>({d:i.descricao,q:Number(i.quantidade),v:Number(i.valor)})),s:r.status,data:(r.criado_em||"").slice(0,10),venc:r.vencimento||"",conta:r.conta_id||"",k:r.cliente_id||"",tk:r.token||"",np:Number(r.parcelas||1),en:Number(r.entrada_pct||0),g:r.grupo_id||"",up:(r.atualizado_em||r.criado_em||"").slice(0,10),rc:r.recorrencia_id||"",comp:r.competencia||"",pc:r.parcela||"",val:r.validade||"",desc:Number(r.desconto||0),fp:r.forma_pagamento||"",ob:r.observacoes||"",pagoEm:r.pago_em||""}));
 S.contas=c.data.map(x=>({id:x.id,nome:x.nome,tipo:x.tipo,chave:x.chave||""}));
@@ -876,13 +886,23 @@ authUI();
 let a=0,b=0,c=0;S.docs.forEach(d=>{const t=tot(d);if(d.s==="pago")c+=t;else if(d.s==="cob")b+=t;else if(d.s==="orc"||d.s==="apr")a+=t});
 $("s1").textContent=fmt(a);$("s2").textContent=fmt(b);$("s3").textContent=fmt(c);$("pg").style.width=(a+b+c?Math.round(c/(a+b+c)*100):0)+"%";
 $("ct-tot").textContent=fmt(c);
+if(TAB==="ct"){
 const rec={};S.docs.forEach(d=>{if(d.s==="pago"&&d.conta)rec[d.conta]=(rec[d.conta]||0)+tot(d)});
 const other=c-S.contas.reduce((z,x)=>z+(rec[x.id]||0),0);
 $("ctl").innerHTML=S.contas.length?S.contas.map(x=>cardX(x.id,`<div class="av">${EM[x.tipo]}</div><div class="mid"><h3>${esc(x.nome)}</h3><p>${TP[x.tipo]}${x.chave?" · "+esc(x.chave):""}</p></div><div class="tot">${fmt(rec[x.id]||0)}</div>`,"",`<div class="sub"><button class="d" data-id="${x.id}" data-act="delct">Excluir</button></div>`)).join("")+(other>0.004?`<p class="note">${fmt(other)} recebidos sem conta informada ou em contas excluídas.</p>`:""):`<div class="empty">Nenhuma conta cadastrada.<br>Cadastre onde você recebe — Pix, banco, carteira digital ou dinheiro — para saber quanto entrou em cada uma.</div>`;
-$("v-pnl").classList.toggle("hid",TAB!=="pnl");renderPnl();renderPnlX();renderFin();$("v-sv").classList.toggle("hid",TAB!=="sv");renderSv();$("v-mais").classList.toggle("hid",TAB!=="mais");$("v-aj").classList.toggle("hid",TAB!=="aj");if(TAB==="aj")renderAj();$("v-cli").classList.toggle("hid",TAB!=="cli");renderCli();$("v-cob").classList.toggle("hid",TAB!=="cob");$("v-ct").classList.toggle("hid",TAB!=="ct");
+}
+updateBadge();
+$("v-pnl").classList.toggle("hid",TAB!=="pnl");if(TAB==="pnl"){renderPnl();renderPnlX()}
+if(TAB==="mais")renderFin();
+$("v-sv").classList.toggle("hid",TAB!=="sv");if(TAB==="sv")renderSv();
+$("v-mais").classList.toggle("hid",TAB!=="mais");
+$("v-aj").classList.toggle("hid",TAB!=="aj");if(TAB==="aj")renderAj();
+$("v-cli").classList.toggle("hid",TAB!=="cli");if(TAB==="cli")renderCli();
+$("v-cob").classList.toggle("hid",TAB!=="cob");$("v-ct").classList.toggle("hid",TAB!=="ct");
 const NT=TAB==="sv"||TAB==="ct"||TAB==="aj"?"mais":TAB;document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x.dataset.t===NT));
 $("hi").textContent=S.cfg.nome?`Olá, ${S.cfg.nome}`:"Orçou. Cobrou. Recebeu.";
 document.querySelectorAll(".chips button").forEach(x=>x.classList.toggle("on",x.dataset.f===F));
+if(TAB==="cob"){
 const Q=norm($("busca").value.trim()),L=S.docs.filter(d=>!d.g).filter(FL[F]).filter(d=>!Q||norm(d.c+" "+d.t).includes(Q));
 $("list").innerHTML=L.length?L.map(d=>{
 if(d.s==="parc"&&kids(d).length)return grpCard(d);
@@ -893,6 +913,8 @@ if(d.s==="orc")ac=`<a class="b p" ${id} data-act="wsent" href="${esc(wa(d))}" ta
 if(d.s==="apr")ac=`<button class="b p" ${id} data-act="cob">Gerar cobrança</button>`;
 if(d.s==="cob"){ac=`<a class="b p" href="${esc(wa(d))}" target="_blank" rel="noopener">Cobrar no WhatsApp</a><button class="b" ${id} data-act="pix">Pix / QR Code</button><button class="b" ${id} data-act="pago">Marcar como pago</button>`;sub=`<label>Vencimento <input type="date" value="${esc(d.venc)}" ${id} data-act="venc"></label>`}
 return cardX(d.id,`<div class="av">${esc(d.c.charAt(0).toUpperCase())}</div><div class="mid"><h3>${esc(d.c)}</h3><p>${esc(d.t)} · nº ${d.n}</p></div><div class="tot">${fmt(tot(d))}</div>`,tag,`<div class="act">${ac}</div><div class="sub">${sub}${["orc","apr","rec"].includes(d.s)?`<button ${id} data-act="editq">Editar</button>`:""}<button ${id} data-act="pdf">PDF</button><button ${id} data-act="dup">Duplicar</button><button class="d" ${id} data-act="del">Excluir</button></div>`)}).join(""):`<div class="empty">${Q?"Nenhum resultado para “"+esc($("busca").value.trim())+"”.":S.docs.length?"Nada por aqui neste filtro.":"Nenhum orçamento ainda.<br>Toque em “Novo orçamento” e envie o primeiro pelo WhatsApp em menos de um minuto."}</div>`}
+}
+
 const STK=[],UP={sv:"mais",ct:"mais",aj:"mais",mais:"pnl",cob:"pnl",cli:"pnl"};let TRAP=false,EXIT=0;
 const openS=id=>{if(!STK.includes(id))STK.push(id);const el=$(id);el.style.zIndex=String(21+STK.indexOf(id));$("ov").classList.add("open");el.classList.add("open")};
 function shut(id){const el=$(id);el.classList.remove("open");el.style.zIndex="";const i=STK.indexOf(id);if(i>=0)STK.splice(i,1);if(!STK.length)$("ov").classList.remove("open")}
