@@ -210,6 +210,8 @@ header .ic.eye{right:0;left:auto}header .ic:not(.eye){left:0;right:auto}
 #ajs{margin-top:1rem;display:grid;gap:.6rem}.hlp p{margin:.4rem 0;color:var(--mu);font-size:.92rem;line-height:1.5}
 .sheet.force>.back{display:none}.sheet>.back{padding:.1rem 0 .7rem}
 
+
+button.is-processing{opacity:.65;cursor:wait}
 </style>
 </head>
 <body>
@@ -991,7 +993,40 @@ else if(a==="cob"){CB=d.id;$("cbd").value=iso(7);cbUI();openS("sh-cb")}
 else if(a==="pago"||a==="pixpago"){const x=d||S.docs.find(z=>z.id===PIXD);if(!x){toast("Abra o Pix de uma cobrança primeiro.");return}PAY=x.id;closeS();payList();openS("sh-pay")}else if(a==="pdf")pdf(d);else if(a==="grp")openGrp(d.id);else if(a==="editq")openEdit(d);else if(a==="dup")openDup(d);
 else if(a==="del"){const ks=kids(d);if(!confirm(ks.length?"Excluir este parcelamento e as "+ks.length+" parcelas?":"Excluir este registro?"))return;const r=await sb.from("orcamentos").delete().in("id",[d.id].concat(ks.map(x=>x.id)));if(r.error)throw r.error;await loadAll();closeS();render()}}
 }catch(x){fail(x)}}
-document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t||t.tagName==="INPUT")return;act(t.dataset.act,t)});
+// Evita que um toque repetido inicie a mesma operação antes de a primeira terminar.
+const actionLocks=new Set();
+const lockedActions=new Set([
+"forgot","savedp","deldp","delacc","cbgo","savesv","delsv","saverc","delrc",
+"savecli","delcli","savecfg","savepixk","savect","delct","payto","save","apr","del"
+]);
+document.addEventListener("click",async e=>{
+ const t=e.target.closest("[data-act]");
+ if(!t||t.tagName==="INPUT")return;
+ const a=t.dataset.act;
+ if(!lockedActions.has(a)||t.tagName!=="BUTTON"){
+  await act(a,t);
+  return;
+ }
+ const sheet=t.closest(".sheet");
+ const key=a+"|"+(t.dataset.id||"")+"|"+(sheet&&sheet.id||"");
+ if(actionLocks.has(key))return;
+ actionLocks.add(key);
+ const wasDisabled=t.disabled;
+ const wasBusy=t.getAttribute("aria-busy");
+ t.disabled=true;
+ t.setAttribute("aria-busy","true");
+ t.classList.add("is-processing");
+ try{await act(a,t)}
+ finally{
+  actionLocks.delete(key);
+  if(t.isConnected){
+   t.disabled=wasDisabled;
+   if(wasBusy===null)t.removeAttribute("aria-busy");
+   else t.setAttribute("aria-busy",wasBusy);
+   t.classList.remove("is-processing");
+  }
+ }
+});
 async function init(){loadBind();
 if(!sb){$("aerr").textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
 sb.auth.onAuthStateChange((ev)=>{
