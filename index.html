@@ -770,9 +770,10 @@ if(m.includes("not authorized")||m.includes("sending")||m.includes("smtp")||(m.i
 if(m.includes("invalid login")||m.includes("invalid_credentials")||m.includes("user not found")||m.includes("no user")){if(MODE==="login")return"Não há conta com este e-mail (ou a senha está errada). Se você apagou a conta ou nunca se cadastrou, toque em “Criar conta”.";return"E-mail ou senha incorretos."}
 if(m.includes("not confirmed"))return"Confirme seu e-mail pelo link que enviamos antes de entrar.";
 if(m.includes("already"))return"Este e-mail já tem conta. Toque em “Já tenho conta”.";
+if(m.includes("security purposes")||(m.includes("after")&&m.includes("seconds")))return"Aguarde cerca de 1 minuto antes de pedir outro e-mail de recuperação.";
 if(m.includes("rate limit")||m.includes("too many"))return"Muitas tentativas. Aguarde alguns minutos e tente de novo.";
 if(m.includes("password"))return"A senha não atende aos requisitos. Use 8 ou mais caracteres.";
-return"Não foi possível concluir. Verifique a conexão e tente de novo."};
+return"Não foi possível concluir. Verifique a conexão e tente de novo."+((e&&(e.code||e.status))?" (código: "+(e.code||e.status)+")":"")};
 async function loadAll(){
 const [o,c,k,pr,sv,rr,dsp,asn]=await Promise.all([sb.from("orcamentos").select("*, itens(*)").order("criado_em",{ascending:false}),sb.from("contas").select("*").order("criado_em"),sb.from("clientes").select("*").order("nome"),sb.from("perfil").select("*").maybeSingle(),sb.from("servicos").select("*").order("nome"),sb.from("recorrencias").select("*").order("criado_em"),sb.from("despesas").select("*").order("data",{ascending:false}),sb.from("assinaturas").select("*").maybeSingle()]);
 const failed=[o,c,k,pr,sv,rr,dsp,asn].find(x=>x&&x.error);if(failed)throw failed.error;
@@ -833,7 +834,7 @@ btn.disabled=false;$("ap").value=""}
 async function forgot(){const e=$("ae").value.trim().toLowerCase(),er=$("aerr"),inf=$("ainfo");er.textContent="";inf.textContent="";
 if(!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite seu e-mail acima e toque em “Esqueci minha senha” de novo.";return}
 const recoveryRedirect=new URL(location.pathname,location.origin);recoveryRedirect.searchParams.set("type","recovery");const r=await sb.auth.resetPasswordForEmail(e,{redirectTo:recoveryRedirect.toString()});
-if(r.error)er.textContent=msgErr(r.error);else{
+if(r.error){console.error("forgot",r.error);er.textContent=msgErr(r.error)}else{
 inf.textContent="Se esse e-mail tiver conta, enviamos um link para criar uma nova senha.";
 }}
 function authUI(){const m=MODE;
