@@ -457,9 +457,17 @@ function hasRecoveryReturn(){
 try{
 const hash=new URLSearchParams((location.hash||"").replace(/^#/,""));
 const query=new URLSearchParams(location.search||"");
-return hash.get("type")==="recovery"||query.get("type")==="recovery"||
-query.get("auth")==="recovery"||query.get("flow")==="recovery";
-}catch(e){return /(?:^|[&#?])type=recovery(?:&|$)/i.test(location.href)}}
+// Link expirado ou já usado: o Supabase devolve o erro na URL. Isso não é uma recuperação válida.
+if(hash.get("error")||hash.get("error_code")||query.get("error")||query.get("error_code"))return false;
+// O ?type=recovery é posto por nós mesmos em redirectTo, então sozinho não prova nada.
+// Só conta como recuperação se vier também um token de verdade.
+const hasToken=!!(hash.get("access_token")||query.get("token_hash")||query.get("code"));
+const isRec=hash.get("type")==="recovery"||query.get("type")==="recovery"||query.get("auth")==="recovery"||query.get("flow")==="recovery";
+return hasToken&&isRec;
+}catch(e){return false}}
+// Link novo (template com token_hash): o token só é consumido quando a pessoa toca em "Salvar nova senha".
+// Assim, leitores automáticos de e-mail/antivírus que abrem o link não o gastam.
+const REC_TH=(()=>{try{return new URLSearchParams(location.search).get("token_hash")||""}catch(e){return ""}})();
 if(hasRecoveryReturn()){MODE="recover";RECOVERY_PENDING=true;}
 const BK="cobrei:bio",enc=new TextEncoder(),b64=u=>btoa(String.fromCharCode(...u)),unb=t=>Uint8Array.from(atob(t),c=>c.charCodeAt(0));
 let LOCK=false,PEND=null,HIDE=false;try{HIDE=localStorage.getItem("cobrei:hide")==="1"}catch(e){}
@@ -754,7 +762,8 @@ $("cll").innerHTML=CL.length?CL.map(c=>{const o=by[c.id]||{n:0,p:0},rr=S.recs.fi
 try{if(localStorage.getItem("cobrei:v")&&MODE!=="recover")MODE="login"}catch(e){}
 if(hasRecoveryReturn()){MODE="recover";RECOVERY_PENDING=true;}
 const msgErr=e=>{const raw=String(e&&e.message||"").trim(),m=raw.toLowerCase();
-if(m==="recovery_session_missing"||m.includes("auth session missing"))return"O link abriu a tela, mas o Supabase não confirmou a sessão de recuperação. Solicite um novo e-mail e abra o link novamente.";
+if(m==="recovery_session_missing"||m.includes("auth session missing"))return"Este link de recuperação não é mais válido (expirou ou já foi aberto). Volte ao login, toque em “Esqueci minha senha” e abra o novo link logo em seguida.";
+if(m.includes("invalid or has expired")||m.includes("otp_expired")||m.includes("token has expired"))return"Este link de recuperação expirou ou já foi utilizado. Volte ao login, toque em “Esqueci minha senha” e peça um novo e-mail.";
 if(m.includes("weak_password")||m.includes("password should")||m.includes("password is"))return"A senha não atende aos requisitos definidos. Escolha uma senha mais forte, com pelo menos 10 caracteres.";
 if(m.includes("fetch")||m.includes("network")||m.includes("failed to"))return"Falha de conexão com o serviço de autenticação. Confira a internet e tente novamente.";
 if(m.includes("not authorized")||m.includes("sending")||m.includes("smtp")||(m.includes("email")&&m.includes("rate")))return"Não conseguimos enviar o e-mail de confirmação agora. Tente novamente em alguns minutos.";
@@ -798,15 +807,20 @@ try{
 if(MODE==="recover"){
 // Antes de trocar a senha, confirme que o Supabase concluiu a validação
 // do link e criou uma sessão de recuperação neste aparelho.
-const sr=await sb.auth.getSession();
+let sr=await sb.auth.getSession();
 if(sr.error)throw sr.error;
+if((!sr.data||!sr.data.session)&&REC_TH){
+const v=await sb.auth.verifyOtp({token_hash:REC_TH,type:"recovery"});
+if(v.error)throw v.error;
+sr=await sb.auth.getSession();
+}
 if(!sr.data||!sr.data.session){
 throw new Error("RECOVERY_SESSION_MISSING");
 }
 const r=await sb.auth.updateUser({password:p});
 if(r.error)throw r.error;
 RECOVERY_PENDING=false;MODE="login";
-try{history.replaceState(null,"",location.pathname+location.search.replace(/([?&])type=recovery(&|$)/,"$1").replace(/[?&]$/,""))}catch(e){}
+try{const q=new URLSearchParams(location.search);["type","token_hash","code"].forEach(k=>q.delete(k));const qs=q.toString();history.replaceState(null,"",location.pathname+(qs?"?"+qs:""))}catch(e){}
 const g=await sb.auth.getSession();
 if(g.data&&g.data.session)await enter(g.data.session.user);else render()
 }
@@ -989,9 +1003,16 @@ return;
 }
 const hp=new URLSearchParams((location.hash||"").replace(/^#/,""));
 const qp=new URLSearchParams(location.search||"");
-if(hp.get("error_code")==="otp_expired"||qp.get("error_code")==="otp_expired"){
+if(hp.get("error_code")||qp.get("error_code")||hp.get("error")||qp.get("error")){
 MODE="login";RECOVERY_PENDING=false;render();
 $("aerr").textContent="Este link de recuperação expirou ou já foi utilizado. Solicite um novo e-mail para criar outra senha.";
+try{history.replaceState(null,"",location.pathname)}catch(e){}
+return;
+}
+if(qp.get("type")==="recovery"&&!(g.data&&g.data.session)){
+MODE="login";RECOVERY_PENDING=false;render();
+$("aerr").textContent="Não foi possível validar o link de recuperação. Toque em “Esqueci minha senha”, peça um novo e-mail e abra o link logo em seguida.";
+try{history.replaceState(null,"",location.pathname)}catch(e){}
 return;
 }
 if(g.data&&g.data.session){const u=g.data.session.user;let c=null;try{c=JSON.parse(localStorage.getItem(BK))}catch(e){}
