@@ -599,7 +599,7 @@ const r=await sb.from("orcamentos").insert(rows).select("id,parcela");if(r.error
 const it=r.data.map(x=>{const i=Number(x.parcela.split("/")[0])-1;return{orcamento_id:x.id,descricao:d.t+" — "+(m==="entrada"?(i===0?"entrada":"saldo"):"parcela "+(i+1)+"/"+N),quantidade:1,valor:P[i][0]}});
 const r2=await sb.from("itens").insert(it);if(r2.error){const cleanup=await sb.from("orcamentos").delete().in("id",r.data.map(x=>x.id));if(cleanup.error)throw new Error("Falha ao criar itens das parcelas e também ao limpar os registros incompletos: "+cleanup.error.message);throw r2.error}
 await up(d,{status:"parc"});closeS();toast(N+" parcelas geradas.")}
-async function genRecs(){const hoje=iso(0);let n=S.docs.reduce((m,x)=>Math.max(m,x.n||0),0)+1,nov=0;
+async function genRecs(){const hoje=iso(0);let n=await nextNum(),nov=0;
 for(const rc of S.recs){if(!rc.ativa)continue;let m=rc.inicio.slice(0,7);
 for(let i=0;i<36;i++,m=mshift(m,1)){const due=dateInMonth(m,rc.dia);if(due<rc.inicio)continue;if(hoje<addDays(due,-5))break;
 if(S.docs.some(x=>x.rc===rc.id&&x.comp===m))continue;
@@ -772,10 +772,14 @@ if(m.includes("not confirmed"))return"Confirme seu e-mail pelo link que enviamos
 if(m.includes("already"))return"Este e-mail já tem conta. Toque em “Já tenho conta”.";
 if(m.includes("security purposes")||(m.includes("after")&&m.includes("seconds")))return"Aguarde cerca de 1 minuto antes de pedir outro e-mail de recuperação.";
 if(m.includes("rate limit")||m.includes("too many"))return"Muitas tentativas. Aguarde alguns minutos e tente de novo.";
-if(m.includes("password"))return"A senha não atende aos requisitos. Use 8 ou mais caracteres.";
+if(m.includes("password"))return"A senha não atende aos requisitos. Use 10 ou mais caracteres.";
 return"Não foi possível concluir. Verifique a conexão e tente de novo."+((e&&(e.code||e.status))?" (código: "+(e.code||e.status)+")":"")};
+// Busca todas as linhas em blocos de 1.000 (limite padrão do Supabase por consulta).
+async function pageAll(mk){const out=[];for(let from=0;;from+=1000){const r=await mk().range(from,from+999);if(r.error)return r;const d=r.data||[];for(const x of d)out.push(x);if(d.length<1000)break}return{data:out,error:null}}
+// Próximo número de orçamento: confere o maior número no servidor (vale para vários aparelhos) e no que já está na tela.
+async function nextNum(){let m=S.docs.reduce((a,x)=>Math.max(a,x.n||0),0);try{const r=await sb.from("orcamentos").select("numero").order("numero",{ascending:false}).limit(1);if(!r.error&&r.data&&r.data[0])m=Math.max(m,Number(r.data[0].numero)||0)}catch(e){}return m+1}
 async function loadAll(){
-const [o,c,k,pr,sv,rr,dsp,asn]=await Promise.all([sb.from("orcamentos").select("*, itens(*)").order("criado_em",{ascending:false}),sb.from("contas").select("*").order("criado_em"),sb.from("clientes").select("*").order("nome"),sb.from("perfil").select("*").maybeSingle(),sb.from("servicos").select("*").order("nome"),sb.from("recorrencias").select("*").order("criado_em"),sb.from("despesas").select("*").order("data",{ascending:false}),sb.from("assinaturas").select("*").maybeSingle()]);
+const [o,c,k,pr,sv,rr,dsp,asn]=await Promise.all([pageAll(()=>sb.from("orcamentos").select("*, itens(*)").order("criado_em",{ascending:false}).order("id")),pageAll(()=>sb.from("contas").select("*").order("criado_em").order("id")),pageAll(()=>sb.from("clientes").select("*").order("nome").order("id")),sb.from("perfil").select("*").maybeSingle(),pageAll(()=>sb.from("servicos").select("*").order("nome").order("id")),pageAll(()=>sb.from("recorrencias").select("*").order("criado_em").order("id")),pageAll(()=>sb.from("despesas").select("*").order("data",{ascending:false}).order("id")),sb.from("assinaturas").select("*").maybeSingle()]);
 const failed=[o,c,k,pr,sv,rr,dsp,asn].find(x=>x&&x.error);if(failed)throw failed.error;
 S.docs=o.data.map(r=>({id:r.id,n:r.numero,c:r.cliente,w:r.whatsapp||"",t:r.servico,itens:(r.itens||[]).map(i=>({d:i.descricao,q:Number(i.quantidade),v:Number(i.valor)})),s:r.status,data:(r.criado_em||"").slice(0,10),venc:r.vencimento||"",conta:r.conta_id||"",k:r.cliente_id||"",tk:r.token||"",np:Number(r.parcelas||1),en:Number(r.entrada_pct||0),g:r.grupo_id||"",up:(r.atualizado_em||r.criado_em||"").slice(0,10),rc:r.recorrencia_id||"",comp:r.competencia||"",pc:r.parcela||"",val:r.validade||"",desc:Number(r.desconto||0),fp:r.forma_pagamento||"",ob:r.observacoes||"",pagoEm:r.pago_em||""}));
 S.contas=c.data.map(x=>({id:x.id,nome:x.nome,tipo:x.tipo,chave:x.chave||""}));
@@ -800,7 +804,8 @@ if(Date.now()<AUTH_LOCK){const s=Math.ceil((AUTH_LOCK-Date.now())/1000);$("aerr"
 const e=$("ae").value.trim().toLowerCase(),p=$("ap").value,er=$("aerr"),inf=$("ainfo");er.textContent="";inf.textContent="";
 if(!sb){er.textContent="O sistema de login não carregou. Verifique a internet e recarregue a página.";return}
 if(MODE!=="recover"&&!/^\S+@\S+\.\S+$/.test(e)){er.textContent="Digite um e-mail válido.";return}
-if(p.length<10){er.textContent="A senha precisa ter pelo menos 10 caracteres.";return}
+if(MODE!=="login"&&p.length<10){er.textContent="A senha precisa ter pelo menos 10 caracteres.";return}
+if(MODE==="login"&&!p){er.textContent="Digite sua senha.";return}
 if(MODE==="signup"&&!$("an").value.trim()){er.textContent="Digite seu nome.";return}
 if(MODE==="signup"&&!$("ace").checked){er.textContent="Para criar a conta, aceite os Termos de Uso e a Política de Privacidade.";return}
 const btn=$("ab");btn.disabled=true;
@@ -975,7 +980,7 @@ const fpv=$("ffp").value,pn=$("fpn").value,pOk=fpv&&fpv!=="Cartão de débito",n
 const svc_=$("ft").value.trim()||(itens[0].d+(itens.length>1?" e mais "+(itens.length-1)+(itens.length===2?" item":" itens"):""));
 if(EDQ){await editSave(itens,svc_,np_,en_);return}
 PREW=null;try{PREW=window.open("","_blank")}catch(e){}
-const n=S.docs.reduce((m,x)=>Math.max(m,x.n||0),0)+1;
+const n=await nextNum();
 const r=await sb.from("orcamentos").insert(Object.assign({numero:n,cliente:$("fc").value.trim(),whatsapp:$("fw").value.trim()||null,servico:svc_,validade:$("fva").value||null,desconto:num($("fdc").value),forma_pagamento:$("ffp").value||null,parcelas:np_,entrada_pct:en_,observacoes:$("fob").value.trim()||null},$("fcl").value?{cliente_id:$("fcl").value}:{})).select("id").single();if(r.error)throw r.error;
 const r2=await sb.from("itens").insert(itens.map(i=>({orcamento_id:r.data.id,descricao:i.d,quantidade:i.q,valor:i.v})));
 if(r2.error){const cleanup=await sb.from("orcamentos").delete().eq("id",r.data.id);if(cleanup.error)throw new Error("Falha ao salvar os itens e também ao limpar o orçamento incompleto: "+cleanup.error.message);throw r2.error}
