@@ -916,7 +916,7 @@ $("ctl").innerHTML=S.contas.length?S.contas.map(x=>cardX(x.id,`<div class="av">$
 }
 updateBadge();
 $("v-pnl").classList.toggle("hid",TAB!=="pnl");if(TAB==="pnl"){renderPnl();renderPnlX()}
-if(TAB==="mais")renderFin();
+if(TAB==="ct")renderFin();
 $("v-sv").classList.toggle("hid",TAB!=="sv");if(TAB==="sv")renderSv();
 $("v-mais").classList.toggle("hid",TAB!=="mais");
 $("v-aj").classList.toggle("hid",TAB!=="aj");if(TAB==="aj")renderAj();
@@ -1016,7 +1016,7 @@ S.cfg=Object.assign(S.cfg,c);S.perfil={documento:pf.documento||"",telefone:pf.te
 else if(a==="new"){ONB=false;closeS();if(!isPro()&&usados()>=CFG.limite)planoOpen();else openNew("")}
 else if(a==="close"){if(!FORCE){ONB=false;closeS()}}else if(a==="additem")addItem();else if(a==="delitem"){const row=t.closest(".it");if(!row)return;const rows=document.querySelectorAll("#its .it");if(rows.length<=1){row.querySelectorAll("input").forEach((inp,i)=>{inp.value=i===1?"1":""});calc();return}row.remove();calc()}else if(a==="flt"){F=t.dataset.f;render()}
 else if(a==="tab"){TAB=t.dataset.t;render();scrollTo(0,0)}
-else if(a==="goto"){TAB=t.dataset.t;if(t.dataset.s)SUB=t.dataset.s;render();scrollTo(0,0)}
+else if(a==="goto"){TAB=t.dataset.t;if(t.dataset.s)SUB=t.dataset.s;if(TAB==="ct"&&!["ct","dp","rl"].includes(SUB))SUB="ct";render();scrollTo(0,0)}
 else if(a==="savepixk"){const k=$("pixk").value.trim();if(!k){toast("Digite a sua chave Pix.");return}const r=await sb.from("contas").insert({nome:"Pix",tipo:"pix",chave:k});if(r.error)throw r.error;await loadAll();$("pixk").value="";pixShow()}
 else if(a==="newct"){["ctn","ctk"].forEach(i=>$(i).value="");$("ctt").value="pix";openS("sh-ct")}
 else if(a==="savect"){const n=$("ctn").value.trim();if(!n){toast("Digite o nome da conta, por exemplo: Nubank.");return}
